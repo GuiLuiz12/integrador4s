@@ -1,0 +1,13 @@
+{
+  "captured_at": "2026-09-17T22:31:16.632Z",
+  "panels": 29,
+  "range_start": "2026-09-17T22:24:00.000Z",
+  "range_end": "2026-09-17T22:29:00.000Z",
+  "range_seconds": 300,
+  "expression_errors": [],
+  "javascript_errors": [],
+  "screenshots": [
+    "sintese.png",
+    "infraestrutura.png"
+  ]
+}

@@ -1,0 +1,72 @@
+rule_files: [/tests/rules.yml]
+evaluation_interval: 15s
+# Fixtures need deterministic ordering for the exact one-minute assertion.
+# In the running server, independent groups may add one evaluation interval.
+group_eval_order: [inventory, continuity]
+tests:
+  - name: consulta indisponível persiste um minuto e depois recupera
+    interval: 15s
+    input_series:
+      - { series: 'up{job="api",instance="api:3000"}', values: '1x20' }
+      - { series: 'up{job="probe",instance="lab:9091"}', values: '1x20' }
+      - { series: 'up{job="lab",instance="lab:9091"}', values: '1x20' }
+      - { series: 'up{job="node",instance="node-exporter:9100"}', values: '1x20' }
+      - { series: 'up{job="cadvisor",instance="cadvisor:8080"}', values: '1x20' }
+      - { series: 'up{job="prometheus",instance="localhost:9090"}', values: '1x20' }
+      - { series: 'up{job="grafana",instance="grafana:3000"}', values: '1x20' }
+      - { series: 'probe_success{job="probe",instance="lab:9091"}', values: '0x8 1x12' }
+    alert_rule_test:
+      - { eval_time: 45s, alertname: ConsultaAssistencialIndisponivel, exp_alerts: [] }
+      - eval_time: 1m
+        alertname: ConsultaAssistencialIndisponivel
+        exp_alerts:
+          - exp_labels: { job: probe, instance: 'lab:9091', severity: critical, owner: operacao_laboratorio }
+            exp_annotations:
+              summary: Consulta autenticada de prontuário indisponível
+              description: Atendimento simulado impactado. Confirmar API e PostgreSQL antes de atribuir a causa. Seguir o procedimento de recuperação.
+      - { eval_time: 3m, alertname: ConsultaAssistencialIndisponivel, exp_alerts: [] }
+    promql_expr_test:
+      - expr: lab:collection_coverage_percent
+        eval_time: 1m
+        exp_samples: [{ labels: 'lab:collection_coverage_percent', value: 100 }]
+  - name: falta de coleta não significa consulta disponível ou indisponível
+    interval: 15s
+    input_series:
+      - { series: 'up{job="api"}', values: '1x10' }
+      - { series: 'up{job="lab"}', values: '1x10' }
+      - { series: 'up{job="node"}', values: '1x10' }
+      - { series: 'up{job="cadvisor"}', values: '1x10' }
+      - { series: 'up{job="prometheus"}', values: '1x10' }
+      - { series: 'up{job="grafana"}', values: '1x10' }
+    alert_rule_test:
+      - { eval_time: 1m, alertname: ConsultaAssistencialIndisponivel, exp_alerts: [] }
+      - eval_time: 1m
+        alertname: FalhaDeColeta
+        exp_alerts:
+          - exp_labels: { job: probe, severity: warning, owner: operacao_laboratorio }
+            exp_annotations:
+              summary: Sem coleta válida no alvo probe
+              description: Ausência de dados não comprova disponibilidade assistencial. Recuperar a coleta e verificar novamente.
+    promql_expr_test:
+      - { expr: 'lab:clinical_available', eval_time: 1m, exp_samples: [] }
+      - expr: 'lab:target_up{job="probe"}'
+        eval_time: 1m
+        exp_samples: [{ labels: 'lab:target_up{job="probe"}', value: 0 }]
+  - name: disponibilidade usa observações e divisão sem tráfego permanece sem dados
+    interval: 15s
+    input_series:
+      - { series: 'probe_success{job="probe"}', values: '1 1 0 0 1' }
+      - { series: 'clinical_requests_total{route="/prontuarios/:id",traffic="clinical",status="200"}', values: '0x20' }
+      - { series: 'clinical_requests_total{route="/prontuarios/:id",traffic="clinical",status="503"}', values: '0x20' }
+      - { series: 'clinical_request_duration_seconds_bucket{route="/prontuarios/:id",traffic="clinical",le="+Inf"}', values: '0x20' }
+      - { series: 'clinical_request_duration_seconds_count{route="/prontuarios/:id",traffic="clinical"}', values: '0x20' }
+    promql_expr_test:
+      - expr: '100 * avg_over_time(probe_success{job="probe"}[1m])'
+        eval_time: 1m
+        exp_samples: [{ labels: '{job="probe"}', value: 50 }]
+      - expr: '100 * sum(rate(clinical_requests_total{traffic="clinical",status=~"5.."}[5m])) / (sum(rate(clinical_requests_total{traffic="clinical"}[5m])) > 0)'
+        eval_time: 5m
+        exp_samples: []
+      - expr: 'histogram_quantile(0.95, sum by(le) (rate(clinical_request_duration_seconds_bucket{route="/prontuarios/:id",traffic="clinical"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route="/prontuarios/:id",traffic="clinical"}[5m])) > 0)'
+        eval_time: 5m
+        exp_samples: []

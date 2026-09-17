@@ -1,0 +1,52 @@
+[
+  {
+    "at": "2026-09-10T23:17:41.351116+00:00",
+    "elapsed_seconds": 0.41,
+    "event": "session_started"
+  },
+  {
+    "at": "2026-09-10T23:27:40.937643+00:00",
+    "elapsed_seconds": 600.0,
+    "event": "load_5rps_started"
+  },
+  {
+    "at": "2026-09-10T23:37:41.137232+00:00",
+    "elapsed_seconds": 1200.2,
+    "event": "load_5rps_finished"
+  },
+  {
+    "at": "2026-09-10T23:42:41.454156+00:00",
+    "elapsed_seconds": 1500.52,
+    "event": "ten_invalid_logins_completed"
+  },
+  {
+    "at": "2026-09-10T23:47:40.938350+00:00",
+    "elapsed_seconds": 1800.0,
+    "event": "postgres_outage_started"
+  },
+  {
+    "at": "2026-09-10T23:49:41.260883+00:00",
+    "elapsed_seconds": 1920.32,
+    "event": "postgres_restart_requested"
+  },
+  {
+    "at": "2026-09-10T23:52:41.168950+00:00",
+    "elapsed_seconds": 2100.23,
+    "event": "clinical_recovery_verified"
+  },
+  {
+    "at": "2026-09-10T23:57:40.937527+00:00",
+    "elapsed_seconds": 2400.0,
+    "event": "collector_outage_started"
+  },
+  {
+    "at": "2026-09-10T23:59:12.266553+00:00",
+    "elapsed_seconds": 2491.33,
+    "event": "collector_restart_requested"
+  },
+  {
+    "at": "2026-09-11T00:17:41.119184+00:00",
+    "elapsed_seconds": 3600.18,
+    "event": "session_completed"
+  }
+]

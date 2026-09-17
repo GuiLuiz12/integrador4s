@@ -1,0 +1,49 @@
+{
+  "captured_at": "2026-09-17T22:35:00.930346+00:00",
+  "result": "passed",
+  "services": [
+    {
+      "service": "api",
+      "state": "running",
+      "health": "healthy",
+      "ports": "127.0.0.1:3000->3000/tcp"
+    },
+    {
+      "service": "cadvisor",
+      "state": "running",
+      "health": "healthy",
+      "ports": "8080/tcp"
+    },
+    {
+      "service": "grafana",
+      "state": "running",
+      "health": "",
+      "ports": "127.0.0.1:3001->3000/tcp"
+    },
+    {
+      "service": "lab",
+      "state": "running",
+      "health": "",
+      "ports": ""
+    },
+    {
+      "service": "node-exporter",
+      "state": "running",
+      "health": "",
+      "ports": "9100/tcp"
+    },
+    {
+      "service": "postgres",
+      "state": "running",
+      "health": "healthy",
+      "ports": "5432/tcp"
+    },
+    {
+      "service": "prometheus",
+      "state": "running",
+      "health": "",
+      "ports": "9090/tcp"
+    }
+  ],
+  "left_running": true
+}

@@ -1,0 +1,9 @@
+.git
+.agents
+.codex
+.env
+.env.*
+node_modules
+dist
+evidence/runs
+coverage

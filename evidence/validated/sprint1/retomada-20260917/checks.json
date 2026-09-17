@@ -1,0 +1,27 @@
+{
+  "validated_on": "2026-09-17",
+  "source": "Registro dos comandos e resultados observados durante o fechamento da Sprint 1",
+  "checks": [
+    { "command": "npm run build", "result": "passed" },
+    { "command": "npm test", "result": "passed", "tests": 10, "failures": 0 },
+    { "command": "./scripts/lab.sh config-check", "result": "passed" },
+    { "command": "./scripts/lab.sh up", "result": "passed", "existing_volumes_preserved": true },
+    { "command": "./scripts/lab.sh rules-test", "result": "passed", "scenarios": 3 },
+    {
+      "command": "python3 scripts/verify-integration.py",
+      "result": "passed",
+      "records": 100,
+      "identities": 3,
+      "targets": 7,
+      "container_metrics": 7,
+      "collection_coverage_percent": 100,
+      "reader_permissions": { "select": true, "insert": false, "update": false, "delete": false },
+      "actual_update_denied": true,
+      "initialization_idempotent": true,
+      "published_loopback_ports": ["3000", "3001"],
+      "cpu_limit": 5.75,
+      "memory_limit_gib": 7
+    }
+  ],
+  "note": "Testes locais executados com acesso aos sockets necessários. Não contém segredos, payloads de prontuários ou configuração expandida do Docker. A validação visual é registrada separadamente em validation.json."
+}

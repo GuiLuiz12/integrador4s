@@ -1,0 +1,25 @@
+{
+  "result": "passed",
+  "started_at": "2026-09-10T23:17:41.351116+00:00",
+  "completed_at": "2026-09-11T00:17:41.119184+00:00",
+  "duration_seconds": 3600.18,
+  "observations": 234,
+  "successful_probes": 226,
+  "failed_probes": 8,
+  "observed_availability_percent": 96.58119658119658,
+  "maximum_probe_gap_seconds": 105.0,
+  "invalid_login_events": 10,
+  "clinical_503_events": 120,
+  "first_clinical_alert_at": "2026-09-10T23:49:05.747000+00:00",
+  "last_clinical_alert_sample_at": "2026-09-10T23:49:50.747000+00:00",
+  "observed_seconds_to_first_alert": 84.80865001678467,
+  "first_success_after_restart_at": "2026-09-10T23:49:45.241000+00:00",
+  "final_collection_coverage_percent": 100.0,
+  "collector_alert_jobs": [
+    "lab",
+    "probe"
+  ],
+  "api_collection_available_during_probe_gap": true,
+  "no_false_clinical_alert_during_probe_gap": true,
+  "note": "Medições de uma sessão fictícia; não equivalem a SLA mensal ou MTTD/MTTR médios."
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.agents/
+.codex/
+.env
+.env.*
+!.env.example
+evidence/runs/
+*.log
+coverage/
+__pycache__/
+*.pyc

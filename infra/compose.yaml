@@ -1,0 +1,147 @@
+name: governanca-saude
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+x-common: &common
+  restart: unless-stopped
+  logging: *logging
+  security_opt: ["no-new-privileges:true"]
+
+services:
+  postgres:
+    <<: *common
+    image: postgres:17.6-bookworm
+    cpus: 1.0
+    mem_limit: 1536m
+    environment:
+      POSTGRES_USER: lab_owner
+      POSTGRES_DB: healthlab
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Execute npm run setup}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?Execute npm run setup}
+      PROF_1_HASH: ${PROF_1_HASH:?Execute npm run setup}
+      PROF_2_HASH: ${PROF_2_HASH:?Execute npm run setup}
+      PROBE_HASH: ${PROBE_HASH:?Execute npm run setup}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/001-init.sh:/docker-entrypoint-initdb.d/001-init.sh:ro
+    networks: [backend]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab_owner -d healthlab"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    <<: *common
+    image: governanca-saude-app:0.1.0
+    build: &app-build
+      context: ..
+      dockerfile: infra/Dockerfile
+    cpus: 1.0
+    mem_limit: 768m
+    read_only: true
+    cap_drop: [ALL]
+    environment:
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?Execute npm run setup}
+      JWT_SECRET: ${JWT_SECRET:?Execute npm run setup}
+    ports: ["127.0.0.1:3000:3000"]
+    volumes: ["../docs/recuperacao.md:/app/docs/recuperacao.md:ro"]
+    networks: [backend, monitoring, access]
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+
+  lab:
+    <<: *common
+    image: governanca-saude-app:0.1.0
+    build: *app-build
+    command: ["node", "dist/apps/lab/server.js"]
+    cpus: 0.5
+    mem_limit: 512m
+    read_only: true
+    cap_drop: [ALL]
+    environment:
+      PROF_1_PASSWORD: ${PROF_1_PASSWORD:?Execute npm run setup}
+      PROBE_PASSWORD: ${PROBE_PASSWORD:?Execute npm run setup}
+    networks: [monitoring]
+    depends_on:
+      api: { condition: service_healthy }
+
+  prometheus:
+    <<: *common
+    image: prom/prometheus:v3.14.0
+    cpus: 1.0
+    mem_limit: 1536m
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --storage.tsdb.retention.size=2GB
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ../monitoring/rules.yml:/etc/prometheus/rules.yml:ro
+      - prometheus_data:/prometheus
+    networks: [monitoring]
+
+  grafana:
+    <<: *common
+    image: grafana/grafana:13.2.1
+    cpus: 1.0
+    mem_limit: 1536m
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:?Execute npm run setup}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/saude.json
+      GF_METRICS_ENABLED: "true"
+      GF_PLUGINS_PREINSTALL_AUTO_UPDATE: "false"
+    ports: ["127.0.0.1:3001:3000"]
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../dashboards/provisioning:/etc/grafana/provisioning:ro
+      - ../dashboards/saude.json:/var/lib/grafana/dashboards/saude.json:ro
+    networks: [monitoring, access]
+
+  node-exporter:
+    <<: *common
+    image: prom/node-exporter:v1.12.1
+    cpus: 0.25
+    mem_limit: 256m
+    pid: host
+    command: ["--path.rootfs=/host", "--collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/containers/storage/.+)($$|/)"]
+    volumes: ["/:/host:ro,rslave"]
+    networks: [monitoring]
+
+  cadvisor:
+    <<: *common
+    image: ghcr.io/google/cadvisor:0.60.5
+    cpus: 1.0
+    mem_limit: 1024m
+    # Host metadata access is confined to this collector; applications receive no Docker socket.
+    command: ["--docker_only=true", "--housekeeping_interval=15s", "--store_container_labels=false", "--whitelisted_container_labels=com.docker.compose.project,com.docker.compose.service"]
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    networks: [monitoring]
+
+networks:
+  backend: { internal: true }
+  monitoring: { internal: true }
+  access: {}
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:

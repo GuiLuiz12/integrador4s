@@ -1,0 +1,415 @@
+{
+  "generated_at": "2026-09-17T22:31:40.409157+00:00",
+  "range_start": "2026-09-17T22:24:00+00:00",
+  "range_end": "2026-09-17T22:29:00+00:00",
+  "queries": {
+    "targets": {
+      "promql": "up",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "node-exporter:9100",
+              "job": "node"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "grafana:3000",
+              "job": "grafana"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "api:3000",
+              "job": "api"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "localhost:9090",
+              "job": "prometheus"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "lab:9091",
+              "job": "lab"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "coverage": {
+      "promql": "lab:collection_coverage_percent",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:collection_coverage_percent"
+            },
+            "value": [
+              1789684140,
+              "100"
+            ]
+          }
+        ]
+      }
+    },
+    "clinical_available": {
+      "promql": "lab:clinical_available",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:clinical_available",
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "observations": {
+      "promql": "count_over_time(probe_success{job=\"probe\"}[5m])",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1789684140,
+              "20"
+            ]
+          }
+        ]
+      }
+    },
+    "successes": {
+      "promql": "sum_over_time(probe_success{job=\"probe\"}[5m])",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1789684140,
+              "20"
+            ]
+          }
+        ]
+      }
+    },
+    "availability": {
+      "promql": "100 * avg_over_time(probe_success{job=\"probe\"}[5m])",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1789684140,
+              "100"
+            ]
+          }
+        ]
+      }
+    },
+    "p95_seconds": {
+      "promql": "histogram_quantile(0.95,sum by(le)(rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])))",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1789684140,
+              "0.0095"
+            ]
+          }
+        ]
+      }
+    },
+    "active_alerts": {
+      "promql": "ALERTS{alertstate=\"firing\"}",
+      "data": {
+        "resultType": "vector",
+        "result": []
+      }
+    },
+    "collection_history": {
+      "promql": "lab:collection_coverage_percent[5m]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:collection_coverage_percent"
+            },
+            "values": [
+              [
+                1789683846.371,
+                "100"
+              ],
+              [
+                1789683861.371,
+                "100"
+              ],
+              [
+                1789683876.371,
+                "100"
+              ],
+              [
+                1789683891.371,
+                "100"
+              ],
+              [
+                1789683906.371,
+                "100"
+              ],
+              [
+                1789683921.371,
+                "100"
+              ],
+              [
+                1789683936.371,
+                "100"
+              ],
+              [
+                1789683951.371,
+                "100"
+              ],
+              [
+                1789683966.371,
+                "100"
+              ],
+              [
+                1789683981.371,
+                "100"
+              ],
+              [
+                1789683996.371,
+                "100"
+              ],
+              [
+                1789684011.371,
+                "100"
+              ],
+              [
+                1789684026.371,
+                "100"
+              ],
+              [
+                1789684041.371,
+                "100"
+              ],
+              [
+                1789684056.371,
+                "100"
+              ],
+              [
+                1789684071.371,
+                "100"
+              ],
+              [
+                1789684086.371,
+                "100"
+              ],
+              [
+                1789684101.371,
+                "100"
+              ],
+              [
+                1789684116.371,
+                "100"
+              ],
+              [
+                1789684131.371,
+                "100"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "clinical_history": {
+      "promql": "lab:clinical_available[5m]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:clinical_available",
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "values": [
+              [
+                1789683846.371,
+                "1"
+              ],
+              [
+                1789683861.371,
+                "1"
+              ],
+              [
+                1789683876.371,
+                "1"
+              ],
+              [
+                1789683891.371,
+                "1"
+              ],
+              [
+                1789683906.371,
+                "1"
+              ],
+              [
+                1789683921.371,
+                "1"
+              ],
+              [
+                1789683936.371,
+                "1"
+              ],
+              [
+                1789683951.371,
+                "1"
+              ],
+              [
+                1789683966.371,
+                "1"
+              ],
+              [
+                1789683981.371,
+                "1"
+              ],
+              [
+                1789683996.371,
+                "1"
+              ],
+              [
+                1789684011.371,
+                "1"
+              ],
+              [
+                1789684026.371,
+                "1"
+              ],
+              [
+                1789684041.371,
+                "1"
+              ],
+              [
+                1789684056.371,
+                "1"
+              ],
+              [
+                1789684071.371,
+                "1"
+              ],
+              [
+                1789684086.371,
+                "1"
+              ],
+              [
+                1789684101.371,
+                "1"
+              ],
+              [
+                1789684116.371,
+                "1"
+              ],
+              [
+                1789684131.371,
+                "1"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "load_rate": {
+      "promql": "lab_load_rate",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_load_rate",
+              "instance": "lab:9091",
+              "job": "lab"
+            },
+            "value": [
+              1789684140,
+              "1"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
