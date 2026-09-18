@@ -5,25 +5,25 @@ Responsável: **Operação do laboratório**. Todos os dados e impactos descrito
 ## Consulta assistencial indisponível
 
 1. Registrar o horário e consultar o painel de coleta. Confirmar que o verificador está sendo coletado.
-2. Executar `./scripts/lab.sh status` e `./scripts/lab.sh check-api`.
-3. Verificar vitalidade e prontidão: `curl -f http://localhost:3000/health/live` e `curl -f http://localhost:3000/health/ready`.
-4. Se a vitalidade funcionar e a prontidão falhar, conferir o banco com `./scripts/lab.sh db-ready`. Isso é evidência de dependência indisponível; a falha do probe sozinha não identifica a causa.
-5. Restaurar somente o serviço afetado: `./scripts/lab.sh restore-db` no experimento desta sprint.
+2. Executar `npm run status` e `npm run check`.
+3. Verificar vitalidade e prontidão: `npm run health`.
+4. Se a vitalidade funcionar e a prontidão falhar, conferir o banco com `npm run db:check`. Isso é evidência de dependência indisponível; a falha do probe sozinha não identifica a causa.
+5. Restaurar somente o serviço afetado: `npm run db:restore` no experimento desta sprint.
 6. Confirmar novamente consulta, prontidão e painel. Aguardar coleta e avaliação das regras; a recuperação aparece em aproximadamente 30–45 s após o serviço ficar pronto.
-7. Exportar evidências, registrar início, recuperação, impacto fictício e decisão executada. Não chamar o intervalo de um único experimento de MTTR médio.
+7. Exportar evidências com `npm run evidence:export`, registrar início, recuperação, impacto fictício e decisão executada. Não chamar o intervalo de um único experimento de MTTR médio.
 
-Não remover volumes para recuperar o serviço. Se o problema persistir, consultar logs locais e a configuração; nunca copiar `.env`, tokens ou `docker inspect` integral para evidências.
+Não remover volumes para recuperar o serviço. Se o problema persistir, consultar `npm run logs -- api`, `npm run logs -- postgres` e `npm run config:check`; nunca copiar `.env`, tokens ou `docker inspect` integral para evidências.
 
 ## Falha de coleta
 
 1. Um alvo sem coleta não comprova saúde nem indisponibilidade assistencial.
-2. Conferir o alvo indicado, rede interna e estado do coletor. No experimento do verificador, executar `./scripts/lab.sh restore-collector`.
+2. Conferir o alvo indicado, rede interna e estado do coletor. No experimento do verificador, executar `npm run collector:restore`.
 3. Confirmar cobertura de 100% e novas verificações antes de concluir sobre o serviço.
 4. Se o Prometheus parar, Grafana apresentará erro/sem dados; esse Prometheus único não consegue detectar sua própria parada total. Não interpretar ausência de alerta como recuperação.
 
 ## Experimento autorizado
 
-`./scripts/lab.sh fail-db 120` interrompe somente o PostgreSQL deste projeto por 120 s e o restaura ao finalizar ou receber SIGINT/SIGTERM. SIGKILL, queda do host ou encerramento do daemon exigem `restore-db` manual. O verificador pode ser interrompido com `fail-collector 90`, com o mesmo mecanismo de restauração.
+`npm run simulate:db-outage -- 120` interrompe somente o PostgreSQL deste projeto por 120 s e o restaura ao finalizar ou receber SIGINT/SIGTERM. SIGKILL, queda do host ou encerramento do daemon exigem `npm run db:restore` manual. O verificador pode ser interrompido com `npm run simulate:collector-outage -- 90`, com o mesmo mecanismo de restauração.
 
 ## Decisão gerencial esperada
 

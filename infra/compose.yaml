@@ -132,6 +132,13 @@ services:
     volumes:
       - /:/rootfs:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Docker 29 fresh installs use containerd snapshots; cAdvisor needs its API.
+      - type: bind
+        source: /run/containerd/containerd.sock
+        target: /run/containerd/containerd.sock
+        read_only: true
+        bind:
+          create_host_path: false
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
       - /dev/disk:/dev/disk:ro

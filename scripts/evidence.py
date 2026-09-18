@@ -7,7 +7,8 @@ import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-COMPOSE = ['docker', 'compose', '--env-file', str(ROOT / '.env'), '-f', str(ROOT / 'infra/compose.yaml')]
+DOCKER = [str(ROOT / 'scripts/docker.sh')]
+COMPOSE = DOCKER + ['compose', '--env-file', str(ROOT / '.env'), '-f', str(ROOT / 'infra/compose.yaml')]
 
 def query(expression, at=None):
     arguments = ['exec', '-T', 'lab', 'node', 'dist/apps/lab/cli.js', 'query', expression]

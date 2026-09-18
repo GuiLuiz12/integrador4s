@@ -2,7 +2,7 @@
 
 Antes de começar, confirmar API funcional, sete alvos coletados e gráficos dos contêineres presentes. Selecionar no Grafana um intervalo absoluto correspondente à sessão para evitar incluir lacunas fora dela.
 
-| Minuto aproximado | Ação automática em `lab.sh session` | Evidência esperada |
+| Minuto aproximado | Ação automática em `npm run session:run` | Evidência esperada |
 |---:|---|---|
 | 0 | Consulta normal a 1/s | Fluxo disponível, cobertura 100% |
 | 10–20 | Carga a 5/s por 10 min | Mudança de volume, latência e recursos |
@@ -14,7 +14,7 @@ Antes de começar, confirmar API funcional, sete alvos coletados e gráficos dos
 
 O limite de concorrência do gerador é cinco. Em falhas ou lentidão, tentativas podem ser limitadas; `lab_load_attempts_total` informa isso. O perfil volta a 1/s ao expirar. O experimento não realiza testes contra destinos externos.
 
-Após concluir, executar `python3 scripts/summarize-session.py evidence/runs/session-<horario>` para conferir duração, carga, indisponibilidade real, disparo dos alertas, recuperação, dez logins inválidos e lacuna de coleta. O comando só produz `summary.json` quando as verificações passam.
+Após concluir, executar `npm run session:summary -- evidence/runs/session-<horario>` para conferir duração, carga, indisponibilidade real, disparo dos alertas, recuperação, dez logins inválidos e lacuna de coleta. O comando só produz `summary.json` quando as verificações passam.
 
 ## Capturas para a apresentação
 
@@ -24,9 +24,9 @@ Após concluir, executar `python3 scripts/summarize-session.py evidence/runs/ses
 4. Recuperação após restaurar o banco.
 5. Falha do coletor e ausência de conclusão sobre disponibilidade.
 
-Capturar somente o dashboard; nunca `.env`, console com tokens ou configurações expandidas do Docker. Exportar com `lab.sh evidence`, revisar antes de compartilhar e colocar apenas artefatos autorizados sob versionamento.
+Capturar somente o dashboard; nunca `.env`, console com tokens ou configurações expandidas do Docker. Exportar com `npm run evidence:export`, revisar antes de compartilhar e colocar apenas artefatos autorizados sob versionamento.
 
-Com Chromium de teste instalado, é possível executar em outro terminal `PLAYWRIGHT_BROWSERS_PATH=/tmp/integrador4s-browser node scripts/capture-alerts.mjs` antes da sessão. Esse observador salva capturas do histórico real quando cada alerta dispara, sem provocar falhas. Para recuperar capturas de uma sessão já iniciada, passar seu início ISO como argumento adicional. As imagens usam um intervalo absoluto; `observation.json` distingue o horário do alerta do horário da captura. O observador renova a autenticação se o Grafana exigir rotação do token. A captura do estado normal e a validação das consultas são feitas por `scripts/verify-dashboard.mjs`.
+Após `npm ci` e `npm run browser:setup`, executar em outro terminal `npm run alerts:capture` antes da sessão. Esse observador salva capturas do histórico real quando cada alerta dispara, sem provocar falhas. Para recuperar capturas de uma sessão já iniciada, passar seu início ISO com `npm run alerts:capture -- ISO_INÍCIO`. As imagens usam um intervalo absoluto; `observation.json` distingue o horário do alerta do horário da captura. O observador renova a autenticação se o Grafana exigir rotação do token. A captura do estado normal e a validação das consultas são feitas por `npm run dashboard:verify`.
 
 ## Defesa da decisão
 

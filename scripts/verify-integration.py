@@ -3,7 +3,7 @@
 import json
 import subprocess
 import urllib.request
-from evidence import COMPOSE, query
+from evidence import COMPOSE, DOCKER, query
 
 def sql(statement):
     result = subprocess.run(COMPOSE + ['exec', '-T', 'postgres', 'psql', '-U', 'lab_owner', '-d', 'healthlab', '-Atc', statement],
@@ -36,7 +36,7 @@ published = []
 memory = 0
 cpus = 0
 for container_id in ids:
-    state = json.loads(subprocess.run(['docker', 'inspect', container_id, '--format',
+    state = json.loads(subprocess.run(DOCKER + ['inspect', container_id, '--format',
         '{"ports":{{json .HostConfig.PortBindings}},"memory":{{.HostConfig.Memory}},"cpus":{{.HostConfig.NanoCpus}}}'],
         check=True, capture_output=True, text=True).stdout)
     memory += state['memory']
