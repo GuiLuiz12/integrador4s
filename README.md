@@ -185,3 +185,143 @@ Somente as portas 3000 e 3001 são publicadas, vinculadas a loopback. A rede do 
 - [Evidências revisadas da Sprint 1](evidence/validated/sprint1/README.md)
 
 Centralização de logs, KRIs, registro formal de riscos, vulnerabilidades, conformidade, workflow de ações e implantação efetiva na nuvem não fazem parte desta sprint.
+
+# Topologia — integrador4s
+
+Arquitetura definida na branch `main`, commit `09544272edb04a30653c01a9350e2b4ae8fc2606`, de 17/09/2026. Análise estática do código e das configurações; não representa uma inspeção de um ambiente em execução.
+
+O laboratório de governança em cibersegurança para saúde tem sete serviços Docker em um único host Linux. A consulta autenticada de prontuários fictícios é o fluxo assistencial observado.
+
+## Componentes e chamadas
+
+```mermaid
+flowchart TB
+    U["Operador local<br/>Navegador / cliente HTTP"]
+
+    subgraph HOST["Host Linux — Docker Compose: governanca-saude"]
+        G["Grafana :3000<br/>Dashboard e visualização de alertas"]
+        P["Prometheus :9090<br/>Coleta e avaliação de regras"]
+        L["Lab :9091<br/>Gerador de carga + verificador"]
+        A["API :3000<br/>Fastify / Node.js / JWT"]
+        D[("PostgreSQL :5432<br/>healthlab")]
+        N["Node Exporter :9100<br/>Métricas do host"]
+        C["cAdvisor :8080<br/>Métricas dos contêineres"]
+
+        L -->|"Login + consulta autenticada"| A
+        A -->|"SQL / clinical_reader / SELECT"| D
+        G -->|"Consultas PromQL"| P
+        P -.->|"/metrics"| A
+        P -.->|"/metrics e /probe"| L
+        P -.->|"/metrics"| N
+        P -.->|"/metrics"| C
+        P -.->|"/metrics"| G
+        P -.->|"/metrics — autocoleta"| P
+    end
+
+    U -->|"HTTP 127.0.0.1:3001"| G
+    U -->|"HTTP 127.0.0.1:3000"| A
+
+    classDef application fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef monitoring fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef user fill:#f1f5f9,stroke:#64748b,color:#0f172a
+    class A,L application
+    class G,P,N,C monitoring
+    class D database
+    class U user
+```
+
+As setas indicam quem inicia a chamada. Linhas contínuas representam consultas da aplicação ou do dashboard; linhas pontilhadas representam coleta iniciada pelo Prometheus, a cada 15 segundos. As respostas percorrem o caminho inverso.
+
+O serviço `lab` reúne dois papéis no mesmo contêiner: o gerador acessa a API como `profissional1`; o verificador faz login como `monitor` e consulta o prontuário 1 quando o Prometheus chama `/probe`. O gerador inicia com uma consulta por segundo. A API autentica com JWT e consulta o banco usando `clinical_reader`, com acesso somente de leitura às tabelas `professionals` e `prontuarios`.
+
+## Redes e portas
+
+```mermaid
+flowchart LR
+    U["Operador local"]
+
+    subgraph HOST["Host Linux — redes do Docker Compose"]
+        ACCESS{{"access<br/>bridge"}}
+        BACKEND{{"backend<br/>internal: true"}}
+        MONITORING{{"monitoring<br/>internal: true"}}
+
+        API["api :3000"]
+        GRAFANA["grafana :3000"]
+        DB[("postgres :5432")]
+        LAB["lab :9091"]
+        PROM["prometheus :9090"]
+        NODE["node-exporter :9100"]
+        CAD["cadvisor :8080"]
+
+        ACCESS --- API
+        ACCESS --- GRAFANA
+        BACKEND --- API
+        BACKEND --- DB
+        MONITORING --- API
+        MONITORING --- GRAFANA
+        MONITORING --- LAB
+        MONITORING --- PROM
+        MONITORING --- NODE
+        MONITORING --- CAD
+    end
+
+    U -->|"127.0.0.1:3000 → :3000"| API
+    U -->|"127.0.0.1:3001 → :3000"| GRAFANA
+
+    classDef network fill:#f1f5f9,stroke:#64748b,color:#0f172a
+    classDef application fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef monitoring fill:#ecfdf5,stroke:#059669,color:#064e3b
+    classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
+    class ACCESS,BACKEND,MONITORING network
+    class API,LAB application
+    class GRAFANA,PROM,NODE,CAD monitoring
+    class DB database
+```
+
+Neste diagrama, linhas sem seta significam participação na rede, não chamadas ou regras de firewall.
+
+| Rede | Serviços conectados | Configuração |
+|---|---|---|
+| `access` | API, Grafana | Bridge; permite a publicação local das portas e conexões de saída desses dois serviços |
+| `backend` | API, PostgreSQL | `internal: true`; banco sem porta publicada |
+| `monitoring` | API, Lab, Prometheus, Grafana, Node Exporter, cAdvisor | `internal: true`; comunicação de monitoramento e tráfego Lab → API |
+
+| Acesso no host | Destino no contêiner | Finalidade |
+|---|---|---|
+| `127.0.0.1:3000` | `api:3000` | API, OpenAPI, saúde e procedimento de recuperação |
+| `127.0.0.1:3001` | `grafana:3000` | Dashboard `/d/saude-v01` |
+
+As demais portas aparecem apenas nas redes do Compose. O repositório não define IPs fixos ou sub-redes com CIDR próprio; os serviços usam nomes DNS do Docker. Os contêineres de API e Grafana participam de múltiplas redes, conforme a tabela.
+
+## Observabilidade e persistência
+
+Há sete alvos de coleta: `api`, `probe`, `lab`, `node`, `cadvisor`, `prometheus` e `grafana`. Os jobs `probe` e `lab` usam o mesmo serviço, em endpoints diferentes. PostgreSQL não tem exporter próprio: o laboratório observa seu impacto pelo fluxo autenticado, pela prontidão da API e pelos recursos coletados pelo cAdvisor.
+
+Node Exporter lê os recursos do host. cAdvisor lê metadados do host e o socket Docker; as métricas de contêineres retidas pelo Prometheus são filtradas para o projeto `governanca-saude`.
+
+| Serviço | Volume persistente | Conteúdo |
+|---|---|---|
+| PostgreSQL | `postgres_data` | Dados fictícios e identidades |
+| Prometheus | `prometheus_data` | Séries temporais; retenção de até 7 dias, também limitada a 2 GB |
+| Grafana | `grafana_data` | Estado persistente do Grafana |
+
+O Prometheus avalia `ConsultaAssistencialIndisponivel` e `FalhaDeColeta`; o Grafana mostra as métricas e os alertas no dashboard. Não há Alertmanager ou serviço de notificações definido no Compose. Os logs permanecem locais no Docker, com rotação de 3 × 10 MB por serviço.
+
+A entrega é local, sem frontend clínico separado, serviços gerenciados ou alta disponibilidade. A implantação em VM e o acesso por túnel SSH são descritos como evolução futura, não como recursos provisionados.
+
+## Fontes verificadas
+
+- [Compose: serviços, redes, portas e volumes](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/infra/compose.yaml)
+- [Prometheus: alvos e frequência de coleta](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/monitoring/prometheus.yml)
+- [Regras e alertas](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/monitoring/rules.yml)
+- [Datasource do Grafana](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/dashboards/provisioning/datasources/prometheus.yml)
+- [API: autenticação, rotas e métricas](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/api/app.ts)
+- [Acesso da API ao PostgreSQL](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/api/repository.ts)
+- [Inicialização e permissões do banco](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/infra/postgres/001-init.sh)
+- [Gerador e endpoint de verificação](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/lab/server.ts)
+- [Fluxo de verificação](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/lab/probe.ts)
+- [Arquitetura e implantação futura](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/docs/arquitetura.md)
+- [Logs locais](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/logging/README.md)
+
+Os arquivos `.mmd` acompanham este documento para edição dos diagramas em Mermaid.
