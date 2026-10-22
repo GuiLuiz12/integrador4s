@@ -24,3 +24,15 @@ As metas são didáticas, escolhidas para a demonstração. Uma indisponibilidad
 As regras rodam no Prometheus. O dashboard mostra `ALERTS` em estado pendente/disparado e a evolução temporal; não há notificação externa nem Alertmanager separado. O fim da série do alerta, junto à coleta válida e à consulta bem-sucedida, comprova recuperação. Se Prometheus parar, a fonte de dados do Grafana falha: não há autodetecção externa nessa arquitetura.
 
 O banco e a API podem sofrer mais de uma falha ao mesmo tempo. O painel orienta investigação; não atribui causa raiz automaticamente. Não são calculados MTTD/MTTR médios nesta sprint: registrar apenas os horários observados de cada experimento.
+
+## Exportação para análise da Sprint 2
+
+O refinamento mantém o dashboard v0.1 e exporta o histórico descrito no [contrato das evidências](evidencias.md). O baseline de 30 minutos e o experimento de 60 minutos são conjuntos separados, cada um precedido por estabilização. Os arquivos usam o mesmo intervalo UTC para métricas e eventos.
+
+Além das amostras de disponibilidade, coleta, alertas e carga, `series.json` preserva CPU/memória do host, CPU/memória/rede dos sete serviços, tentativas do gerador, contadores da API e buckets do histograma clínico. `derived.json` contém as curvas de CPU%, memória%, CPU por serviço em núcleos, bytes/s de rede, respostas/s clínicas, erros% e p95, com o PromQL e as referências das fontes. Médias e picos podem ser calculados na Sprint 2 sobre o período/fase declarado; os dados do host incluem cargas externas ao projeto.
+
+O resumo offline usa amostras originais para a disponibilidade e a completude. Seus incrementos observados de contadores tratam resets visíveis, mas não extrapolam bordas como o Prometheus. A contagem de logins inválidos vem das respostas nos logs, consolidadas pela chave serviço + instância + correlação. Um `request_error` não é uma segunda resposta.
+
+No experimento, a timeline registra início confirmado da interrupção do banco, primeira amostra do alerta em `firing`, solicitação de restauração e primeiro probe bem-sucedido após ela. As durações são de um incidente simulado, respondido pelo roteiro. Elas preparam o futuro cálculo de MTTD/MTTR; a média, a população de incidentes e sua classificação serão definidas na Sprint 2. As convenções e os limites estão em [Tempo do incidente simulado](evidencias.md#tempo-do-incidente-simulado).
+
+A quantidade de pontos em `ALERTS` mede observações do estado, não quantidade de alertas distintos ou incidentes. Para os indicadores por criticidade, será necessário definir e contar episódios de disparo, preservando origem, intervalo e labels.

@@ -1,0 +1,51 @@
+{
+  "session_id": "11ea5378-3869-4e07-8567-d0246ed968e6",
+  "kind": "experiment",
+  "status": "interrupted_or_failed",
+  "phases": [
+    {
+      "id": "normal_before_load",
+      "started_at": "2026-10-22T00:32:24.310547+00:00",
+      "ended_at": "2026-10-22T00:42:24.727283+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "load",
+      "started_at": "2026-10-22T00:42:24.727283+00:00",
+      "ended_at": "2026-10-22T00:52:24.627965+00:00",
+      "configured_rate": 5
+    },
+    {
+      "id": "normal_after_load",
+      "started_at": "2026-10-22T00:52:24.627965+00:00",
+      "ended_at": "2026-10-22T00:57:24.310637+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "invalid_logins",
+      "started_at": "2026-10-22T00:57:24.310637+00:00",
+      "ended_at": "2026-10-22T00:57:25.037459+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_db_outage",
+      "started_at": "2026-10-22T00:57:25.037459+00:00",
+      "ended_at": null,
+      "configured_rate": 1
+    }
+  ],
+  "parameters": {
+    "warmup_seconds": 300,
+    "duration_seconds": 3600,
+    "normal_rate": 1,
+    "load_rate": 5,
+    "load_seconds": 600,
+    "db_outage_seconds": 120,
+    "probe_outage_seconds": 90,
+    "collector_alert_jobs": [
+      "probe"
+    ],
+    "response_actor": "session_runner"
+  },
+  "started_at": "2026-10-22T00:32:24.319580+00:00"
+}

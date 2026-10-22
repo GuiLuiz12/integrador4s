@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "session_id": "11ea5378-3869-4e07-8567-d0246ed968e6",
+  "kind": "experiment",
+  "status": "interrupted_or_failed",
+  "captured_at": "2026-10-22T01:00:29.203033+00:00",
+  "range_start": "2026-10-22T00:32:24.319580+00:00",
+  "range_end": "2026-10-22T00:59:10.953588+00:00",
+  "window": "1606635ms",
+  "boundary": "start <= timestamp <= end",
+  "scrape_interval_seconds": 15,
+  "context_seconds": 300,
+  "phases": [
+    {
+      "id": "normal_before_load",
+      "started_at": "2026-10-22T00:32:24.310547+00:00",
+      "ended_at": "2026-10-22T00:42:24.727283+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "load",
+      "started_at": "2026-10-22T00:42:24.727283+00:00",
+      "ended_at": "2026-10-22T00:52:24.627965+00:00",
+      "configured_rate": 5
+    },
+    {
+      "id": "normal_after_load",
+      "started_at": "2026-10-22T00:52:24.627965+00:00",
+      "ended_at": "2026-10-22T00:57:24.310637+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "invalid_logins",
+      "started_at": "2026-10-22T00:57:24.310637+00:00",
+      "ended_at": "2026-10-22T00:57:25.037459+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_db_outage",
+      "started_at": "2026-10-22T00:57:25.037459+00:00",
+      "ended_at": null,
+      "configured_rate": 1
+    }
+  ],
+  "parameters": {
+    "warmup_seconds": 300,
+    "duration_seconds": 3600,
+    "normal_rate": 1,
+    "load_rate": 5,
+    "load_seconds": 600,
+    "db_outage_seconds": 120,
+    "probe_outage_seconds": 90,
+    "collector_alert_jobs": [
+      "probe"
+    ],
+    "response_actor": "session_runner"
+  },
+  "files": {
+    "configuration/dashboards/saude.json": {
+      "sha256": "5fdb62651540c61102194ff72e6acbbdb18eb094cf7ff28abe14a37256d06323",
+      "bytes": 35689
+    },
+    "configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "configuration/infra/compose.yaml": {
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "bytes": 4898
+    },
+    "configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "configuration/monitoring/prometheus.yml": {
+      "sha256": "d22e7ad188606fc5e310f847823051dfde500b2ebeb17706ccb623058a55630e",
+      "bytes": 815
+    },
+    "configuration/monitoring/rules.yml": {
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "bytes": 1818
+    },
+    "configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "configuration/package.json": {
+      "sha256": "7d2f74dcf370f9fb48efe823541cc412d6b41e089729c84c4f317970f91743d3",
+      "bytes": 2440
+    },
+    "configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    },
+    "derived.json": {
+      "sha256": "1f3442df0abd44d45a6a8b2b2bee3646e415f3c8f724c40f8b351c84dbec88d7",
+      "bytes": 212069
+    },
+    "events.jsonl": {
+      "sha256": "dfa0f3e5136574192949f6fc4a36abc52681f07cb06491ae0fbe830a845b2ced",
+      "bytes": 934056
+    },
+    "inventory-start.json": {
+      "sha256": "ff50ff345371bbceda679a4101212aa5448ccf5189cfecdfecc212337ec4b02d",
+      "bytes": 6813
+    },
+    "inventory.json": {
+      "sha256": "91f669bc8a7c8616bc20053a2fa8bb7340e39d56e5db1514d1b47fe79180fca6",
+      "bytes": 6813
+    },
+    "metrics.json": {
+      "sha256": "5306f398ff638ef3596de68e905d1430fc761e6f6d6d2e30a639aef02ac2d263",
+      "bytes": 94576
+    },
+    "observation-notes.json": {
+      "sha256": "0273f19308cdb2b88e2e4eb5c9f3e78b1900d6774d7a245e71433645f0b69e4e",
+      "bytes": 526
+    },
+    "run.json": {
+      "sha256": "e609dcded00d3e2eabb2a40fe123825214c37036bc0ba990ec0c4ae466d6cf1f",
+      "bytes": 1365
+    },
+    "series.json": {
+      "sha256": "2bb37a9fe7379f361a1ed355007d2021bedeaa1997808fe6b6f7287f194cd6e5",
+      "bytes": 2113262
+    },
+    "session.json": {
+      "sha256": "1396f61fe2a8665da1fc09fe0340ca6311b618073c5c428599f2ff8593afcb24",
+      "bytes": 1629
+    },
+    "start/configuration/dashboards/saude.json": {
+      "sha256": "5fdb62651540c61102194ff72e6acbbdb18eb094cf7ff28abe14a37256d06323",
+      "bytes": 35689
+    },
+    "start/configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "start/configuration/infra/compose.yaml": {
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "bytes": 4898
+    },
+    "start/configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "start/configuration/monitoring/prometheus.yml": {
+      "sha256": "d22e7ad188606fc5e310f847823051dfde500b2ebeb17706ccb623058a55630e",
+      "bytes": 815
+    },
+    "start/configuration/monitoring/rules.yml": {
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "bytes": 1818
+    },
+    "start/configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "start/configuration/package.json": {
+      "sha256": "7d2f74dcf370f9fb48efe823541cc412d6b41e089729c84c4f317970f91743d3",
+      "bytes": 2440
+    },
+    "start/configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    }
+  },
+  "inventory": "inventory.json",
+  "indicator_sources": {
+    "availability": [
+      "series.json#/queries/probe_history"
+    ],
+    "collection": [
+      "series.json#/queries/collection_history"
+    ],
+    "invalid_logins": [
+      "events.jsonl:event=authentication,status=401"
+    ],
+    "clinical_errors": [
+      "events.jsonl:event=record_access,traffic=clinical,status=503"
+    ],
+    "host_cpu_percent": [
+      "derived.json#/queries/host_cpu_percent"
+    ],
+    "host_memory_percent": [
+      "derived.json#/queries/host_memory_percent"
+    ],
+    "container_cpu_cores": [
+      "derived.json#/queries/container_cpu_cores"
+    ],
+    "container_network_bytes_per_second": [
+      "derived.json#/queries/container_network_bytes_per_second"
+    ],
+    "clinical_volume": [
+      "derived.json#/queries/clinical_volume"
+    ],
+    "clinical_errors_percent": [
+      "derived.json#/queries/clinical_errors_percent"
+    ],
+    "clinical_p95": [
+      "derived.json#/queries/clinical_p95"
+    ]
+  },
+  "limitations": [
+    "Host includes workloads outside this project.",
+    "Inventory describes capture time; historical configuration requires a session-start snapshot.",
+    "Derived points do not prove collection completeness; use original samples.",
+    "Missing or rotated source logs cannot be reconstructed."
+  ]
+}

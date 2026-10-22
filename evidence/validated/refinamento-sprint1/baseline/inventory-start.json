@@ -1,0 +1,144 @@
+{
+  "observed_at": "2026-10-21T23:49:10.236282+00:00",
+  "commit": "13b56eb3dbf08e348610f1148899d7c2073e6a9f",
+  "working_tree_dirty": true,
+  "source_sha256": {
+    "apps/api/app.ts": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26",
+    "apps/api/repository.ts": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f",
+    "apps/api/server.ts": "ff3a19a836044a259f808812fb3f3b7d881b656ea82eb271c14637a9cc449c11",
+    "apps/lab/cli.ts": "dd681399c9c527d114254a7fe5ede26b4b0ecafae1eacbd6381b32834e4db69d",
+    "apps/lab/probe-control.ts": "9c7e87d9f55f36a99f7197a53d29fc92a329ee84a3380a1c587ae7970f5bd53d",
+    "apps/lab/probe.ts": "3ecb38a8535ac50e513940c27e4a6b7528b3d75cfdc4552a832eed723a840969",
+    "apps/lab/server.ts": "2327eff595e02d6799046b908a55fd0a9f465207e7218da25d7f480948c18b25",
+    "apps/shared/config.ts": "df9968da69a13019617fe1ea7f56ff34cabd187f134e3f51e536b82da50e0155",
+    "apps/shared/password.ts": "52626b11fbe3b3da3194f092b9e0a3da66901ed4582a903b57a33bc206b3f743",
+    "scripts/bootstrap-host.sh": "bb0f794d592a60a3160b35ef1a182fdd377d812a1bc56b70380a6f5f3003ed6c",
+    "scripts/browser.sh": "fe36a3a4e2878e976626ee10af4a0562544d2b1f3228a9e60b307806d100e641",
+    "scripts/capture-alerts.mjs": "9234fb5095b113a1a6166ed229eed98da87bbfbae70a2f9e5305e8f87f6128a2",
+    "scripts/dashboard.mjs": "2e665afb0c3d8815c0d19171449cecf454669d71e9b8b8607b3db1a459a39698",
+    "scripts/docker.sh": "28e5ecad74f9f1031591f2407932c4e082cfbffcb6369e5dc149b9e875e0d449",
+    "scripts/evidence.py": "54ea1058a04c3ae638df9ea82d994d0a569c0746814b517103f9e7c00b878de3",
+    "scripts/evidence_analysis.py": "916ff71838ff9421dc1d9fde4f9c91304c40c32c7d2e87bc26544f9e0e7168a7",
+    "scripts/evidence_catalog.py": "682b5adca462d0a120793d02a607f0e74c645abc0eb033784d2c08c70144f106",
+    "scripts/help.mjs": "73f4ac459f8df1dd1d1116ae443c524d697df9e46b2e04ea79324853f667c929",
+    "scripts/lab.sh": "b39fd28b139c72cdf472e0baad3f0d5c3be301d4bd7e12161c8e89036539a208",
+    "scripts/legacy_summary.py": "1cb75c9aa40137bc853310673ad77eb758a255e3381c364cbcfae04248394731",
+    "scripts/probe-outage.py": "99e3240ee7e6476a3c7031b531e4da5106ee27e7c3726f6cff0ba122c5a21aa0",
+    "scripts/session.py": "996be86d50aeb36d1d57f92f4bd266f577a40cf62d2cf550e46bca1000f78303",
+    "scripts/setup-host.sh": "7fb8a81b42929c6c13470e2b99796ef7bd7c35ab74cee86e0392bac2442c23b7",
+    "scripts/setup.mjs": "05fda85df3bba3962132c0509157e9cfc791058a83c8489845652525f47df28d",
+    "scripts/start.sh": "78301fd13c4c09ede0d227c5cad3c4b423c23cf07879aaed4016ec8c7bbb39fe",
+    "scripts/summarize-session.py": "8e5571e3aa12d3208800106747809db8a879055509770e28d76daaa9fd07ac03",
+    "scripts/test-install-guest.sh": "5202a44104ed68c39db24d5f8c9b7fc03fd31edb1e9945c69425a2ce628e394e",
+    "scripts/test-ubuntu26.py": "1976cff62684d8b2503360b5aab21f939f82bc9fe634b57e1b91338591ae89f6",
+    "scripts/verify-dashboard.mjs": "ad2bb9bdef55094a887473d63b57ca9f3b1e92ac8872ed4a46d4935bf7cc8ab0",
+    "scripts/verify-integration.py": "ecd9632c979a4565f663841abb2e888aa8f1dd4ff0e1f586f52e8d583c3e7e96"
+  },
+  "assets": [
+    {
+      "service": "api",
+      "image_ref": "governanca-saude-app:0.1.0",
+      "image_id": "sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 805306368,
+      "published_ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3000"
+          }
+        ]
+      },
+      "asset_id": "governanca-saude/api",
+      "image_digests": [
+        "governanca-saude-app@sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd"
+      ]
+    },
+    {
+      "service": "cadvisor",
+      "image_ref": "ghcr.io/google/cadvisor:0.60.5",
+      "image_id": "sha256:763aecf1c32c2be8a1a75f9abfc2fc461005c9dbbaa39cb356b354aac1296dbe",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1073741824,
+      "published_ports": {},
+      "asset_id": "governanca-saude/cadvisor",
+      "image_digests": [
+        "ghcr.io/google/cadvisor@sha256:763aecf1c32c2be8a1a75f9abfc2fc461005c9dbbaa39cb356b354aac1296dbe"
+      ]
+    },
+    {
+      "service": "grafana",
+      "image_ref": "grafana/grafana:13.2.1",
+      "image_id": "sha256:f772d434e8fab0049deb2b1b30abd43342bcfca1537614aa8d36080232cf4283",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3001"
+          }
+        ]
+      },
+      "asset_id": "governanca-saude/grafana",
+      "image_digests": [
+        "grafana/grafana@sha256:f772d434e8fab0049deb2b1b30abd43342bcfca1537614aa8d36080232cf4283"
+      ]
+    },
+    {
+      "service": "lab",
+      "image_ref": "governanca-saude-app:0.1.0",
+      "image_id": "sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd",
+      "cpu_limit_nanocpus": 500000000,
+      "memory_limit_bytes": 536870912,
+      "published_ports": {},
+      "asset_id": "governanca-saude/lab",
+      "image_digests": [
+        "governanca-saude-app@sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd"
+      ]
+    },
+    {
+      "service": "node-exporter",
+      "image_ref": "prom/node-exporter:v1.12.1",
+      "image_id": "sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0",
+      "cpu_limit_nanocpus": 250000000,
+      "memory_limit_bytes": 268435456,
+      "published_ports": {},
+      "asset_id": "governanca-saude/node-exporter",
+      "image_digests": [
+        "prom/node-exporter@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0"
+      ]
+    },
+    {
+      "service": "postgres",
+      "image_ref": "postgres:17.6-bookworm",
+      "image_id": "sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {},
+      "asset_id": "governanca-saude/postgres",
+      "image_digests": [
+        "postgres@sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3"
+      ]
+    },
+    {
+      "service": "prometheus",
+      "image_ref": "prom/prometheus:v3.14.0",
+      "image_id": "sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {},
+      "asset_id": "governanca-saude/prometheus",
+      "image_digests": [
+        "prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+      ]
+    }
+  ],
+  "host": {
+    "os": "Linux Mint 22.3",
+    "architecture": "x86_64",
+    "cpus": 12,
+    "memory_bytes": 24906383360,
+    "docker_version": "29.9.2"
+  }
+}

@@ -9,7 +9,7 @@ shift || true
 # Arguments are forwarded only by commands that document them. In particular,
 # npm stop -- -v must never become a volume-removal operation.
 case "$command" in
-  logs|query|load|fail-db|fail-collector|evidence|session-summary|db) ;;
+  logs|query|load|fail-db|fail-collector|fail-probe|evidence|session-summary|db) ;;
   *) if (( $# )); then echo 'Este comando não aceita argumentos. Consulte npm run help.' >&2; exit 2; fi ;;
 esac
 case "$command" in
@@ -46,6 +46,8 @@ case "$command" in
   db-ready) compose exec -T postgres pg_isready -U lab_owner -d healthlab ;;
   restore-db) compose start postgres ;;
   restore-collector) compose start lab ;;
+  restore-probe) cli probe-control 0 ;;
+  fail-probe) exec python3 scripts/probe-outage.py "$@" ;;
   load)
     (( $# <= 2 )) || { echo 'Uso: npm run simulate:load -- [RATE SECONDS]' >&2; exit 2; }
     cli load "${1:-1}" "${2:-3600}"
@@ -83,10 +85,10 @@ case "$command" in
     timer_pid=''
     ;;
   evidence)
-    (( $# <= 1 )) || { echo 'Uso: npm run evidence:export -- [PASTA]' >&2; exit 2; }
     python3 scripts/evidence.py "$@"
     ;;
-  session) python3 scripts/session.py "$@" ;;
+  session) exec python3 scripts/session.py "$@" ;;
+  baseline) exec python3 scripts/session.py --baseline ;;
   session-summary)
     (( $# == 1 )) || { echo 'Uso: npm run session:summary -- evidence/runs/session-<horário>' >&2; exit 2; }
     python3 scripts/summarize-session.py "$@"

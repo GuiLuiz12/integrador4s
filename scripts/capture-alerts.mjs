@@ -1,6 +1,12 @@
 import { chromium } from 'playwright';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
+import { parseArgs } from 'node:util';
+import { resolve, join } from 'node:path';
+
+const { values, positionals } = parseArgs({ allowPositionals: true, options: { 'output-dir': { type: 'string' } } });
+assert.ok(positionals.length <= 1, 'Informe no máximo um início ISO.');
+const output = resolve(values['output-dir'] ?? `evidence/runs/alerts-${Date.now()}`);
 
 // Optional observer: captures real alerts; never induces failures or edits the dashboard.
 const env = Object.fromEntries(readFileSync(new URL('../.env', import.meta.url), 'utf8').trim().split('\n').map(line => {
@@ -9,7 +15,7 @@ const env = Object.fromEntries(readFileSync(new URL('../.env', import.meta.url),
 const browser = await chromium.launch({ headless: true });
 const pending = new Set(['ConsultaAssistencialIndisponivel', 'FalhaDeColeta']);
 const deadline = Date.now() + 70 * 60_000;
-const observedSince = process.argv[2] ? Date.parse(process.argv[2]) : Date.now();
+const observedSince = positionals[0] ? Date.parse(positionals[0]) : Date.now();
 assert.ok(Number.isFinite(observedSince), 'Início de observação deve ser uma data ISO válida');
 try {
   const context = await browser.newContext({ viewport: { width: 1600, height: 1100 }, baseURL: 'http://localhost:3001' });
@@ -37,10 +43,10 @@ try {
       await page.goto(`/d/saude-v01?from=${start}&to=${end}&kiosk`, { waitUntil: 'networkidle' });
       await page.getByText('Consulta assistencial agora', { exact: true }).waitFor();
       await page.waitForTimeout(3000);
-      const folder = new URL(`../evidence/runs/alerts/${name}/`, import.meta.url);
+      const folder = join(output, name);
       mkdirSync(folder, { recursive: true });
-      await page.screenshot({ path: new URL('dashboard.png', folder).pathname });
-      writeFileSync(new URL('observation.json', folder), JSON.stringify({ captured_at: new Date().toISOString(),
+      await page.screenshot({ path: join(folder, 'dashboard.png') });
+      writeFileSync(join(folder, 'observation.json'), JSON.stringify({ captured_at: new Date().toISOString(),
         selected_alert_time: new Date(end).toISOString(), range_start: new Date(start).toISOString(),
         source: 'Histórico real do Prometheus; intervalo absoluto no Grafana', alerts }, null, 2) + '\n');
       await page.close();

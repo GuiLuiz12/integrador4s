@@ -1,0 +1,15 @@
+{
+  "session_id": "9354d609-9654-4632-9529-00bae1ec5f24",
+  "source_manifest_sha256": "fdb76d508aa28ee7cdd9617d989519392b2b913cf846673202deae12ead16179",
+  "captured_at": "2026-10-22T00:30:32.828Z",
+  "panels": 29,
+  "range_start": "2026-10-21T23:54:23.920Z",
+  "range_end": "2026-10-22T00:24:25.084Z",
+  "range_seconds": 1801.164,
+  "expression_errors": [],
+  "javascript_errors": [],
+  "screenshots": [
+    "sintese.png",
+    "infraestrutura.png"
+  ]
+}

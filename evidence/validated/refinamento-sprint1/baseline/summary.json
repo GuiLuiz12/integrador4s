@@ -1,0 +1,2862 @@
+{
+  "result": "passed",
+  "schema_version": 1,
+  "session_id": "9354d609-9654-4632-9529-00bae1ec5f24",
+  "kind": "baseline",
+  "analyzer": {
+    "path": "scripts/evidence_analysis.py",
+    "sha256": "fca5c988e78094f93c2ed5a9d85b5dd2eed90872c33aee136147f874f810193f",
+    "source_manifest_sha256": "fdb76d508aa28ee7cdd9617d989519392b2b913cf846673202deae12ead16179"
+  },
+  "started_at": "2026-10-21T23:54:23.920216+00:00",
+  "completed_at": "2026-10-22T00:24:25.084915+00:00",
+  "duration_seconds": 1801.1646988391876,
+  "observations": 120,
+  "successful_probes": 120,
+  "failed_probes": 0,
+  "observed_availability_percent": 100.0,
+  "temporal_completeness_percent": 99.93533634986639,
+  "maximum_probe_gap_seconds": 15.0,
+  "response_events": 2044,
+  "invalid_login_events": 0,
+  "clinical_503_events": 0,
+  "counter_observations": {
+    "load_attempts": [
+      {
+        "labels": {
+          "__name__": "lab_load_attempts_total",
+          "instance": "lab:9091",
+          "job": "lab",
+          "result": "concurrency_limit"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "lab_load_attempts_total",
+          "instance": "lab:9091",
+          "job": "lab",
+          "result": "http_error"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "lab_load_attempts_total",
+          "instance": "lab:9091",
+          "job": "lab",
+          "result": "success"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "lab_load_attempts_total",
+          "instance": "lab:9091",
+          "job": "lab",
+          "result": "transport_or_login_error"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      }
+    ],
+    "requests": [
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/auth/login",
+          "status": "200",
+          "traffic": "clinical"
+        },
+        "observed_increment": 2.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/auth/login",
+          "status": "200",
+          "traffic": "probe"
+        },
+        "observed_increment": 119.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "200",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "200",
+          "traffic": "probe"
+        },
+        "observed_increment": 119.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "200",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "400",
+          "traffic": "clinical"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "400",
+          "traffic": "probe"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "400",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "401",
+          "traffic": "clinical"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "401",
+          "traffic": "probe"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "401",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "404",
+          "traffic": "clinical"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "404",
+          "traffic": "probe"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "404",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "500",
+          "traffic": "clinical"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "500",
+          "traffic": "probe"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "500",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "503",
+          "traffic": "clinical"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "503",
+          "traffic": "probe"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_requests_total",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "status": "503",
+          "traffic": "unauthenticated"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      }
+    ],
+    "auth_failures": [
+      {
+        "labels": {
+          "__name__": "clinical_auth_failures_total",
+          "instance": "api:3000",
+          "job": "api",
+          "stage": "login"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_auth_failures_total",
+          "instance": "api:3000",
+          "job": "api",
+          "stage": "token"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      }
+    ],
+    "duration_bucket": [
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "+Inf",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.01",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1783.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.025",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.05",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.1",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.25",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "0.5",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "1.0",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "2.0",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_bucket",
+          "instance": "api:3000",
+          "job": "api",
+          "le": "3.0",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      }
+    ],
+    "duration_count": [
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_count",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 1784.0,
+        "resets": 0
+      }
+    ],
+    "duration_sum": [
+      {
+        "labels": {
+          "__name__": "clinical_request_duration_seconds_sum",
+          "instance": "api:3000",
+          "job": "api",
+          "route": "/prontuarios/:id",
+          "traffic": "clinical"
+        },
+        "observed_increment": 4.145444110004286,
+        "resets": 0
+      }
+    ],
+    "host_cpu": [
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1583.8799999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 2.3000000000000007,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.41999999999999993,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 25.540000000000003,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "0",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 118.75000000000003,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1719.5699999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 0.72,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.6200000000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 6.78,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "1",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 45.43000000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1703.99,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.4300000000000002,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.6300000000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 19.6,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "10",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 45.78,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1698.04,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.29,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.18999999999999995,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 19.17,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "11",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 44.169999999999995,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1575.8799999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 2.45,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.3500000000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 30.28,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "2",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 132.69,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1738.31,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.2099999999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.24999999999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 5.8500000000000005,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "3",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 33.849999999999994,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1627.9499999999998,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 2.2800000000000002,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.01,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.25,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 38.38,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "4",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 87.66999999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1642.6900000000003,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.6199999999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.01,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.30000000000000004,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 33.65,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "5",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 82.07,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1649.36,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.3500000000000005,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.01,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.12,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 31.97,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "6",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 76.55999999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1668.5599999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 2.1799999999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.009999999999999998,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.14,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 28.51,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "7",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 67.14999999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1694.9199999999998,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.4500000000000002,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.12,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 22.029999999999998,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "8",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 51.63000000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "idle"
+        },
+        "observed_increment": 1699.6399999999999,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "iowait"
+        },
+        "observed_increment": 1.1799999999999997,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "irq"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "nice"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "softirq"
+        },
+        "observed_increment": 0.16,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "steal"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "system"
+        },
+        "observed_increment": 21.19,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "node_cpu_seconds_total",
+          "cpu": "9",
+          "instance": "node-exporter:9100",
+          "job": "node",
+          "mode": "user"
+        },
+        "observed_increment": 48.449999999999996,
+        "resets": 0
+      }
+    ],
+    "container_cpu": [
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "cpu": "total",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 46.028754,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "cpu": "total",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "observed_increment": 19.195906,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "cpu": "total",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "observed_increment": 41.869054999999996,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "cpu": "total",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "observed_increment": 31.173081000000003,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "cpu": "total",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "observed_increment": 6.378328000000001,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "cpu": "total",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "observed_increment": 25.068846,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "cpu": "total",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "observed_increment": 13.096158000000003,
+        "resets": 0
+      }
+    ],
+    "container_network_receive": [
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 1180096.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 3270.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth2",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 615608.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "observed_increment": 84631.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "observed_increment": 141079.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "observed_increment": 21387.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "observed_increment": 889317.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "observed_increment": 85291.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "observed_increment": 517915.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "observed_increment": 12801910.0,
+        "resets": 0
+      }
+    ],
+    "container_network_transmit": [
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 2842602.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 0.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth2",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "observed_increment": 514996.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "observed_increment": 1952662.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "observed_increment": 5401687.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "observed_increment": 9810.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "observed_increment": 2641015.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "observed_increment": 1839383.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "observed_increment": 611981.0,
+        "resets": 0
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "observed_increment": 498158.0,
+        "resets": 0
+      }
+    ]
+  },
+  "sources": {
+    "availability": [
+      "series.json#/queries/probe_history"
+    ],
+    "collection": [
+      "series.json#/queries/collection_history"
+    ],
+    "invalid_logins": [
+      "events.jsonl:event=authentication,status=401"
+    ],
+    "clinical_errors": [
+      "events.jsonl:event=record_access,traffic=clinical,status=503"
+    ],
+    "host_cpu_percent": [
+      "derived.json#/queries/host_cpu_percent"
+    ],
+    "host_memory_percent": [
+      "derived.json#/queries/host_memory_percent"
+    ],
+    "container_cpu_cores": [
+      "derived.json#/queries/container_cpu_cores"
+    ],
+    "container_network_bytes_per_second": [
+      "derived.json#/queries/container_network_bytes_per_second"
+    ],
+    "clinical_volume": [
+      "derived.json#/queries/clinical_volume"
+    ],
+    "clinical_errors_percent": [
+      "derived.json#/queries/clinical_errors_percent"
+    ],
+    "clinical_p95": [
+      "derived.json#/queries/clinical_p95"
+    ]
+  },
+  "note": "Sessão didática; lacunas preservadas. Incrementos observados não equivalem ao increase extrapolado do Prometheus.",
+  "sample_counts": {
+    "probe_history": [
+      120
+    ],
+    "probe_duration": [
+      120
+    ],
+    "targets": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "collection_history": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "coverage": [
+      120
+    ],
+    "alert_history": [],
+    "load_history": [
+      120
+    ],
+    "load_attempts": [
+      120,
+      120,
+      120,
+      120
+    ],
+    "requests": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "auth_failures": [
+      120,
+      120
+    ],
+    "duration_bucket": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "duration_count": [
+      120
+    ],
+    "duration_sum": [
+      120
+    ],
+    "host_cpu": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "host_memory_available": [
+      120
+    ],
+    "host_memory_total": [
+      120
+    ],
+    "container_cpu": [
+      81,
+      80,
+      80,
+      81,
+      82,
+      80,
+      78
+    ],
+    "container_memory": [
+      81,
+      80,
+      80,
+      81,
+      82,
+      80,
+      78
+    ],
+    "container_network_receive": [
+      81,
+      81,
+      81,
+      80,
+      80,
+      80,
+      81,
+      82,
+      80,
+      78
+    ],
+    "container_network_transmit": [
+      81,
+      81,
+      81,
+      80,
+      80,
+      80,
+      81,
+      82,
+      80,
+      78
+    ]
+  },
+  "container_sampling": {
+    "container_cpu": [
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "cpu": "total",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "cpu": "total",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.91877189060297,
+        "maximum_gap_seconds": 29.49500012397766,
+        "first_sample_delay_seconds": 0.9007840156555176,
+        "last_sample_age_seconds": 18.573915004730225,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "cpu": "total",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "cpu": "total",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 98.91710631648914,
+        "maximum_gap_seconds": 29.981000185012817,
+        "first_sample_delay_seconds": 11.577783823013306,
+        "last_sample_age_seconds": 7.926914930343628,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "cpu": "total",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "samples": 82,
+        "observed_span_percent": 98.71290510079321,
+        "maximum_gap_seconds": 29.971999883651733,
+        "first_sample_delay_seconds": 13.555783987045288,
+        "last_sample_age_seconds": 9.626914978027344,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "cpu": "total",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 99.21746751338017,
+        "maximum_gap_seconds": 29.207000017166138,
+        "first_sample_delay_seconds": 2.0767838954925537,
+        "last_sample_age_seconds": 12.01791501045227,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_cpu_usage_seconds_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "cpu": "total",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "samples": 78,
+        "observed_span_percent": 98.40776921751602,
+        "maximum_gap_seconds": 29.957000017166138,
+        "first_sample_delay_seconds": 24.763783931732178,
+        "last_sample_age_seconds": 3.914914846420288,
+        "accepted_maximum_gap_seconds": 150
+      }
+    ],
+    "container_memory": [
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.91877189060297,
+        "maximum_gap_seconds": 29.49500012397766,
+        "first_sample_delay_seconds": 0.9007840156555176,
+        "last_sample_age_seconds": 18.573915004730225,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 98.91710631648914,
+        "maximum_gap_seconds": 29.981000185012817,
+        "first_sample_delay_seconds": 11.577783823013306,
+        "last_sample_age_seconds": 7.926914930343628,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "samples": 82,
+        "observed_span_percent": 98.71290510079321,
+        "maximum_gap_seconds": 29.971999883651733,
+        "first_sample_delay_seconds": 13.555783987045288,
+        "last_sample_age_seconds": 9.626914978027344,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 99.21746751338017,
+        "maximum_gap_seconds": 29.207000017166138,
+        "first_sample_delay_seconds": 2.0767838954925537,
+        "last_sample_age_seconds": 12.01791501045227,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_memory_working_set_bytes",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "samples": 78,
+        "observed_span_percent": 98.40776921751602,
+        "maximum_gap_seconds": 29.957000017166138,
+        "first_sample_delay_seconds": 24.763783931732178,
+        "last_sample_age_seconds": 3.914914846420288,
+        "accepted_maximum_gap_seconds": 150
+      }
+    ],
+    "container_network_receive": [
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth2",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.91877189060297,
+        "maximum_gap_seconds": 29.49500012397766,
+        "first_sample_delay_seconds": 0.9007840156555176,
+        "last_sample_age_seconds": 18.573915004730225,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 98.91710631648914,
+        "maximum_gap_seconds": 29.981000185012817,
+        "first_sample_delay_seconds": 11.577783823013306,
+        "last_sample_age_seconds": 7.926914930343628,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "samples": 82,
+        "observed_span_percent": 98.71290510079321,
+        "maximum_gap_seconds": 29.971999883651733,
+        "first_sample_delay_seconds": 13.555783987045288,
+        "last_sample_age_seconds": 9.626914978027344,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 99.21746751338017,
+        "maximum_gap_seconds": 29.207000017166138,
+        "first_sample_delay_seconds": 2.0767838954925537,
+        "last_sample_age_seconds": 12.01791501045227,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_receive_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "samples": 78,
+        "observed_span_percent": 98.40776921751602,
+        "maximum_gap_seconds": 29.957000017166138,
+        "first_sample_delay_seconds": 24.763783931732178,
+        "last_sample_age_seconds": 3.914914846420288,
+        "accepted_maximum_gap_seconds": 150
+      }
+    ],
+    "container_network_transmit": [
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "api",
+          "id": "/system.slice/docker-860cd5e374e5a38809e59002e35112743de6289a4b4c59021faa84b2d333cf83.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth2",
+          "job": "cadvisor",
+          "name": "governanca-saude-api-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 99.23356821757777,
+        "maximum_gap_seconds": 29.6560001373291,
+        "first_sample_delay_seconds": 4.847783803939819,
+        "last_sample_age_seconds": 8.956914901733398,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "cadvisor",
+          "id": "/system.slice/docker-818e7e2715bccb8928434ca11397b7a2822e134d027bc123d7234400caf718a0.scope",
+          "image": "ghcr.io/google/cadvisor:0.60.5",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-cadvisor-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.91877189060297,
+        "maximum_gap_seconds": 29.49500012397766,
+        "first_sample_delay_seconds": 0.9007840156555176,
+        "last_sample_age_seconds": 18.573915004730225,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "grafana",
+          "id": "/system.slice/docker-8df9a856c8269ab4d2379dda5e6f8a60a1c38b56e865e94b15a88cf1d7083693.scope",
+          "image": "grafana/grafana:13.2.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth1",
+          "job": "cadvisor",
+          "name": "governanca-saude-grafana-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 98.37512367102565,
+        "maximum_gap_seconds": 29.963000059127808,
+        "first_sample_delay_seconds": 12.820783853530884,
+        "last_sample_age_seconds": 16.44591498374939,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "lab",
+          "id": "/system.slice/docker-22c0ef6756d25fd9167148fbe8833ab1fabe6fd0b4d9119d6739025463942353.scope",
+          "image": "governanca-saude-app:0.1.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-lab-1"
+        },
+        "samples": 81,
+        "observed_span_percent": 98.91710631648914,
+        "maximum_gap_seconds": 29.981000185012817,
+        "first_sample_delay_seconds": 11.577783823013306,
+        "last_sample_age_seconds": 7.926914930343628,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "node-exporter",
+          "id": "/system.slice/docker-98e054e708668181e0bcd4f7c10efec4bac9e65ec675fefc6ab564cb440379ce.scope",
+          "image": "prom/node-exporter:v1.12.1",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-node-exporter-1"
+        },
+        "samples": 82,
+        "observed_span_percent": 98.71290510079321,
+        "maximum_gap_seconds": 29.971999883651733,
+        "first_sample_delay_seconds": 13.555783987045288,
+        "last_sample_age_seconds": 9.626914978027344,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "postgres",
+          "id": "/system.slice/docker-221f8f7ee94fdb1b224be004ae654a8833d76a5c291ea70d132e97e28d77d798.scope",
+          "image": "postgres:17.6-bookworm",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-postgres-1"
+        },
+        "samples": 80,
+        "observed_span_percent": 99.21746751338017,
+        "maximum_gap_seconds": 29.207000017166138,
+        "first_sample_delay_seconds": 2.0767838954925537,
+        "last_sample_age_seconds": 12.01791501045227,
+        "accepted_maximum_gap_seconds": 150
+      },
+      {
+        "labels": {
+          "__name__": "container_network_transmit_bytes_total",
+          "container_label_com_docker_compose_project": "governanca-saude",
+          "container_label_com_docker_compose_service": "prometheus",
+          "id": "/system.slice/docker-ea33414de86d2f50132b47c06e8766059bf1547259cba4945edf709902aafd26.scope",
+          "image": "prom/prometheus:v3.14.0",
+          "instance": "cadvisor:8080",
+          "interface": "eth0",
+          "job": "cadvisor",
+          "name": "governanca-saude-prometheus-1"
+        },
+        "samples": 78,
+        "observed_span_percent": 98.40776921751602,
+        "maximum_gap_seconds": 29.957000017166138,
+        "first_sample_delay_seconds": 24.763783931732178,
+        "last_sample_age_seconds": 3.914914846420288,
+        "accepted_maximum_gap_seconds": 150
+      }
+    ]
+  }
+}

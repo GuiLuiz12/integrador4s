@@ -4,6 +4,7 @@ import swagger from '@fastify/swagger';
 import { Registry, Counter, Histogram, collectDefaultMetrics } from '@prometheus-io/client';
 import { performance } from 'node:perf_hooks';
 import { readFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 import { hashPassword, verifyPassword } from '../shared/password.js';
 import type { Repository } from './repository.js';
 
@@ -21,6 +22,7 @@ export async function buildApp(options: { repository: Repository; jwtSecret: str
   if (options.jwtSecret.length < 32) throw new Error('JWT_SECRET deve ter pelo menos 32 caracteres');
   const app = Fastify({ logger: options.logger ?? false, logController: new LogController({ disableRequestLogging: true }), bodyLimit: 4096 });
   const repository = options.repository;
+  const identity = { service: 'api', instance_id: randomUUID() };
   const dummyHash = await hashPassword('unused-dummy-password');
   const registry = new Registry();
   collectDefaultMetrics({ register: registry, prefix: 'clinical_' });
@@ -48,14 +50,14 @@ export async function buildApp(options: { repository: Repository; jwtSecret: str
     if (route === '/prontuarios/:id' && reply.statusCode === 200) {
       duration.labels(route, request.trafficKind).observe(elapsed);
     }
-    app.log.info({ event: route === '/auth/login' ? 'authentication' : 'record_access',
+    app.log.info({ ...identity, event: route === '/auth/login' ? 'authentication' : 'record_access',
       correlation_id: request.id, traffic: request.trafficKind, status: reply.statusCode,
       duration_ms: Math.round(elapsed * 1000) }, 'Evento do laboratório');
   });
   app.setErrorHandler((error, request, reply) => {
     const failure = error as { validation?: unknown; statusCode?: number };
     const status = failure.validation ? 400 : failure.statusCode && failure.statusCode < 500 ? failure.statusCode : 503;
-    app.log.warn({ event: 'request_error', correlation_id: request.id, status }, 'Falha na requisição');
+    app.log.warn({ ...identity, event: 'request_error', correlation_id: request.id, status }, 'Falha na requisição');
     reply.code(status).send({ error: status === 400 ? 'invalid_request' : status === 503 ? 'service_unavailable' : 'request_rejected' });
   });
   await app.register(jwt, { secret: options.jwtSecret, sign: { expiresIn: '15m', iss: 'healthlab', aud: 'clinical-api' },

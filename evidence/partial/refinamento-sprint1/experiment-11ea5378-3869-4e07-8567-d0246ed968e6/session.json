@@ -1,0 +1,62 @@
+[
+  {
+    "at": "2026-10-22T00:27:11.219935+00:00",
+    "elapsed_seconds": 3.026,
+    "event": "warmup_started",
+    "actor": "session_runner",
+    "phase": "preparation"
+  },
+  {
+    "at": "2026-10-22T00:32:24.309761+00:00",
+    "elapsed_seconds": 316.115,
+    "event": "warmup_completed",
+    "actor": "session_runner",
+    "phase": "preparation"
+  },
+  {
+    "at": "2026-10-22T00:32:24.319580+00:00",
+    "elapsed_seconds": 0.009,
+    "event": "session_started",
+    "actor": "session_runner",
+    "phase": "normal_before_load"
+  },
+  {
+    "at": "2026-10-22T00:42:24.729101+00:00",
+    "elapsed_seconds": 600.419,
+    "event": "load_5rps_started",
+    "actor": "session_runner",
+    "phase": "load",
+    "asset_id": "governanca-saude/lab"
+  },
+  {
+    "at": "2026-10-22T00:52:24.626750+00:00",
+    "elapsed_seconds": 1200.316,
+    "event": "load_5rps_finished",
+    "actor": "session_runner",
+    "phase": "load",
+    "asset_id": "governanca-saude/lab"
+  },
+  {
+    "at": "2026-10-22T00:57:24.311203+00:00",
+    "elapsed_seconds": 1500.001,
+    "event": "invalid_logins_started",
+    "actor": "session_runner",
+    "phase": "invalid_logins",
+    "asset_id": "governanca-saude/api"
+  },
+  {
+    "at": "2026-10-22T00:57:25.035874+00:00",
+    "elapsed_seconds": 1500.725,
+    "event": "ten_invalid_logins_completed",
+    "actor": "session_runner",
+    "phase": "invalid_logins",
+    "asset_id": "governanca-saude/api"
+  },
+  {
+    "at": "2026-10-22T00:59:10.953588+00:00",
+    "elapsed_seconds": 1606.643,
+    "event": "session_interrupted_or_failed",
+    "actor": "session_runner",
+    "phase": "normal_before_db_outage"
+  }
+]

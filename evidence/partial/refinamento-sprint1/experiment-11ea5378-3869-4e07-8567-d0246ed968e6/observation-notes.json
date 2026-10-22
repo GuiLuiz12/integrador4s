@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-10-22T00:35:01.892897+00:00",
+  "scope": "host_context",
+  "notes": [
+    "O host permaneceu em uso interativo durante baseline e experimento.",
+    "O observador Playwright alerts:capture foi iniciado na fase normal_before_load e acompanha os dois alertas no Grafana.",
+    "O processo do navegador está fora dos sete serviços Compose; seu consumo aparece nas métricas do host.",
+    "Diferenças entre métricas do host e dos contêineres devem ser consideradas na análise de desempenho."
+  ]
+}

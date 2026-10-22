@@ -1,9 +1,22 @@
 import { required } from '../shared/config.js';
-const [command, first, second] = process.argv.slice(2);
+const [command, first, second, third, fourth] = process.argv.slice(2);
 if (command === 'load') {
   const response = await fetch('http://127.0.0.1:9091/control/load', { method: 'POST',
     headers: { 'content-type': 'application/json' }, body: JSON.stringify({ rate: Number(first), seconds: Number(second) }) });
   if (!response.ok) throw new Error('Parâmetros de carga recusados');
+  console.log(await response.text());
+} else if (command === 'probe-control') {
+  const response = await fetch('http://127.0.0.1:9091/control/probe', { method: 'POST',
+    headers: { 'content-type': 'application/json' }, body: JSON.stringify({ seconds: Number(first) }),
+    signal: AbortSignal.timeout(5000) });
+  if (!response.ok) throw new Error('Controle do verificador recusado');
+  console.log(await response.text());
+} else if (command === 'query-range') {
+  const start = Number(second), end = Number(third), step = Number(fourth);
+  if (![start, end, step].every(Number.isFinite) || start >= end || step <= 0) throw new Error('Intervalo inválido');
+  const params = new URLSearchParams({ query: first ?? 'up', start: String(start), end: String(end), step: String(step) });
+  const response = await fetch(`http://prometheus:9090/api/v1/query_range?${params}`, { signal: AbortSignal.timeout(30000) });
+  if (!response.ok) throw new Error('Consulta temporal Prometheus falhou');
   console.log(await response.text());
 } else if (command === 'invalid-logins') {
   for (let i = 0; i < 10; i++) {
@@ -16,7 +29,7 @@ if (command === 'load') {
 } else if (command === 'query') {
   // Queries run inside the Compose network; monitoring ports remain unpublished.
   const timestamp = second ? `&time=${encodeURIComponent(second)}` : '';
-  const response = await fetch(`http://prometheus:9090/api/v1/query?query=${encodeURIComponent(first ?? 'up')}${timestamp}`);
+  const response = await fetch(`http://prometheus:9090/api/v1/query?query=${encodeURIComponent(first ?? 'up')}${timestamp}`, { signal: AbortSignal.timeout(30000) });
   if (!response.ok) throw new Error('Consulta Prometheus falhou');
   console.log(await response.text());
 } else if (command === 'check-api') {
@@ -28,4 +41,4 @@ if (command === 'load') {
   const record = await fetch('http://api:3000/prontuarios/1', { headers: { authorization: `Bearer ${access_token}` } });
   if (record.status !== 200) throw new Error('Consulta falhou');
   console.log('Login e consulta funcionam; token e conteúdo omitidos');
-} else { throw new Error('Comando inválido: load, invalid-logins, query ou check-api'); }
+} else { throw new Error('Comando inválido: load, probe-control, invalid-logins, query, query-range ou check-api'); }

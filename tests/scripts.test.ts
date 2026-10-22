@@ -127,3 +127,35 @@ test('start não informa sucesso sem preparação ou sem cobertura de monitorame
   assert.match(noContainers.stderr, /faltam métricas dos contêineres/);
   assert.ok(!noContainers.stdout.includes('[start] Pronto:'));
 });
+
+test('SIGTERM restaura o probe isolado sem esperar o TTL e sem parar serviços', { timeout: 5000 }, async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'healthlab-probe-signal-'));
+  const log = join(directory, 'commands.log');
+  await writeFile(join(directory, 'docker'), '#!/bin/sh\nprintf \'%s\\n\' "$*" >> "$TEST_DOCKER_LOG"\n', { mode: 0o700 });
+  const child = spawn('bash', [resolve('scripts/lab.sh'), 'fail-probe', '5'], {
+    env: { ...process.env, PATH: `${directory}:${process.env.PATH}`, TEST_DOCKER_LOG: log }, stdio: 'ignore',
+  });
+  const exited = new Promise<number | null>((resolveExit, reject) => {
+    child.once('error', reject);
+    child.once('exit', code => resolveExit(code));
+  });
+  t.after(async () => {
+    if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL');
+    await rm(directory, { recursive: true, force: true });
+  });
+  let commands = '';
+  for (let i = 0; i < 100; i++) {
+    commands = await readFile(log, 'utf8').catch(() => '');
+    if (commands.includes('probe-control 5')) break;
+    await delay(20);
+  }
+  assert.match(commands, /probe-control 5/);
+  await delay(100);
+  const sentAt = performance.now();
+  child.kill('SIGTERM');
+  await exited;
+  assert.ok(performance.now() - sentAt < 1500);
+  const restored = await readFile(log, 'utf8');
+  assert.match(restored, /probe-control 0/);
+  assert.ok(!restored.includes('stop ') && !restored.includes('start '));
+});

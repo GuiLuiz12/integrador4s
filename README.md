@@ -4,6 +4,8 @@ Laboratório da **Sprint 1**, com prontuários inteiramente fictícios, consulta
 
 Sprint 1 concluída e validada em 17/09/2026. Consulte o [relatório com a DoD](docs/relatorio-sprint1.md) e as [evidências revisadas](evidence/validated/sprint1/README.md). A entrega combina a sessão de falhas de 10/09 com a validação de retomada de 17/09, sem misturar os dois períodos.
 
+O refinamento prepara a análise com baseline separado, falha isolada do probe e exportações rastreáveis. Consulte o [planejamento das três sprints](docs/planejamento.md) e o [contrato das evidências](docs/evidencias.md).
+
 ## Começar
 
 Use **Ubuntu 24.04 ou Ubuntu 26 ou superior**, em uma máquina x86_64 ou ARM64 com 6 CPUs lógicas, 8 GiB de RAM e 15 GiB livres para imagens e dados. O teste de memória aceita ao menos 7,5 GiB reconhecidos pelo kernel. É necessário acesso à internet e permissão de `sudo` quando faltarem pacotes. Versões futuras do Ubuntu dependem da disponibilidade do repositório oficial Docker para seu codinome.
@@ -102,17 +104,20 @@ npm run check
 npm run evidence:export
 ```
 
-As simulações alteram o laboratório: carga ampliada, dez falhas de autenticação e indisponibilidade do banco. `simulate:db-outage` restaura o banco ao terminar ou receber Ctrl+C. `npm run simulate:collector-outage -- 90` interrompe e restaura o gerador/verificador. Recuperação manual: `npm run db:restore` e `npm run collector:restore`.
+As simulações alteram o laboratório: carga ampliada, dez falhas de autenticação e indisponibilidade do banco. `simulate:db-outage` restaura o banco ao terminar ou receber Ctrl+C. `npm run simulate:probe-outage -- 90` interrompe somente a coleta de `/probe`, mantendo o gerador e suas métricas; restaura por expiração ou sinal. Recuperação manual: `npm run db:restore` e `npm run probe:restore`. O comando anterior `simulate:collector-outage` continua disponível para interromper o contêiner `lab` inteiro.
 
-Para a sequência completa de **60 minutos reais**, começar com cobertura de 100%:
+Para produzir os conjuntos separados, começar com cobertura de 100%:
 
 ```bash
+npm run baseline:run
 npm run session:run
 ```
 
-A sessão inclui carga ampliada por dez minutos, dez logins inválidos, queda do banco por dois minutos, recuperação e interrupção do verificador por 90 s. Evidências ficam em `evidence/runs/`, ignorado pelo Git. O histórico não é fabricado nem preenchido retroativamente. Ver [roteiro](docs/demonstracao.md) e [relatório de validação](docs/relatorio-sprint1.md).
+O **baseline dura 30 minutos** a 1/s e o **experimento dura 60 minutos**. Cada execução acrescenta pelo menos cinco minutos de estabilização antes do período observado. Execute sequencialmente, sem alterar código, configuração ou imagens durante a coleta.
 
-Após a sessão: `npm run session:summary -- evidence/runs/session-<horário>` valida os arquivos e gera `summary.json`. Para exportar a última hora sem executar uma sessão, use `npm run evidence:export`.
+O experimento inclui carga ampliada por dez minutos, dez logins inválidos, queda do banco por dois minutos e falha isolada do probe por 90 s. Os arquivos ficam em `evidence/runs/baseline-<UUID>` e `evidence/runs/experiment-<UUID>`, ignorados pelo Git. As fontes são exportadas e verificadas ao concluir. Ver [roteiro](docs/demonstracao.md), [formato das evidências](docs/evidencias.md) e [relatório histórico da Sprint 1](docs/relatorio-sprint1.md).
+
+Para conferir novamente sem serviços ativos, use `npm run session:summary -- PASTA_DA_SESSAO`. O comando valida as fontes e gera `summary.json`. Uma exportação avulsa usa `npm run evidence:export -- PASTA_VAZIA --from ISO_INICIO --to ISO_FIM`; informe ambas as datas com fuso. Sem datas, usa a última hora; sem pasta, cria um destino exclusivo.
 
 ## Validar o ambiente
 
@@ -147,6 +152,7 @@ Esta seção é opcional para quem vai alterar o projeto. Node/npm já são prep
 |---|---|---|
 | `npm run build` | Compila TypeScript para `dist/` | Validar alterações na aplicação |
 | `npm test` | Executa testes de código e dos scripts com isolamento | Verificar alterações; não é a sessão real de uma hora |
+| `npm run test:evidence` | Testa exportação e análise offline com Python | Verificar integridade, recortes e critérios de aceite; usa fixtures sintéticas somente nos testes |
 | `npm run dashboard` | Gera `dashboards/saude.json` | Depois de editar `scripts/dashboard.mjs` |
 | `npm run start:api` | Inicia apenas a API compilada fora do Compose | Desenvolvimento manual, com banco e variáveis preparados |
 | `npm run start:lab` | Inicia apenas gerador/verificador compilados fora do Compose | Desenvolvimento manual, com API e variáveis preparados |
@@ -160,9 +166,9 @@ npm run browser:setup
 npm run dashboard:verify
 ```
 
-`browser:setup` instala Chromium e bibliotecas do sistema; pode solicitar sudo. As capturas ficam em `evidence/runs/dashboard/`, sem tela de login. `dashboard:verify` aceita `-- --from ISO --to ISO --output-dir PASTA`; as duas datas devem ser informadas juntas. Sem intervalo explícito, usa a última hora. As consultas e imagens usam o mesmo período. As ferramentas compartilham o cache padrão do Playwright, podendo usar `PLAYWRIGHT_BROWSERS_PATH` quando definido.
+`browser:setup` instala Chromium e bibliotecas do sistema; pode solicitar sudo. As capturas ficam em `evidence/runs/dashboard-<timestamp>/`, sem tela de login. `dashboard:verify` aceita `-- --from ISO --to ISO --output-dir PASTA`; as duas datas devem ser informadas juntas. Sem intervalo explícito, usa a última hora. As consultas e imagens usam o mesmo período. Para vincular a captura à coleta, use `npm run dashboard:verify -- --session-dir PASTA_DA_SESSAO`: o manifesto fornece o intervalo, e `validation.json` registra seu hash e o ID da sessão. As ferramentas compartilham o cache padrão do Playwright, podendo usar `PLAYWRIGHT_BROWSERS_PATH` quando definido.
 
-`npm run alerts:capture` observa os dois alertas por até 70 minutos e salva em `evidence/runs/alerts/`, sem provocar falhas. Execute em outro terminal antes da sessão. Pode receber o início ISO de uma sessão com `npm run alerts:capture -- ISO_INÍCIO`.
+`npm run alerts:capture` observa os dois alertas por até 70 minutos e salva em `evidence/runs/alerts-<timestamp>/`, sem provocar falhas. Execute em outro terminal no início do experimento. Pode receber o início ISO e a pasta de destino com `npm run alerts:capture -- ISO_INÍCIO --output-dir PASTA` (por exemplo, `PASTA_DA_SESSAO/captures/alerts`).
 
 ## Encerrar e recuperar
 
@@ -174,6 +180,10 @@ Somente as portas 3000 e 3001 são publicadas, vinculadas a loopback. A rede do 
 
 ## Documentação
 
+- [Planejamento das três sprints](docs/planejamento.md)
+- [Contrato das evidências e reprodução offline](docs/evidencias.md)
+- [Validação do refinamento da Sprint 1](docs/validacao-refinamento.md)
+- [Evidências revisadas do refinamento](evidence/validated/refinamento-sprint1/README.md)
 - [Arquitetura e implantação futura](docs/arquitetura.md)
 - [Inventário e cobertura](docs/inventario.md)
 - [Catálogo dos indicadores](docs/indicadores.md)

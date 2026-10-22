@@ -93,3 +93,23 @@ test('verificação real HTTP percorre login, consulta e detecta a dependência 
   assert.equal((await probe(base, { username: 'monitor', password })).success, 1);
   outage(); assert.equal((await probe(base, { username: 'monitor', password })).success, 0);
 });
+
+test('logs correlacionam diagnóstico e resposta e distinguem instâncias reiniciadas', async t => {
+  const firstLogs: string[] = [], secondLogs: string[] = [];
+  const first = await fixture(firstLogs), second = await fixture(secondLogs);
+  t.after(async () => { await first.app.close(); await second.app.close(); });
+  await first.login();
+  first.outage();
+  await first.login();
+  await second.login();
+  const parse = (logs: string[]) => logs.join('').trim().split('\n').map(line => JSON.parse(line));
+  const firstEvents = parse(firstLogs).filter(event => event.event);
+  const secondEvent = parse(secondLogs).find(event => event.event === 'authentication');
+  assert.ok(firstEvents.every(event => event.service === 'api' && event.instance_id === firstEvents[0].instance_id));
+  assert.notEqual(firstEvents[0].instance_id, secondEvent.instance_id);
+  assert.equal(firstEvents[0].correlation_id, secondEvent.correlation_id);
+  const error = firstEvents.find(event => event.event === 'request_error');
+  const response = firstEvents.find(event => event.event === 'authentication' && event.status === 503);
+  assert.ok(error && response);
+  assert.equal(error.correlation_id, response.correlation_id);
+});

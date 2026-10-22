@@ -4,13 +4,17 @@ import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 
 const { values } = parseArgs({ options: {
-  from: { type: 'string' }, to: { type: 'string' }, 'output-dir': { type: 'string' },
+  from: { type: 'string' }, to: { type: 'string' }, 'output-dir': { type: 'string' }, 'session-dir': { type: 'string' },
 } });
 assert.equal(values.from !== undefined, values.to !== undefined, 'Informe --from e --to juntos, em formato ISO 8601');
-const to = values.to === undefined ? Date.now() : Date.parse(values.to);
-const from = values.from === undefined ? to - 3600_000 : Date.parse(values.from);
+assert.ok(!values['session-dir'] || values.from === undefined, 'Use --session-dir ou --from/--to.');
+const manifestText = values['session-dir'] ? readFileSync(join(resolve(values['session-dir']), 'manifest.json'), 'utf8') : undefined;
+const manifest = manifestText ? JSON.parse(manifestText) : undefined;
+const to = manifest ? Date.parse(manifest.range_end) : values.to === undefined ? Date.now() : Date.parse(values.to);
+const from = manifest ? Date.parse(manifest.range_start) : values.from === undefined ? to - 3600_000 : Date.parse(values.from);
 assert.ok(Number.isFinite(from) && Number.isFinite(to) && from < to, 'O intervalo deve conter datas válidas, com início anterior ao fim');
 const rangeSeconds = (to - from) / 1000;
 const rangeDuration = Number.isInteger(rangeSeconds) ? `${rangeSeconds}s` : `${to - from}ms`;
@@ -18,7 +22,7 @@ const env = Object.fromEntries(readFileSync(new URL('../.env', import.meta.url),
   const i = line.indexOf('='); return [line.slice(0, i), line.slice(i + 1)];
 }));
 const output = values['output-dir'] === undefined
-  ? fileURLToPath(new URL('../evidence/runs/dashboard/', import.meta.url))
+  ? (values['session-dir'] ? join(resolve(values['session-dir']), 'captures', `dashboard-${Date.now()}`) : fileURLToPath(new URL(`../evidence/runs/dashboard-${Date.now()}/`, import.meta.url)))
   : resolve(values['output-dir']);
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
@@ -53,7 +57,7 @@ try {
   await page.getByText('CPU por contêiner · núcleos utilizados', { exact: true }).scrollIntoViewIfNeeded();
   await page.waitForTimeout(3000);
   await page.screenshot({ path: join(output, 'infraestrutura.png') });
-  const result = { captured_at: new Date().toISOString(), panels: dashboard.panels.length,
+  const result = { session_id: manifest?.session_id, source_manifest_sha256: manifestText ? createHash('sha256').update(manifestText).digest('hex') : undefined, captured_at: new Date().toISOString(), panels: dashboard.panels.length,
     range_start: new Date(from).toISOString(), range_end: new Date(to).toISOString(), range_seconds: rangeSeconds,
     expression_errors: failures, javascript_errors: errors, screenshots: ['sintese.png', 'infraestrutura.png'] };
   writeFileSync(join(output, 'validation.json'), JSON.stringify(result, null, 2) + '\n');

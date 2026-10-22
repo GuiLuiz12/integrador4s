@@ -1,0 +1,32 @@
+groups:
+  - name: inventory
+    rules:
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: api } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: probe } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: lab } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: node } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: cadvisor } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: prometheus } }
+      - { record: 'lab:target_expected', expr: 'vector(1)', labels: { job: grafana } }
+      - record: lab:target_up
+        expr: (max by (job) (up) and on(job) lab:target_expected) or on(job) (0 * lab:target_expected)
+      - record: lab:collection_coverage_percent
+        expr: 100 * sum(lab:target_up) / count(lab:target_expected)
+      - record: lab:clinical_available
+        expr: probe_success{job="probe"} and on(job, instance) (up{job="probe"} == 1)
+  - name: continuity
+    rules:
+      - alert: ConsultaAssistencialIndisponivel
+        expr: lab:clinical_available == 0
+        for: 1m
+        labels: { severity: critical, owner: operacao_laboratorio }
+        annotations:
+          summary: Consulta autenticada de prontuário indisponível
+          description: Atendimento simulado impactado. Confirmar API e PostgreSQL antes de atribuir a causa. Seguir o procedimento de recuperação.
+      - alert: FalhaDeColeta
+        expr: lab:target_up == 0
+        for: 1m
+        labels: { severity: warning, owner: operacao_laboratorio }
+        annotations:
+          summary: 'Sem coleta válida no alvo {{ $labels.job }}'
+          description: Ausência de dados não comprova disponibilidade assistencial. Recuperar a coleta e verificar novamente.

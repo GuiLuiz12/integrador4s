@@ -1,0 +1,30 @@
+[
+  {
+    "at": "2026-10-21T23:49:10.552174+00:00",
+    "elapsed_seconds": 2.959,
+    "event": "warmup_started",
+    "actor": "session_runner",
+    "phase": "preparation"
+  },
+  {
+    "at": "2026-10-21T23:54:23.911171+00:00",
+    "elapsed_seconds": 316.318,
+    "event": "warmup_completed",
+    "actor": "session_runner",
+    "phase": "preparation"
+  },
+  {
+    "at": "2026-10-21T23:54:23.920216+00:00",
+    "elapsed_seconds": 0.009,
+    "event": "session_started",
+    "actor": "session_runner",
+    "phase": "baseline"
+  },
+  {
+    "at": "2026-10-22T00:24:25.084915+00:00",
+    "elapsed_seconds": 1801.173,
+    "event": "session_completed",
+    "actor": "session_runner",
+    "phase": "baseline"
+  }
+]

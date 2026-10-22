@@ -2,6 +2,7 @@ import Fastify, { LogController } from 'fastify';
 import { Registry, Gauge, Counter, collectDefaultMetrics } from '@prometheus-io/client';
 import { required } from '../shared/config.js';
 import { login, probe } from './probe.js';
+import { registerProbe } from './probe-control.js';
 
 const app = Fastify({ logger: true, logController: new LogController({ disableRequestLogging: true }), bodyLimit: 1024 });
 const base = 'http://api:3000';
@@ -12,6 +13,7 @@ collectDefaultMetrics({ register: registry, prefix: 'lab_' });
 const rateMetric = new Gauge({ name: 'lab_load_rate', help: 'Consultas agendadas por segundo', registers: [registry] });
 const attempts = new Counter({ name: 'lab_load_attempts_total', help: 'Tentativas de tráfego e resultado de transporte',
   labelNames: ['result'], registers: [registry] });
+for (const result of ['success', 'http_error', 'transport_or_login_error', 'concurrency_limit']) attempts.labels(result).inc(0);
 let rate = 1, until = 0, active = 0, token = '', tokenUntil = 0, recordId = 0;
 let timer: NodeJS.Timeout;
 let stopped = false;
@@ -46,16 +48,7 @@ function tick() {
   }
   timer = setTimeout(tick, rate > 0 ? 1000 / rate : 1000);
 }
-let inFlight: ReturnType<typeof probe> | undefined;
-app.get('/probe', async (_, reply) => {
-  inFlight ??= probe(base, probeCredentials).finally(() => { inFlight = undefined; });
-  const result = await inFlight;
-  return reply.type('text/plain; version=0.0.4').send(
-    '# HELP probe_success Fluxo autenticado e prontuário esperado disponíveis\n# TYPE probe_success gauge\n' +
-    `probe_success ${result.success}\n` +
-    '# HELP probe_duration_seconds Duração total do fluxo assistencial\n# TYPE probe_duration_seconds gauge\n' +
-    `probe_duration_seconds ${result.duration}\n`);
-});
+registerProbe(app, () => probe(base, probeCredentials));
 app.get('/metrics', async (_, reply) => reply.type(registry.contentType).send(await registry.metrics()));
 app.get('/health/live', async () => ({ status: 'alive' }));
 app.post<{ Body: { rate: number; seconds: number } }>('/control/load', {
