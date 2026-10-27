@@ -51,28 +51,32 @@ export function sprint2Panels(a) {
   matrix.fieldConfig.overrides=[1,2,3,4,5].map(i=>({matcher:{id:'byName',options:'I = '+i},properties:[{id:'thresholds',value:matrixThresholds},{id:'mappings',value:[{type:'value',options:mapping}]},{id:'custom.cellOptions',value:{type:'color-background',mode:'basic'}}]}));
   widths(matrix,{'P ↓':50,'I = 1':50,'I = 2':50,'I = 3':50,'I = 4':90,'I = 5':80});
   matrix.description += ' P e I de 1 a 5; risco inerente = P × I. Células vazias não têm riscos registrados. Classificação qualitativa do cenário.';
-  const riskTable=table('Registro de riscos e responsáveis',8,26,16,9,['ID','Ativo','P','I','Risco','Nível','Responsável','Estratégia','Prazo'],
+  const riskTable=table('Registro de riscos e responsáveis',8,26,16,9,['ID','Ativo','P','I','Inerente','Nível','Responsável','Estratégia','Prazo'],
     a.risks.map(r=>[r.id,r.asset.split(' / ')[0],r.probability,r.impact,r.score,r.level,r.owner,r.treatment,'D+'+r.deadline_days]));
-  riskTable.fieldConfig.overrides=[{matcher:{id:'byName',options:'Risco'},properties:[{id:'thresholds',value:riskThresholds},{id:'custom.cellOptions',value:{type:'color-background',mode:'basic'}}]}];
+  riskTable.fieldConfig.overrides=[{matcher:{id:'byName',options:'Inerente'},properties:[{id:'thresholds',value:riskThresholds},{id:'custom.cellOptions',value:{type:'color-background',mode:'basic'}}]}];
   riskTable.fieldConfig.defaults.decimals=0;
-  widths(riskTable,{'ID':50,'Ativo':85,'P':50,'I':50,'Risco':55,'Nível':85,'Responsável':150,'Estratégia':90,'Prazo':60});
+  widths(riskTable,{'ID':50,'Ativo':85,'P':50,'I':50,'Inerente':65,'Nível':85,'Responsável':150,'Estratégia':90,'Prazo':60});
   riskTable.description += ' Prazos após aprovação do plano. Todos os tratamentos estão planejados; risco residual ainda não reavaliado.';
   row('Vulnerabilidades e exposição',35);
   const severity = bars('Achados por severidade',0,36,6,11,['Severidade','Achados'],['Crítica','Alta','Média','Baixa'].map(s=>[s,a.counts.vulnerabilities_by_severity[s]??0]));
   severity.fieldConfig.defaults.decimals=0;
   const assets = bars('Ativos com mais achados',6,36,6,11,['Ativo','Achados'],Object.entries(a.counts.vulnerabilities_by_asset).sort((a,b)=>b[1]-a[1]));
   assets.fieldConfig.defaults.decimals=0;
+  assets.description += ' Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. Contexto e evidências na seção 5 do relatório; sem pontuação adicional.';
   const vulnerabilities = table('Inventário de vulnerabilidades',12,36,12,11,['ID','Ativo','Achado','Severidade','Fonte'],a.vulnerabilities.map(v=>[v.id,v.asset,v.finding,v.severity,v.evidence.join(', ')]));
   widths(vulnerabilities,{'ID':70,'Ativo':75,'Severidade':90,'Fonte':100});
   row('Incidentes e alertas',47);
   const local=value=>value?new Date(value).toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour12:false}):'—';
-  const incidents = table('Incidentes · cronologia e resposta',0,48,17,8,['ID','Categoria','Severidade','Status','Início','Detecção','Retorno','Detectar (s)','Recuperar (s)'],
-    a.incidents.map(i=>[i.id,i.category,i.severity,i.status,local(i.onset),local(i.detected),local(i.recovered),round(i.detection_seconds),round(i.recovery_seconds)]));
-  widths(incidents,{'ID':65,'Categoria':210,'Severidade':85,'Status':70,'Início':80,'Detecção':80,'Retorno':80,'Detectar (s)':75,'Recuperar (s)':80});
+  const incidents = table('Incidentes · cronologia e resposta',0,48,17,8,['ID','Categoria','Severidade','Status','Início','Detecção','Ação','Retorno','Resposta (s)'],
+    a.incidents.map(i=>[i.id,i.category,i.severity,i.status,local(i.onset),local(i.detected),local(i.response),local(i.recovered),round(i.response_seconds)]));
+  widths(incidents,{'ID':65,'Categoria':180,'Severidade':75,'Status':65,'Início':75,'Detecção':75,'Ação':75,'Retorno':75,'Resposta (s)':85});
+  incidents.description += ' Resposta = início confirmado até solicitação automatizada de restauração; MTTD e MTTR estão nos indicadores. No probe a ação programada precede a primeira amostra firing em 0,73 s; ordem e milissegundos no relatório.';
   const alerts = bars('Episódios de alerta por criticidade',17,48,7,8,['Criticidade','Episódios'],[['Crítico',a.counts.alerts_by_severity.critical??0],['Aviso',a.counts.alerts_by_severity.warning??0]]);
   alerts.fieldConfig.defaults.decimals=0;
   row('KPIs, KRIs e decisões',56);
-  const indicators = table('Indicadores e decisão associada',0,57,24,15,['Indicador','Resultado','Meta / limiar','Tendência / decisão'],a.indicators.map(k=>[k.name,k.value,k.target,k.decision]));
-  widths(indicators,{'Indicador':280,'Resultado':160,'Meta / limiar':190});
-  return { panels, height: 73 };
+  const indicatorHeight = Math.max(15, Math.ceil((a.indicators.length * 40 + 80) / 30));
+  const indicators = table('Indicadores e decisão associada',0,57,24,indicatorHeight,['Indicador','Resultado','Meta / limiar','Tendência / decisão','Fonte'],
+    a.indicators.map(k=>[k.name,k.value,k.target,k.decision,[...new Set(k.technical_evidence.map(r=>r.source))].join(', ')]));
+  widths(indicators,{'Indicador':250,'Resultado':220,'Meta / limiar':170,'Fonte':80});
+  return { panels, height: 58 + indicatorHeight };
 }

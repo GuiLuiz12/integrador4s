@@ -33,6 +33,10 @@ try {
   const definition = await context.request.get('/api/dashboards/uid/saude-v01');
   assert.equal(definition.status(), 200, 'Dashboard deve estar provisionado');
   const { dashboard } = await definition.json();
+  const expectedDashboard = JSON.parse(readFileSync(new URL('../dashboards/saude.json', import.meta.url), 'utf8'));
+  for (const panel of expectedDashboard.panels.filter(p => p.targets?.some(t => t.scenarioId === 'csv_content'))) {
+    assert.deepEqual(dashboard.panels.find(p => p.id === panel.id)?.targets, panel.targets, `Painel ${panel.title} deve usar os dados gerados atuais`);
+  }
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -79,7 +83,9 @@ try {
   ]) {
     await page.getByText(title, { exact: true }).evaluate(el => { el.style.scrollMarginTop = '90px'; el.scrollIntoView({ block: 'start' }); });
     await page.waitForTimeout(1500);
+    if (filename === 'indicadores.png') await page.setViewportSize({ width: 1366, height: 1500 });
     await page.screenshot({ path: join(output, filename) });
+    if (filename === 'indicadores.png') await page.setViewportSize({ width: 1366, height: 1000 });
     screenshots.push(filename);
   }
   await page.getByText('CPU por contêiner · núcleos utilizados', { exact: true }).scrollIntoViewIfNeeded();
@@ -95,6 +101,20 @@ try {
   const dataResponse = await context.request.get('http://localhost:3000/analysis/sprint2/data');
   assert.equal(dataResponse.status(), 200);
   const analysis = await dataResponse.json();
+  assert.equal(await reportPage.locator('#sec8 tbody tr').count(), analysis.indicators.length, 'Todos os indicadores devem aparecer no relatório');
+  assert.equal(await reportPage.locator('figure img').count(), analysis.figures.length, 'Capturas devem estar incorporadas no relatório');
+  assert.ok(await reportPage.locator('figure img').evaluateAll(images => images.every(img => img.complete && img.naturalWidth > 0)), 'Capturas devem carregar sob a política CSP');
+  assert.deepEqual(await reportPage.locator('a[href^="#"]').evaluateAll(links => links.map(a => a.getAttribute('href')).filter(href => !document.getElementById(href.slice(1)))), [], 'Índice e referências de capturas devem apontar para âncoras válidas');
+  const embeddedImages = await reportPage.locator('figure img').evaluateAll(images => images.map(img => ({ id: img.parentElement.id, data: img.src.split(',')[1] })));
+  for (const figure of analysis.figures) {
+    const embedded = embeddedImages.find(image => image.id === figure.id);
+    assert.ok(embedded, `Captura ${figure.id} deve estar incorporada`);
+    assert.equal(createHash('sha256').update(Buffer.from(embedded.data, 'base64')).digest('hex'), figure.sha256, 'Captura incorporada deve preservar os bytes originais');
+  }
+  for (const [section, filename] of [['sec3','relatorio-baseline.png'],['sec5','relatorio-vulnerabilidades.png'],['sec7','relatorio-incidentes.png'],['sec8','relatorio-indicadores.png']]) {
+    await reportPage.locator('#'+section).screenshot({ path: join(output, filename) });
+    screenshots.push(filename);
+  }
   for (const source of analysis.sources) {
     const response = await context.request.get(`http://localhost:3000/analysis/sprint2/source/${source.id}`);
     assert.equal(response.status(), 200, `Fonte ${source.id} deve estar acessível`);
@@ -103,7 +123,8 @@ try {
   screenshots.push('relatorio.png');
   const result = { session_id: manifest?.session_id, source_manifest_sha256: manifestText ? createHash('sha256').update(manifestText).digest('hex') : undefined, captured_at: new Date().toISOString(), panels: dashboard.panels.length,
     range_start: new Date(from).toISOString(), range_end: new Date(to).toISOString(), range_seconds: rangeSeconds,
-    analytical_queries: analyticalQueries, report_sections: 10, sources_checked: analysis.sources.length, expression_errors: failures, javascript_errors: errors, screenshots };
+    analytical_queries: analyticalQueries, report_sections: 10, indicators: analysis.indicators.length, figures_checked: analysis.figures.length,
+    sources_checked: analysis.sources.length, expression_errors: failures, javascript_errors: errors, screenshots };
   writeFileSync(join(output, 'validation.json'), JSON.stringify(result, null, 2) + '\n');
   console.log(`Grafana validado: login, dashboard, expressões e capturas em ${output}.`);
 } finally { await browser.close(); }

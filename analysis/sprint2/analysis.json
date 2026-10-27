@@ -19,6 +19,9 @@
     "availability_percent": 96.58119658119658,
     "completeness_percent": 97.46974461059645,
     "maximum_container_gap_seconds": 129.69999980926514,
+    "collection_final_percent": 100.0,
+    "collection_minimum_percent": 85.71428571428571,
+    "expected_targets": 7,
     "legacy_acceptance": "Rejeitado pelo critério de mínimo de 60 erros 503 na consulta; uso analítico autorizado com essa limitação declarada."
   },
   "events": {
@@ -1725,6 +1728,7 @@
       "detected": "2026-10-26T23:28:35.747000+00:00",
       "response": "2026-10-26T23:29:04.966495+00:00",
       "recovered": "2026-10-26T23:29:16.790000+00:00",
+      "response_seconds": 120.00190305709839,
       "detection_seconds": 90.7824079990387,
       "recovery_seconds": 41.04299998283386,
       "impact_seconds": 131.82540798187256,
@@ -1733,6 +1737,28 @@
       "evidence": [
         "E03",
         "E05"
+      ],
+      "technical_evidence": [
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E05",
+          "locator": "/9 · event=postgres_restart_requested",
+          "observation": "2026-10-26T23:29:04.966495+00:00 · postgres_restart_requested"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "ConsultaAssistencialIndisponivel · primeiro firing 2026-10-26T23:28:35.747000+00:00"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/probe_history",
+          "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:29:16.790000+00:00"
+        }
       ]
     },
     {
@@ -1746,6 +1772,7 @@
       "detected": "2026-10-26T23:38:35.747000+00:00",
       "response": "2026-10-26T23:38:35.018003+00:00",
       "recovered": "2026-10-26T23:38:46.790000+00:00",
+      "response_seconds": 90.00183391571045,
       "detection_seconds": 90.73083090782166,
       "recovery_seconds": 11.042999982833862,
       "impact_seconds": 101.77383089065552,
@@ -1754,7 +1781,111 @@
       "evidence": [
         "E03",
         "E05"
+      ],
+      "technical_evidence": [
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "E05",
+          "locator": "/14 · event=probe_restore_requested",
+          "observation": "2026-10-26T23:38:35.018003+00:00 · probe_restore_requested"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "FalhaDeColeta · primeiro firing 2026-10-26T23:38:35.747000+00:00"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets",
+          "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:38:46.790000+00:00"
+        }
       ]
+    }
+  ],
+  "incident_timeline": [
+    {
+      "incident": "INC-01",
+      "at": "2026-10-26T23:27:04.964592+00:00",
+      "step": "Interrupção confirmada",
+      "reference": {
+        "source": "E05",
+        "locator": "/8 · event=postgres_outage_confirmed",
+        "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+      }
+    },
+    {
+      "incident": "INC-01",
+      "at": "2026-10-26T23:28:35.747000+00:00",
+      "step": "Alerta em firing: ConsultaAssistencialIndisponivel",
+      "reference": {
+        "source": "E03",
+        "locator": "/queries/alert_history",
+        "observation": "ConsultaAssistencialIndisponivel · primeiro firing 2026-10-26T23:28:35.747000+00:00"
+      }
+    },
+    {
+      "incident": "INC-01",
+      "at": "2026-10-26T23:29:04.966495+00:00",
+      "step": "Restauração solicitada pelo roteiro",
+      "reference": {
+        "source": "E05",
+        "locator": "/9 · event=postgres_restart_requested",
+        "observation": "2026-10-26T23:29:04.966495+00:00 · postgres_restart_requested"
+      }
+    },
+    {
+      "incident": "INC-01",
+      "at": "2026-10-26T23:29:16.790000+00:00",
+      "step": "Recuperação observada",
+      "reference": {
+        "source": "E03",
+        "locator": "/queries/probe_history",
+        "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:29:16.790000+00:00"
+      }
+    },
+    {
+      "incident": "INC-02",
+      "at": "2026-10-26T23:37:05.016169+00:00",
+      "step": "Interrupção confirmada",
+      "reference": {
+        "source": "E05",
+        "locator": "/13 · event=probe_outage_confirmed",
+        "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+      }
+    },
+    {
+      "incident": "INC-02",
+      "at": "2026-10-26T23:38:35.018003+00:00",
+      "step": "Restauração solicitada pelo roteiro",
+      "reference": {
+        "source": "E05",
+        "locator": "/14 · event=probe_restore_requested",
+        "observation": "2026-10-26T23:38:35.018003+00:00 · probe_restore_requested"
+      }
+    },
+    {
+      "incident": "INC-02",
+      "at": "2026-10-26T23:38:35.747000+00:00",
+      "step": "Alerta em firing: FalhaDeColeta",
+      "reference": {
+        "source": "E03",
+        "locator": "/queries/alert_history",
+        "observation": "FalhaDeColeta · primeiro firing 2026-10-26T23:38:35.747000+00:00"
+      }
+    },
+    {
+      "incident": "INC-02",
+      "at": "2026-10-26T23:38:46.790000+00:00",
+      "step": "Recuperação observada",
+      "reference": {
+        "source": "E03",
+        "locator": "/queries/targets",
+        "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:38:46.790000+00:00"
+      }
     }
   ],
   "alert_episodes": [
@@ -1796,6 +1927,217 @@
     "mttd_seconds": 90.75661945343018,
     "mttr_seconds": 26.042999982833862
   },
+  "queries": [
+    {
+      "id": "Q01",
+      "metric": "CPU dos serviços",
+      "locator": "/queries/container_cpu_cores",
+      "baseline": {
+        "source": "B02",
+        "promql": "sum by(container_label_com_docker_compose_service)(rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "sum by(container_label_com_docker_compose_service)(rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))"
+      }
+    },
+    {
+      "id": "Q02",
+      "metric": "Memória dos serviços",
+      "locator": "/queries/container_memory",
+      "baseline": {
+        "source": "B03",
+        "promql": "container_memory_working_set_bytes{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[2116165ms]"
+      },
+      "experiment": {
+        "source": "E03",
+        "promql": "container_memory_working_set_bytes{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[3916118ms]"
+      }
+    },
+    {
+      "id": "Q03",
+      "metric": "Tráfego dos serviços",
+      "locator": "/queries/container_network_bytes_per_second",
+      "baseline": {
+        "source": "B02",
+        "promql": "sum by(container_label_com_docker_compose_service)(rate(container_network_receive_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]) + rate(container_network_transmit_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "sum by(container_label_com_docker_compose_service)(rate(container_network_receive_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]) + rate(container_network_transmit_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))"
+      }
+    },
+    {
+      "id": "Q04",
+      "metric": "Latência p95",
+      "locator": "/queries/clinical_p95",
+      "baseline": {
+        "source": "B02",
+        "promql": "histogram_quantile(0.95, sum by(le)(rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "histogram_quantile(0.95, sum by(le)(rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)"
+      }
+    },
+    {
+      "id": "Q05",
+      "metric": "Disponibilidade funcional",
+      "locator": "/queries/probe_history",
+      "baseline": {
+        "source": "B03",
+        "promql": "probe_success{job=\"probe\"}[2116165ms]"
+      },
+      "experiment": {
+        "source": "E03",
+        "promql": "probe_success{job=\"probe\"}[3916118ms]"
+      }
+    },
+    {
+      "id": "Q06",
+      "metric": "CPU do host",
+      "locator": "/queries/host_cpu_percent",
+      "baseline": {
+        "source": "B02",
+        "promql": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))"
+      }
+    },
+    {
+      "id": "Q07",
+      "metric": "Memória do host",
+      "locator": "/queries/host_memory_percent",
+      "baseline": {
+        "source": "B02",
+        "promql": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)"
+      }
+    },
+    {
+      "id": "Q08",
+      "metric": "Volume clínico",
+      "locator": "/queries/clinical_volume",
+      "baseline": {
+        "source": "B02",
+        "promql": "sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))"
+      }
+    },
+    {
+      "id": "Q09",
+      "metric": "Erros clínicos",
+      "locator": "/queries/clinical_errors_percent",
+      "baseline": {
+        "source": "B02",
+        "promql": "100 * sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\",status=~\"5..\"}[5m])) / (sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)"
+      },
+      "experiment": {
+        "source": "E02",
+        "promql": "100 * sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\",status=~\"5..\"}[5m])) / (sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)"
+      }
+    },
+    {
+      "id": "Q10",
+      "metric": "Coleta por alvo",
+      "locator": "/queries/targets",
+      "baseline": {
+        "source": "B03",
+        "promql": "up[2116165ms]"
+      },
+      "experiment": {
+        "source": "E03",
+        "promql": "up[3916118ms]"
+      }
+    },
+    {
+      "id": "Q11",
+      "metric": "Alertas",
+      "locator": "/queries/alert_history",
+      "baseline": {
+        "source": "B03",
+        "promql": "ALERTS[2116165ms]"
+      },
+      "experiment": {
+        "source": "E03",
+        "promql": "ALERTS[3916118ms]"
+      }
+    }
+  ],
+  "exposures": [
+    {
+      "asset": "APP-01",
+      "findings": [
+        "VUL-01",
+        "VUL-02"
+      ],
+      "by_severity": {
+        "Alta": 1,
+        "Média": 1
+      },
+      "exposure": "Usuário autenticado pode consultar qualquer ID válido; acesso restrito ao ambiente local. Endpoint local de login; dez tentativas consecutivas foram processadas e recusadas, sem bloqueio progressivo.",
+      "evidence": [
+        "C02",
+        "C03",
+        "E04",
+        "E05"
+      ]
+    },
+    {
+      "asset": "DB-01",
+      "findings": [
+        "VUL-03"
+      ],
+      "by_severity": {
+        "Alta": 1
+      },
+      "exposure": "A indisponibilidade do PostgreSQL interrompe autenticação e consultas.",
+      "evidence": [
+        "C01",
+        "E03",
+        "E04",
+        "E05"
+      ]
+    },
+    {
+      "asset": "MON-01",
+      "findings": [
+        "VUL-04"
+      ],
+      "by_severity": {
+        "Média": 1
+      },
+      "exposure": "Perda do host também elimina a observação local; a falha do probe demonstrou perda parcial de visibilidade.",
+      "evidence": [
+        "C01",
+        "C04",
+        "E03",
+        "E05"
+      ]
+    },
+    {
+      "asset": "LOG-01",
+      "findings": [
+        "VUL-05"
+      ],
+      "by_severity": {
+        "Média": 1
+      },
+      "exposure": "Histórico pode ser perdido por rotação ou falha do host, reduzindo a capacidade de investigação.",
+      "evidence": [
+        "C01",
+        "C05"
+      ]
+    }
+  ],
   "vulnerabilities": [
     {
       "id": "VUL-01",
@@ -1808,7 +2150,24 @@
         "C02",
         "C03"
       ],
-      "basis": "O handler valida o token, mas a consulta SQL recebe apenas o ID do prontuário."
+      "basis": "O handler valida o token, mas a consulta SQL recebe apenas o ID do prontuário.",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        }
+      ]
     },
     {
       "id": "VUL-02",
@@ -1822,7 +2181,29 @@
         "E04",
         "E05"
       ],
-      "basis": "Não há rate limiting no fluxo de autenticação; o cenário registrou dez respostas 401."
+      "basis": "Não há rate limiting no fluxo de autenticação; o cenário registrou dez respostas 401.",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        }
+      ]
     },
     {
       "id": "VUL-03",
@@ -1837,7 +2218,24 @@
         "E04",
         "E05"
       ],
-      "basis": "O Compose possui uma instância do banco; o cenário confirmou a dependência do fluxo assistencial."
+      "basis": "O Compose possui uma instância do banco; o cenário confirmou a dependência do fluxo assistencial.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        }
+      ]
     },
     {
       "id": "VUL-04",
@@ -1852,7 +2250,29 @@
         "E03",
         "E05"
       ],
-      "basis": "Prometheus, Grafana e verificador compartilham o host; a coleta ficou em 6 de 7 alvos no cenário isolado."
+      "basis": "Prometheus, Grafana e verificador compartilham o host; a coleta ficou em 6 de 7 alvos no cenário isolado.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        }
+      ]
     },
     {
       "id": "VUL-05",
@@ -1865,7 +2285,19 @@
         "C01",
         "C05"
       ],
-      "basis": "Configuração json-file com 10 MB por arquivo e três arquivos por serviço; nenhuma fonte central configurada."
+      "basis": "Configuração json-file com 10 MB por arquivo e três arquivos por serviço; nenhuma fonte central configurada.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        }
+      ]
     }
   ],
   "risks": [
@@ -1894,7 +2326,24 @@
         "C01"
       ],
       "score": 20,
-      "level": "Crítico"
+      "level": "Crítico",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        }
+      ]
     },
     {
       "id": "R-02",
@@ -1919,7 +2368,24 @@
         "C03"
       ],
       "score": 15,
-      "level": "Alto"
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        }
+      ]
     },
     {
       "id": "R-03",
@@ -1945,7 +2411,29 @@
         "E05"
       ],
       "score": 12,
-      "level": "Alto"
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        }
+      ]
     },
     {
       "id": "R-04",
@@ -1972,7 +2460,29 @@
         "E05"
       ],
       "score": 12,
-      "level": "Alto"
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        }
+      ]
     },
     {
       "id": "R-05",
@@ -1997,7 +2507,19 @@
         "C05"
       ],
       "score": 8,
-      "level": "Moderado"
+      "level": "Moderado",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        }
+      ]
     }
   ],
   "risk_method": "Avaliação qualitativa do cenário: probabilidade e impacto de 1 a 5; risco inerente = P × I. Baixo 1–4, moderado 5–9, alto 10–16, crítico 17–25. Prioridades e prazos são propostas de tratamento, não controles já implementados.",
@@ -2016,6 +2538,56 @@
     "5": "Muito grave"
   },
   "deadline_basis": "Dias corridos após aprovação do plano de tratamento.",
+  "figures": [
+    {
+      "id": "F01",
+      "title": "Baseline e tendências",
+      "section": 3,
+      "origin": "evidence/sprint2/fechamento/baseline.png",
+      "sha256": "dbd2dfb4d9e43a64628e6b6ec0aa4f5cbefce607808d919c0ba4f7c39d2f1144",
+      "captured_at": "2026-10-27T22:36:05.893Z"
+    },
+    {
+      "id": "F02",
+      "title": "Matriz e registro de riscos",
+      "section": 6,
+      "origin": "evidence/sprint2/fechamento/riscos.png",
+      "sha256": "b18fe1859a2ab97f5d337d16066b7e1bb4a1163de30c48a316f287f723b15215",
+      "captured_at": "2026-10-27T22:36:05.893Z"
+    },
+    {
+      "id": "F03",
+      "title": "Inventário de vulnerabilidades",
+      "section": 5,
+      "origin": "evidence/sprint2/fechamento/vulnerabilidades.png",
+      "sha256": "05382677f2552b80985e5d3901f675a1cbe879e4c7107942205da4476d8dafc2",
+      "captured_at": "2026-10-27T22:36:05.893Z"
+    },
+    {
+      "id": "F04",
+      "title": "Incidentes e episódios de alerta",
+      "section": 7,
+      "origin": "evidence/sprint2/fechamento/incidentes.png",
+      "sha256": "3a3474f7c1eea028b4482dec668c74a6a4e0f628b8b3948b858856789e447fc0",
+      "captured_at": "2026-10-27T22:36:05.893Z"
+    },
+    {
+      "id": "F05",
+      "title": "Alerta de indisponibilidade assistencial em firing",
+      "section": 7,
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/captures/alerts/ConsultaAssistencialIndisponivel/dashboard.png",
+      "sha256": "be7de5f0a90ab74eae5cfbd339930ddf80d7b609fe9cbccc22ae4fc15527f841",
+      "captured_at": "2026-10-26T23:28:50.710Z"
+    },
+    {
+      "id": "F06",
+      "title": "Alerta de falha de coleta em firing",
+      "section": 7,
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/captures/alerts/FalhaDeColeta/dashboard.png",
+      "sha256": "f292314e079f93039e279767b083e4f948f82fd6340665f34a9d991134b90f94",
+      "captured_at": "2026-10-26T23:38:47.132Z"
+    }
+  ],
   "sources": [
     {
       "id": "B01",
@@ -2114,6 +2686,13 @@
       "origin": "apps/lab/server.ts",
       "sha256": "2327eff595e02d6799046b908a55fd0a9f465207e7218da25d7f480948c18b25",
       "path": "sources/C06.txt"
+    },
+    {
+      "id": "C07",
+      "label": "Inventário e avaliação qualitativa de riscos",
+      "origin": "analysis/sprint2/registers.json",
+      "sha256": "c24be12b7c8c2398f93f890476be1a64fd40e3d11b5b12901a195fea75efd452",
+      "path": "sources/C07.txt"
     }
   ],
   "indicators": [
@@ -2121,61 +2700,235 @@
       "name": "KPI · Disponibilidade assistencial",
       "value": "96,58%",
       "target": "≥99%",
-      "decision": "Baseline 100%; queda induzida explica o desvio. Priorizar R-01. E03"
+      "decision": "Baseline 100%; queda induzida explica o desvio. Priorizar R-01.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/probe_history",
+          "observation": "226/234 verificações bem-sucedidas"
+        }
+      ]
+    },
+    {
+      "name": "KPI · CPU APP-01 · média / pico",
+      "value": "2,60% / 3,58%",
+      "target": "≤80%",
+      "decision": "Baseline 2,57% / 2,75%. Folga de processamento; não há evidência de saturação.",
+      "technical_evidence": [
+        {
+          "source": "E02",
+          "locator": "/queries/container_cpu_cores",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
+    },
+    {
+      "name": "KPI · Memória APP-01 · média / pico",
+      "value": "22,67% / 23,91%",
+      "target": "≤80%",
+      "decision": "Baseline 14,05% / 14,25%. Crescimento entre sessões, ainda distante do limite; não comprova vazamento.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/container_memory",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
+    },
+    {
+      "name": "KPI · CPU DB-01 · média / pico",
+      "value": "1,43% / 1,80%",
+      "target": "≤80%",
+      "decision": "Baseline 1,40% / 1,46%. Baixo consumo; a indisponibilidade decorre da parada programada.",
+      "technical_evidence": [
+        {
+          "source": "E02",
+          "locator": "/queries/container_cpu_cores",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
+    },
+    {
+      "name": "KPI · Memória DB-01 · média / pico",
+      "value": "2,78% / 4,34%",
+      "target": "≤80%",
+      "decision": "Baseline 1,93% / 2,18%. Uso baixo em relação à capacidade configurada.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/container_memory",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
+    },
+    {
+      "name": "KPI · CPU HOST-01 · média / pico",
+      "value": "8,33% / 10,75%",
+      "target": "≤80%",
+      "decision": "Baseline 6,58% / 11,96%. Inclui processos externos ao projeto.",
+      "technical_evidence": [
+        {
+          "source": "E02",
+          "locator": "/queries/host_cpu_percent",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
+    },
+    {
+      "name": "KPI · Memória HOST-01 · média / pico",
+      "value": "33,09% / 33,76%",
+      "target": "≤80%",
+      "decision": "Baseline 21,52% / 23,78%. Diferença entre sessões pode incluir outras aplicações do host.",
+      "technical_evidence": [
+        {
+          "source": "E02",
+          "locator": "/queries/host_memory_percent",
+          "observation": "Média e máximo das amostras; denominador e conversões em §3."
+        }
+      ]
     },
     {
       "name": "KPI · Pico de latência p95",
       "value": "9,53 ms",
       "target": "≤500 ms",
-      "decision": "Próximo ao baseline; manter capacidade. E02"
+      "decision": "Próximo ao baseline; manter capacidade.",
+      "technical_evidence": [
+        {
+          "source": "E02",
+          "locator": "/queries/clinical_p95",
+          "observation": "Máximo da curva p95 de cinco minutos; apenas respostas 200."
+        }
+      ]
     },
     {
       "name": "KPI · Cobertura ao final",
-      "value": "100% (7/7)",
+      "value": "100,00%",
       "target": "100%",
-      "decision": "Recuperada após mínimo de 85,71%; tratar R-04. E03"
+      "decision": "Recuperada após mínimo de 85,71%; tratar R-04.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/coverage",
+          "observation": "Última amostra e mínimo de lab:collection_coverage_percent."
+        }
+      ]
+    },
+    {
+      "name": "KPI · Alertas por criticidade",
+      "value": "1 crítico; 1 aviso",
+      "target": "Investigar cada episódio",
+      "decision": "Dois episódios firing, descritos em §7; ambos encerrados.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "Agrupamento por labels, lacuna máxima de 30 s; pending excluído."
+        }
+      ]
+    },
+    {
+      "name": "KRI · Vulnerabilidades por severidade",
+      "value": "0 crítica; 2 alta; 3 média; 0 baixa",
+      "target": "0 altas/críticas sem plano",
+      "decision": "Primeiro inventário; priorizar autorização e persistência.",
+      "technical_evidence": [
+        {
+          "source": "C07",
+          "locator": "/vulnerabilities",
+          "observation": "Contagem por severity; fontes técnicas por achado em §5."
+        }
+      ]
+    },
+    {
+      "name": "KRI · Ativos com maior exposição",
+      "value": "APP-01: 2 (1 alta, 1 média); DB-01: 1 (1 alta)",
+      "target": "Priorizar acesso e continuidade",
+      "decision": "APP concentra achados e superfícies de acesso; DB é dependência crítica. MON/LOG: 1 médio cada. Sem pontuação adicional.",
+      "technical_evidence": [
+        {
+          "source": "C07",
+          "locator": "/vulnerabilities",
+          "observation": "Agrupamento por asset e severity, contexto de exposure; sustentação técnica em §5."
+        }
+      ]
     },
     {
       "name": "KPI · Incidentes abertos / fechados",
       "value": "0 / 2",
       "target": "0 abertos ao final",
-      "decision": "Dois episódios encerrados; manter ações preventivas. E03 E05"
+      "decision": "Manter ações preventivas.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/probe_history e /queries/targets",
+          "observation": "Recuperação observada após as ações de E05; timeline em §7."
+        }
+      ]
     },
     {
       "name": "KPI · MTTD (n=2)",
       "value": "90,76 s",
       "target": "≤120 s",
-      "decision": "Dentro da referência proposta; ampliar observação externa. E03 E05"
+      "decision": "Dentro da referência proposta; ampliar observação externa.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "Média da primeira amostra firing menos início confirmado em E05."
+        }
+      ]
     },
     {
       "name": "KPI · MTTR após detecção (n=2)",
       "value": "26,04 s",
       "target": "≤60 s",
-      "decision": "Resposta automatizada; testar procedimento operacional futuramente. E03 E05"
+      "decision": "Resposta automatizada; testar procedimento operacional futuramente.",
+      "technical_evidence": [
+        {
+          "source": "E03",
+          "locator": "/queries/probe_history e /queries/targets",
+          "observation": "Média da primeira amostra saudável após restauração de E05 menos detecção."
+        }
+      ]
     },
     {
       "name": "KRI · Falhas de login no cenário",
       "value": "10 em menos de 1 min",
       "target": "Investigar ≥5/min",
-      "decision": "Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03. E04 E05"
-    },
-    {
-      "name": "KRI · Vulnerabilidades altas",
-      "value": "2",
-      "target": "0 sem tratamento",
-      "decision": "Primeiro inventário; priorizar autorização e persistência. C01 C02 C03"
+      "decision": "Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03.",
+      "technical_evidence": [
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401",
+          "observation": "Contagem de respostas únicas; intervalo de execução em E05."
+        }
+      ]
     },
     {
       "name": "KRI · Riscos altos/críticos",
-      "value": "4 de 5",
+      "value": "3 altos; 1 crítico",
       "target": "0 sem responsável/plano",
-      "decision": "Primeira avaliação; executar tratamentos antes de reduzir classificação."
+      "decision": "Primeira avaliação; executar tratamentos antes de reduzir classificação.",
+      "technical_evidence": [
+        {
+          "source": "C07",
+          "locator": "/risks",
+          "observation": "P × I: alto 10–16, crítico 17–25; 4 de 5 riscos."
+        }
+      ]
     },
     {
       "name": "KPI · Riscos com tratamento definido",
       "value": "100%",
       "target": "100%",
-      "decision": "Todos planejados; acompanhar execução, prazo e evidência de conclusão."
+      "decision": "Todos planejados; acompanhar execução, prazo e evidência de conclusão.",
+      "technical_evidence": [
+        {
+          "source": "C07",
+          "locator": "/risks",
+          "observation": "Percentual com estratégia, ação, responsável e prazo definidos; não significa mitigação."
+        }
+      ]
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Entrega: [relatório com as dez seções](../../docs/relatorio-sprint2.md), [dados e fontes](../../analysis/sprint2/README.md) e Dashboard v0.2. O relatório e as visões analíticas reutilizam o baseline e o experimento preservados; não houve nova coleta longa para esta entrega.
 
-## Verificações executadas
+## Verificações da versão inicial
 
 | Verificação | Resultado |
 |---|---|
@@ -38,3 +38,20 @@ npm run dashboard:verify -- --from 2026-10-26T22:57:04.597Z --to 2026-10-26T23:5
 ```
 
 A aprovação final da apresentação cabe à revisão do usuário. Os tratamentos de risco continuam propostos, sem declaração de implantação ou de risco mitigado.
+
+## Fechamento conforme os critérios de entrega
+
+O relatório foi complementado com índice das dez entregas, médias/picos de baseline e experimento, 18 indicadores consolidados, 11 consultas originais e referências por vulnerabilidade, risco e recomendação com linhas, seletores ou eventos. A timeline diferencia início, detecção, ação automatizada e recuperação, preservando a ação do probe anterior à amostra de alerta. A exposição dos ativos considera severidade, acesso e dependência, sem pontuação adicional.
+
+Verificação dirigida desta revisão: 22 testes de evidências, dois testes das rotas do relatório e build da API aprovados. A suíte completa anterior não foi repetida e não houve nova coleta longa. As fontes originais e as capturas da versão inicial permanecem preservadas.
+
+As capturas analíticas atualizadas em `fechamento/` alimentam quatro figuras do relatório; as outras duas são os alertas capturados durante o experimento. A conferência final fica em [fechamento-final/validation.json](fechamento-final/validation.json): dashboard provisionado corresponde ao gerado, 16 consultas analíticas válidas, dez seções, 18 indicadores, 15 fontes e seis imagens incorporadas com hashes conferidos.
+
+- [Indicadores consolidados](fechamento-final/indicadores.png)
+- [Incidentes e ação automatizada](fechamento-final/incidentes.png)
+- [Relatório: baseline, limiares e consultas](fechamento-final/relatorio-baseline.png)
+- [Relatório: achados e exposição](fechamento-final/relatorio-vulnerabilidades.png)
+- [Relatório: timeline e alertas](fechamento-final/relatorio-incidentes.png)
+- [Relatório: KPIs e KRIs](fechamento-final/relatorio-indicadores.png)
+
+Para reproduzir a conferência, usar uma pasta nova em `--output-dir`, mantendo `fechamento/` e `fechamento-final/` como evidências desta revisão.

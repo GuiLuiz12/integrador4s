@@ -1,0 +1,29 @@
+{
+  "captured_at": "2026-10-27T22:38:27.165Z",
+  "panels": 50,
+  "range_start": "2026-10-26T22:57:04.597Z",
+  "range_end": "2026-10-26T23:57:05.715Z",
+  "range_seconds": 3601.118,
+  "analytical_queries": 16,
+  "report_sections": 10,
+  "indicators": 18,
+  "figures_checked": 6,
+  "sources_checked": 15,
+  "expression_errors": [],
+  "javascript_errors": [],
+  "screenshots": [
+    "sintese.png",
+    "baseline.png",
+    "riscos.png",
+    "vulnerabilidades.png",
+    "incidentes.png",
+    "indicadores.png",
+    "operacao.png",
+    "infraestrutura.png",
+    "relatorio-baseline.png",
+    "relatorio-vulnerabilidades.png",
+    "relatorio-incidentes.png",
+    "relatorio-indicadores.png",
+    "relatorio.png"
+  ]
+}

@@ -46,13 +46,15 @@ Fonte canônica: `analysis/sprint2/analysis.json`, gerada com `npm run analysis:
 | Indicador | Definição / população | Interpretação |
 |---|---|---|
 | CPU/memória média e pico | Média aritmética e máximo das amostras; serviços em % do limite do contêiner | Referência proposta de 80%; host inclui processos externos |
+| Disponibilidade funcional | Verificações de login e consulta bem-sucedidas / observadas | API + dependência do PostgreSQL, sem disponibilidade funcional independente por serviço; `up` mede apenas coleta |
 | Alertas por criticidade | Episódios `firing` agrupados por labels e continuidade | Um crítico e um de atenção; não contar cada amostra |
 | Incidentes abertos/fechados | Dois cenários com início, detecção e recuperação observados | 0 abertos / 2 fechados ao final |
 | MTTD | Média de detecção − início confirmado, n=2 | 90,76 s; meta proposta ≤120 s |
 | MTTR após detecção | Média de recuperação observada − detecção, n=2 | 26,04 s; meta proposta ≤60 s; inclui perda de observabilidade |
+| Tempo até ação automatizada | Solicitação de restauração − início confirmado, por incidente | 120,00 s no banco; 90,00 s no probe. Ação programada, não reação humana nem MTTR |
 | Vulnerabilidades por severidade/ativo | Cinco achados de código/configuração em `registers.json` | Duas altas; contagem de achados não mede exposição por si só; exposição detalhada no relatório |
 | Riscos altos/críticos | Cinco riscos avaliados por P × I; alto 10–16, crítico 17–25 | Quatro riscos; probabilidades qualitativas do cenário |
-| Tratamento definido | Riscos com ação, responsável e prazo / total | 100%; todos planejados, sem afirmar mitigação |
+| Tratamento definido | Riscos com estratégia, ação, responsável e prazo / total | 100%; todos planejados, sem afirmar mitigação |
 | Falhas de login | Dez HTTP 401 nos eventos do cenário de repetição | Limiar proposto de investigação ≥5/min; não comprova invasão |
 
 As médias de resposta descrevem esta sessão e sua automação, não uma série histórica de operação. A integridade das fontes foi conferida; a rejeição do verificador antigo por contagem de respostas 503 permanece registrada como limitação da coleta utilizada.

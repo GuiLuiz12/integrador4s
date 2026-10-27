@@ -15,7 +15,7 @@ export function registerAnalysis(app: FastifyInstance, directory = 'analysis/spr
   app.get('/analysis/sprint2', { schema: { hide: true } }, async (_, reply) => {
     const body = await asset('report.html');
     if (body === undefined) return reply.code(404).send({ error: 'analysis_unavailable' });
-    return reply.header('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'")
+    return reply.header('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; frame-ancestors 'none'")
       .type('text/html; charset=utf-8').send(body);
   });
   app.get('/analysis/sprint2/data', { schema: { hide: true } }, async (_, reply) => {

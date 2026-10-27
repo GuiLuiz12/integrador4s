@@ -17,6 +17,7 @@ test('relatório e fontes são consultáveis sem permitir caminhos arbitrários'
   const report = await app.inject('/analysis/sprint2');
   assert.equal(report.statusCode, 200);
   assert.match(report.headers['content-security-policy'] as string, /default-src 'none'/);
+  assert.match(report.headers['content-security-policy'] as string, /img-src data:/);
   assert.deepEqual((await app.inject('/analysis/sprint2/data')).json(), { incidents: 2 });
   assert.equal((await app.inject('/analysis/sprint2/source/E03')).body, 'evidência pública do cenário');
   assert.equal((await app.inject('/analysis/sprint2/source/E99')).statusCode, 404);

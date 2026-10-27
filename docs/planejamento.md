@@ -110,3 +110,15 @@ Um contador de falhas de login é um indicador técnico; sua transformação em 
 ## Encadeamento das entregas
 
 Preservar o identificador da sessão, o ativo, o intervalo UTC, a consulta e o caminho da fonte nas análises e registros futuros. Os valores originais e seus hashes permanecem disponíveis mesmo depois de expirar a retenção do Prometheus. Capturas ajudam a comunicar a análise; os arquivos exportados sustentam sua reprodução.
+
+## Backlog — simplificar documentação e separar a entrega do produto
+
+Registrado em 27/10/2026 por orientação do usuário. Executar em uma revisão posterior; o checkpoint atual preserva o relatório e suas evidências como ponto de partida.
+
+- Consolidar as instruções de instalação, execução, simulação e testes em uma referência central; revisar READMEs redundantes ou obsoletos e manter apenas os que tenham finalidade distinta.
+- Remover a geração e a consulta de relatórios como funcionalidades da aplicação, incluindo as rotas de relatório/fontes, a apresentação HTML e as cópias TXT duplicadas. Avaliar dependências antes da remoção, preservando o dashboard e os cálculos necessários às análises.
+- Preservar coleta, cenários simulados, validações, séries originais, logs, timelines, capturas e respectivos manifestos. Não reescrever evidências históricas para acompanhar a limpeza.
+- Tratar o relatório acadêmico como entrega estática e autossuficiente em PDF, preparada a partir das evidências. Não desenvolver uma ferramenta de relatório para atender essa entrega; um guia e os anexos selecionados podem ser encaminhados ao ChatGPT Cowork para a montagem.
+- Incorporar no PDF gráficos, alertas, eventos e trechos relevantes com origem, período, legenda e interpretação. Links para arquivos ou para a aplicação não substituem a evidência apresentada no documento. Código/configuração sustentam revisão estática; registros de riscos e recomendações são análises, não comprovação independente das próprias conclusões.
+
+O foco imediato é a preparação do relatório estático. A limpeza acima permanece pendente; não faz parte deste checkpoint.
