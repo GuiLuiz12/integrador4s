@@ -18,7 +18,9 @@ A cópia mantém os bytes das fontes e o manifesto da execução local. O verifi
 
 ## Experimento
 
-A coleta foi interrompida aos 26 minutos e 46,634 segundos para permitir o desligamento da máquina. A [exportação parcial](../../partial/refinamento-sprint1/README.md) está preservada com status de interrupção e não integra os conjuntos aprovados. A execução completa de 60 minutos e sua validação continuam pendentes; veja a [retomada](../../../docs/validacao-refinamento.md#retomada-pendente).
+A coleta de 22/10 foi interrompida aos 26 minutos e 46,634 segundos para permitir o desligamento da máquina. A [exportação parcial](../../partial/refinamento-sprint1/README.md) está preservada com status de interrupção e não integra os conjuntos aprovados.
+
+Em 26/10, uma nova execução completou 60 minutos e exportou as fontes, mas foi rejeitada pelo critério de contagem de eventos: a renovação do token durante a parada deslocou parte das falhas para a autenticação. Esse [conjunto rejeitado](../../rejected/refinamento-sprint1/README.md) está preservado separadamente e não foi promovido para esta pasta. O [relatório](../../../docs/validacao-refinamento.md#experimento-de-2610--completo-aceite-rejeitado) descreve os testes aprovados, o diagnóstico e a pendência do aceite.
 
 ## Conferência sem serviços ativos
 

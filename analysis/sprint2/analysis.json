@@ -1,0 +1,2181 @@
+{
+  "schema_version": 1,
+  "title": "Sprint 2 — Analisar",
+  "baseline": {
+    "session_id": "9354d609-9654-4632-9529-00bae1ec5f24",
+    "start": "2026-10-21T23:54:23.920216+00:00",
+    "end": "2026-10-22T00:24:25.084915+00:00"
+  },
+  "experiment": {
+    "session_id": "ba3b1508-8edd-4604-a1a1-5a40c599925e",
+    "start": "2026-10-26T22:57:04.597788+00:00",
+    "end": "2026-10-26T23:57:05.715257+00:00",
+    "duration_seconds": 3601.1174688339233
+  },
+  "quality": {
+    "observations": 234,
+    "successes": 226,
+    "failures": 8,
+    "availability_percent": 96.58119658119658,
+    "completeness_percent": 97.46974461059645,
+    "maximum_container_gap_seconds": 129.69999980926514,
+    "legacy_acceptance": "Rejeitado pelo critério de mínimo de 60 erros 503 na consulta; uso analítico autorizado com essa limitação declarada."
+  },
+  "events": {
+    "invalid_logins": 10,
+    "authentication_503": 106,
+    "clinical_record_503": 23
+  },
+  "metrics": [
+    {
+      "key": "api_cpu_percent",
+      "metric": "CPU APP-01",
+      "unit": "% do limite de 1 CPU",
+      "threshold": 80,
+      "interpretation": "Folga de processamento; não há evidência de saturação.",
+      "baseline": {
+        "mean": 2.566821941233106,
+        "peak": 2.745302123810112,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 2.5977576132830236,
+        "peak": 3.5820751628042315,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "api_memory_percent",
+      "metric": "Memória APP-01",
+      "unit": "% de 768 MiB",
+      "threshold": 80,
+      "interpretation": "Crescimento entre sessões, ainda distante do limite; não comprova vazamento.",
+      "baseline": {
+        "mean": 14.053281933191874,
+        "peak": 14.253743489583334,
+        "samples": 81
+      },
+      "experiment": {
+        "mean": 22.672303920053732,
+        "peak": 23.90899658203125,
+        "samples": 158
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "postgres_cpu_percent",
+      "metric": "CPU DB-01",
+      "unit": "% do limite de 1 CPU",
+      "threshold": 80,
+      "interpretation": "Baixo consumo; a indisponibilidade decorre da parada programada.",
+      "baseline": {
+        "mean": 1.3953615594277105,
+        "peak": 1.4625205837983237,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 1.4348394634126913,
+        "peak": 1.7983809615200086,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "postgres_memory_percent",
+      "metric": "Memória DB-01",
+      "unit": "% de 1.536 MiB",
+      "threshold": 80,
+      "interpretation": "Uso baixo em relação à capacidade configurada.",
+      "baseline": {
+        "mean": 1.9278685251871746,
+        "peak": 2.176920572916667,
+        "samples": 80
+      },
+      "experiment": {
+        "mean": 2.7793248494466147,
+        "peak": 4.33807373046875,
+        "samples": 160
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "host_cpu_percent",
+      "metric": "CPU HOST-01",
+      "unit": "%",
+      "threshold": 80,
+      "interpretation": "Inclui processos externos ao projeto.",
+      "baseline": {
+        "mean": 6.583796296296306,
+        "peak": 11.961988304093596,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 8.333881730605915,
+        "peak": 10.747660818713422,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "host_memory_percent",
+      "metric": "Memória HOST-01",
+      "unit": "%",
+      "threshold": 80,
+      "interpretation": "Diferença entre sessões pode incluir outras aplicações do host.",
+      "baseline": {
+        "mean": 21.524262717095404,
+        "peak": 23.77763269118813,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 33.08732194844362,
+        "peak": 33.758495584113504,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "api_network_kib",
+      "metric": "Tráfego APP-01",
+      "unit": "KiB/s",
+      "threshold": null,
+      "interpretation": "Comparar com o baseline; não há capacidade de rede contratada definida.",
+      "baseline": {
+        "mean": 2.812025472145575,
+        "peak": 2.9040723502168446,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 3.7084233232049697,
+        "peak": 8.495194125346927,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "clinical_volume",
+      "metric": "Consultas concluídas",
+      "unit": "respostas/s",
+      "threshold": null,
+      "interpretation": "Baseline próximo de 1/s; carga ampliada próxima de 5/s.",
+      "baseline": {
+        "mean": 0.9994444444444444,
+        "peak": 0.9999999999999999,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 1.6351613388658366,
+        "peak": 4.99298245614035,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "clinical_p95_ms",
+      "metric": "Latência p95",
+      "unit": "ms",
+      "threshold": 500,
+      "interpretation": "P95 estimado por histogramas em janelas de cinco minutos.",
+      "baseline": {
+        "mean": 9.505306211533037,
+        "peak": 9.53356890459364,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 9.500416398807785,
+        "peak": 9.533450704225352,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "clinical_errors_percent",
+      "metric": "Erros de consulta",
+      "unit": "%",
+      "threshold": 1,
+      "interpretation": "Conta somente respostas da rota clínica; falhas de login ficam fora.",
+      "baseline": {
+        "mean": 0.0,
+        "peak": 0.0,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 0.8603662390865425,
+        "peak": 11.868333296193839,
+        "samples": 241
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "key": "availability_percent",
+      "metric": "Disponibilidade assistencial",
+      "unit": "%",
+      "threshold": 99,
+      "interpretation": "Considera apenas verificações observadas; lacunas não são sucesso.",
+      "baseline": {
+        "mean": 100.0,
+        "peak": 100.0,
+        "samples": 120
+      },
+      "experiment": {
+        "mean": 96.58119658119658,
+        "peak": 100.0,
+        "samples": 234
+      },
+      "evidence": [
+        "B02",
+        "B03",
+        "E02",
+        "E03"
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": "normal_before_load",
+      "name": "Normal inicial",
+      "started_at": "2026-10-26T22:57:04.588541+00:00",
+      "ended_at": "2026-10-26T23:07:04.954980+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 4.675053487376981,
+          "peak": 8.24678362573098,
+          "samples": 41
+        },
+        "host_memory_percent": {
+          "mean": 33.00610280852141,
+          "peak": 33.182044906645814,
+          "samples": 41
+        },
+        "clinical_volume": {
+          "mean": 0.9999999999999999,
+          "peak": 0.9999999999999999,
+          "samples": 41
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 41
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 41
+        },
+        "api_cpu_percent": {
+          "mean": 2.6003828013037618,
+          "peak": 2.8085400915034486,
+          "samples": 41
+        },
+        "api_memory_percent": {
+          "mean": 21.65606463396991,
+          "peak": 21.860249837239586,
+          "samples": 27
+        },
+        "api_network_kib": {
+          "mean": 2.798444602638856,
+          "peak": 2.87510269046859,
+          "samples": 41
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.0737964362833332,
+          "peak": 1.3502977791364985,
+          "samples": 41
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.095365084134615,
+          "peak": 14.205169677734375,
+          "samples": 26
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1826159658158626,
+          "peak": 1.2341750319675626,
+          "samples": 41
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.523607086498505,
+          "peak": 2.6114294492115775,
+          "samples": 41
+        },
+        "grafana_memory_percent": {
+          "mean": 13.254229227701824,
+          "peak": 13.913726806640627,
+          "samples": 28
+        },
+        "grafana_network_kib": {
+          "mean": 3.5587008823848896,
+          "peak": 3.698540413264737,
+          "samples": 41
+        },
+        "lab_cpu_percent": {
+          "mean": 4.41784945728715,
+          "peak": 6.936364369887385,
+          "samples": 41
+        },
+        "lab_memory_percent": {
+          "mean": 8.614231989933895,
+          "peak": 8.7310791015625,
+          "samples": 26
+        },
+        "lab_network_kib": {
+          "mean": 1.9637653797575318,
+          "peak": 2.0719242144390475,
+          "samples": 41
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.2943117985865644,
+          "peak": 1.3643920541994508,
+          "samples": 41
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.365279586226851,
+          "peak": 9.64813232421875,
+          "samples": 27
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0558285298837375,
+          "peak": 1.103291497529201,
+          "samples": 41
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.4077785654554011,
+          "peak": 1.7983809615200086,
+          "samples": 41
+        },
+        "postgres_memory_percent": {
+          "mean": 3.938872238685345,
+          "peak": 4.33807373046875,
+          "samples": 29
+        },
+        "postgres_network_kib": {
+          "mean": 0.6158750780815914,
+          "peak": 0.6226106439651931,
+          "samples": 41
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7706555486450714,
+          "peak": 0.7955077471853752,
+          "samples": 41
+        },
+        "prometheus_memory_percent": {
+          "mean": 7.770617254849139,
+          "peak": 8.1146240234375,
+          "samples": 29
+        },
+        "prometheus_network_kib": {
+          "mean": 7.856142934106039,
+          "peak": 8.116597409578434,
+          "samples": 41
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 40
+        }
+      }
+    },
+    {
+      "id": "load",
+      "name": "Carga 5/s",
+      "started_at": "2026-10-26T23:07:04.954980+00:00",
+      "ended_at": "2026-10-26T23:17:04.955823+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 4.537112573099431,
+          "peak": 7.642397660818723,
+          "samples": 40
+        },
+        "host_memory_percent": {
+          "mean": 33.05598784605419,
+          "peak": 33.662519144717706,
+          "samples": 40
+        },
+        "clinical_volume": {
+          "mean": 4.069912280701754,
+          "peak": 4.99298245614035,
+          "samples": 40
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.500000000000002,
+          "samples": 40
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 40
+        },
+        "api_cpu_percent": {
+          "mean": 3.239620992733509,
+          "peak": 3.5820751628042315,
+          "samples": 40
+        },
+        "api_memory_percent": {
+          "mean": 21.74055916922433,
+          "peak": 21.819559733072918,
+          "samples": 28
+        },
+        "api_network_kib": {
+          "mean": 7.07217000633687,
+          "peak": 8.495194125346927,
+          "samples": 40
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.0509983163511607,
+          "peak": 1.1898522400321103,
+          "samples": 40
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.149206655996817,
+          "peak": 14.413070678710938,
+          "samples": 27
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1857834235541531,
+          "peak": 1.2325104262090676,
+          "samples": 40
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.522340692408646,
+          "peak": 2.6078234707787944,
+          "samples": 40
+        },
+        "grafana_memory_percent": {
+          "mean": 13.332210442958734,
+          "peak": 13.611857096354168,
+          "samples": 26
+        },
+        "grafana_network_kib": {
+          "mean": 3.6002439309555303,
+          "peak": 3.8545719350770717,
+          "samples": 40
+        },
+        "lab_cpu_percent": {
+          "mean": 5.447719653548522,
+          "peak": 6.226773114278389,
+          "samples": 40
+        },
+        "lab_memory_percent": {
+          "mean": 8.910633967472958,
+          "peak": 9.117889404296875,
+          "samples": 26
+        },
+        "lab_network_kib": {
+          "mean": 4.629444252095981,
+          "peak": 5.5410534409683105,
+          "samples": 40
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.2520787750760967,
+          "peak": 1.3014244102078674,
+          "samples": 40
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.452601841517858,
+          "peak": 9.76715087890625,
+          "samples": 28
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0697114615362275,
+          "peak": 1.1129190327809235,
+          "samples": 40
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.5866910224270976,
+          "peak": 1.69380511938051,
+          "samples": 40
+        },
+        "postgres_memory_percent": {
+          "mean": 3.9225623721168157,
+          "peak": 3.9944966634114585,
+          "samples": 28
+        },
+        "postgres_network_kib": {
+          "mean": 2.1939110830981234,
+          "peak": 2.6896451423968255,
+          "samples": 40
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7554607461798178,
+          "peak": 0.7731430295232589,
+          "samples": 40
+        },
+        "prometheus_memory_percent": {
+          "mean": 7.8074751229121775,
+          "peak": 8.247121175130209,
+          "samples": 29
+        },
+        "prometheus_network_kib": {
+          "mean": 7.822275512011415,
+          "peak": 8.149431643657959,
+          "samples": 40
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 40
+        }
+      }
+    },
+    {
+      "id": "normal_after_load",
+      "name": "Após carga",
+      "started_at": "2026-10-26T23:17:04.955823+00:00",
+      "ended_at": "2026-10-26T23:22:04.588660+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 9.665189289012018,
+          "peak": 10.401754385964889,
+          "samples": 19
+        },
+        "host_memory_percent": {
+          "mean": 33.16003032600665,
+          "peak": 33.29792050499789,
+          "samples": 19
+        },
+        "clinical_volume": {
+          "mean": 2.940535549399815,
+          "peak": 4.8315789473684205,
+          "samples": 19
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.500000000000002,
+          "samples": 19
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 19
+        },
+        "api_cpu_percent": {
+          "mean": 2.7231296745730895,
+          "peak": 3.227503684864092,
+          "samples": 19
+        },
+        "api_memory_percent": {
+          "mean": 21.7873043484158,
+          "peak": 22.403462727864586,
+          "samples": 12
+        },
+        "api_network_kib": {
+          "mean": 5.579559387355469,
+          "peak": 8.33411246442655,
+          "samples": 19
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.123669276808263,
+          "peak": 1.1754622540000799,
+          "samples": 19
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.166259765625,
+          "peak": 14.37530517578125,
+          "samples": 14
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1795899228921223,
+          "peak": 1.2304204871294706,
+          "samples": 19
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.23575814989521,
+          "peak": 2.361989219712526,
+          "samples": 19
+        },
+        "grafana_memory_percent": {
+          "mean": 13.684884095803287,
+          "peak": 13.790384928385418,
+          "samples": 13
+        },
+        "grafana_network_kib": {
+          "mean": 3.758972083560262,
+          "peak": 3.859507250624442,
+          "samples": 19
+        },
+        "lab_cpu_percent": {
+          "mean": 4.371515909867467,
+          "peak": 5.54723705556931,
+          "samples": 19
+        },
+        "lab_memory_percent": {
+          "mean": 8.937345232282366,
+          "peak": 8.985137939453125,
+          "samples": 14
+        },
+        "lab_network_kib": {
+          "mean": 3.7160810039385157,
+          "peak": 5.468005124741776,
+          "samples": 19
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.33874967111212,
+          "peak": 1.451953420152006,
+          "samples": 19
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.503173828125,
+          "peak": 9.83428955078125,
+          "samples": 14
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0611369908021315,
+          "peak": 1.0998399918396704,
+          "samples": 19
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.5818699519070385,
+          "peak": 1.6872979501741387,
+          "samples": 19
+        },
+        "postgres_memory_percent": {
+          "mean": 3.916150047665551,
+          "peak": 3.9876302083333335,
+          "samples": 14
+        },
+        "postgres_network_kib": {
+          "mean": 1.6351633347810703,
+          "peak": 2.628949284369985,
+          "samples": 19
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7143528560068598,
+          "peak": 0.7385768169140275,
+          "samples": 19
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.569609813201122,
+          "peak": 8.656565348307293,
+          "samples": 13
+        },
+        "prometheus_network_kib": {
+          "mean": 7.95372108228946,
+          "peak": 8.255491468553297,
+          "samples": 19
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 20
+        }
+      }
+    },
+    {
+      "id": "invalid_logins",
+      "name": "Logins inválidos",
+      "started_at": "2026-10-26T23:22:04.588660+00:00",
+      "ended_at": "2026-10-26T23:22:05.315619+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.331871345029231,
+          "peak": 10.331871345029231,
+          "samples": 1
+        },
+        "host_memory_percent": {
+          "mean": 33.12714954086391,
+          "peak": 33.12714954086391,
+          "samples": 1
+        },
+        "clinical_volume": {
+          "mean": 0.9999999999999999,
+          "peak": 0.9999999999999999,
+          "samples": 1
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 1
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 1
+        },
+        "api_cpu_percent": {
+          "mean": 2.3509095533170448,
+          "peak": 2.3509095533170448,
+          "samples": 1
+        },
+        "api_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "api_network_kib": {
+          "mean": 2.847492558219661,
+          "peak": 2.847492558219661,
+          "samples": 1
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.0581603003995643,
+          "peak": 1.0581603003995643,
+          "samples": 1
+        },
+        "cadvisor_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1374744465276032,
+          "peak": 1.1374744465276032,
+          "samples": 1
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.18294398507594,
+          "peak": 2.18294398507594,
+          "samples": 1
+        },
+        "grafana_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "grafana_network_kib": {
+          "mean": 3.7009930937035294,
+          "peak": 3.7009930937035294,
+          "samples": 1
+        },
+        "lab_cpu_percent": {
+          "mean": 3.12424586246021,
+          "peak": 3.12424586246021,
+          "samples": 1
+        },
+        "lab_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "lab_network_kib": {
+          "mean": 1.921585177149469,
+          "peak": 1.921585177149469,
+          "samples": 1
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.47444822422893,
+          "peak": 1.47444822422893,
+          "samples": 1
+        },
+        "node-exporter_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0704897972367846,
+          "peak": 1.0704897972367846,
+          "samples": 1
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.4785013124940218,
+          "peak": 1.4785013124940218,
+          "samples": 1
+        },
+        "postgres_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "postgres_network_kib": {
+          "mean": 0.6151416266955261,
+          "peak": 0.6151416266955261,
+          "samples": 1
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.698805481290736,
+          "peak": 0.698805481290736,
+          "samples": 1
+        },
+        "prometheus_memory_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        },
+        "prometheus_network_kib": {
+          "mean": 7.874060313848393,
+          "peak": 7.874060313848393,
+          "samples": 1
+        },
+        "availability_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        }
+      }
+    },
+    {
+      "id": "normal_before_db_outage",
+      "name": "Antes da parada",
+      "started_at": "2026-10-26T23:22:05.315619+00:00",
+      "ended_at": "2026-10-26T23:27:04.588787+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.310526315789481,
+          "peak": 10.37777777777784,
+          "samples": 19
+        },
+        "host_memory_percent": {
+          "mean": 33.24443945960463,
+          "peak": 33.53195763814415,
+          "samples": 19
+        },
+        "clinical_volume": {
+          "mean": 0.9999999999999999,
+          "peak": 0.9999999999999999,
+          "samples": 19
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 19
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 19
+        },
+        "api_cpu_percent": {
+          "mean": 2.500508987333703,
+          "peak": 2.5345658707691436,
+          "samples": 19
+        },
+        "api_memory_percent": {
+          "mean": 21.70558831630609,
+          "peak": 21.76971435546875,
+          "samples": 13
+        },
+        "api_network_kib": {
+          "mean": 2.8571828753339026,
+          "peak": 2.8927453260894165,
+          "samples": 19
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.1036263510906787,
+          "peak": 1.1692533288855538,
+          "samples": 19
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.220516498272236,
+          "peak": 14.33563232421875,
+          "samples": 13
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.18698462607859,
+          "peak": 1.2420237758614099,
+          "samples": 19
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.186091985552009,
+          "peak": 2.2185576822921367,
+          "samples": 19
+        },
+        "grafana_memory_percent": {
+          "mean": 13.955052693684896,
+          "peak": 14.140828450520834,
+          "samples": 14
+        },
+        "grafana_network_kib": {
+          "mean": 3.7963296889273983,
+          "peak": 3.9649083501435687,
+          "samples": 19
+        },
+        "lab_cpu_percent": {
+          "mean": 3.250155323607968,
+          "peak": 3.326942965726829,
+          "samples": 19
+        },
+        "lab_memory_percent": {
+          "mean": 8.947245279947916,
+          "peak": 9.03472900390625,
+          "samples": 15
+        },
+        "lab_network_kib": {
+          "mean": 1.9539615258601233,
+          "peak": 2.005935914320524,
+          "samples": 19
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.4067887319038286,
+          "peak": 1.5067936488493516,
+          "samples": 19
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.4512939453125,
+          "peak": 9.58251953125,
+          "samples": 13
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0545721670959762,
+          "peak": 1.1079637648621532,
+          "samples": 19
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.4649188095699426,
+          "peak": 1.4991835070552368,
+          "samples": 19
+        },
+        "postgres_memory_percent": {
+          "mean": 3.9173489525204617,
+          "peak": 3.975931803385417,
+          "samples": 14
+        },
+        "postgres_network_kib": {
+          "mean": 0.635703105702549,
+          "peak": 0.6410612302358653,
+          "samples": 19
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.699251628564291,
+          "peak": 0.7140963855421686,
+          "samples": 19
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.625421768579729,
+          "peak": 8.661142985026043,
+          "samples": 13
+        },
+        "prometheus_network_kib": {
+          "mean": 7.93513835736546,
+          "peak": 8.213048581942447,
+          "samples": 19
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 20
+        }
+      }
+    },
+    {
+      "id": "db_outage",
+      "name": "Banco parado",
+      "started_at": "2026-10-26T23:27:04.588787+00:00",
+      "ended_at": "2026-10-26T23:29:05.334067+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.385152696556231,
+          "peak": 10.43274853801176,
+          "samples": 9
+        },
+        "host_memory_percent": {
+          "mean": 33.23191888686188,
+          "peak": 33.62582904254292,
+          "samples": 9
+        },
+        "clinical_volume": {
+          "mean": 0.8635942352176738,
+          "peak": 0.9999999999999999,
+          "samples": 9
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 9
+        },
+        "clinical_errors_percent": {
+          "mean": 7.879360491172007,
+          "peak": 11.61858565747811,
+          "samples": 9
+        },
+        "api_cpu_percent": {
+          "mean": 2.3584356652119807,
+          "peak": 2.404436478540497,
+          "samples": 9
+        },
+        "api_memory_percent": {
+          "mean": 21.761661105685764,
+          "peak": 21.834818522135418,
+          "samples": 6
+        },
+        "api_network_kib": {
+          "mean": 2.6829589728144776,
+          "peak": 2.8548148592982994,
+          "samples": 9
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.0925678284504365,
+          "peak": 1.1539348596086871,
+          "samples": 9
+        },
+        "cadvisor_memory_percent": {
+          "mean": 13.350372314453125,
+          "peak": 13.496780395507812,
+          "samples": 5
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1737417768554401,
+          "peak": 1.2126048362987563,
+          "samples": 9
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.2437074134918165,
+          "peak": 2.4177105886548302,
+          "samples": 9
+        },
+        "grafana_memory_percent": {
+          "mean": 14.634068806966146,
+          "peak": 17.78106689453125,
+          "samples": 6
+        },
+        "grafana_network_kib": {
+          "mean": 5.483583701959909,
+          "peak": 18.503861034594433,
+          "samples": 9
+        },
+        "lab_cpu_percent": {
+          "mean": 3.22660846473519,
+          "peak": 3.4114565430543116,
+          "samples": 9
+        },
+        "lab_memory_percent": {
+          "mean": 8.922958374023438,
+          "peak": 8.989715576171875,
+          "samples": 6
+        },
+        "lab_network_kib": {
+          "mean": 1.8855724321926117,
+          "peak": 1.9802208949629303,
+          "samples": 9
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.3666460469299262,
+          "peak": 1.4216732540424188,
+          "samples": 9
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.4573974609375,
+          "peak": 9.58099365234375,
+          "samples": 5
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0646775889076374,
+          "peak": 1.1001894230349685,
+          "samples": 9
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.2044692921727584,
+          "peak": 1.4940161178645628,
+          "samples": 9
+        },
+        "postgres_memory_percent": {
+          "mean": 0.14216105143229169,
+          "peak": 0.14216105143229169,
+          "samples": 1
+        },
+        "postgres_network_kib": {
+          "mean": 0.4947872392102564,
+          "peak": 0.6160528184848637,
+          "samples": 9
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7019093859527921,
+          "peak": 0.7114944972612868,
+          "samples": 9
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.69717068142361,
+          "peak": 8.84552001953125,
+          "samples": 6
+        },
+        "prometheus_network_kib": {
+          "mean": 7.942789092816996,
+          "peak": 8.135857927387983,
+          "samples": 9
+        },
+        "availability_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 8
+        }
+      }
+    },
+    {
+      "id": "db_recovery",
+      "name": "Recuperação do banco",
+      "started_at": "2026-10-26T23:29:05.334067+00:00",
+      "ended_at": "2026-10-26T23:32:05.006395+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.376705653021448,
+          "peak": 10.498245614035062,
+          "samples": 12
+        },
+        "host_memory_percent": {
+          "mean": 33.58859349510198,
+          "peak": 33.72573597697224,
+          "samples": 12
+        },
+        "clinical_volume": {
+          "mean": 0.6531980545808965,
+          "peak": 0.6561403508771929,
+          "samples": 12
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 12
+        },
+        "clinical_errors_percent": {
+          "mean": 11.369501599942392,
+          "peak": 11.868333296193839,
+          "samples": 12
+        },
+        "api_cpu_percent": {
+          "mean": 2.36300030091755,
+          "peak": 2.4007477048083516,
+          "samples": 12
+        },
+        "api_memory_percent": {
+          "mean": 23.798306783040367,
+          "peak": 23.885599772135418,
+          "samples": 8
+        },
+        "api_network_kib": {
+          "mean": 2.46292647204855,
+          "peak": 2.538522274222808,
+          "samples": 12
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.0527708576314687,
+          "peak": 1.1059319358273063,
+          "samples": 12
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.174890518188477,
+          "peak": 14.220428466796875,
+          "samples": 8
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1394793840099826,
+          "peak": 1.2022703580645981,
+          "samples": 12
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.386078186818729,
+          "peak": 2.426391021060746,
+          "samples": 12
+        },
+        "grafana_memory_percent": {
+          "mean": 16.867923736572266,
+          "peak": 17.833201090494793,
+          "samples": 8
+        },
+        "grafana_network_kib": {
+          "mean": 18.221282851132447,
+          "peak": 19.00848216453224,
+          "samples": 12
+        },
+        "lab_cpu_percent": {
+          "mean": 3.49315685325364,
+          "peak": 3.6555621967899623,
+          "samples": 12
+        },
+        "lab_memory_percent": {
+          "mean": 8.927045549665179,
+          "peak": 8.957672119140625,
+          "samples": 7
+        },
+        "lab_network_kib": {
+          "mean": 1.8258000220481996,
+          "peak": 1.8692905187995836,
+          "samples": 12
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.3888244177844211,
+          "peak": 1.439192590702517,
+          "samples": 12
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.5062255859375,
+          "peak": 9.9090576171875,
+          "samples": 8
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0675449273350421,
+          "peak": 1.1059281348546206,
+          "samples": 12
+        },
+        "postgres_cpu_percent": {
+          "mean": 0.8337494295239435,
+          "peak": 0.86318867833217,
+          "samples": 12
+        },
+        "postgres_memory_percent": {
+          "mean": 1.474943615141369,
+          "peak": 1.496124267578125,
+          "samples": 7
+        },
+        "postgres_network_kib": {
+          "mean": 0.34528712504697584,
+          "peak": 0.3568815104166666,
+          "samples": 12
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7077307275385152,
+          "peak": 0.7191925794730406,
+          "samples": 12
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.881087530226935,
+          "peak": 9.031931559244793,
+          "samples": 7
+        },
+        "prometheus_network_kib": {
+          "mean": 8.095684275398796,
+          "peak": 8.308789251510944,
+          "samples": 12
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 12
+        }
+      }
+    },
+    {
+      "id": "normal_before_probe_outage",
+      "name": "Antes do probe",
+      "started_at": "2026-10-26T23:32:05.006395+00:00",
+      "ended_at": "2026-10-26T23:37:04.588781+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.241674361341959,
+          "peak": 10.330409356725179,
+          "samples": 19
+        },
+        "host_memory_percent": {
+          "mean": 33.4306571566979,
+          "peak": 33.6086598508484,
+          "samples": 19
+        },
+        "clinical_volume": {
+          "mean": 0.9401662049861494,
+          "peak": 1.0035087719298244,
+          "samples": 19
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.500000000000002,
+          "samples": 19
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 19
+        },
+        "api_cpu_percent": {
+          "mean": 2.417491260451594,
+          "peak": 2.48627104588281,
+          "samples": 19
+        },
+        "api_memory_percent": {
+          "mean": 23.808679825220352,
+          "peak": 23.8677978515625,
+          "samples": 13
+        },
+        "api_network_kib": {
+          "mean": 2.7459954992802125,
+          "peak": 2.9039831140763503,
+          "samples": 19
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.091760680083607,
+          "peak": 1.1357364229531333,
+          "samples": 19
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.173654409555288,
+          "peak": 14.33258056640625,
+          "samples": 13
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1702860286170822,
+          "peak": 1.2218633124984213,
+          "samples": 19
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.290681308609899,
+          "peak": 2.438261466509058,
+          "samples": 19
+        },
+        "grafana_memory_percent": {
+          "mean": 13.802737281436013,
+          "peak": 15.342203776041668,
+          "samples": 14
+        },
+        "grafana_network_kib": {
+          "mean": 8.49817325002595,
+          "peak": 18.714630000137902,
+          "samples": 19
+        },
+        "lab_cpu_percent": {
+          "mean": 3.328152200366318,
+          "peak": 3.6436388660098915,
+          "samples": 19
+        },
+        "lab_memory_percent": {
+          "mean": 8.9361572265625,
+          "peak": 8.998870849609375,
+          "samples": 15
+        },
+        "lab_network_kib": {
+          "mean": 1.9315868801941019,
+          "peak": 1.9767933511109603,
+          "samples": 19
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.4658586341783162,
+          "peak": 1.5430667009287475,
+          "samples": 19
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.519195556640625,
+          "peak": 9.8480224609375,
+          "samples": 12
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0737870070024946,
+          "peak": 1.1107345373242539,
+          "samples": 19
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.3811453465552255,
+          "peak": 1.5110688069202884,
+          "samples": 19
+        },
+        "postgres_memory_percent": {
+          "mean": 1.4869350857204862,
+          "peak": 1.52587890625,
+          "samples": 15
+        },
+        "postgres_network_kib": {
+          "mean": 0.5806593999141343,
+          "peak": 0.6336705513525461,
+          "samples": 19
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7123930752226756,
+          "peak": 0.7231304271906113,
+          "samples": 19
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.927017603165064,
+          "peak": 9.04541015625,
+          "samples": 13
+        },
+        "prometheus_network_kib": {
+          "mean": 8.065239836784787,
+          "peak": 8.286014740748142,
+          "samples": 19
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 20
+        }
+      }
+    },
+    {
+      "id": "probe_outage",
+      "name": "Falha do probe",
+      "started_at": "2026-10-26T23:37:04.588781+00:00",
+      "ended_at": "2026-10-26T23:38:35.335975+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.34862155388473,
+          "peak": 10.375146198830421,
+          "samples": 7
+        },
+        "host_memory_percent": {
+          "mean": 33.47447091789605,
+          "peak": 33.569914050434335,
+          "samples": 7
+        },
+        "clinical_volume": {
+          "mean": 0.9999999999999999,
+          "peak": 0.9999999999999999,
+          "samples": 7
+        },
+        "clinical_p95_ms": {
+          "mean": 9.5,
+          "peak": 9.5,
+          "samples": 7
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 7
+        },
+        "api_cpu_percent": {
+          "mean": 2.3917213543701163,
+          "peak": 2.4665151399532697,
+          "samples": 7
+        },
+        "api_memory_percent": {
+          "mean": 23.797861735026043,
+          "peak": 23.8311767578125,
+          "samples": 4
+        },
+        "api_network_kib": {
+          "mean": 2.795401756522435,
+          "peak": 2.875767001787797,
+          "samples": 7
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.1002003962124758,
+          "peak": 1.1450466759892672,
+          "samples": 7
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.131450653076172,
+          "peak": 14.297866821289062,
+          "samples": 4
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1871768408303023,
+          "peak": 1.2128028565421975,
+          "samples": 7
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.2035575336300512,
+          "peak": 2.2266127519436383,
+          "samples": 7
+        },
+        "grafana_memory_percent": {
+          "mean": 13.562859429253473,
+          "peak": 13.578287760416668,
+          "samples": 3
+        },
+        "grafana_network_kib": {
+          "mean": 3.831543066974016,
+          "peak": 3.91897714937951,
+          "samples": 7
+        },
+        "lab_cpu_percent": {
+          "mean": 3.2186282966210595,
+          "peak": 3.387564060435292,
+          "samples": 7
+        },
+        "lab_memory_percent": {
+          "mean": 8.987617492675781,
+          "peak": 9.032440185546875,
+          "samples": 4
+        },
+        "lab_network_kib": {
+          "mean": 1.90909579674193,
+          "peak": 1.9415128412319445,
+          "samples": 7
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.4095413712199816,
+          "peak": 1.476203123487017,
+          "samples": 7
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.617919921875,
+          "peak": 10.1318359375,
+          "samples": 5
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0542365924391275,
+          "peak": 1.1014747200118271,
+          "samples": 7
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.4712166075679844,
+          "peak": 1.4905177400358216,
+          "samples": 7
+        },
+        "postgres_memory_percent": {
+          "mean": 1.4966328938802085,
+          "peak": 1.5284220377604167,
+          "samples": 4
+        },
+        "postgres_network_kib": {
+          "mean": 0.601670396664616,
+          "peak": 0.6149097212859074,
+          "samples": 7
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.7009419779039049,
+          "peak": 0.7128622781397442,
+          "samples": 7
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.892720540364584,
+          "peak": 8.90350341796875,
+          "samples": 5
+        },
+        "prometheus_network_kib": {
+          "mean": 7.981388657221078,
+          "peak": 8.097767095560819,
+          "samples": 7
+        },
+        "availability_percent": {
+          "mean": null,
+          "peak": null,
+          "samples": 0
+        }
+      }
+    },
+    {
+      "id": "normal_after_recovery",
+      "name": "Normal final",
+      "started_at": "2026-10-26T23:38:35.335975+00:00",
+      "ended_at": "2026-10-26T23:57:05.715257+00:00",
+      "metrics": {
+        "host_cpu_percent": {
+          "mean": 10.275869290342982,
+          "peak": 10.747660818713422,
+          "samples": 74
+        },
+        "host_memory_percent": {
+          "mean": 32.86606230797806,
+          "peak": 33.758495584113504,
+          "samples": 74
+        },
+        "clinical_volume": {
+          "mean": 0.999099099099099,
+          "peak": 0.9999999999999999,
+          "samples": 74
+        },
+        "clinical_p95_ms": {
+          "mean": 9.501356109630757,
+          "peak": 9.533450704225352,
+          "samples": 74
+        },
+        "clinical_errors_percent": {
+          "mean": 0.0,
+          "peak": 0.0,
+          "samples": 74
+        },
+        "api_cpu_percent": {
+          "mean": 2.378414838942952,
+          "peak": 2.462357530051241,
+          "samples": 74
+        },
+        "api_memory_percent": {
+          "mean": 23.81901301390736,
+          "peak": 23.90899658203125,
+          "samples": 47
+        },
+        "api_network_kib": {
+          "mean": 2.80429623215565,
+          "peak": 2.887564983089953,
+          "samples": 74
+        },
+        "cadvisor_cpu_percent": {
+          "mean": 1.121035991129875,
+          "peak": 1.20019689184247,
+          "samples": 74
+        },
+        "cadvisor_memory_percent": {
+          "mean": 14.160331726074219,
+          "peak": 14.3707275390625,
+          "samples": 50
+        },
+        "cadvisor_network_kib": {
+          "mean": 1.1763624882964043,
+          "peak": 1.2417316349463545,
+          "samples": 74
+        },
+        "grafana_cpu_percent": {
+          "mean": 2.1650507431406396,
+          "peak": 2.2587084870848706,
+          "samples": 74
+        },
+        "grafana_memory_percent": {
+          "mean": 13.910598754882814,
+          "peak": 14.762624104817709,
+          "samples": 50
+        },
+        "grafana_network_kib": {
+          "mean": 3.842684554297541,
+          "peak": 4.775842464517626,
+          "samples": 74
+        },
+        "lab_cpu_percent": {
+          "mean": 3.232870364709817,
+          "peak": 3.584783026005262,
+          "samples": 74
+        },
+        "lab_memory_percent": {
+          "mean": 8.980093196946747,
+          "peak": 9.090423583984375,
+          "samples": 49
+        },
+        "lab_network_kib": {
+          "mean": 1.924693173881192,
+          "peak": 1.9736251694445652,
+          "samples": 74
+        },
+        "node-exporter_cpu_percent": {
+          "mean": 1.4073325746346104,
+          "peak": 1.51958733198465,
+          "samples": 74
+        },
+        "node-exporter_memory_percent": {
+          "mean": 9.598089724170919,
+          "peak": 10.23406982421875,
+          "samples": 49
+        },
+        "node-exporter_network_kib": {
+          "mean": 1.0629551140046645,
+          "peak": 1.1159845713841003,
+          "samples": 74
+        },
+        "postgres_cpu_percent": {
+          "mean": 1.4575238675645852,
+          "peak": 1.5260875844034192,
+          "samples": 74
+        },
+        "postgres_memory_percent": {
+          "mean": 1.5043046739366321,
+          "peak": 1.8165588378906252,
+          "samples": 48
+        },
+        "postgres_network_kib": {
+          "mean": 0.6063047732165348,
+          "peak": 0.6225525770010887,
+          "samples": 74
+        },
+        "prometheus_cpu_percent": {
+          "mean": 0.6882672453835045,
+          "peak": 0.7140510408376672,
+          "samples": 74
+        },
+        "prometheus_memory_percent": {
+          "mean": 8.206787109375,
+          "peak": 9.033203125,
+          "samples": 50
+        },
+        "prometheus_network_kib": {
+          "mean": 7.89998611420372,
+          "peak": 8.27917764460239,
+          "samples": 74
+        },
+        "availability_percent": {
+          "mean": 100.0,
+          "peak": 100.0,
+          "samples": 74
+        }
+      }
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-01",
+      "category": "Indisponibilidade assistencial",
+      "asset": "DB-01",
+      "severity": "Crítica",
+      "status": "Fechado",
+      "risk": "R-01",
+      "onset": "2026-10-26T23:27:04.964592+00:00",
+      "detected": "2026-10-26T23:28:35.747000+00:00",
+      "response": "2026-10-26T23:29:04.966495+00:00",
+      "recovered": "2026-10-26T23:29:16.790000+00:00",
+      "detection_seconds": 90.7824079990387,
+      "recovery_seconds": 41.04299998283386,
+      "impact_seconds": 131.82540798187256,
+      "owner": "Operação de TI",
+      "response_actor": "Roteiro automatizado",
+      "evidence": [
+        "E03",
+        "E05"
+      ]
+    },
+    {
+      "id": "INC-02",
+      "category": "Perda de observabilidade",
+      "asset": "MON-01",
+      "severity": "Média",
+      "status": "Fechado",
+      "risk": "R-04",
+      "onset": "2026-10-26T23:37:05.016169+00:00",
+      "detected": "2026-10-26T23:38:35.747000+00:00",
+      "response": "2026-10-26T23:38:35.018003+00:00",
+      "recovered": "2026-10-26T23:38:46.790000+00:00",
+      "detection_seconds": 90.73083090782166,
+      "recovery_seconds": 11.042999982833862,
+      "impact_seconds": 101.77383089065552,
+      "owner": "Operação de TI",
+      "response_actor": "Roteiro automatizado",
+      "evidence": [
+        "E03",
+        "E05"
+      ]
+    }
+  ],
+  "alert_episodes": [
+    {
+      "alert": "ConsultaAssistencialIndisponivel",
+      "severity": "critical",
+      "job": "probe",
+      "started_at": "2026-10-26T23:28:35.747000+00:00",
+      "last_sample": 1793057360.747
+    },
+    {
+      "alert": "FalhaDeColeta",
+      "severity": "warning",
+      "job": "probe",
+      "started_at": "2026-10-26T23:38:35.747000+00:00",
+      "last_sample": 1793057930.747
+    }
+  ],
+  "counts": {
+    "risks_high_critical": 4,
+    "risks_critical": 1,
+    "risks_with_treatment_percent": 100.0,
+    "vulnerabilities_by_severity": {
+      "Alta": 2,
+      "Média": 3
+    },
+    "vulnerabilities_by_asset": {
+      "APP-01": 2,
+      "DB-01": 1,
+      "MON-01": 1,
+      "LOG-01": 1
+    },
+    "alerts_by_severity": {
+      "critical": 1,
+      "warning": 1
+    },
+    "incidents_open": 0,
+    "incidents_closed": 2,
+    "mttd_seconds": 90.75661945343018,
+    "mttr_seconds": 26.042999982833862
+  },
+  "vulnerabilities": [
+    {
+      "id": "VUL-01",
+      "asset": "APP-01",
+      "finding": "Leitura sem vínculo entre profissional e prontuário",
+      "severity": "Alta",
+      "exposure": "Usuário autenticado pode consultar qualquer ID válido; acesso restrito ao ambiente local.",
+      "treatment": "Aplicar autorização por vínculo profissional–paciente e testar acesso cruzado.",
+      "evidence": [
+        "C02",
+        "C03"
+      ],
+      "basis": "O handler valida o token, mas a consulta SQL recebe apenas o ID do prontuário."
+    },
+    {
+      "id": "VUL-02",
+      "asset": "APP-01",
+      "finding": "Autenticação sem limitação de tentativas",
+      "severity": "Média",
+      "exposure": "Endpoint local de login; dez tentativas consecutivas foram processadas e recusadas, sem bloqueio progressivo.",
+      "treatment": "Limitar tentativas por origem/identidade e criar alerta por janela curta.",
+      "evidence": [
+        "C02",
+        "E04",
+        "E05"
+      ],
+      "basis": "Não há rate limiting no fluxo de autenticação; o cenário registrou dez respostas 401."
+    },
+    {
+      "id": "VUL-03",
+      "asset": "DB-01",
+      "finding": "Persistência em instância única",
+      "severity": "Alta",
+      "exposure": "A indisponibilidade do PostgreSQL interrompe autenticação e consultas.",
+      "treatment": "Definir recuperação, cópias de segurança e ensaio de restauração; avaliar réplica conforme criticidade.",
+      "evidence": [
+        "C01",
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "basis": "O Compose possui uma instância do banco; o cenário confirmou a dependência do fluxo assistencial."
+    },
+    {
+      "id": "VUL-04",
+      "asset": "MON-01",
+      "finding": "Monitoramento concentrado no mesmo host",
+      "severity": "Média",
+      "exposure": "Perda do host também elimina a observação local; a falha do probe demonstrou perda parcial de visibilidade.",
+      "treatment": "Adicionar verificação externa e notificação de ausência de coleta.",
+      "evidence": [
+        "C01",
+        "C04",
+        "E03",
+        "E05"
+      ],
+      "basis": "Prometheus, Grafana e verificador compartilham o host; a coleta ficou em 6 de 7 alvos no cenário isolado."
+    },
+    {
+      "id": "VUL-05",
+      "asset": "LOG-01",
+      "finding": "Logs locais sujeitos a rotação sem arquivo central",
+      "severity": "Média",
+      "exposure": "Histórico pode ser perdido por rotação ou falha do host, reduzindo a capacidade de investigação.",
+      "treatment": "Definir retenção e exportação periódica; centralizar logs na Sprint 3.",
+      "evidence": [
+        "C01",
+        "C05"
+      ],
+      "basis": "Configuração json-file com 10 MB por arquivo e três arquivos por serviço; nenhuma fonte central configurada."
+    }
+  ],
+  "risks": [
+    {
+      "id": "R-01",
+      "asset": "DB-01 / atendimento",
+      "threat": "Falha da dependência de dados",
+      "vulnerability": "VUL-03",
+      "cause": "Instância única de persistência",
+      "event": "Autenticação e consulta indisponíveis",
+      "impact_description": "Interrupção do atendimento e atraso na consulta de registros",
+      "probability": 4,
+      "impact": 5,
+      "rationale": "A dependência foi demonstrada no incidente; P=4 representa o cenário proposto, não uma frequência estatística.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Formalizar recuperação e executar teste de restauração de backup.",
+      "deadline_days": 7,
+      "priority": "P1",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "E03",
+        "E04",
+        "E05",
+        "C01"
+      ],
+      "score": 20,
+      "level": "Crítico"
+    },
+    {
+      "id": "R-02",
+      "asset": "APP-01 / acesso clínico",
+      "threat": "Uso indevido de credencial válida",
+      "vulnerability": "VUL-01",
+      "cause": "Ausência de autorização por prontuário",
+      "event": "Leitura fora da necessidade de acesso",
+      "impact_description": "Exposição indevida de informações clínicas",
+      "probability": 3,
+      "impact": 5,
+      "rationale": "O acesso exige autenticação, mas não há verificação do vínculo com o registro; impacto potencial elevado.",
+      "owner": "Desenvolvimento",
+      "treatment": "Reduzir",
+      "action": "Implementar autorização por vínculo e testes negativos de acesso cruzado.",
+      "deadline_days": 14,
+      "priority": "P1",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "C02",
+        "C03"
+      ],
+      "score": 15,
+      "level": "Alto"
+    },
+    {
+      "id": "R-03",
+      "asset": "APP-01 / autenticação",
+      "threat": "Tentativas repetidas de adivinhação de senha",
+      "vulnerability": "VUL-02",
+      "cause": "Ausência de contenção progressiva de tentativas",
+      "event": "Comprometimento de conta ou pressão sobre o login",
+      "impact_description": "Acesso indevido ou degradação do serviço",
+      "probability": 3,
+      "impact": 4,
+      "rationale": "O cenário comprovou repetição de tentativas recusadas; não comprovou comprometimento. Exposição atual é local.",
+      "owner": "Segurança de TI",
+      "treatment": "Reduzir",
+      "action": "Aplicar rate limiting e alerta para cinco ou mais falhas em um minuto.",
+      "deadline_days": 7,
+      "priority": "P1",
+      "effort": "Baixo",
+      "status": "Planejado",
+      "evidence": [
+        "C02",
+        "E04",
+        "E05"
+      ],
+      "score": 12,
+      "level": "Alto"
+    },
+    {
+      "id": "R-04",
+      "asset": "MON-01 / detecção",
+      "threat": "Perda do coletor ou do host monitorado",
+      "vulnerability": "VUL-04",
+      "cause": "Dependência de observação local",
+      "event": "Atraso na identificação de indisponibilidade",
+      "impact_description": "Maior duração do impacto por ausência de diagnóstico",
+      "probability": 3,
+      "impact": 4,
+      "rationale": "A perda do probe foi observada; a perda total do host é uma hipótese de risco baseada na arquitetura.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Adicionar verificação externa e canal de notificação.",
+      "deadline_days": 14,
+      "priority": "P2",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "C01",
+        "C04",
+        "E03",
+        "E05"
+      ],
+      "score": 12,
+      "level": "Alto"
+    },
+    {
+      "id": "R-05",
+      "asset": "LOG-01 / investigação",
+      "threat": "Perda de registros operacionais",
+      "vulnerability": "VUL-05",
+      "cause": "Retenção local limitada e ausência de arquivo externo",
+      "event": "Evidências insuficientes para reconstruir um incidente",
+      "impact_description": "Atraso na investigação e tratamento inadequado",
+      "probability": 2,
+      "impact": 4,
+      "rationale": "Não houve perda comprovada nesta sessão; o risco decorre da política de rotação e do armazenamento local.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Automatizar exportação e definir retenção; integrar centralização na Sprint 3.",
+      "deadline_days": 21,
+      "priority": "P2",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "C01",
+        "C05"
+      ],
+      "score": 8,
+      "level": "Moderado"
+    }
+  ],
+  "risk_method": "Avaliação qualitativa do cenário: probabilidade e impacto de 1 a 5; risco inerente = P × I. Baixo 1–4, moderado 5–9, alto 10–16, crítico 17–25. Prioridades e prazos são propostas de tratamento, não controles já implementados.",
+  "probability_scale": {
+    "1": "Raro",
+    "2": "Pouco provável",
+    "3": "Possível",
+    "4": "Provável",
+    "5": "Quase certo"
+  },
+  "impact_scale": {
+    "1": "Insignificante",
+    "2": "Pequeno",
+    "3": "Moderado",
+    "4": "Grave",
+    "5": "Muito grave"
+  },
+  "deadline_basis": "Dias corridos após aprovação do plano de tratamento.",
+  "sources": [
+    {
+      "id": "B01",
+      "label": "Manifesto do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/manifest.json",
+      "sha256": "fdb76d508aa28ee7cdd9617d989519392b2b913cf846673202deae12ead16179",
+      "path": "sources/B01.txt"
+    },
+    {
+      "id": "B02",
+      "label": "Curvas do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/derived.json",
+      "sha256": "5a28ee05b9a44f41de5cf0ed39a1b83596be1fbdb1df6b8f2740e93ec8a56e01",
+      "path": "sources/B02.txt"
+    },
+    {
+      "id": "B03",
+      "label": "Séries originais do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/series.json",
+      "sha256": "d3730d61806e14498cdd484af9c6803452ba3d7013f8ebe136f500219d6c4781",
+      "path": "sources/B03.txt"
+    },
+    {
+      "id": "E01",
+      "label": "Manifesto do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/manifest.json",
+      "sha256": "29498f6ad493da9d8b41ab00e75f5c2483d6451e5726d7b4d9a807190cba2718",
+      "path": "sources/E01.txt"
+    },
+    {
+      "id": "E02",
+      "label": "Curvas do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/derived.json",
+      "sha256": "229575892d639b3296af7d12abd23105877e185767176c62a0a664cac1ed777f",
+      "path": "sources/E02.txt"
+    },
+    {
+      "id": "E03",
+      "label": "Séries originais do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/series.json",
+      "sha256": "9e7b43e0f049e67f9cac76b9a5ce7cc35ecaae6db88ada839d4a4730f9dce448",
+      "path": "sources/E03.txt"
+    },
+    {
+      "id": "E04",
+      "label": "Eventos da API",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/events.jsonl",
+      "sha256": "aee42f206818a11db212d4abd63dbc06216e4f64978ca0079b5e2ae9f93eb8c7",
+      "path": "sources/E04.txt"
+    },
+    {
+      "id": "E05",
+      "label": "Timeline do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/session.json",
+      "sha256": "dedc093d81fad8af83ed395f471c30e7a809270b77d86e1e83da0c6b5df53d31",
+      "path": "sources/E05.txt"
+    },
+    {
+      "id": "C01",
+      "label": "Compose da coleta",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/infra/compose.yaml",
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "path": "sources/C01.txt"
+    },
+    {
+      "id": "C02",
+      "label": "Autenticação e autorização",
+      "origin": "apps/api/app.ts",
+      "sha256": "85f3623a78cd66970d4d96ca728752eb70a64ec84deb4fc23ff2272ce8fe6caf",
+      "path": "sources/C02.txt"
+    },
+    {
+      "id": "C03",
+      "label": "Consulta ao banco",
+      "origin": "apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f",
+      "path": "sources/C03.txt"
+    },
+    {
+      "id": "C04",
+      "label": "Regras de alerta da coleta",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/monitoring/rules.yml",
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "path": "sources/C04.txt"
+    },
+    {
+      "id": "C05",
+      "label": "Retenção e logs locais",
+      "origin": "logging/README.md",
+      "sha256": "e4106a3f45e64d2358039c46e0dcfb1c49647f874dc46ab0b450e2196d01aa35",
+      "path": "sources/C05.txt"
+    },
+    {
+      "id": "C06",
+      "label": "Renovação do token do gerador",
+      "origin": "apps/lab/server.ts",
+      "sha256": "2327eff595e02d6799046b908a55fd0a9f465207e7218da25d7f480948c18b25",
+      "path": "sources/C06.txt"
+    }
+  ],
+  "indicators": [
+    {
+      "name": "KPI · Disponibilidade assistencial",
+      "value": "96,58%",
+      "target": "≥99%",
+      "decision": "Baseline 100%; queda induzida explica o desvio. Priorizar R-01. E03"
+    },
+    {
+      "name": "KPI · Pico de latência p95",
+      "value": "9,53 ms",
+      "target": "≤500 ms",
+      "decision": "Próximo ao baseline; manter capacidade. E02"
+    },
+    {
+      "name": "KPI · Cobertura ao final",
+      "value": "100% (7/7)",
+      "target": "100%",
+      "decision": "Recuperada após mínimo de 85,71%; tratar R-04. E03"
+    },
+    {
+      "name": "KPI · Incidentes abertos / fechados",
+      "value": "0 / 2",
+      "target": "0 abertos ao final",
+      "decision": "Dois episódios encerrados; manter ações preventivas. E03 E05"
+    },
+    {
+      "name": "KPI · MTTD (n=2)",
+      "value": "90,76 s",
+      "target": "≤120 s",
+      "decision": "Dentro da referência proposta; ampliar observação externa. E03 E05"
+    },
+    {
+      "name": "KPI · MTTR após detecção (n=2)",
+      "value": "26,04 s",
+      "target": "≤60 s",
+      "decision": "Resposta automatizada; testar procedimento operacional futuramente. E03 E05"
+    },
+    {
+      "name": "KRI · Falhas de login no cenário",
+      "value": "10 em menos de 1 min",
+      "target": "Investigar ≥5/min",
+      "decision": "Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03. E04 E05"
+    },
+    {
+      "name": "KRI · Vulnerabilidades altas",
+      "value": "2",
+      "target": "0 sem tratamento",
+      "decision": "Primeiro inventário; priorizar autorização e persistência. C01 C02 C03"
+    },
+    {
+      "name": "KRI · Riscos altos/críticos",
+      "value": "4 de 5",
+      "target": "0 sem responsável/plano",
+      "decision": "Primeira avaliação; executar tratamentos antes de reduzir classificação."
+    },
+    {
+      "name": "KPI · Riscos com tratamento definido",
+      "value": "100%",
+      "target": "100%",
+      "decision": "Todos planejados; acompanhar execução, prazo e evidência de conclusão."
+    }
+  ]
+}

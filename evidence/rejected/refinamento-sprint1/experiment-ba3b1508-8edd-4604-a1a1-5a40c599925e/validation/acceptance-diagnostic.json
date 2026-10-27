@@ -1,0 +1,121 @@
+{
+  "result": "rejected",
+  "session_id": "ba3b1508-8edd-4604-a1a1-5a40c599925e",
+  "recorded_at": "2026-10-26T23:59:28.596204+00:00",
+  "source_manifest_sha256": "29498f6ad493da9d8b41ab00e75f5c2483d6451e5726d7b4d9a807190cba2718",
+  "analyzer_sha256": "fca5c988e78094f93c2ed5a9d85b5dd2eed90872c33aee136147f874f810193f",
+  "failure": {
+    "command": "npm run session:run",
+    "stage": "offline acceptance",
+    "file": "scripts/evidence_analysis.py",
+    "line": 199,
+    "message": "Eventos esperados não foram observados.",
+    "requirement": {
+      "invalid_login_events": 10,
+      "minimum_clinical_record_503_events": 60
+    },
+    "observed": {
+      "invalid_login_events": 10,
+      "clinical_record_503_events": 23,
+      "authentication_503_events": 106
+    }
+  },
+  "duration_seconds": 3601.1174688339233,
+  "range_start": "2026-10-26T22:57:04.597788+00:00",
+  "range_end": "2026-10-26T23:57:05.715257+00:00",
+  "manifest_files_verified": 36,
+  "probe_observations": 234,
+  "successful_probes": 226,
+  "failed_probes": 8,
+  "observed_availability_percent": 96.58119658119658,
+  "temporal_completeness_percent": 97.46974461059645,
+  "response_counts": [
+    {
+      "event": "authentication",
+      "traffic": "clinical",
+      "status": 200,
+      "count": 6
+    },
+    {
+      "event": "authentication",
+      "traffic": "probe",
+      "status": 200,
+      "count": 226
+    },
+    {
+      "event": "authentication",
+      "traffic": "unauthenticated",
+      "status": 401,
+      "count": 10
+    },
+    {
+      "event": "authentication",
+      "traffic": "unauthenticated",
+      "status": 503,
+      "count": 106
+    },
+    {
+      "event": "record_access",
+      "traffic": "clinical",
+      "status": 200,
+      "count": 5876
+    },
+    {
+      "event": "record_access",
+      "traffic": "clinical",
+      "status": 503,
+      "count": 23
+    },
+    {
+      "event": "record_access",
+      "traffic": "probe",
+      "status": 200,
+      "count": 226
+    }
+  ],
+  "token_refresh_evidence": {
+    "last_successful_clinical_login_before_outage": "2026-10-26T23:13:27.957000+00:00",
+    "generator_cache_seconds": 840,
+    "expected_refresh_from_login_time": "2026-10-26T23:27:27.957000+00:00",
+    "first_authentication_503": "2026-10-26T23:27:16.804000+00:00",
+    "first_clinical_record_503": "2026-10-26T23:27:05.226000+00:00",
+    "last_clinical_record_503": "2026-10-26T23:27:27.231000+00:00",
+    "note": "The generator caches tokens for 840 seconds. The cache expires during the database outage; login requests fail before record access. Authentication failures are labeled unauthenticated and cannot individually be attributed to clinical or probe traffic from these logs alone."
+  },
+  "load_attempt_increments": {
+    "concurrency_limit": 0.0,
+    "http_error": 23.0,
+    "success": 5858.0,
+    "transport_or_login_error": 98.0
+  },
+  "observed_incident_timing": {
+    "onset_confirmed_at": "2026-10-26T23:27:04.964592+00:00",
+    "detected_at": "2026-10-26T23:28:35.747000+00:00",
+    "response_started_at": "2026-10-26T23:29:04.966495+00:00",
+    "recovered_at": "2026-10-26T23:29:16.790000+00:00",
+    "detection_seconds": 90.7824079990387,
+    "recovery_after_detection_seconds": 41.04299998283386,
+    "impact_seconds": 131.82540798187256
+  },
+  "maximum_container_gap_seconds": {
+    "container_cpu": 129.69999980926514,
+    "container_memory": 129.69999980926514,
+    "container_network_receive": 129.69999980926514,
+    "container_network_transmit": 129.69999980926514
+  },
+  "probe_outage_observations": {
+    "duration_seconds": 90.00183391571045,
+    "api_and_lab_collection_continued": true,
+    "generator_success_increment": 74.0,
+    "false_clinical_firing_during_probe_outage": false,
+    "collection_firing_observed": true
+  },
+  "sources": [
+    "events.jsonl",
+    "series.json",
+    "session.json",
+    "run.json",
+    "inventory.json"
+  ],
+  "limitation": "This diagnostic records source observations; it is not a passing acceptance summary. The official verifier stopped at the event-count condition; later checks were not executed by that verifier."
+}

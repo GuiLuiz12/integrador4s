@@ -8,7 +8,7 @@ Demonstrar o fluxo **dado → evidência → indicador → risco/incidente → d
 |---|---|---|
 | Sprint 1 — coletar e monitorar | Laboratório operacional e dashboard v0.1 | MVP entregue; evidências históricas preservadas em `evidence/validated/sprint1/` |
 | Refinamento da Sprint 1 | Dados exportáveis, comparação com baseline e incidentes reproduzíveis | Implementação de coleta descrita em [Evidências](evidencias.md); execução e resultados devem ser conferidos nos manifestos e resumos |
-| Sprint 2 — analisar | Dashboard v0.2, análise técnica, incidentes, vulnerabilidades e riscos sustentados por evidências | Próxima etapa; os coletores são insumos, não substituem a análise |
+| Sprint 2 — analisar | Dashboard v0.2, análise técnica, incidentes, vulnerabilidades e riscos sustentados por evidências | Implementados no [relatório da Sprint 2](relatorio-sprint2.md) e no dashboard; revisão da entrega pelo usuário |
 | Sprint 3 — integrar e comunicar | Dashboard v1.0 e defesa técnico-executiva | Etapa posterior, com governança, conformidade e rastreabilidade até a fonte |
 
 ## Refinamento antes da Sprint 2
@@ -20,7 +20,7 @@ Decisões adotadas:
 - A falha isolada preserva o gerador, `/metrics` e a API. O experimento anterior que parava o contêiner `lab` continua documentado como histórico.
 - Datas UTC explícitas e um mesmo intervalo para métricas e eventos; lacunas são preservadas.
 - Séries originais, consultas derivadas, eventos filtrados, inventário, fases, versões e manifesto com SHA-256.
-- Análise futura com Python e Grafana. A verificação offline atual usa somente a biblioteca padrão do Python.
+- Análise com Python e Grafana. A verificação offline e os cálculos usam somente a biblioteca padrão do Python.
 - Evidências antigas mantêm seus arquivos e períodos. Novas execuções recebem diretórios exclusivos.
 
 O refinamento fornece medições de desempenho e marcações de incidente. O registro formal de riscos, a análise de vulnerabilidades e a avaliação de conformidade pertencem às etapas abaixo.
@@ -59,15 +59,17 @@ Preservar consultas e gráficos da análise, prints ou exportações do monitora
 
 **Cada risco, incidente ou recomendação deve apontar a evidência técnica que sustenta a conclusão.** Indicadores manuais sem rastreabilidade não atendem ao aceite. A contagem de amostras de `ALERTS` não equivale à quantidade de incidentes: será necessário identificar episódios e registrar a regra de agregação.
 
-### Como usar os insumos do refinamento
+### Uso dos insumos na Sprint 2
 
-| Insumo atual | Análise/entrega da Sprint 2 | Trabalho ainda necessário |
+| Insumo | Análise/entrega da Sprint 2 | Implementação |
 |---|---|---|
-| Baseline e curvas por serviço | Médias, picos, tendências e comparação das fases | Selecionar método, calcular e justificar limiares e causas prováveis |
-| Inventário com imagens, versões e limites | Associação do achado ao ativo e à exposição | Coletar achados de vulnerabilidade e avaliar evidências específicas |
-| Eventos correlacionados e timeline | Classificação e medição de incidentes simulados | Definir episódios, status, severidade, impacto e critérios de detecção/resolução |
-| Manifesto, consultas, hashes e fonte dos indicadores | Evidência por risco/recomendação | Produzir registro de riscos, matriz, responsáveis e tratamento |
-| Curvas do Prometheus e dados exportados | Dashboard v0.2 | Construir as visões analíticas e de risco, apoiadas nos registros |
+| Baseline e curvas por serviço | Médias, picos, tendências e comparação das fases | Cálculos em `scripts/analyze_sprint2.py`; método e limiares nas seções 2–4 do relatório |
+| Inventário, código e configuração | Associação do achado ao ativo e à exposição | Cinco achados de controle/arquitetura na seção 5; não são CVEs de scanner |
+| Eventos correlacionados e timeline | Classificação e medição de incidentes simulados | Dois episódios; critérios e tempos nas seções 7–8 |
+| Manifesto, consultas, hashes e fonte dos indicadores | Evidência por risco/recomendação | Cinco riscos, matriz e plano com papéis responsáveis nas seções 6 e 10 |
+| Curvas do Prometheus e dados exportados | Dashboard v0.2 | Visões analíticas com recorte fixo e painéis operacionais preservados |
+
+O relatório usa o experimento completo preservado, com a limitação do aceite antigo declarada. A conferência de integridade não altera a rejeição original nem exige nova coleta para esta análise.
 
 Um contador de falhas de login é um indicador técnico; sua transformação em KRI depende de exposição, ameaça, contexto, limiar e justificativa. O inventário de imagens também não constitui, sozinho, um relatório de vulnerabilidades.
 

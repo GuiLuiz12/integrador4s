@@ -4,6 +4,10 @@
 
 A [seleção revisada do refinamento](validated/refinamento-sprint1/README.md) preserva as fontes completas, seus resumos e as capturas vinculadas aos períodos observados.
 
+Conjuntos cuja exportação terminou, mas cujo aceite foi rejeitado, ficam em `rejected/`, com o motivo e as fontes preservados. A [execução de 26/10/2026](rejected/refinamento-sprint1/README.md) não integra as evidências aprovadas.
+
+A [entrega analítica da Sprint 2](sprint2/README.md) usa esse experimento com a limitação declarada e preserva o resultado original do verificador. As capturas e verificações do v0.2 ficam separadas das fontes da coleta.
+
 ## Novas coletas
 
 - `baseline-<UUID>/`: estabilização e 30 minutos de carga normal.

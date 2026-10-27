@@ -1,10 +1,12 @@
 # Painel de Governança em Cibersegurança — Saúde
 
-Laboratório da **Sprint 1**, com prontuários inteiramente fictícios, consulta autenticada e Dashboard v0.1. Prazo de referência: duas semanas; esforço previsto: 20–40 horas totais, sem pressupor número de pessoas.
+Projeto da **Sprint 2 — Analisar**, com consulta autenticada, prontuários fictícios e Dashboard v0.2. O [relatório da Sprint 2](docs/relatorio-sprint2.md) reúne baseline, anomalias, vulnerabilidades, riscos, incidentes e recomendações nas dez seções do modelo de entrega.
 
 Sprint 1 concluída e validada em 17/09/2026. Consulte o [relatório com a DoD](docs/relatorio-sprint1.md) e as [evidências revisadas](evidence/validated/sprint1/README.md). A entrega combina a sessão de falhas de 10/09 com a validação de retomada de 17/09, sem misturar os dois períodos.
 
 O refinamento prepara a análise com baseline separado, falha isolada do probe e exportações rastreáveis. Consulte o [planejamento das três sprints](docs/planejamento.md) e o [contrato das evidências](docs/evidencias.md).
+
+O v0.2 combina análise do recorte de 26/10/2026 com os painéis operacionais. Os resultados e o relatório podem ser reproduzidos com `npm run analysis:sprint2`, usando as fontes preservadas, sem repetir o experimento. A limitação do verificador anterior está documentada no relatório; o resultado original foi mantido.
 
 ## Começar
 
@@ -46,7 +48,8 @@ Consulte [validação dos comandos npm](docs/validacao-comandos.md) para disting
 
 | O que você quer fazer | Comando ou local | Resultado |
 |---|---|---|
-| Acompanhar indicadores e alertas | [Grafana](http://localhost:3001/d/saude-v01) | Painel preenchido pela coleta automática |
+| Acompanhar análise e operação | [Grafana v0.2](http://localhost:3001/d/saude-v01) | Recorte analítico identificado e coleta operacional automática |
+| Ler a entrega da Sprint 2 | [Relatório](http://localhost:3000/analysis/sprint2) | Dez seções com links para as fontes |
 | Descobrir todas as ações | `npm run help` | Catálogo com pré-requisitos, argumentos, duração e efeitos |
 | Consultar endereços e logins | `npm run access` | URLs, usuários e variáveis de senha; nenhum segredo impresso |
 | Ver os serviços | `npm run status` | Estado dos sete contêineres |
@@ -67,6 +70,7 @@ O gerador já produz uma consulta fictícia por segundo. Não é necessário dis
 `npm run setup` cria `.env` com segredos aleatórios e permissão 0600, sem exibi-los. Não sobrescreve um arquivo existente válido. Abra esse arquivo **localmente** para obter `GRAFANA_PASSWORD`; não o inclua em screenshots ou relatórios. Login do painel: `admin`.
 
 - **Painel:** http://localhost:3001/d/saude-v01
+- **Relatório da Sprint 2:** http://localhost:3000/analysis/sprint2
 - **OpenAPI:** http://localhost:3000/openapi.json
 - **Recuperação:** http://localhost:3000/runbook
 - **Vitalidade / prontidão:** http://localhost:3000/health/live e http://localhost:3000/health/ready
@@ -194,7 +198,7 @@ Somente as portas 3000 e 3001 são publicadas, vinculadas a loopback. A rede do 
 - [Relatório e checklist de conclusão da Sprint 1](docs/relatorio-sprint1.md)
 - [Evidências revisadas da Sprint 1](evidence/validated/sprint1/README.md)
 
-Centralização de logs, KRIs, registro formal de riscos, vulnerabilidades, conformidade, workflow de ações e implantação efetiva na nuvem não fazem parte desta sprint.
+A Sprint 2 inclui KRIs, inventário de vulnerabilidades, registro de riscos e plano preliminar de tratamento. Centralização de logs, conformidade, execução e acompanhamento dos controles e implantação efetiva na nuvem permanecem fora desta entrega.
 
 # Topologia — integrador4s
 

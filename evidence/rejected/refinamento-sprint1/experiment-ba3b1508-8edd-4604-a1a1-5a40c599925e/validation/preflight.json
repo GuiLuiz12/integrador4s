@@ -1,0 +1,65 @@
+{
+  "kind": "preflight_validation",
+  "recorded_at": "2026-10-26T22:53:34.266904+00:00",
+  "source": "Command exit statuses and output observed before the experiment",
+  "commands": [
+    {
+      "command": "npm run build",
+      "result": "passed"
+    },
+    {
+      "command": "npm test",
+      "result": "passed",
+      "tests": 34,
+      "failures": 0
+    },
+    {
+      "command": "npm run test:evidence",
+      "result": "passed",
+      "tests": 17,
+      "failures": 0
+    },
+    {
+      "command": "npm run config:check",
+      "result": "passed"
+    },
+    {
+      "command": "npm run test:rules",
+      "result": "passed"
+    },
+    {
+      "command": "npm run check",
+      "result": "passed"
+    },
+    {
+      "command": "npm run test:integration",
+      "result": "passed",
+      "records": 100,
+      "identities": 3,
+      "targets": 7,
+      "container_metrics": 7,
+      "published_loopback_ports": [
+        "3000",
+        "3001"
+      ],
+      "cpu_limit": 5.75,
+      "memory_limit_gib": 7.0
+    },
+    {
+      "command": "npm run dashboard:verify",
+      "result": "passed",
+      "panels": 28,
+      "expression_errors": [],
+      "javascript_errors": [],
+      "visual_review": "synthesis and infrastructure screenshots reviewed",
+      "artifact": "validation/preflight-dashboard/validation.json",
+      "scope": "Pre-experiment dashboard validation; its interval is independent of the experiment."
+    }
+  ],
+  "environment_notes": [
+    "Initial sandbox attempts could not access Docker or open the TypeScript runner socket; both checks passed when rerun outside the sandbox."
+  ],
+  "excluded": [
+    "Optional Ubuntu 26 installation VM"
+  ]
+}

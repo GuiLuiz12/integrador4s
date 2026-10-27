@@ -1,24 +1,37 @@
 {
   "uid": "saude-v01",
-  "title": "Governança em Cibersegurança · Saúde v0.1",
+  "title": "Governança em Cibersegurança · Saúde v0.2",
   "tags": [
     "saude",
-    "sprint-1",
-    "ficticio"
+    "sprint-2"
   ],
   "schemaVersion": 39,
-  "version": 1,
+  "version": 2,
   "editable": false,
   "timezone": "America/Sao_Paulo",
   "refresh": "15s",
+  "links": [
+    {
+      "title": "Relatório da Sprint 2",
+      "type": "link",
+      "url": "http://localhost:3000/analysis/sprint2",
+      "targetBlank": true
+    },
+    {
+      "title": "Dados e fontes",
+      "type": "link",
+      "url": "http://localhost:3000/analysis/sprint2/data",
+      "targetBlank": true
+    }
+  ],
   "time": {
     "from": "now-1h",
     "to": "now"
   },
   "panels": [
     {
-      "id": 1,
-      "title": "Síntese gerencial · laboratório fictício",
+      "id": 100,
+      "title": "Análise · 26/10/2026 · 19:57–20:57",
       "type": "row",
       "collapsed": false,
       "gridPos": {
@@ -29,12 +42,1888 @@
       }
     },
     {
+      "id": 101,
+      "title": "Riscos altos e críticos",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Riscos\"\n\"4\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 102,
+      "title": "Vulnerabilidades altas",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Achados\"\n\"2\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 103,
+      "title": "Incidentes · situação final",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Abertos\",\"Fechados\"\n\"0\",\"2\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 104,
+      "title": "MTTD · 2 incidentes",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Detecção\"\n\"90.75661945343018\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "suffix:s",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 120.001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 105,
+      "title": "MTTR · após detecção",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Recuperação\"\n\"26.042999982833862\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "suffix:s",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 60.001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 106,
+      "title": "Tratamento definido",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Riscos com plano\"\n\"100\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "percent",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 107,
+      "title": "Baseline e tendências",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 108,
+      "title": "Baseline × experimento",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 15
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Métrica\",\"Unidade\",\"Base média\",\"Base pico\",\"Exp. média\",\"Exp. pico\",\"Limiar\"\n\"CPU APP-01\",\"% do limite de 1 CPU\",\"2.57\",\"2.75\",\"2.6\",\"3.58\",\"≤80\"\n\"Memória APP-01\",\"% de 768 MiB\",\"14.05\",\"14.25\",\"22.67\",\"23.91\",\"≤80\"\n\"CPU DB-01\",\"% do limite de 1 CPU\",\"1.4\",\"1.46\",\"1.43\",\"1.8\",\"≤80\"\n\"Memória DB-01\",\"% de 1.536 MiB\",\"1.93\",\"2.18\",\"2.78\",\"4.34\",\"≤80\"\n\"CPU HOST-01\",\"%\",\"6.58\",\"11.96\",\"8.33\",\"10.75\",\"≤80\"\n\"Memória HOST-01\",\"%\",\"21.52\",\"23.78\",\"33.09\",\"33.76\",\"≤80\"\n\"Tráfego APP-01\",\"KiB/s\",\"2.81\",\"2.9\",\"3.71\",\"8.5\",\"Comparativo\"\n\"Consultas concluídas\",\"respostas/s\",\"1\",\"1\",\"1.64\",\"4.99\",\"Comparativo\"\n\"Latência p95\",\"ms\",\"9.51\",\"9.53\",\"9.5\",\"9.53\",\"≤500\"\n\"Erros de consulta\",\"%\",\"0\",\"0\",\"0.86\",\"11.87\",\"<1\"\n\"Disponibilidade assistencial\",\"%\",\"100\",\"100\",\"96.58\",\"100\",\"≥99\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Métrica"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 170
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 109,
+      "title": "CPU APP-01 · comparação por fase",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 10,
+        "w": 8,
+        "h": 15
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. CPU em % do limite de 1 CPU, calculada em janelas móveis de cinco minutos; as bordas das fases incluem contexto anterior.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Fase\",\"Média\",\"Pico\"\n\"Baseline\",\"2.57\",\"2.75\"\n\"Normal inicial\",\"2.6\",\"2.81\"\n\"Carga 5/s\",\"3.24\",\"3.58\"\n\"Banco parado\",\"2.36\",\"2.4\"\n\"Recuperação do banco\",\"2.36\",\"2.4\"\n\"Falha do probe\",\"2.39\",\"2.47\"\n\"Normal final\",\"2.38\",\"2.46\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "percent",
+          "decimals": 2,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Fase",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 110,
+      "title": "Riscos e plano de tratamento",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 25,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 111,
+      "title": "Matriz · probabilidade × impacto",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 26,
+        "w": 8,
+        "h": 9
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. P e I de 1 a 5; risco inerente = P × I. Células vazias não têm riscos registrados. Classificação qualitativa do cenário.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"P ↓\",\"I = 1\",\"I = 2\",\"I = 3\",\"I = 4\",\"I = 5\"\n\"P = 5\",,,,,\n\"P = 4\",,,,,\"20\"\n\"P = 3\",,,,\"12\",\"15\"\n\"P = 2\",,,,\"8\",\n\"P = 1\",,,,,",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 1"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 2"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 3"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 4"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 5"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P ↓"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 1"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 2"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 3"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 4"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 5"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 112,
+      "title": "Registro de riscos e responsáveis",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 9
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. Prazos após aprovação do plano. Todos os tratamentos estão planejados; risco residual ainda não reavaliado.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Ativo\",\"P\",\"I\",\"Risco\",\"Nível\",\"Responsável\",\"Estratégia\",\"Prazo\"\n\"R-01\",\"DB-01\",\"4\",\"5\",\"20\",\"Crítico\",\"Operação de TI\",\"Reduzir\",\"D+7\"\n\"R-02\",\"APP-01\",\"3\",\"5\",\"15\",\"Alto\",\"Desenvolvimento\",\"Reduzir\",\"D+14\"\n\"R-03\",\"APP-01\",\"3\",\"4\",\"12\",\"Alto\",\"Segurança de TI\",\"Reduzir\",\"D+7\"\n\"R-04\",\"MON-01\",\"3\",\"4\",\"12\",\"Alto\",\"Operação de TI\",\"Reduzir\",\"D+14\"\n\"R-05\",\"LOG-01\",\"2\",\"4\",\"8\",\"Moderado\",\"Operação de TI\",\"Reduzir\",\"D+21\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Risco"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Risco"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 55
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nível"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Responsável"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Estratégia"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Prazo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 113,
+      "title": "Vulnerabilidades e exposição",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 35,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 114,
+      "title": "Achados por severidade",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 6,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Severidade\",\"Achados\"\n\"Crítica\",\"0\"\n\"Alta\",\"2\"\n\"Média\",\"3\"\n\"Baixa\",\"0\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Severidade",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 115,
+      "title": "Ativos com mais achados",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 36,
+        "w": 6,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Ativo\",\"Achados\"\n\"APP-01\",\"2\"\n\"DB-01\",\"1\"\n\"MON-01\",\"1\"\n\"LOG-01\",\"1\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Ativo",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 116,
+      "title": "Inventário de vulnerabilidades",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 36,
+        "w": 12,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Ativo\",\"Achado\",\"Severidade\",\"Fonte\"\n\"VUL-01\",\"APP-01\",\"Leitura sem vínculo entre profissional e prontuário\",\"Alta\",\"C02, C03\"\n\"VUL-02\",\"APP-01\",\"Autenticação sem limitação de tentativas\",\"Média\",\"C02, E04, E05\"\n\"VUL-03\",\"DB-01\",\"Persistência em instância única\",\"Alta\",\"C01, E03, E04, E05\"\n\"VUL-04\",\"MON-01\",\"Monitoramento concentrado no mesmo host\",\"Média\",\"C01, C04, E03, E05\"\n\"VUL-05\",\"LOG-01\",\"Logs locais sujeitos a rotação sem arquivo central\",\"Média\",\"C01, C05\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Fonte"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 117,
+      "title": "Incidentes e alertas",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 47,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 118,
+      "title": "Incidentes · cronologia e resposta",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 17,
+        "h": 8
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Categoria\",\"Severidade\",\"Status\",\"Início\",\"Detecção\",\"Retorno\",\"Detectar (s)\",\"Recuperar (s)\"\n\"INC-01\",\"Indisponibilidade assistencial\",\"Crítica\",\"Fechado\",\"20:27:04\",\"20:28:35\",\"20:29:16\",\"90.78\",\"41.04\"\n\"INC-02\",\"Perda de observabilidade\",\"Média\",\"Fechado\",\"20:37:05\",\"20:38:35\",\"20:38:46\",\"90.73\",\"11.04\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Categoria"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 210
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Início"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Detecção"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Retorno"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Detectar (s)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Recuperar (s)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 119,
+      "title": "Episódios de alerta por criticidade",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 17,
+        "y": 48,
+        "w": 7,
+        "h": 8
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Criticidade\",\"Episódios\"\n\"Crítico\",\"1\"\n\"Aviso\",\"1\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Criticidade",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 120,
+      "title": "KPIs, KRIs e decisões",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 56,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 121,
+      "title": "Indicadores e decisão associada",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 57,
+        "w": 24,
+        "h": 15
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
+      "links": [
+        {
+          "title": "Relatório e evidências",
+          "url": "http://localhost:3000/analysis/sprint2",
+          "targetBlank": true
+        }
+      ],
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Indicador\",\"Resultado\",\"Meta / limiar\",\"Tendência / decisão\"\n\"KPI · Disponibilidade assistencial\",\"96,58%\",\"≥99%\",\"Baseline 100%; queda induzida explica o desvio. Priorizar R-01. E03\"\n\"KPI · Pico de latência p95\",\"9,53 ms\",\"≤500 ms\",\"Próximo ao baseline; manter capacidade. E02\"\n\"KPI · Cobertura ao final\",\"100% (7/7)\",\"100%\",\"Recuperada após mínimo de 85,71%; tratar R-04. E03\"\n\"KPI · Incidentes abertos / fechados\",\"0 / 2\",\"0 abertos ao final\",\"Dois episódios encerrados; manter ações preventivas. E03 E05\"\n\"KPI · MTTD (n=2)\",\"90,76 s\",\"≤120 s\",\"Dentro da referência proposta; ampliar observação externa. E03 E05\"\n\"KPI · MTTR após detecção (n=2)\",\"26,04 s\",\"≤60 s\",\"Resposta automatizada; testar procedimento operacional futuramente. E03 E05\"\n\"KRI · Falhas de login no cenário\",\"10 em menos de 1 min\",\"Investigar ≥5/min\",\"Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03. E04 E05\"\n\"KRI · Vulnerabilidades altas\",\"2\",\"0 sem tratamento\",\"Primeiro inventário; priorizar autorização e persistência. C01 C02 C03\"\n\"KRI · Riscos altos/críticos\",\"4 de 5\",\"0 sem responsável/plano\",\"Primeira avaliação; executar tratamentos antes de reduzir classificação.\"\n\"KPI · Riscos com tratamento definido\",\"100%\",\"100%\",\"Todos planejados; acompanhar execução, prazo e evidência de conclusão.\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indicador"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 280
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Resultado"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Meta / limiar"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 190
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 1,
+      "title": "Operação · intervalo selecionado",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 73,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
       "id": 2,
       "title": "Consulta assistencial agora",
       "type": "stat",
       "gridPos": {
         "x": 0,
-        "y": 1,
+        "y": 74,
         "w": 6,
         "h": 4
       },
@@ -108,11 +1997,11 @@
       "type": "stat",
       "gridPos": {
         "x": 6,
-        "y": 1,
+        "y": 74,
         "w": 6,
         "h": 4
       },
-      "description": "Sucessos / verificações observadas. Meta didática ≥99%. Não é SLA mensal; avaliar lacunas abaixo.",
+      "description": "Sucessos / verificações observadas. Não é SLA mensal; avaliar lacunas abaixo.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -167,7 +2056,7 @@
       "type": "stat",
       "gridPos": {
         "x": 12,
-        "y": 1,
+        "y": 74,
         "w": 6,
         "h": 4
       },
@@ -226,7 +2115,7 @@
       "type": "stat",
       "gridPos": {
         "x": 18,
-        "y": 1,
+        "y": 74,
         "w": 6,
         "h": 4
       },
@@ -280,50 +2169,13 @@
       }
     },
     {
-      "id": 6,
-      "title": "Impacto, responsável e decisão",
-      "type": "text",
-      "gridPos": {
-        "x": 0,
-        "y": 5,
-        "w": 24,
-        "h": 6
-      },
-      "description": "",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "noValue": "Sem dados",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "targets": [],
-      "options": {
-        "mode": "markdown",
-        "content": "**Impacto simulado:** consulta de prontuários interrompida pode atrasar o atendimento clínico fictício.\n\n**Responsável:** Operação do laboratório. **Ação:** confirmar a consulta e verificar API e PostgreSQL; restaurar a dependência afetada e validar a recuperação. Falha da consulta isolada não identifica a causa.\n\n**Falha de coleta:** restaurar a observação antes de concluir sobre a saúde do serviço. [Procedimento de recuperação](http://localhost:3000/runbook).\n\nMetas didáticas: disponibilidade ≥99%, p95 ≤500 ms e erros <1%. Sessões reais de 1–2 horas; ausência de dados não equivale a sucesso."
-      }
-    },
-    {
       "id": 7,
       "title": "Qualidade da evidência e continuidade",
       "type": "row",
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 11,
+        "y": 78,
         "w": 24,
         "h": 1
       }
@@ -334,7 +2186,7 @@
       "type": "stat",
       "gridPos": {
         "x": 0,
-        "y": 12,
+        "y": 79,
         "w": 6,
         "h": 4
       },
@@ -389,7 +2241,7 @@
       "type": "stat",
       "gridPos": {
         "x": 6,
-        "y": 12,
+        "y": 79,
         "w": 6,
         "h": 4
       },
@@ -444,7 +2296,7 @@
       "type": "stat",
       "gridPos": {
         "x": 12,
-        "y": 12,
+        "y": 79,
         "w": 6,
         "h": 4
       },
@@ -503,7 +2355,7 @@
       "type": "stat",
       "gridPos": {
         "x": 18,
-        "y": 12,
+        "y": 79,
         "w": 6,
         "h": 4
       },
@@ -562,7 +2414,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 0,
-        "y": 16,
+        "y": 83,
         "w": 12,
         "h": 7
       },
@@ -617,7 +2469,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 12,
-        "y": 16,
+        "y": 83,
         "w": 12,
         "h": 7
       },
@@ -672,7 +2524,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 0,
-        "y": 23,
+        "y": 90,
         "w": 24,
         "h": 6
       },
@@ -725,7 +2577,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 29,
+        "y": 96,
         "w": 24,
         "h": 1
       }
@@ -736,7 +2588,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 0,
-        "y": 30,
+        "y": 97,
         "w": 8,
         "h": 7
       },
@@ -789,7 +2641,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 8,
-        "y": 30,
+        "y": 97,
         "w": 8,
         "h": 7
       },
@@ -846,7 +2698,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 16,
-        "y": 30,
+        "y": 97,
         "w": 8,
         "h": 7
       },
@@ -903,11 +2755,11 @@
       "type": "stat",
       "gridPos": {
         "x": 0,
-        "y": 37,
+        "y": 104,
         "w": 8,
         "h": 4
       },
-      "description": "Estimativa por contador Prometheus; os logs preservam os dez eventos exatos do experimento. Não é um KRI nesta sprint.",
+      "description": "Estimativa por contador Prometheus; consulte os logs para a contagem exata dos eventos.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
@@ -958,7 +2810,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 8,
-        "y": 37,
+        "y": 104,
         "w": 8,
         "h": 4
       },
@@ -1011,7 +2863,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 16,
-        "y": 37,
+        "y": 104,
         "w": 8,
         "h": 4
       },
@@ -1060,12 +2912,12 @@
     },
     {
       "id": 22,
-      "title": "Infraestrutura · host inclui processos externos ao laboratório",
+      "title": "Infraestrutura · host inclui processos externos ao projeto",
       "type": "row",
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 41,
+        "y": 108,
         "w": 24,
         "h": 1
       }
@@ -1076,7 +2928,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 0,
-        "y": 42,
+        "y": 109,
         "w": 8,
         "h": 7
       },
@@ -1129,7 +2981,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 8,
-        "y": 42,
+        "y": 109,
         "w": 8,
         "h": 7
       },
@@ -1182,7 +3034,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 16,
-        "y": 42,
+        "y": 109,
         "w": 8,
         "h": 7
       },
@@ -1235,7 +3087,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 0,
-        "y": 49,
+        "y": 116,
         "w": 12,
         "h": 7
       },
@@ -1288,7 +3140,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 12,
-        "y": 49,
+        "y": 116,
         "w": 12,
         "h": 7
       },
@@ -1341,7 +3193,7 @@
       "type": "stat",
       "gridPos": {
         "x": 0,
-        "y": 56,
+        "y": 123,
         "w": 8,
         "h": 4
       },
@@ -1396,7 +3248,7 @@
       "type": "timeseries",
       "gridPos": {
         "x": 8,
-        "y": 56,
+        "y": 123,
         "w": 16,
         "h": 6
       },

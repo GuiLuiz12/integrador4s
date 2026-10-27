@@ -1,0 +1,5 @@
+
+> governanca-saude-lab@0.1.0 session:summary
+> bash scripts/lab.sh session-summary evidence/runs/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e
+
+Evidências rejeitadas: Eventos esperados não foram observados.

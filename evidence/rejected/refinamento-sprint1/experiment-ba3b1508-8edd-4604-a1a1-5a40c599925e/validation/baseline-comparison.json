@@ -1,0 +1,45 @@
+{
+  "baseline_session_id": "9354d609-9654-4632-9529-00bae1ec5f24",
+  "baseline_manifest_sha256": "fdb76d508aa28ee7cdd9617d989519392b2b913cf846673202deae12ead16179",
+  "experiment_session_id": "ba3b1508-8edd-4604-a1a1-5a40c599925e",
+  "baseline_host": {
+    "os": "Linux Mint 22.3",
+    "architecture": "x86_64",
+    "cpus": 12,
+    "memory_bytes": 24906383360,
+    "docker_version": "29.9.2"
+  },
+  "experiment_host": {
+    "os": "Linux Mint 22.3",
+    "architecture": "x86_64",
+    "cpus": 12,
+    "memory_bytes": 24906379264,
+    "docker_version": "29.9.2"
+  },
+  "application_source_hashes_equal": true,
+  "changed_source_files": [
+    "scripts/dashboard.mjs",
+    "scripts/evidence_analysis.py",
+    "scripts/legacy_summary.py"
+  ],
+  "changed_configuration_files": [
+    "dashboards/saude.json"
+  ],
+  "image_references_equal": true,
+  "runtime_limits_equal": true,
+  "changed_image_ids": [
+    {
+      "service": "api",
+      "baseline": "sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd",
+      "experiment": "sha256:2a919e25bda04694979d350b8bb92bbb6b946a370ee2d6073fd21e35dca122ca"
+    },
+    {
+      "service": "lab",
+      "baseline": "sha256:b88e3edeb46efd840cc8d781319282a6393ecb78f97daebbb3c45fecb3e4ecdd",
+      "experiment": "sha256:2a919e25bda04694979d350b8bb92bbb6b946a370ee2d6073fd21e35dca122ca"
+    }
+  ],
+  "notes": [
+    "The baseline remains unchanged. Host workloads may differ between runs, and rebuilt image IDs differ; source, dependency, configuration and resource comparisons are recorded separately."
+  ]
+}

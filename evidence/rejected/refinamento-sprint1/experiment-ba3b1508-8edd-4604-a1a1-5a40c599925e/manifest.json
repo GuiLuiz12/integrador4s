@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "session_id": "ba3b1508-8edd-4604-a1a1-5a40c599925e",
+  "kind": "experiment",
+  "status": "completed",
+  "captured_at": "2026-10-26T23:57:07.796390+00:00",
+  "range_start": "2026-10-26T22:57:04.597788+00:00",
+  "range_end": "2026-10-26T23:57:05.715257+00:00",
+  "window": "3601118ms",
+  "boundary": "start <= timestamp <= end",
+  "scrape_interval_seconds": 15,
+  "context_seconds": 300,
+  "phases": [
+    {
+      "id": "normal_before_load",
+      "started_at": "2026-10-26T22:57:04.588541+00:00",
+      "ended_at": "2026-10-26T23:07:04.954980+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "load",
+      "started_at": "2026-10-26T23:07:04.954980+00:00",
+      "ended_at": "2026-10-26T23:17:04.955823+00:00",
+      "configured_rate": 5
+    },
+    {
+      "id": "normal_after_load",
+      "started_at": "2026-10-26T23:17:04.955823+00:00",
+      "ended_at": "2026-10-26T23:22:04.588660+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "invalid_logins",
+      "started_at": "2026-10-26T23:22:04.588660+00:00",
+      "ended_at": "2026-10-26T23:22:05.315619+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_db_outage",
+      "started_at": "2026-10-26T23:22:05.315619+00:00",
+      "ended_at": "2026-10-26T23:27:04.588787+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "db_outage",
+      "started_at": "2026-10-26T23:27:04.588787+00:00",
+      "ended_at": "2026-10-26T23:29:05.334067+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "db_recovery",
+      "started_at": "2026-10-26T23:29:05.334067+00:00",
+      "ended_at": "2026-10-26T23:32:05.006395+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_probe_outage",
+      "started_at": "2026-10-26T23:32:05.006395+00:00",
+      "ended_at": "2026-10-26T23:37:04.588781+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "probe_outage",
+      "started_at": "2026-10-26T23:37:04.588781+00:00",
+      "ended_at": "2026-10-26T23:38:35.335975+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_after_recovery",
+      "started_at": "2026-10-26T23:38:35.335975+00:00",
+      "ended_at": "2026-10-26T23:57:05.715257+00:00",
+      "configured_rate": 1
+    }
+  ],
+  "parameters": {
+    "warmup_seconds": 300,
+    "duration_seconds": 3600,
+    "normal_rate": 1,
+    "load_rate": 5,
+    "load_seconds": 600,
+    "db_outage_seconds": 120,
+    "probe_outage_seconds": 90,
+    "collector_alert_jobs": [
+      "probe"
+    ],
+    "response_actor": "session_runner"
+  },
+  "files": {
+    "captures/alerts/ConsultaAssistencialIndisponivel/dashboard.png": {
+      "sha256": "be7de5f0a90ab74eae5cfbd339930ddf80d7b609fe9cbccc22ae4fc15527f841",
+      "bytes": 95389
+    },
+    "captures/alerts/ConsultaAssistencialIndisponivel/observation.json": {
+      "sha256": "71c37027458c873bbebb59694c89b51bf11842a75c1f797ad9106a793a8d59ef",
+      "bytes": 613
+    },
+    "captures/alerts/FalhaDeColeta/dashboard.png": {
+      "sha256": "f292314e079f93039e279767b083e4f948f82fd6340665f34a9d991134b90f94",
+      "bytes": 102241
+    },
+    "captures/alerts/FalhaDeColeta/observation.json": {
+      "sha256": "1cff86370ab00075812edb2792b6bc9765f3f8825deb9ceba67ee96b731dff3a",
+      "bytes": 561
+    },
+    "configuration/dashboards/saude.json": {
+      "sha256": "b3dfd2465bd4d28f6a218f109670a7dee9012d951e6746a9262241593653fba3",
+      "bytes": 34188
+    },
+    "configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "configuration/infra/compose.yaml": {
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "bytes": 4898
+    },
+    "configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "configuration/monitoring/prometheus.yml": {
+      "sha256": "d22e7ad188606fc5e310f847823051dfde500b2ebeb17706ccb623058a55630e",
+      "bytes": 815
+    },
+    "configuration/monitoring/rules.yml": {
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "bytes": 1818
+    },
+    "configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "configuration/package.json": {
+      "sha256": "7d2f74dcf370f9fb48efe823541cc412d6b41e089729c84c4f317970f91743d3",
+      "bytes": 2440
+    },
+    "configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    },
+    "derived.json": {
+      "sha256": "229575892d639b3296af7d12abd23105877e185767176c62a0a664cac1ed777f",
+      "bytes": 469074
+    },
+    "events.jsonl": {
+      "sha256": "aee42f206818a11db212d4abd63dbc06216e4f64978ca0079b5e2ae9f93eb8c7",
+      "bytes": 1455315
+    },
+    "inventory-start.json": {
+      "sha256": "b3d9edc7656dee91126bf689cd984e0393338d4cfba362d0dfeaa44f2794a595",
+      "bytes": 6813
+    },
+    "inventory.json": {
+      "sha256": "f7d89d3e89578c4e03852acccd78e82cce4fed148bb46a02cd54a8627c98ba0a",
+      "bytes": 6813
+    },
+    "metrics.json": {
+      "sha256": "de154eb9ea0ac7e3d05fc09bd087fd73d823db84088b4087a766b03d8adffcc0",
+      "bytes": 198252
+    },
+    "run.json": {
+      "sha256": "e1ad1b8870f7ea551cabce5837cbd90f0acb18cb9463ab32bed6badcec067fff",
+      "bytes": 2342
+    },
+    "series.json": {
+      "sha256": "9e7b43e0f049e67f9cac76b9a5ce7cc35ecaae6db88ada839d4a4730f9dce448",
+      "bytes": 4193919
+    },
+    "session.json": {
+      "sha256": "dedc093d81fad8af83ed395f471c30e7a809270b77d86e1e83da0c6b5df53d31",
+      "bytes": 3673
+    },
+    "source-changes.patch": {
+      "sha256": "8f2e3f8790ff8d488bb584f52ceb9d24111b9fd49a55460d60b3b377ba8a1335",
+      "bytes": 16878
+    },
+    "start/configuration/dashboards/saude.json": {
+      "sha256": "b3dfd2465bd4d28f6a218f109670a7dee9012d951e6746a9262241593653fba3",
+      "bytes": 34188
+    },
+    "start/configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "start/configuration/infra/compose.yaml": {
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "bytes": 4898
+    },
+    "start/configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "start/configuration/monitoring/prometheus.yml": {
+      "sha256": "d22e7ad188606fc5e310f847823051dfde500b2ebeb17706ccb623058a55630e",
+      "bytes": 815
+    },
+    "start/configuration/monitoring/rules.yml": {
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "bytes": 1818
+    },
+    "start/configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "start/configuration/package.json": {
+      "sha256": "7d2f74dcf370f9fb48efe823541cc412d6b41e089729c84c4f317970f91743d3",
+      "bytes": 2440
+    },
+    "start/configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    },
+    "validation/baseline-comparison.json": {
+      "sha256": "e3f2cb1098f52b34008ce8b77fbddc2de3d06648672e57fd0fd47a4d94a5e760",
+      "bytes": 1559
+    },
+    "validation/preflight-dashboard/infraestrutura.png": {
+      "sha256": "9d2e9e8a72289a3d5635514088db37ee1f0bd6a9a0376d3a53210b3105fd310d",
+      "bytes": 115943
+    },
+    "validation/preflight-dashboard/sintese.png": {
+      "sha256": "bc361c910431b6389870359095aca9097bcc2f142c32a49b5b5967ac7496591d",
+      "bytes": 96365
+    },
+    "validation/preflight-dashboard/validation.json": {
+      "sha256": "37cd8da90f0ae9a0c7e2a86b43afdc87917c94e4e52c3ab38259f8adfd52d0f8",
+      "bytes": 299
+    },
+    "validation/preflight.json": {
+      "sha256": "b8cb7f75655ca003aa6a8ae201673e1acc7f96b358e937e1dfec599880a0e9cc",
+      "bytes": 1673
+    }
+  },
+  "inventory": "inventory.json",
+  "indicator_sources": {
+    "availability": [
+      "series.json#/queries/probe_history"
+    ],
+    "collection": [
+      "series.json#/queries/collection_history"
+    ],
+    "invalid_logins": [
+      "events.jsonl:event=authentication,status=401"
+    ],
+    "clinical_errors": [
+      "events.jsonl:event=record_access,traffic=clinical,status=503"
+    ],
+    "host_cpu_percent": [
+      "derived.json#/queries/host_cpu_percent"
+    ],
+    "host_memory_percent": [
+      "derived.json#/queries/host_memory_percent"
+    ],
+    "container_cpu_cores": [
+      "derived.json#/queries/container_cpu_cores"
+    ],
+    "container_network_bytes_per_second": [
+      "derived.json#/queries/container_network_bytes_per_second"
+    ],
+    "clinical_volume": [
+      "derived.json#/queries/clinical_volume"
+    ],
+    "clinical_errors_percent": [
+      "derived.json#/queries/clinical_errors_percent"
+    ],
+    "clinical_p95": [
+      "derived.json#/queries/clinical_p95"
+    ]
+  },
+  "limitations": [
+    "Host includes workloads outside this project.",
+    "Inventory describes capture time; historical configuration requires a session-start snapshot.",
+    "Derived points do not prove collection completeness; use original samples.",
+    "Missing or rotated source logs cannot be reconstructed."
+  ]
+}

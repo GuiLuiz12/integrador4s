@@ -1,0 +1,82 @@
+{
+  "session_id": "ba3b1508-8edd-4604-a1a1-5a40c599925e",
+  "kind": "experiment",
+  "status": "completed",
+  "phases": [
+    {
+      "id": "normal_before_load",
+      "started_at": "2026-10-26T22:57:04.588541+00:00",
+      "ended_at": "2026-10-26T23:07:04.954980+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "load",
+      "started_at": "2026-10-26T23:07:04.954980+00:00",
+      "ended_at": "2026-10-26T23:17:04.955823+00:00",
+      "configured_rate": 5
+    },
+    {
+      "id": "normal_after_load",
+      "started_at": "2026-10-26T23:17:04.955823+00:00",
+      "ended_at": "2026-10-26T23:22:04.588660+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "invalid_logins",
+      "started_at": "2026-10-26T23:22:04.588660+00:00",
+      "ended_at": "2026-10-26T23:22:05.315619+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_db_outage",
+      "started_at": "2026-10-26T23:22:05.315619+00:00",
+      "ended_at": "2026-10-26T23:27:04.588787+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "db_outage",
+      "started_at": "2026-10-26T23:27:04.588787+00:00",
+      "ended_at": "2026-10-26T23:29:05.334067+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "db_recovery",
+      "started_at": "2026-10-26T23:29:05.334067+00:00",
+      "ended_at": "2026-10-26T23:32:05.006395+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_before_probe_outage",
+      "started_at": "2026-10-26T23:32:05.006395+00:00",
+      "ended_at": "2026-10-26T23:37:04.588781+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "probe_outage",
+      "started_at": "2026-10-26T23:37:04.588781+00:00",
+      "ended_at": "2026-10-26T23:38:35.335975+00:00",
+      "configured_rate": 1
+    },
+    {
+      "id": "normal_after_recovery",
+      "started_at": "2026-10-26T23:38:35.335975+00:00",
+      "ended_at": "2026-10-26T23:57:05.715257+00:00",
+      "configured_rate": 1
+    }
+  ],
+  "parameters": {
+    "warmup_seconds": 300,
+    "duration_seconds": 3600,
+    "normal_rate": 1,
+    "load_rate": 5,
+    "load_seconds": 600,
+    "db_outage_seconds": 120,
+    "probe_outage_seconds": 90,
+    "collector_alert_jobs": [
+      "probe"
+    ],
+    "response_actor": "session_runner"
+  },
+  "started_at": "2026-10-26T22:57:04.597788+00:00",
+  "ended_at": "2026-10-26T23:57:05.715257+00:00"
+}

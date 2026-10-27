@@ -41,6 +41,7 @@
     "start:api": "node dist/apps/api/server.js",
     "start:lab": "node dist/apps/lab/server.js",
     "dashboard": "node scripts/dashboard.mjs",
+    "analysis:sprint2": "python3 scripts/analyze_sprint2.py && npm run dashboard",
     "simulate:probe-outage": "bash scripts/lab.sh fail-probe",
     "probe:restore": "bash scripts/lab.sh restore-probe",
     "baseline:run": "bash scripts/lab.sh baseline",

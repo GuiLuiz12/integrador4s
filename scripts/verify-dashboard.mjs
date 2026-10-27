@@ -27,7 +27,7 @@ const output = values['output-dir'] === undefined
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true });
 try {
-  const context = await browser.newContext({ viewport: { width: 1600, height: 1100 }, baseURL: 'http://localhost:3001' });
+  const context = await browser.newContext({ viewport: { width: 1366, height: 1000 }, baseURL: 'http://localhost:3001' });
   const login = await context.request.post('/login', { data: { user: 'admin', password: env.GRAFANA_PASSWORD } });
   assert.equal(login.status(), 200, 'Login do Grafana deve funcionar');
   const definition = await context.request.get('/api/dashboards/uid/saude-v01');
@@ -37,13 +37,27 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`/d/saude-v01?from=${from}&to=${to}&kiosk`, { waitUntil: 'networkidle' });
-  await page.getByText('Consulta assistencial agora', { exact: true }).waitFor();
+  await page.getByText('Riscos altos e críticos', { exact: true }).waitFor();
   // Allow first data queries and canvas rendering to complete before capture.
   await page.waitForTimeout(5000);
   await page.screenshot({ path: join(output, 'sintese.png') });
   const failures = [];
+  let analyticalQueries = 0;
   for (const panel of dashboard.panels) {
     for (const target of panel.targets ?? []) {
+      if (target.scenarioId === 'csv_content') {
+        analyticalQueries++;
+        const response = await context.request.post('/api/ds/query', { data: {
+          queries: [{ ...target, intervalMs: 15000, maxDataPoints: 1000 }], from: String(from), to: String(to),
+        } });
+        const body = await response.json();
+        const result = body.results?.[target.refId];
+        const frame = result?.frames?.[0];
+        if (!response.ok() || result?.error || !frame?.data?.values?.some(values => values.length > 0)) {
+          failures.push({ panel: panel.title, error: result?.error ?? body.message ?? 'Dados analíticos ausentes' });
+        }
+        continue;
+      }
       const expr = target.expr?.replaceAll('$__range_s', String(rangeSeconds)).replaceAll('$__range', rangeDuration);
       if (!expr) continue;
       const query = new URLSearchParams({ query: expr, time: String(to / 1000) });
@@ -53,13 +67,43 @@ try {
     }
   }
   assert.deepEqual(failures, [], 'Todas as expressões do dashboard devem ser válidas');
-  assert.deepEqual(errors, [], 'Dashboard deve abrir sem erros JavaScript');
+  assert.ok(analyticalQueries >= 10, 'As visões analíticas devem estar presentes e fornecer dados');
+  const screenshots = ['sintese.png'];
+  for (const [title, filename] of [
+    ['Baseline e tendências', 'baseline.png'],
+    ['Riscos e plano de tratamento', 'riscos.png'],
+    ['Inventário de vulnerabilidades', 'vulnerabilidades.png'],
+    ['Incidentes · cronologia e resposta', 'incidentes.png'],
+    ['Indicadores e decisão associada', 'indicadores.png'],
+    ['Consulta assistencial agora', 'operacao.png'],
+  ]) {
+    await page.getByText(title, { exact: true }).evaluate(el => { el.style.scrollMarginTop = '90px'; el.scrollIntoView({ block: 'start' }); });
+    await page.waitForTimeout(1500);
+    await page.screenshot({ path: join(output, filename) });
+    screenshots.push(filename);
+  }
   await page.getByText('CPU por contêiner · núcleos utilizados', { exact: true }).scrollIntoViewIfNeeded();
   await page.waitForTimeout(3000);
   await page.screenshot({ path: join(output, 'infraestrutura.png') });
+  screenshots.push('infraestrutura.png');
+  assert.deepEqual(errors, [], 'Todas as visões do dashboard devem abrir sem erros JavaScript');
+  const reportPage = await context.newPage();
+  const reportResponse = await reportPage.goto('http://localhost:3000/analysis/sprint2');
+  assert.equal(reportResponse.status(), 200, 'Relatório deve estar acessível');
+  assert.equal(await reportPage.locator('h2').count(), 10, 'Relatório deve conter as dez seções do modelo');
+  await reportPage.screenshot({ path: join(output, 'relatorio.png') });
+  const dataResponse = await context.request.get('http://localhost:3000/analysis/sprint2/data');
+  assert.equal(dataResponse.status(), 200);
+  const analysis = await dataResponse.json();
+  for (const source of analysis.sources) {
+    const response = await context.request.get(`http://localhost:3000/analysis/sprint2/source/${source.id}`);
+    assert.equal(response.status(), 200, `Fonte ${source.id} deve estar acessível`);
+    assert.equal(createHash('sha256').update(await response.body()).digest('hex'), source.sha256, `Fonte ${source.id} deve corresponder ao catálogo`);
+  }
+  screenshots.push('relatorio.png');
   const result = { session_id: manifest?.session_id, source_manifest_sha256: manifestText ? createHash('sha256').update(manifestText).digest('hex') : undefined, captured_at: new Date().toISOString(), panels: dashboard.panels.length,
     range_start: new Date(from).toISOString(), range_end: new Date(to).toISOString(), range_seconds: rangeSeconds,
-    expression_errors: failures, javascript_errors: errors, screenshots: ['sintese.png', 'infraestrutura.png'] };
+    analytical_queries: analyticalQueries, report_sections: 10, sources_checked: analysis.sources.length, expression_errors: failures, javascript_errors: errors, screenshots };
   writeFileSync(join(output, 'validation.json'), JSON.stringify(result, null, 2) + '\n');
   console.log(`Grafana validado: login, dashboard, expressões e capturas em ${output}.`);
 } finally { await browser.close(); }

@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-10-26T23:28:50.710Z",
+  "selected_alert_time": "2026-10-26T23:28:35.747Z",
+  "range_start": "2026-10-26T22:57:04.597Z",
+  "source": "Histórico real do Prometheus; intervalo absoluto no Grafana",
+  "alerts": [
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "ConsultaAssistencialIndisponivel",
+        "alertstate": "firing",
+        "instance": "lab:9091",
+        "job": "probe",
+        "owner": "operacao_laboratorio",
+        "severity": "critical"
+      },
+      "values": [
+        [
+          1793057315.747,
+          "1"
+        ]
+      ]
+    }
+  ]
+}

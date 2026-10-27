@@ -1,0 +1,50 @@
+
+> governanca-saude-lab@0.1.0 session:run
+> bash scripts/lab.sh session
+
+Diretório da sessão: /home/guiluiz/integrador/integrador4s/evidence/runs/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e
+Login e consulta funcionam; token e conteúdo omitidos
+{"rate":1,"seconds":7200}
+{'at': '2026-10-26T22:51:46.118529+00:00', 'elapsed_seconds': 6.123, 'event': 'warmup_started', 'actor': 'session_runner', 'phase': 'preparation'}
+{'at': '2026-10-26T22:57:04.587572+00:00', 'elapsed_seconds': 324.592, 'event': 'warmup_completed', 'actor': 'session_runner', 'phase': 'preparation'}
+{'at': '2026-10-26T22:57:04.597788+00:00', 'elapsed_seconds': 0.009, 'event': 'session_started', 'actor': 'session_runner', 'phase': 'normal_before_load'}
+{"rate":5,"seconds":600}
+{'at': '2026-10-26T23:07:04.957184+00:00', 'elapsed_seconds': 600.369, 'event': 'load_5rps_started', 'actor': 'session_runner', 'phase': 'load', 'asset_id': 'governanca-saude/lab'}
+{"rate":1,"seconds":7200}
+{'at': '2026-10-26T23:17:04.954338+00:00', 'elapsed_seconds': 1200.366, 'event': 'load_5rps_finished', 'actor': 'session_runner', 'phase': 'load', 'asset_id': 'governanca-saude/lab'}
+{'at': '2026-10-26T23:22:04.589679+00:00', 'elapsed_seconds': 1500.001, 'event': 'invalid_logins_started', 'actor': 'session_runner', 'phase': 'invalid_logins', 'asset_id': 'governanca-saude/api'}
+10 logins inválidos recusados com HTTP 401
+{'at': '2026-10-26T23:22:05.315123+00:00', 'elapsed_seconds': 1500.727, 'event': 'ten_invalid_logins_completed', 'actor': 'session_runner', 'phase': 'invalid_logins', 'asset_id': 'governanca-saude/api'}
+{'at': '2026-10-26T23:27:04.590629+00:00', 'elapsed_seconds': 1800.002, 'event': 'postgres_stop_requested', 'actor': 'session_runner', 'phase': 'db_outage', 'asset_id': 'governanca-saude/postgres'}
+ Container governanca-saude-postgres-1 Stopping 
+ Container governanca-saude-postgres-1 Stopped 
+{'at': '2026-10-26T23:27:04.964592+00:00', 'elapsed_seconds': 1800.376, 'event': 'postgres_outage_confirmed', 'actor': 'session_runner', 'phase': 'db_outage', 'asset_id': 'governanca-saude/postgres'}
+{'at': '2026-10-26T23:29:04.966495+00:00', 'elapsed_seconds': 1920.378, 'event': 'postgres_restart_requested', 'actor': 'session_runner', 'phase': 'db_outage', 'asset_id': 'governanca-saude/postgres'}
+ Container governanca-saude-postgres-1 Starting 
+ Container governanca-saude-postgres-1 Started 
+{'at': '2026-10-26T23:29:05.333544+00:00', 'elapsed_seconds': 1920.745, 'event': 'postgres_restart_confirmed', 'actor': 'session_runner', 'phase': 'db_outage', 'asset_id': 'governanca-saude/postgres'}
+Login e consulta funcionam; token e conteúdo omitidos
+{'at': '2026-10-26T23:32:05.005321+00:00', 'elapsed_seconds': 2100.417, 'event': 'clinical_recovery_verified', 'actor': 'session_runner', 'phase': 'db_recovery', 'asset_id': 'governanca-saude/api'}
+{'at': '2026-10-26T23:37:04.590423+00:00', 'elapsed_seconds': 2400.002, 'event': 'probe_outage_requested', 'actor': 'session_runner', 'phase': 'probe_outage', 'asset_id': 'governanca-saude/lab'}
+{"seconds":90}
+{'at': '2026-10-26T23:37:05.016169+00:00', 'elapsed_seconds': 2400.428, 'event': 'probe_outage_confirmed', 'actor': 'session_runner', 'phase': 'probe_outage', 'asset_id': 'governanca-saude/lab'}
+{'at': '2026-10-26T23:38:35.018003+00:00', 'elapsed_seconds': 2490.43, 'event': 'probe_restore_requested', 'actor': 'session_runner', 'phase': 'probe_outage', 'asset_id': 'governanca-saude/lab'}
+{"seconds":0}
+{'at': '2026-10-26T23:38:35.334847+00:00', 'elapsed_seconds': 2490.746, 'event': 'probe_restore_confirmed', 'actor': 'session_runner', 'phase': 'probe_outage', 'asset_id': 'governanca-saude/lab'}
+Login e consulta funcionam; token e conteúdo omitidos
+{'at': '2026-10-26T23:57:05.715257+00:00', 'elapsed_seconds': 3601.127, 'event': 'session_completed', 'actor': 'session_runner', 'phase': 'normal_after_recovery'}
+{"rate":1,"seconds":7200}
+Evidências exportadas para /home/guiluiz/integrador/integrador4s/evidence/runs/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e
+Traceback (most recent call last):
+  File "/home/guiluiz/integrador/integrador4s/scripts/session.py", line 195, in <module>
+    main()
+  File "/home/guiluiz/integrador/integrador4s/scripts/session.py", line 191, in main
+    Session('baseline' if args.baseline else 'experiment').execute()
+  File "/home/guiluiz/integrador/integrador4s/scripts/session.py", line 174, in execute
+    write_json(self.folder / 'summary.json', summarize(self.folder))
+                                             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/guiluiz/integrador/integrador4s/scripts/evidence_analysis.py", line 199, in summarize
+    require(summary['invalid_login_events'] == 10 and summary['clinical_503_events'] >= 60, 'Eventos esperados não foram observados.')
+  File "/home/guiluiz/integrador/integrador4s/scripts/evidence_analysis.py", line 17, in require
+    raise ValueError(message)
+ValueError: Eventos esperados não foram observados.

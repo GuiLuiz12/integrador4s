@@ -7,6 +7,7 @@ import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { hashPassword, verifyPassword } from '../shared/password.js';
 import type { Repository } from './repository.js';
+import { registerAnalysis } from './analysis.js';
 
 declare module '@fastify/jwt' {
   interface FastifyJWT {
@@ -102,6 +103,7 @@ export async function buildApp(options: { repository: Repository; jwtSecret: str
   app.get('/metrics', { schema: { hide: true } }, async (_, reply) => reply.type(registry.contentType).send(await registry.metrics()));
   app.get('/openapi.json', { schema: { hide: true } }, async () => app.swagger());
   app.get('/runbook', { schema: { hide: true } }, async (_, reply) => reply.type('text/plain; charset=utf-8').send(await readFile('docs/recuperacao.md', 'utf8')));
+  registerAnalysis(app);
   app.addHook('onClose', async () => { registry.clear(); await repository.close(); });
   await app.ready();
   return app;

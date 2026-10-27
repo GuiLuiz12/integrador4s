@@ -1,0 +1,63 @@
+{
+  "name": "governanca-saude-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "help": "node scripts/help.mjs",
+    "setup": "bash ./setup.sh",
+    "setup:check": "bash ./setup.sh --check",
+    "start": "bash scripts/start.sh",
+    "stop": "bash scripts/lab.sh down",
+    "status": "bash scripts/lab.sh status",
+    "logs": "bash scripts/lab.sh logs",
+    "access": "bash scripts/lab.sh access",
+    "check": "bash scripts/lab.sh check-api",
+    "health": "bash scripts/lab.sh health",
+    "config:check": "bash scripts/lab.sh config-check",
+    "test:rules": "bash scripts/lab.sh rules-test",
+    "test:integration": "python3 scripts/verify-integration.py",
+    "test:ubuntu26": "python3 scripts/test-ubuntu26.py",
+    "db": "bash scripts/lab.sh db",
+    "db:check": "bash scripts/lab.sh db-ready",
+    "db:restore": "bash scripts/lab.sh restore-db",
+    "collector:restore": "bash scripts/lab.sh restore-collector",
+    "metrics:query": "bash scripts/lab.sh query",
+    "simulate:load": "bash scripts/lab.sh load",
+    "simulate:auth-failures": "bash scripts/lab.sh invalid-logins",
+    "simulate:db-outage": "bash scripts/lab.sh fail-db",
+    "simulate:collector-outage": "bash scripts/lab.sh fail-collector",
+    "evidence:export": "bash scripts/lab.sh evidence",
+    "session:run": "bash scripts/lab.sh session",
+    "session:summary": "bash scripts/lab.sh session-summary",
+    "browser:setup": "bash scripts/browser.sh setup",
+    "dashboard:verify": "bash scripts/browser.sh dashboard",
+    "alerts:capture": "bash scripts/browser.sh alerts",
+    "build": "tsc -p tsconfig.json",
+    "test": "tsx --test tests/*.test.ts",
+    "start:api": "node dist/apps/api/server.js",
+    "start:lab": "node dist/apps/lab/server.js",
+    "dashboard": "node scripts/dashboard.mjs",
+    "simulate:probe-outage": "bash scripts/lab.sh fail-probe",
+    "probe:restore": "bash scripts/lab.sh restore-probe",
+    "baseline:run": "bash scripts/lab.sh baseline",
+    "test:evidence": "python3 -m unittest discover -s tests -p \"test_*.py\""
+  },
+  "dependencies": {
+    "@fastify/jwt": "10.2.2",
+    "@fastify/swagger": "9.8.1",
+    "@prometheus-io/client": "0.16.1",
+    "fastify": "5.12.3",
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.2",
+    "@types/pg": "8.23.1",
+    "playwright": "1.63.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,6 @@
+
+> governanca-saude-lab@0.1.0 alerts:capture
+> bash scripts/browser.sh alerts 2026-10-26T22:57:04.597788+00:00 --output-dir evidence/runs/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/captures/alerts
+
+Captura do histórico real salva: ConsultaAssistencialIndisponivel (2026-10-26T23:28:35.747Z)
+Captura do histórico real salva: FalhaDeColeta (2026-10-26T23:38:35.747Z)
