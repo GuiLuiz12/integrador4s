@@ -41,7 +41,11 @@ A quantidade de pontos em `ALERTS` mede observações do estado, não quantidade
 
 ## Análise da Sprint 2
 
-Fonte canônica: `analysis/sprint2/analysis.json`, gerada com `npm run analysis:sprint2`. O [relatório](relatorio-sprint2.md) documenta valores, limiares, decisões e fontes identificadas. O baseline é de 21/10/2026; o experimento é de 26/10/2026, 19:57–20:57, UTC−03. Esses painéis usam um recorte fixo, independente do seletor de tempo do Grafana.
+Fonte canônica: `analysis/sprint2/analysis.json`, reproduzida conforme o [manual principal](../README.md#desenvolver-e-manter-o-código). O [relatório estático](relatorio-sprint2.md) documenta valores, limiares, decisões e fontes identificadas. O baseline é de 21/10/2026; o experimento é de 26/10/2026, 19:57–20:57, UTC−03. Esses painéis usam um recorte fixo, independente do seletor de tempo do Grafana.
+
+O dashboard v0.2 mantém UID `saude-v01` e visões de baseline × experimento, CPU por fase, matriz e registro de riscos, severidade/exposição dos achados, incidentes, episódios de alerta e KPIs/KRIs. Seus painéis analíticos renderizam CSVs explícitos pela [fonte nativa TestData do Grafana](https://grafana.com/docs/grafana/latest/datasources/testdata/), no cenário `csv_content`, sem geração aleatória. A seção operacional usa Prometheus e respeita o intervalo selecionado. Assim, alterar o seletor de tempo atualiza a operação, mas não recalcula o recorte analítico histórico.
+
+A tabela analítica consolida 18 indicadores, com fonte por linha e altura ajustada ao número de registros. Os IDs B/E/C remetem ao [catálogo de fontes preservadas](evidencias.md#análise-histórica-da-sprint-2), sem depender de rotas HTTP de relatório. Geração, provisionamento e conferência visual estão centralizados no manual. Conformidade e acompanhamento de controles permanecem na Sprint 3.
 
 | Indicador | Definição / população | Interpretação |
 |---|---|---|

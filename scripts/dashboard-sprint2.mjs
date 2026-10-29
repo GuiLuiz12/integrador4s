@@ -1,6 +1,5 @@
 const datasource = { type: 'grafana-testdata-datasource', uid: 'sprint2-analysis' };
-const reference = 'Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.';
-const report = 'http://localhost:3000/analysis/sprint2';
+const reference = 'Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.';
 const csv = (headers, rows) => [headers, ...rows].map(row => row.map(v => v === null || v === undefined ? '' : '"' + String(v).replaceAll('"', '""') + '"').join(',')).join('\n');
 const round = value => value === null ? null : Number(value.toFixed(2));
 const thresholds = steps => ({ mode: 'absolute', steps });
@@ -12,7 +11,6 @@ export function sprint2Panels(a) {
   function row(title, y) { panels.push({ id: id++, title, type: 'row', collapsed: false, gridPos: { x: 0, y, w: 24, h: 1 } }); }
   function panel(title, type, x, y, w, h, headers, rows, options = {}, defaults = {}) {
     const p = { id: id++, title, type, datasource, gridPos: { x, y, w, h }, description: reference,
-      links: [{ title: 'Relatório e evidências', url: report, targetBlank: true }],
       targets: [{ refId: 'A', datasource, scenarioId: 'csv_content', csvContent: csv(headers, rows), dropPercent: 0 }],
       fieldConfig: { defaults: { noValue: '—', unit: 'short', decimals: 2, ...defaults }, overrides: [] },
       options: { ...options } };
@@ -62,7 +60,7 @@ export function sprint2Panels(a) {
   severity.fieldConfig.defaults.decimals=0;
   const assets = bars('Ativos com mais achados',6,36,6,11,['Ativo','Achados'],Object.entries(a.counts.vulnerabilities_by_asset).sort((a,b)=>b[1]-a[1]));
   assets.fieldConfig.defaults.decimals=0;
-  assets.description += ' Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. Contexto e evidências na seção 5 do relatório; sem pontuação adicional.';
+  assets.description += ' Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. A contagem não é uma pontuação de exposição.';
   const vulnerabilities = table('Inventário de vulnerabilidades',12,36,12,11,['ID','Ativo','Achado','Severidade','Fonte'],a.vulnerabilities.map(v=>[v.id,v.asset,v.finding,v.severity,v.evidence.join(', ')]));
   widths(vulnerabilities,{'ID':70,'Ativo':75,'Severidade':90,'Fonte':100});
   row('Incidentes e alertas',47);
@@ -70,7 +68,7 @@ export function sprint2Panels(a) {
   const incidents = table('Incidentes · cronologia e resposta',0,48,17,8,['ID','Categoria','Severidade','Status','Início','Detecção','Ação','Retorno','Resposta (s)'],
     a.incidents.map(i=>[i.id,i.category,i.severity,i.status,local(i.onset),local(i.detected),local(i.response),local(i.recovered),round(i.response_seconds)]));
   widths(incidents,{'ID':65,'Categoria':180,'Severidade':75,'Status':65,'Início':75,'Detecção':75,'Ação':75,'Retorno':75,'Resposta (s)':85});
-  incidents.description += ' Resposta = início confirmado até solicitação automatizada de restauração; MTTD e MTTR estão nos indicadores. No probe a ação programada precede a primeira amostra firing em 0,73 s; ordem e milissegundos no relatório.';
+  incidents.description += ' Resposta = início confirmado até solicitação automatizada de restauração. MTTD mede início até o primeiro firing; MTTR mede detecção até a primeira amostra saudável após a restauração. No probe a ação programada precede a primeira amostra firing em 0,73 s. Esses tempos não representam reação humana.';
   const alerts = bars('Episódios de alerta por criticidade',17,48,7,8,['Criticidade','Episódios'],[['Crítico',a.counts.alerts_by_severity.critical??0],['Aviso',a.counts.alerts_by_severity.warning??0]]);
   alerts.fieldConfig.defaults.decimals=0;
   row('KPIs, KRIs e decisões',56);

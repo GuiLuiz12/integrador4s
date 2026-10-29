@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 """Build Sprint 2 analysis from preserved evidence, independently of scenario acceptance."""
 import collections
-import base64
-import datetime as dt
 import hashlib
-import html
 import json
 import math
-import pathlib
-import re
-import shutil
 import statistics
-from zoneinfo import ZoneInfo
 
 from evidence import ROOT, timestamp, iso
 from evidence_analysis import verify_manifest, response_events
@@ -19,16 +12,18 @@ from evidence_analysis import verify_manifest, response_events
 BASELINE = ROOT / 'evidence/validated/refinamento-sprint1/baseline'
 EXPERIMENT = ROOT / 'evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e'
 OUTPUT = ROOT / 'analysis/sprint2'
-ZONE = ZoneInfo('America/Sao_Paulo')
+REVIEW_CHECKPOINT = '536e7c22f3e809db9a7137a3e9bea4e481d0fb5e'
+STATIC_ORIGINS = {'C02': 'apps/api/app.ts', 'C03': 'apps/api/repository.ts',
+                  'C05': 'logging/README.md', 'C06': 'apps/lab/server.ts'}
 
 
 def source_specs():
     return [('B01','Manifesto do baseline',BASELINE/'manifest.json'),('B02','Curvas do baseline',BASELINE/'derived.json'),('B03','Séries originais do baseline',BASELINE/'series.json'),
             ('E01','Manifesto do experimento',EXPERIMENT/'manifest.json'),('E02','Curvas do experimento',EXPERIMENT/'derived.json'),('E03','Séries originais do experimento',EXPERIMENT/'series.json'),
             ('E04','Eventos da API',EXPERIMENT/'events.jsonl'),('E05','Timeline do experimento',EXPERIMENT/'session.json'),
-            ('C01','Compose da coleta',EXPERIMENT/'configuration/infra/compose.yaml'),('C02','Autenticação e autorização',ROOT/'apps/api/app.ts'),
-            ('C03','Consulta ao banco',ROOT/'apps/api/repository.ts'),('C04','Regras de alerta da coleta',EXPERIMENT/'configuration/monitoring/rules.yml'),
-            ('C05','Retenção e logs locais',ROOT/'logging/README.md'),('C06','Renovação do token do gerador',ROOT/'apps/lab/server.ts'),
+            ('C01','Compose da coleta',EXPERIMENT/'configuration/infra/compose.yaml'),('C02','Autenticação e autorização',OUTPUT/'sources/C02-app.ts'),
+            ('C03','Consulta ao banco',OUTPUT/'sources/C03-repository.ts'),('C04','Regras de alerta da coleta',EXPERIMENT/'configuration/monitoring/rules.yml'),
+            ('C05','Retenção e logs locais',OUTPUT/'sources/C05-README.md'),('C06','Renovação do token do gerador',OUTPUT/'sources/C06-server.ts'),
             ('C07','Inventário e avaliação qualitativa de riscos',OUTPUT/'registers.json')]
 
 
@@ -38,10 +33,6 @@ def line_reference(source, needle, lines=1, fragment=False):
     start = next(i for i, line in enumerate(content) if needle in line)
     return {'source': source, 'locator': f'linhas {start+1}–{start+lines}',
             'observation': needle if fragment else '\n'.join(line.strip() for line in content[start:start+lines])}
-
-
-def evidence_text(references):
-    return '; '.join(f'{r["source"]} · {r["locator"]}: «{r["observation"]}»' for r in references)
 
 
 def figure_catalog():
@@ -135,11 +126,6 @@ def metrics(session, start=None, end=None):
     probe = points(raw, 'probe_history', start=start, end=end)
     result['availability_percent'] = statistics_of(v * 100 for _, v in probe)
     return result
-
-
-def local(value, milliseconds=False):
-    date = dt.datetime.fromtimestamp(timestamp(value), ZONE)
-    return date.strftime('%d/%m/%Y %H:%M:%S') + (f'.{date.microsecond//1000:03d}' if milliseconds else '')
 
 
 def fmt(value, digits=2):
@@ -265,104 +251,6 @@ def build_analysis(baseline, experiment, registers):
             'probability_scale':registers['probability_scale'],'impact_scale':registers['impact_scale'],'deadline_basis':registers['deadline_basis']}
 
 
-def report_blocks(a):
-    q,c,e = a['quality'],a['counts'],a['events']
-    sections=[]
-    def section(title):
-        blocks=[]; sections.append((title,blocks));return blocks
-    def paragraph(blocks,text): blocks.append(('p',text))
-    def table(blocks,headers,rows): blocks.append(('table',(headers,rows)))
-    b=section('1. Resumo da sprint')
-    paragraph(b, f'A análise identificou capacidade disponível sob carga de até cinco consultas/s e duas interrupções distintas: indisponibilidade assistencial causada pela parada do banco e perda de observabilidade causada pela falha do probe. Ambos os incidentes foram encerrados. A disponibilidade observada foi {fmt(q["availability_percent"])}%, com {q["failures"]} verificações malsucedidas em {q["observations"]}. O principal fator de continuidade é a dependência do banco, não a saturação de CPU ou memória. E02 E03 E04 E05')
-    paragraph(b, f'Foram registrados cinco achados de configuração/arquitetura e cinco riscos inerentes: {c["risks_critical"]} crítico e {c["risks_high_critical"]-c["risks_critical"]} altos. Todos têm tratamento, responsável e prazo propostos; isso não significa que os controles já estejam implementados. As prioridades são recuperação do banco, autorização por prontuário e limitação de tentativas de login. C01 C02 C03')
-    paragraph(b,'Índice de atendimento às entregas obrigatórias:')
-    table(b,['Entrega','Localização','Evidência técnica'],[
-        ['Baseline do ambiente','§3','B02 B03 · consultas Q01–Q09; F01'],
-        ['Disponibilidade e desempenho','§3; §4; §8','B02 B03 E02 E03 · comparação, fases e eventos'],
-        ['Inventário de vulnerabilidades','§5','C01 C02 C03 C05 E04 E05 · trechos e eventos por achado; F03'],
-        ['Registro de riscos','§6','C07 · R-01 a R-05 com fontes técnicas por risco'],
-        ['Matriz de probabilidade × impacto','§6','C07 · produto P × I e posicionamento dos riscos; F02'],
-        ['Plano preliminar de tratamento','§10','C07 · estratégia, prazo, responsável e fonte por ação'],
-        ['Cenário de incidente simulado','§7','E03 E04 E05 · eventos controlados, alertas e recuperação'],
-        ['Classificação de incidentes','§7','E03 E05 · categoria, severidade, impacto, status e tempos'],
-        ['Cálculo de KPIs e KRIs','§8','B02 B03 E02 E03 E04 E05 C07 · fórmulas e população'],
-        ['Dashboard v0.2','§9','F01 F02 F03 F04 · visões analíticas e capturas de alertas F05 F06']])
-    b=section('2. Período e qualidade dos dados')
-    table(b,['Conjunto','Início — São Paulo (UTC−03)','Fim — São Paulo (UTC−03)','Uso'],[
-        ['Baseline',local(a['baseline']['start']),local(a['baseline']['end']),'30 minutos em carga normal; B01 B02 B03'],
-        ['Experimento',local(a['experiment']['start']),local(a['experiment']['end']),'60 minutos após estabilização; E01 E02 E03 E04 E05']])
-    paragraph(b, f'Fontes: Prometheus (coleta/avaliação a cada 15 s), cAdvisor, Node Exporter, logs estruturados da API e timeline do roteiro. O experimento contém {q["observations"]} verificações, {q["successes"]} bem-sucedidas e completude temporal de {fmt(q["completeness_percent"])}%. A lacuna planejada do probe foi de aproximadamente 90 s. A maior lacuna de recursos dos contêineres foi {fmt(q["maximum_container_gap_seconds"],1)} s. Ausência de dados não foi preenchida. E01 E03 E05')
-    paragraph(b, 'Limitações: cenário simulado, janela curta, host compartilhado, imagens locais reconstruídas e sessões em dias diferentes. CPU/memória do host incluem outras aplicações. Médias e picos são calculados sobre amostras disponíveis; CPU, tráfego, erros e p95 usam curvas de cinco minutos. A média dos p95 não é o p95 global. Os limiares são referências propostas para o cenário, não SLA contratual. O baseline não demonstra uma tendência histórica de longo prazo.')
-    paragraph(b, f'O verificador anterior rejeitou a sessão por exigir 60 respostas 503 exclusivamente na consulta: foram {e["clinical_record_503"]} na consulta e {e["authentication_503"]} na autenticação, pois a renovação do token ocorreu durante a parada. A integridade das fontes foi conferida; a coleta completa, os alertas e a recuperação sustentam esta análise. A rejeição original foi preservada e não é ocultada nem convertida em aprovação. E01 E03 E04 C06')
-    b=section('3. Baseline operacional')
-    table(b,['Métrica','Média baseline','Pico baseline','Média experimento','Pico experimento','Limiar'],[
-        [m['metric']+' ('+m['unit']+')',fmt(m['baseline']['mean']),fmt(m['baseline']['peak']),fmt(m['experiment']['mean']),fmt(m['experiment']['peak']),('≥ ' if m['key']=='availability_percent' else '< ' if m['key']=='clinical_errors_percent' else '≤ ')+fmt(m['threshold']) if m['threshold'] is not None else 'Referência comparativa'] for m in a['metrics']])
-    paragraph(b, 'Fontes das linhas: B02 B03 E02 E03. APP-01 = API (1 CPU, 768 MiB); DB-01 = PostgreSQL (1 CPU, 1.536 MiB); HOST-01 = máquina anfitriã. MON-01 reúne Prometheus/probe; LOG-01 representa a retenção local de logs. CPU e memória dos serviços usam os limites do contêiner como denominador. Tráfego soma recepção e transmissão. C01')
-    paragraph(b,'Disponibilidade funcional = 100 × verificações de login e consulta bem-sucedidas / verificações observadas. O fluxo mede conjuntamente API e dependência do PostgreSQL. Não há medição funcional independente de cada serviço neste recorte. up mede sucesso do scrape de métricas: a API continuou expondo métricas durante a parada do banco. Lacunas do probe reduzem a cobertura e não entram como sucesso. B03 · /queries/probe_history; E03 · /queries/probe_history, /queries/targets e /queries/coverage.')
-    paragraph(b,'Justificativas dos limiares adotados:')
-    table(b,['Indicador / classificação','Referência proposta','Justificativa e base'],[
-        ['CPU e memória','≤80% dos limites','Preservar 20% de margem de capacidade; critério preventivo, sem saturação demonstrada. Limites em C01; consumo em B02 B03 E02 E03.'],
-        ['Disponibilidade; p95; erros','≥99%; ≤500 ms; <1%','Referências de continuidade e desempenho do projeto para o fluxo clínico. p95 só inclui respostas 200; deve ser lido com disponibilidade e erros, pois não mede tentativas malsucedidas. E02 · /queries/clinical_p95 e /queries/clinical_errors_percent; C02 · onResponse.'],
-        ['Detecção e recuperação','MTTD ≤120 s; MTTR após detecção ≤60 s','Metas preliminares do exercício. Alerta exige 1 min de condição, com scrape/avaliação de 15 s; 120 s comporta essa espera e a resolução da coleta. Os 60 s são objetivo de recuperação automatizada, não SLA. C04; E03 E05.'],
-        ['Falhas de autenticação','Investigar ≥5/min','Proposta de sinalização de repetição, motivada pelas dez recusas controladas; não indica invasão confirmada. E04 E05; regra ainda não implementada.'],
-        ['Risco inerente','P × I; baixo 1–4, moderado 5–9, alto 10–16, crítico 17–25','Escala qualitativa de cinco níveis, com maior prioridade para continuidade e confidencialidade. Não deriva probabilidade estatística de falhas induzidas. C07; justificativas individuais em §6.'],
-        ['Severidade dos achados/incidentes','Alta/crítica para acesso clínico e continuidade; média para controles auxiliares','Considera impacto potencial, acesso necessário e dependência operacional. Exposição local limita alcance; perda do probe compromete observação, sem demonstrar nova queda clínica. Fontes e justificativas em §5 e §7.'],
-        ['Tráfego, volume, contagens e tratamento','Comparação com baseline; zero incidentes abertos; 100% com plano','Não há capacidade de rede definida. Contagens não têm série histórica anterior. Meta de tratamento significa ação, estratégia, responsável e prazo preenchidos, sem significar mitigação. B02 E02 C07.']])
-    paragraph(b,'Consultas exatas preservadas; os range selectors das séries originais incluem o contexto de coleta descrito no manifesto. O cálculo usa apenas data.result no intervalo da seção 2, sem context_data. Médias são aritméticas e picos são máximos das amostras disponíveis; CPU dos serviços é convertida de núcleos para % do limite e memória de bytes para % do limite; rede de bytes/s para KiB/s; latência de segundos para ms. C01 B01 E01')
-    query_rows=[]
-    for query in a['queries']:
-        pairs=[('Baseline e experimento',query['baseline'],query['experiment']['source'])] if query['baseline']['promql']==query['experiment']['promql'] else [('Baseline',query['baseline'],''),('Experimento',query['experiment'],'')]
-        for period,item,other_source in pairs:
-            query_rows.append([query['id']+' · '+query['metric'],period,item['promql'],' '.join(filter(None,[item['source'],other_source]))+' · '+query['locator']])
-    table(b,['Consulta / métrica','Recorte','PromQL','Fonte / localização'],query_rows)
-    b=section('4. Anomalias e causas prováveis')
-    load=next(p for p in a['phases'] if p['id']=='load')['metrics'];mem=next(m for m in a['metrics'] if m['key']=='api_memory_percent')
-    table(b,['Horário em 26/10','Evidência','Impacto / hipótese','Ação recomendada'],[
-        ['20:07–20:17','Carga de 5/s; pico CPU APP-01 '+fmt(load['api_cpu_percent']['peak'])+'%; p95 máximo '+fmt(load['clinical_p95_ms']['peak'])+' ms na fase de carga. E02 · /queries/container_cpu_cores e /queries/clinical_p95; E05 · load_5rps_started/finished','Aumento de demanda sem saturação observada.','Manter capacidade e acompanhar crescimento; não ampliar recursos só por este ensaio.'],
-        ['20:22','Dez logins recusados com HTTP 401. E04 E05','Tentativas controladas; nenhum acesso indevido comprovado.','Aplicar limitação e alerta por repetição (R-03).'],
-        ['20:27–20:29','Banco parado; 23 consultas e 106 autenticações com HTTP 503. E03 E04 E05','Dependência do banco interrompe o fluxo; renovação de token muda a etapa da falha.','Priorizar recuperação e backup (R-01).'],
-        ['20:37–20:38','Probe sem coleta; API e gerador continuam. E03 E05','Perda de visibilidade, sem indisponibilidade clínica demonstrada nesse intervalo.','Adicionar observação externa (R-04).'],
-        ['Comparação entre sessões','Memória média APP-01: '+fmt(mem['baseline']['mean'])+'% → '+fmt(mem['experiment']['mean'])+'%. B03 E03','Maior working set com outra sessão/imagem/carga; dados não provam vazamento.','Acompanhar séries mais longas antes de atribuir causa ou alterar limites.']])
-    b=section('5. Vulnerabilidades')
-    paragraph(b,'Inventário obtido por revisão de código, configuração e evidências do cenário. São fragilidades de controle e arquitetura; não se trata de uma lista de CVEs confirmadas por scanner. A exposição atual é local, com API e Grafana vinculados a loopback. As severidades representam impacto potencial no cenário de saúde.')
-    table(b,['ID','Ativo','Achado','Severidade','Exposição','Tratamento / evidência'],[[v['id'],v['asset'],v['finding'],v['severity'],v['exposure'],v['treatment']+' '+' '.join(v['evidence'])] for v in a['vulnerabilities']])
-    table(b,['Achado','Conclusão da revisão','Trecho ou evento técnico'],[[v['id'],v['basis'],evidence_text(v['technical_evidence'])] for v in a['vulnerabilities']])
-    paragraph(b,'Ativos com maior exposição: APP-01 concentra dois achados (um alto e um médio) nas superfícies de consulta autenticada e login; DB-01 tem um achado alto e é a dependência que interrompeu o fluxo clínico. MON-01 e LOG-01 têm um achado médio cada, ligados à detecção e investigação. Esta priorização combina severidade, condições de acesso e dependência; quantidade de achados sozinha não mede exposição, e não foi criada pontuação adicional. C01 C02 C03 C05 E03 E04 E05 C07')
-    table(b,['Ativo','Achados por severidade','Condição de exposição e dependência','Fontes'],[[x['asset'],'; '.join(f'{n} {s.lower()}' for s,n in x['by_severity'].items())+' · '+', '.join(x['findings']),x['exposure'],' '.join(x['evidence'])] for x in a['exposures']])
-    b=section('6. Registro e matriz de riscos')
-    paragraph(b,a['risk_method']+' A probabilidade é uma avaliação qualitativa do cenário, não a frequência das falhas induzidas. Impacto considera continuidade, confidencialidade e capacidade de investigação. Responsáveis são papéis organizacionais propostos.')
-    table(b,['ID','Ativo/processo','Ameaça','Vulnerabilidade','Prob.','Impacto','Risco inerente','Responsável'],[[r['id'],r['asset'],r['threat'],r['vulnerability'],r['probability'],r['impact'],str(r['score'])+' · '+r['level'],r['owner']] for r in a['risks']])
-    table(b,['Probabilidade ↓ / Impacto →','1','2','3','4','5'],[[str(p)+' · '+a['probability_scale'][str(p)]]+['; '.join(r['id'] for r in a['risks'] if r['probability']==p and r['impact']==i) or '—' for i in range(1,6)] for p in range(5,0,-1)])
-    table(b,['Risco','Causa → evento → impacto','Justificativa / fonte'],[[r['id'],r['cause']+' → '+r['event']+' → '+r['impact_description'],r['rationale']+' '+' '.join(r['evidence'])] for r in a['risks']])
-    table(b,['Risco','Sustentação técnica','Tratamento preliminar associado'],[[r['id'],evidence_text(r['technical_evidence']),r['treatment']+' · '+r['action']+' · '+r['owner']+' · D+'+str(r['deadline_days'])+' · '+r['status']] for r in a['risks']])
-    paragraph(b,'Escalas qualitativas: '+ '; '.join(f'P={n}: {label}' for n,label in a['probability_scale'].items())+'. Impacto: '+ '; '.join(f'I={n}: {label}' for n,label in a['impact_scale'].items())+'. P considera acesso necessário, controles e dependência; I considera interrupção clínica, acesso indevido e perda de capacidade de investigação. As notas são julgamentos documentados em C07, apoiados nas fontes acima; não são métricas coletadas. R-01 tem I=5 pela parada assistencial; R-02, pela exposição potencial de registros; R-03/R-04/R-05 têm I=4 pelos efeitos potenciais de acesso, detecção ou investigação. Reduzir foi escolhido para manter o serviço e acrescentar controles; não há proposta de transferência ou aceitação sem controle nesta avaliação.')
-    b=section('7. Incidente simulado')
-    paragraph(b,'Cenário principal: parada controlada do PostgreSQL por 120 s, interrompendo autenticação e consulta. Severidade crítica pela indisponibilidade do fluxo assistencial. Contenção: manter o teste restrito ao ambiente local e observar a API/coleta. Recuperação: reiniciar a dependência e confirmar login e leitura. O segundo incidente interrompeu somente o probe por 90 s; a restauração ocorreu por expiração/controle local. As respostas foram automatizadas pelo roteiro, não medem tempo de reação humana. E03 E04 E05')
-    table(b,['Incidente / categoria','Severidade / status','Início confirmado','Detecção','Recuperação observada','Responsável'],[[i['id']+' · '+i['category'],i['severity']+' / '+i['status'],local(i['onset']),local(i['detected']) if i['detected'] else '—',local(i['recovered']) if i['recovered'] else '—',i['owner']] for i in a['incidents']])
-    table(b,['Incidente','Tempo até detectar','Início → ação automatizada','Recuperação após detecção','Duração do impacto','Evidência'],[[i['id'],fmt(i['detection_seconds'])+' s',fmt(i['response_seconds'])+' s',fmt(i['recovery_seconds'])+' s',fmt(i['impact_seconds'])+' s',' '.join(i['evidence'])] for i in a['incidents']])
-    paragraph(b,'Impacto de INC-01: interrupção do fluxo clínico, com respostas 503 em consultas e autenticações. Impacto de INC-02: perda da observação do probe; sua duração mede perda de visibilidade, não indisponibilidade clínica. A contenção foi limitar a injeção à dependência selecionada e ao ambiente local, mantendo os demais serviços e revertendo a falha pelo roteiro. Categoria, severidade e status se baseiam nesses efeitos e na primeira amostra saudável; não houve medição de resposta humana. E03 E04 E05')
-    table(b,['Horário — São Paulo (UTC−03), com milissegundos','Incidente','Etapa','Evento / amostra'],[[local(s['at'],True),s['incident'],s['step'],evidence_text([s['reference']])] for s in a['incident_timeline']])
-    paragraph(b,'A timeline está em ordem temporal. Em INC-02, probe_restore_requested precede a primeira amostra de firing em cerca de 0,73 s: a ação foi programada, não disparada pelo alerta. Tempo de resposta aqui significa início confirmado → solicitação de restauração, separado de detecção e recuperação. E03 E05')
-    paragraph(b,'Dois episódios de alerta foram identificados: um crítico e um warning. Amostras consecutivas da mesma regra e conjunto de labels, separadas por até 30 s, formam um episódio. Não se contam amostras de ALERTS como incidentes. A cronologia confirma o cenário, e a primeira amostra saudável após a solicitação de restauração define recuperação. A perda do probe é incidente de observabilidade separado do incidente assistencial.')
-    table(b,['Regra','Criticidade','Primeira amostra firing','Última amostra firing','Evidência'],[[p['alert'],p['severity'],local(p['started_at'],True),local(iso(p['last_sample']),True),'E03 · /queries/alert_history; C04; '+('F05' if p['severity']=='critical' else 'F06')] for p in a['alert_episodes']])
-    b=section('8. KPIs e KRIs')
-    table(b,['Indicador','Resultado atual','Meta / limiar','Tendência / decisão e fonte'],[[k['name'],k['value'],k['target'],k['decision']+' '+evidence_text(k['technical_evidence'])] for k in a['indicators']])
-    paragraph(b,'MTTD = média de detecção − início confirmado; MTTR = média de recuperação observada − detecção. População: os dois incidentes fechados desta sessão, incluindo o incidente de observabilidade; os tempos individuais estão na seção 7. São medidas do cenário simulado, com resolução da coleta, e não desempenho histórico da operação. Tendências comparam baseline e experimento; riscos/vulnerabilidades são o primeiro registro e não possuem série histórica anterior. Tratamento definido não equivale a risco mitigado.')
-    paragraph(b,'Contagens de vulnerabilidades são agrupadas por severidade e ativo no inventário C07; riscos altos/críticos usam P × I ≥10; cobertura de tratamento = 100 × riscos com estratégia, ação, responsável e prazo / total de riscos. Os indicadores de risco são derivados do registro qualitativo rastreável, e não apresentados como medições automáticas de vulnerabilidades. Incidentes abertos/fechados usam a recuperação observada em E03/E05; alertas contam somente episódios firing, nunca estados pending.')
-    b=section('9. Dashboard v0.2')
-    paragraph(b,'A visão analítica apresenta riscos altos/críticos, vulnerabilidades altas, incidentes abertos/fechados, MTTD, MTTR e cobertura do plano de tratamento. As seções seguintes mostram baseline × experimento, CPU por fase, matriz P × I, registro de riscos, achados por severidade/ativo, episódios de alerta, incidentes e decisões associadas aos KPIs/KRIs. Os painéis operacionais existentes permanecem disponíveis com o intervalo selecionado no Grafana.')
-    paragraph(b,'Os painéis analíticos usam o recorte fixo identificado no título e dados calculados a partir dos arquivos preservados; mudar o seletor de tempo afeta os painéis operacionais, não reclassifica o registro de riscos. Links de relatório e dados permitem consultar os resultados e as fontes.')
-    b=section('10. Recomendações priorizadas')
-    table(b,['Prioridade','Ação','Esforço','Risco tratado','Responsável / prazo','Estratégia / status','Evidência que sustenta a recomendação'],[[r['priority'],r['action'],r['effort'],r['id'],r['owner']+' / D+'+str(r['deadline_days']),r['treatment']+' / '+r['status'],evidence_text(r['technical_evidence'])] for r in sorted(a['risks'],key=lambda r:(r['priority'],-r['score']))])
-    paragraph(b,a['deadline_basis']+' Primeiro, tratar continuidade e controle de acesso. Depois, ampliar a observação externa e a retenção de evidências. A implantação desses controles é trabalho futuro; esta sprint entrega a análise e o plano preliminar.')
-    paragraph(b,'Rastreabilidade das fontes utilizadas:')
-    table(b,['ID','Fonte','Origem no repositório','SHA-256'],[[s['id'],s['label'],s['origin'],s['sha256']] for s in a['sources']])
-    table(b,['Captura','Origem preservada','Capturada em São Paulo (UTC−03)','SHA-256'],[[f['id']+' · '+f['title'],f['origin'],local(f['captured_at']),f['sha256']] for f in a['figures']])
-    for number, (_, blocks) in enumerate(sections,1):
-        blocks.extend(('figure',figure) for figure in a['figures'] if figure['section']==number)
-    return sections
-
-
 def indicators(a):
     c,q=a['counts'],a['quality'];lat=next(m for m in a['metrics'] if m['key']=='clinical_p95_ms')
     result=[]
@@ -381,7 +269,7 @@ def indicators(a):
     add('KPI · Pico de latência p95',fmt(lat['experiment']['peak'])+' ms','≤500 ms','Próximo ao baseline; manter capacidade.',('E02','/queries/clinical_p95','Máximo da curva p95 de cinco minutos; apenas respostas 200.'))
     add('KPI · Cobertura ao final',fmt(q['collection_final_percent'])+'%','100%',f'Recuperada após mínimo de {fmt(q["collection_minimum_percent"])}%; tratar R-04.',('E03','/queries/coverage','Última amostra e mínimo de lab:collection_coverage_percent.'))
     add('KPI · Alertas por criticidade',f'{c["alerts_by_severity"].get("critical",0)} crítico; {c["alerts_by_severity"].get("warning",0)} aviso','Investigar cada episódio',
-        'Dois episódios firing, descritos em §7; ambos encerrados.',('E03','/queries/alert_history','Agrupamento por labels, lacuna máxima de 30 s; pending excluído.'))
+        'Um episódio crítico e um de aviso em firing; ambos encerrados.',('E03','/queries/alert_history','Agrupamento por labels, lacuna máxima de 30 s; pending excluído.'))
     add('KRI · Vulnerabilidades por severidade','; '.join(f'{c["vulnerabilities_by_severity"].get(s,0)} {s.lower()}' for s in ('Crítica','Alta','Média','Baixa')),
         '0 altas/críticas sem plano','Primeiro inventário; priorizar autorização e persistência.',('C07','/vulnerabilities','Contagem por severity; fontes técnicas por achado em §5.'))
     exposure_value='; '.join(x['asset']+': '+str(len(x['findings']))+' ('+', '.join(f'{n} {s.lower()}' for s,n in x['by_severity'].items())+')' for x in a['exposures'] if x['asset'] in ('APP-01','DB-01'))
@@ -397,49 +285,21 @@ def indicators(a):
     return result
 
 
-def render_report(a):
-    def text(value, mode):
-        value=str(value)
-        value=html.escape(value) if mode=='html' else value.replace('|','\\|').replace('\n',' ')
-        value=re.sub(r'\b(?:B|E|C)\d{2}\b',lambda m: '<a href="/analysis/sprint2/source/'+m[0]+'">'+m[0]+'</a>' if mode=='html' else '['+m[0]+'](../analysis/sprint2/sources/'+m[0]+'.txt)',value)
-        value=re.sub(r'§(\d+)',lambda m: '<a href="#sec'+m[1]+'">Seção '+m[1]+'</a>' if mode=='html' else '[Seção '+m[1]+'](#sec'+m[1]+')',value)
-        return re.sub(r'\bF\d{2}\b',lambda m: '<a href="#'+m[0]+'">'+m[0]+'</a>' if mode=='html' else '['+m[0]+'](#'+m[0]+')',value)
-    md=['# Modelo 03 — Relatório da Sprint 2 | Analisar','']
-    body=['<h1>Relatório da Sprint 2 <span>Analisar</span></h1><p class="subtitle">Coleta de 26/10/2026 · Governança em Cibersegurança · Saúde</p>']
-    for number,(title,blocks) in enumerate(report_blocks(a),1):
-        md+=['<a id="sec'+str(number)+'"></a>','', '## '+title,''];body.append('<section id="sec'+str(number)+'"><h2>'+html.escape(title)+'</h2>')
-        for kind,value in blocks:
-            if kind=='p':
-                md += [text(value,'md'),''];body.append('<p>'+text(value,'html')+'</p>')
-            elif kind=='figure':
-                caption=value['id']+' · '+value['title']+' · captura de '+local(value['captured_at'])+' (UTC−03).'
-                md += ['<a id="'+value['id']+'"></a>','', '!['+caption+'](../'+value['origin']+')','',caption,'']
-                encoded=base64.b64encode((ROOT/value['origin']).read_bytes()).decode('ascii')
-                body.append('<figure id="'+value['id']+'"><img alt="'+html.escape(caption)+'" src="data:image/png;base64,'+encoded+'"><figcaption>'+html.escape(caption)+'</figcaption></figure>')
-            else:
-                headers,rows=value
-                md+=['| '+' | '.join(text(v,'md') for v in headers)+' |','| '+' | '.join('---' for _ in headers)+' |']
-                md+=['| '+' | '.join(text(v,'md') for v in row)+' |' for row in rows]+['']
-                body.append('<div class="table"><table><thead><tr>'+''.join('<th>'+text(h,'html')+'</th>' for h in headers)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+text(v,'html')+'</td>' for v in row)+'</tr>' for row in rows)+'</tbody></table></div>')
-        body.append('</section>')
-    (ROOT/'docs/relatorio-sprint2.md').write_text('\n'.join(md))
-    page='<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relatório da Sprint 2</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#17283b;background:#f3f6fa;margin:0}main{max-width:1200px;margin:40px auto;padding:40px;background:white;border-radius:12px}h1{font-size:34px;line-height:1.2}h1 span{color:#177c89}h2{font-size:23px;border-bottom:2px solid #dfe8ef;padding-bottom:10px;margin-top:42px}.subtitle{color:#526377}.table{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:16px 0}th{background:#173d53;color:white;text-align:left}td,th{padding:10px 12px;border-bottom:1px solid #dfe8ef;vertical-align:top}td{min-width:70px;overflow-wrap:anywhere}tr:nth-child(even){background:#f3f7fa}a{color:#087787}figure{margin:28px 0}figure img{display:block;max-width:100%;height:auto;border:1px solid #dfe8ef}figcaption{font-size:13px;color:#526377;margin-top:8px}nav{display:flex;gap:20px}@media(max-width:700px){main{margin:0;padding:20px}}@media print{body{background:white}main{padding:0;margin:0}nav{display:none}h2{break-after:avoid}tr,figure{break-inside:avoid}.table{overflow:visible}table{font-size:10px}}</style><main><nav><a href="http://localhost:3001/d/saude-v01">Dashboard v0.2</a><a href="/analysis/sprint2/data">Dados e fontes</a></nav>'+''.join(body)+'</main></html>'
-    (OUTPUT/'report.html').write_text(page)
-
-
 def main():
     registers=read(OUTPUT/'registers.json')
     a=build_analysis(BASELINE,EXPERIMENT,registers)
     a['figures']=figure_catalog()
-    source_dir=OUTPUT/'sources';source_dir.mkdir(parents=True,exist_ok=True)
     a['sources']=[]
     for identifier,label,path in source_specs():
-        target=source_dir/(identifier+'.txt');shutil.copyfile(path,target)
-        a['sources'].append({'id':identifier,'label':label,'origin':str(path.relative_to(ROOT)),'sha256':digest(path),'path':'sources/'+target.name})
+        preserved_path=str(path.relative_to(ROOT))
+        source={'id':identifier,'label':label,'origin':STATIC_ORIGINS.get(identifier,preserved_path),
+                'sha256':digest(path),'path':preserved_path}
+        if identifier in STATIC_ORIGINS:
+            source['review_checkpoint']=REVIEW_CHECKPOINT
+        a['sources'].append(source)
     a['indicators']=indicators(a)
     (OUTPUT/'analysis.json').write_text(json.dumps(a,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
-    render_report(a)
-    print(json.dumps({'analysis':str(OUTPUT.relative_to(ROOT)/'analysis.json'),'report':'docs/relatorio-sprint2.md','risks':len(a['risks']),'vulnerabilities':len(a['vulnerabilities']),'incidents':len(a['incidents']),'sources':len(a['sources']),'counts':a['counts']},ensure_ascii=False))
+    print(json.dumps({'analysis':str(OUTPUT.relative_to(ROOT)/'analysis.json'),'risks':len(a['risks']),'vulnerabilities':len(a['vulnerabilities']),'incidents':len(a['incidents']),'sources':len(a['sources']),'counts':a['counts']},ensure_ascii=False))
 
 
 if __name__=='__main__':

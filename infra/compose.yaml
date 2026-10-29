@@ -50,7 +50,6 @@ services:
     ports: ["127.0.0.1:3000:3000"]
     volumes:
       - ../docs/recuperacao.md:/app/docs/recuperacao.md:ro
-      - ../analysis/sprint2:/app/analysis/sprint2:ro
     networks: [backend, monitoring, access]
     depends_on:
       postgres: { condition: service_healthy }

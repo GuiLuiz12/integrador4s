@@ -111,9 +111,9 @@ Um contador de falhas de login é um indicador técnico; sua transformação em 
 
 Preservar o identificador da sessão, o ativo, o intervalo UTC, a consulta e o caminho da fonte nas análises e registros futuros. Os valores originais e seus hashes permanecem disponíveis mesmo depois de expirar a retenção do Prometheus. Capturas ajudam a comunicar a análise; os arquivos exportados sustentam sua reprodução.
 
-## Backlog — simplificar documentação e separar a entrega do produto
+## Simplificar documentação e separar a entrega do produto
 
-Registrado em 27/10/2026 por orientação do usuário. Executar em uma revisão posterior; o checkpoint atual preserva o relatório e suas evidências como ponto de partida.
+Registrado em 27/10/2026 por orientação do usuário; implementação e validação concluídas em 28/10/2026. O checkpoint `536e7c2` preserva o ponto de partida. As decisões aprovadas foram manter o relatório estático e suas fontes no repositório e concentrar as instruções no README principal.
 
 - Consolidar as instruções de instalação, execução, simulação e testes em uma referência central; revisar READMEs redundantes ou obsoletos e manter apenas os que tenham finalidade distinta.
 - Remover a geração e a consulta de relatórios como funcionalidades da aplicação, incluindo as rotas de relatório/fontes, a apresentação HTML e as cópias TXT duplicadas. Avaliar dependências antes da remoção, preservando o dashboard e os cálculos necessários às análises.
@@ -121,4 +121,8 @@ Registrado em 27/10/2026 por orientação do usuário. Executar em uma revisão 
 - Tratar o relatório acadêmico como entrega estática e autossuficiente em PDF, preparada a partir das evidências. Não desenvolver uma ferramenta de relatório para atender essa entrega; um guia e os anexos selecionados podem ser encaminhados ao ChatGPT Cowork para a montagem.
 - Incorporar no PDF gráficos, alertas, eventos e trechos relevantes com origem, período, legenda e interpretação. Links para arquivos ou para a aplicação não substituem a evidência apresentada no documento. Código/configuração sustentam revisão estática; registros de riscos e recomendações são análises, não comprovação independente das próprias conclusões.
 
-O foco imediato é a preparação do relatório estático. A limpeza acima permanece pendente; não faz parte deste checkpoint.
+Nesta revisão, o README reúne execução, simulações, exportação, capturas e testes. Documentos técnicos mantêm suas finalidades específicas, e os relatórios de validação e evidências anteriores permanecem históricos. A topologia foi consolidada na arquitetura; o procedimento de recuperação mantém `/runbook` e distingue probe isolado de contêiner interrompido.
+
+A geração Markdown/HTML e as rotas de relatório, dados e fontes foram retiradas da aplicação. A análise offline continua produzindo os dados e o dashboard. Cópias de código consultado na revisão estática foram preservadas com extensões originais e hashes, separadas do código atual; os conjuntos de coleta e o registro qualitativo não foram reescritos. O relatório Markdown existente permanece estático, com referências atualizadas.
+
+Conferência concluída: compilação, 23 testes de evidências/análise, oito testes da API e configuração do Compose aprovados; fluxo autenticado e `/runbook` funcionais, com 404 nas três rotas retiradas. O dashboard preserva 50 painéis, 16 consultas analíticas e 18 indicadores, sem erros de expressão ou JavaScript, com novas capturas locais sob `evidence/runs/`. Os valores analíticos e os hashes das 15 fontes foram preservados; referências locais resolvem, o ZIP permanece intacto e a regeneração não reescreve o relatório nem recria HTML/TXT. A validação não exigiu nova coleta longa ou teste de instalação. A implementação não inclui a Sprint 3 nem altera a rejeição histórica do verificador.

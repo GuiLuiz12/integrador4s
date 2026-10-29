@@ -76,8 +76,6 @@ for (const item of panels) item.gridPos.y += analytical.height;
 panels[0].title = 'Operação · intervalo selecionado';
 const dashboard = { uid: 'saude-v01', title: 'Governança em Cibersegurança · Saúde v0.2', tags: ['saude', 'sprint-2'],
   schemaVersion: 39, version: 2, editable: false, timezone: 'America/Sao_Paulo', refresh: '15s',
-  links: [{ title: 'Relatório da Sprint 2', type: 'link', url: 'http://localhost:3000/analysis/sprint2', targetBlank: true },
-    { title: 'Dados e fontes', type: 'link', url: 'http://localhost:3000/analysis/sprint2/data', targetBlank: true }],
   time: { from: 'now-1h', to: 'now' }, panels: [...analytical.panels, ...panels], templating: { list: [] },
   annotations: { list: [{ builtIn: 1, datasource: { type: 'grafana', uid: '-- Grafana --' }, enable: true, hide: true, name: 'Annotations & Alerts', type: 'dashboard' }] } };
 writeFileSync(new URL('../dashboards/saude.json', import.meta.url), JSON.stringify(dashboard, null, 2) + '\n');

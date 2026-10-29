@@ -44,7 +44,7 @@ const sections = [
     ['test', 'Testes de código e scripts; não executa a sessão real.'],
     ['test:evidence', 'Testa exportação e análise offline com Python; não acessa Docker.'],
     ['dashboard', 'Gera dashboards/saude.json; versionar junto com scripts/dashboard.mjs.'],
-    ['analysis:sprint2', 'Recalcula a análise, o relatório e o dashboard v0.2 a partir das fontes preservadas; não inicia coleta.'],
+    ['analysis:sprint2', 'Recalcula os dados analíticos e o dashboard v0.2 a partir das fontes preservadas; não gera relatório nem inicia coleta.'],
     ['start:api', 'Inicia SOMENTE API compilada fora do Docker; requer banco e variáveis preparados.'],
     ['start:lab', 'Inicia SOMENTE gerador/verificador compilados; requer API e variáveis preparados.'],
     ['browser:setup', 'Instala Chromium e bibliotecas do sistema; internet e possivelmente sudo.'],

@@ -2,40 +2,15 @@
 
 Este formato prepara os dados para a análise da Sprint 2. A origem é o laboratório em execução; os roteiros não criam amostras nem completam lacunas.
 
-## Produzir e conferir uma coleta
+## Protocolos e validação
 
-Na raiz do projeto, com o laboratório iniciado e os sete alvos coletados:
+A sequência de execução, exportação e conferência está no [manual principal](../README.md#demonstrar). Baseline e experimento são conjuntos independentes, com estabilização mínima de cinco minutos seguida por 30 ou 60 minutos de observação. O relógio monotônico controla a duração; UTC identifica as evidências. O custo de prontidão e dos comandos pode acrescentar segundos ao intervalo.
 
-```bash
-npm run baseline:run
-npm run session:run
-```
+Cada sessão tem diretório exclusivo e um bloqueio contra execuções simultâneas no checkout. Código, configurações, imagens e perfil de carga devem permanecer estáveis. Falhas e interrupções ficam registradas no estado da sessão; um diretório sem manifesto não pode ser interpretado como evidência antiga válida.
 
-São duas execuções sequenciais e independentes. Cada uma começa com pelo menos cinco minutos de estabilização a 1/s, verificando disponibilidade e cobertura a cada 15 s. A observação dura 30 minutos no baseline e 60 minutos no experimento. As consultas de prontidão e o custo dos comandos podem acrescentar alguns segundos. O relógio monotônico controla a duração; UTC identifica as evidências.
+A conferência offline verifica SHA-256, intervalos, cobertura, famílias, inventário, estabilidade do contexto e eventos esperados. `summary.json` só é escrito em sucesso. A expiração automática do controle do probe é de 1 a 600 segundos; a restauração do banco depende do roteiro ou de ação manual em encerramentos forçados. Os procedimentos estão em [recuperação](recuperacao.md).
 
-O caminho é impresso ao iniciar: `evidence/runs/baseline-<UUID>` ou `evidence/runs/experiment-<UUID>`. Um bloqueio impede duas sessões simultâneas no mesmo checkout. Durante a coleta, preserve o código, as configurações, as imagens e o perfil de carga. Registre outras atividades do host que possam afetar seus recursos.
-
-O experimento provoca as falhas descritas no [roteiro](demonstracao.md), tenta restaurar os componentes em caso de erro e salva seu estado. Se houver falha de restauração, use `npm run db:restore`, `npm run probe:restore` e confira `npm run check`. A interrupção isolada do probe tem também expiração automática no serviço, entre 1 e 600 segundos. A morte forçada do processo que controla o PostgreSQL pode impedir o `finally`; nesse caso é necessária recuperação manual.
-
-Ao concluir, o próprio roteiro exporta e verifica as fontes. Para repetir a verificação **sem Docker, rede ou Grafana**:
-
-```bash
-npm run session:summary -- evidence/runs/baseline-<UUID>
-npm run session:summary -- evidence/runs/experiment-<UUID>
-```
-
-O comando verifica SHA-256, intervalos, cobertura, presença das famílias, inventário, estabilidade do código/configuração/imagens e os eventos esperados. Só grava `summary.json` em sucesso. Um diretório interrompido continua identificado por `run.json`; a ausência de manifesto não permite interpretá-lo como evidência antiga válida.
-
-### Exportação de um intervalo escolhido
-
-```bash
-npm run evidence:export -- evidence/runs/analise-escolhida \
-  --from 2026-10-21T12:00:00Z --to 2026-10-21T13:00:00Z
-```
-
-As datas acima são exemplos: use um período realmente coletado e ainda retido. As duas datas devem ter fuso e ser informadas juntas. Sem datas, exporta a última hora; sem pasta, cria `export-<UUID>`. O destino deve estar vazio. Não sobrescreva uma coleta para atualizá-la.
-
-Uma exportação avulsa tem `kind: export`: sua validação verifica estrutura e integridade, mas não comprova o protocolo de baseline ou de experimento. Pode conter menos dados que a janela solicitada. Confira `observations`, `temporal_completeness_percent` e as bordas antes de utilizá-la.
+Uma exportação avulsa tem `kind: export`: sua validação verifica estrutura e integridade, mas não comprova o protocolo de baseline ou experimento. Pode conter menos dados que a janela solicitada; `observations`, `temporal_completeness_percent` e bordas declaram essa limitação. O destino deve ser novo e vazio.
 
 ## Arquivos
 
@@ -148,20 +123,29 @@ Para futuros MTTD/MTTR, declarar essas convenções e a população de incidente
 
 ## Capturas vinculadas à coleta
 
-```bash
-npm run dashboard:verify -- --session-dir evidence/runs/experiment-<UUID>
-```
+Os comandos estão no [manual de capturas](../README.md#capturar-o-dashboard-e-alertas). Ao vincular uma captura à sessão, o script usa o intervalo absoluto do manifesto e salva em `captures/dashboard-<timestamp>/`, com `session_id` e hash do manifesto em `validation.json`. O Grafana trabalha com milissegundos; submilissegundos do manifesto são truncados na seleção visual. As fontes exportadas preservam seus limites originais.
 
-O script usa o intervalo absoluto do manifesto e salva capturas em `captures/dashboard-<timestamp>/`, com `session_id` e hash do manifesto em `validation.json`. O Grafana trabalha com milissegundos; submilissegundos do manifesto são truncados na seleção visual. As fontes exportadas preservam seus limites originais.
+`observation.json` distingue o horário selecionado do alerta do horário da captura. Novas imagens operacionais dependem da retenção do Prometheus; séries e eventos já exportados continuam disponíveis offline. Capturas não substituem o conjunto completo de arquivos referenciados pelo manifesto.
 
-Para acompanhar os alertas durante o experimento, em outro terminal:
+## Análise histórica da Sprint 2
 
-```bash
-npm run alerts:capture -- ISO_INICIO_DA_SESSAO \
-  --output-dir evidence/runs/experiment-<UUID>/captures/alerts
-```
+O cálculo offline usa o baseline de 21/10/2026 e o experimento de 26/10/2026. Sua rejeição pelo verificador de cenário permanece no diretório original; reconstruir a análise não muda esse resultado nem preenche ausência de amostras como sucesso. O comando de [reprodução da análise](../README.md#desenvolver-e-manter-o-código) escreve somente os dados consolidados e o dashboard.
 
-Substitua o início pelo horário real. O observador não provoca falhas e aguarda até 70 minutos. Registra horário do alerta, horário da captura e amostras que selecionou. Capturas feitas depois do manifesto são artefatos adicionais; não alteram os hashes das fontes. O histórico visual só é consultável enquanto estiver no Prometheus.
+O catálogo `sources` de `analysis/sprint2/analysis.json` mantém ID, descrição, origem e SHA-256. O campo `path` resolve o arquivo a partir da raiz do repositório. As fontes são:
+
+| IDs | Natureza e preservação |
+|---|---|
+| B01–B03 e E01–E05 | Manifestos, séries, curvas, eventos e timeline dos conjuntos originais em `evidence/` |
+| C01 e C04 | Compose e regras preservados na exportação do experimento |
+| C02, C03 e C06 | Revisão estática posterior: cópias do código em `analysis/sprint2/sources/`, com extensão `.ts`, sem depender dos arquivos atuais da aplicação |
+| C05 | Documentação de logs consultada na análise, preservada como `C05-README.md`; apoio declarativo, não comprovação de execução |
+| C07 | `analysis/sprint2/registers.json`: inventário e avaliação qualitativa, preservados sem alteração |
+
+As quatro cópias de revisão foram preservadas byte a byte a partir do checkpoint `536e7c22f3e809db9a7137a3e9bea4e481d0fb5e`; `review_checkpoint` identifica essa proveniência, sem atribuir uma nova data de coleta. Trechos e números de linha continuam apontando para essas versões. Código e configuração sustentam revisão estática; C07 não comprova de forma independente as próprias conclusões.
+
+O registro qualitativo mantém vulnerabilidades, riscos, justificativas, evidências e recomendações. Prazos são relativos à aprovação e responsáveis são papéis propostos; plano definido não significa controle implementado. O catálogo `figures` preserva origem, data de captura e SHA-256 das seis imagens históricas.
+
+O relatório permanece como documento estático com as dez seções, 18 indicadores, 11 consultas e referências por trecho ou evento. A entrega em PDF deve incorporar as evidências legíveis; a aplicação não gera nem hospeda relatórios ou fontes. Na timeline, `response_seconds` mede início confirmado até solicitação de restauração automatizada, separado de MTTD e MTTR e sem representar reação humana.
 
 ## Ler o dataset com Python
 

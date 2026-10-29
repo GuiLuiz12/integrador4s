@@ -1,6 +1,6 @@
 # Recuperação do serviço assistencial simulado
 
-Responsável: **Operação do laboratório**. Todos os dados e impactos descritos são fictícios.
+Responsável: **Operação do laboratório**. Todos os dados e impactos descritos são fictícios. Este procedimento permanece disponível em `/runbook`; instalação, simulações e testes estão no README principal do repositório.
 
 ## Consulta assistencial indisponível
 
@@ -17,14 +17,16 @@ Não remover volumes para recuperar o serviço. Se o problema persistir, consult
 ## Falha de coleta
 
 1. Um alvo sem coleta não comprova saúde nem indisponibilidade assistencial.
-2. Conferir o alvo indicado, rede interna e estado do coletor. No experimento do verificador, executar `npm run collector:restore`.
+2. Conferir o alvo indicado, rede interna e estado do coletor. Se apenas `/probe` estiver interrompido e o gerador continuar ativo, executar `npm run probe:restore` ou confirmar a expiração automática. Se o contêiner `lab` inteiro estiver parado, executar `npm run collector:restore`; esse é o cenário usado nas evidências históricas da Sprint 1.
 3. Confirmar cobertura de 100% e novas verificações antes de concluir sobre o serviço.
 4. Se o Prometheus parar, Grafana apresentará erro/sem dados; esse Prometheus único não consegue detectar sua própria parada total. Não interpretar ausência de alerta como recuperação.
 
 ## Experimento autorizado
 
-`npm run simulate:db-outage -- 120` interrompe somente o PostgreSQL deste projeto por 120 s e o restaura ao finalizar ou receber SIGINT/SIGTERM. SIGKILL, queda do host ou encerramento do daemon exigem `npm run db:restore` manual. O verificador pode ser interrompido com `npm run simulate:collector-outage -- 90`, com o mesmo mecanismo de restauração.
+Os cenários e seus comandos estão na seção “Demonstrar” do README principal. A falha de banco dura 120 s e o roteiro tenta restaurá-lo ao finalizar ou receber SIGINT/SIGTERM. SIGKILL, queda do host ou encerramento do daemon podem exigir `npm run db:restore` manual.
+
+A falha isolada do probe dura 90 s, preserva o gerador e suas métricas e possui expiração automática. O cenário anterior de interrupção do contêiner `lab` inteiro continua disponível, com restauração do contêiner ao finalizar ou receber sinal. Escolher a recuperação conforme o componente efetivamente interrompido.
 
 ## Decisão gerencial esperada
 
-Priorizar a restauração da consulta clínica, confirmar a recuperação por evidência e registrar o resultado. O impacto é atraso simulado de atendimento. Esta sprint não implementa registro formal de riscos, aprovação executiva ou automação de tratamento.
+Priorizar a restauração da consulta clínica, confirmar a recuperação por evidência e registrar o resultado. O impacto é atraso simulado de atendimento. A Sprint 2 mantém avaliação qualitativa de riscos e tratamentos planejados; a restauração automática do experimento não comprova execução desses tratamentos nem aprovação executiva.

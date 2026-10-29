@@ -3,13 +3,29 @@ import json
 import pathlib
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / 'scripts'))
-from analyze_sprint2 import (BASELINE, EXPERIMENT, OUTPUT, build_analysis, indicators,
+from analyze_sprint2 import (BASELINE, EXPERIMENT, OUTPUT, ROOT, build_analysis, indicators,
                             alert_episodes, points, risk_level, statistics_of)
 
 
 class Sprint2AnalysisTests(unittest.TestCase):
+    def test_historical_review_does_not_read_live_code_or_documentation(self):
+        live_files = {ROOT / name for name in ('apps/api/app.ts', 'apps/api/repository.ts',
+                                              'logging/README.md', 'apps/lab/server.ts')}
+        read_text = pathlib.Path.read_text
+
+        def read_preserved(path, *args, **kwargs):
+            self.assertNotIn(path, live_files, 'A revisão histórica deve usar as versões preservadas')
+            return read_text(path, *args, **kwargs)
+
+        registers = json.loads((OUTPUT / 'registers.json').read_text())
+        with patch.object(pathlib.Path, 'read_text', read_preserved):
+            analysis = build_analysis(BASELINE, EXPERIMENT, registers)
+        self.assertEqual(len(analysis['vulnerabilities']), 5)
+        self.assertTrue(all(v['technical_evidence'] for v in analysis['vulnerabilities']))
+
     def test_alert_samples_are_grouped_into_distinct_episodes(self):
         series = [
             {'metric': {'alertname': 'Clinical', 'severity': 'critical', 'job': 'probe', 'alertstate': 'firing'},

@@ -10,20 +10,6 @@
   "editable": false,
   "timezone": "America/Sao_Paulo",
   "refresh": "15s",
-  "links": [
-    {
-      "title": "Relatório da Sprint 2",
-      "type": "link",
-      "url": "http://localhost:3000/analysis/sprint2",
-      "targetBlank": true
-    },
-    {
-      "title": "Dados e fontes",
-      "type": "link",
-      "url": "http://localhost:3000/analysis/sprint2/data",
-      "targetBlank": true
-    }
-  ],
   "time": {
     "from": "now-1h",
     "to": "now"
@@ -55,14 +41,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -124,14 +103,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -193,14 +165,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -258,14 +223,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -327,14 +285,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -396,14 +347,7 @@
         "w": 8,
         "h": 4
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -477,14 +421,7 @@
         "w": 16,
         "h": 15
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -562,14 +499,7 @@
         "w": 8,
         "h": 15
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. CPU em % do limite de 1 CPU, calculada em janelas móveis de cinco minutos; as bordas das fases incluem contexto anterior.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. CPU em % do limite de 1 CPU, calculada em janelas móveis de cinco minutos; as bordas das fases incluem contexto anterior.",
       "targets": [
         {
           "refId": "A",
@@ -636,14 +566,7 @@
         "w": 8,
         "h": 9
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. P e I de 1 a 5; risco inerente = P × I. Células vazias não têm riscos registrados. Classificação qualitativa do cenário.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. P e I de 1 a 5; risco inerente = P × I. Células vazias não têm riscos registrados. Classificação qualitativa do cenário.",
       "targets": [
         {
           "refId": "A",
@@ -1114,14 +1037,7 @@
         "w": 16,
         "h": 9
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. Prazos após aprovação do plano. Todos os tratamentos estão planejados; risco residual ainda não reavaliado.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Prazos após aprovação do plano. Todos os tratamentos estão planejados; risco residual ainda não reavaliado.",
       "targets": [
         {
           "refId": "A",
@@ -1334,14 +1250,7 @@
         "w": 6,
         "h": 11
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -1396,14 +1305,7 @@
         "w": 6,
         "h": 11
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. Contexto e evidências na seção 5 do relatório; sem pontuação adicional.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. A contagem não é uma pontuação de exposição.",
       "targets": [
         {
           "refId": "A",
@@ -1458,14 +1360,7 @@
         "w": 12,
         "h": 11
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -1579,14 +1474,7 @@
         "w": 17,
         "h": 8
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte. Resposta = início confirmado até solicitação automatizada de restauração; MTTD e MTTR estão nos indicadores. No probe a ação programada precede a primeira amostra firing em 0,73 s; ordem e milissegundos no relatório.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Resposta = início confirmado até solicitação automatizada de restauração. MTTD mede início até o primeiro firing; MTTR mede detecção até a primeira amostra saudável após a restauração. No probe a ação programada precede a primeira amostra firing em 0,73 s. Esses tempos não representam reação humana.",
       "targets": [
         {
           "refId": "A",
@@ -1748,14 +1636,7 @@
         "w": 7,
         "h": 8
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -1822,14 +1703,7 @@
         "w": 24,
         "h": 27
       },
-      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco constam no relatório. O seletor de tempo não altera este recorte.",
-      "links": [
-        {
-          "title": "Relatório e evidências",
-          "url": "http://localhost:3000/analysis/sprint2",
-          "targetBlank": true
-        }
-      ],
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
       "targets": [
         {
           "refId": "A",
@@ -1838,7 +1712,7 @@
             "uid": "sprint2-analysis"
           },
           "scenarioId": "csv_content",
-          "csvContent": "\"Indicador\",\"Resultado\",\"Meta / limiar\",\"Tendência / decisão\",\"Fonte\"\n\"KPI · Disponibilidade assistencial\",\"96,58%\",\"≥99%\",\"Baseline 100%; queda induzida explica o desvio. Priorizar R-01.\",\"E03\"\n\"KPI · CPU APP-01 · média / pico\",\"2,60% / 3,58%\",\"≤80%\",\"Baseline 2,57% / 2,75%. Folga de processamento; não há evidência de saturação.\",\"E02\"\n\"KPI · Memória APP-01 · média / pico\",\"22,67% / 23,91%\",\"≤80%\",\"Baseline 14,05% / 14,25%. Crescimento entre sessões, ainda distante do limite; não comprova vazamento.\",\"E03\"\n\"KPI · CPU DB-01 · média / pico\",\"1,43% / 1,80%\",\"≤80%\",\"Baseline 1,40% / 1,46%. Baixo consumo; a indisponibilidade decorre da parada programada.\",\"E02\"\n\"KPI · Memória DB-01 · média / pico\",\"2,78% / 4,34%\",\"≤80%\",\"Baseline 1,93% / 2,18%. Uso baixo em relação à capacidade configurada.\",\"E03\"\n\"KPI · CPU HOST-01 · média / pico\",\"8,33% / 10,75%\",\"≤80%\",\"Baseline 6,58% / 11,96%. Inclui processos externos ao projeto.\",\"E02\"\n\"KPI · Memória HOST-01 · média / pico\",\"33,09% / 33,76%\",\"≤80%\",\"Baseline 21,52% / 23,78%. Diferença entre sessões pode incluir outras aplicações do host.\",\"E02\"\n\"KPI · Pico de latência p95\",\"9,53 ms\",\"≤500 ms\",\"Próximo ao baseline; manter capacidade.\",\"E02\"\n\"KPI · Cobertura ao final\",\"100,00%\",\"100%\",\"Recuperada após mínimo de 85,71%; tratar R-04.\",\"E03\"\n\"KPI · Alertas por criticidade\",\"1 crítico; 1 aviso\",\"Investigar cada episódio\",\"Dois episódios firing, descritos em §7; ambos encerrados.\",\"E03\"\n\"KRI · Vulnerabilidades por severidade\",\"0 crítica; 2 alta; 3 média; 0 baixa\",\"0 altas/críticas sem plano\",\"Primeiro inventário; priorizar autorização e persistência.\",\"C07\"\n\"KRI · Ativos com maior exposição\",\"APP-01: 2 (1 alta, 1 média); DB-01: 1 (1 alta)\",\"Priorizar acesso e continuidade\",\"APP concentra achados e superfícies de acesso; DB é dependência crítica. MON/LOG: 1 médio cada. Sem pontuação adicional.\",\"C07\"\n\"KPI · Incidentes abertos / fechados\",\"0 / 2\",\"0 abertos ao final\",\"Manter ações preventivas.\",\"E03\"\n\"KPI · MTTD (n=2)\",\"90,76 s\",\"≤120 s\",\"Dentro da referência proposta; ampliar observação externa.\",\"E03\"\n\"KPI · MTTR após detecção (n=2)\",\"26,04 s\",\"≤60 s\",\"Resposta automatizada; testar procedimento operacional futuramente.\",\"E03\"\n\"KRI · Falhas de login no cenário\",\"10 em menos de 1 min\",\"Investigar ≥5/min\",\"Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03.\",\"E04\"\n\"KRI · Riscos altos/críticos\",\"3 altos; 1 crítico\",\"0 sem responsável/plano\",\"Primeira avaliação; executar tratamentos antes de reduzir classificação.\",\"C07\"\n\"KPI · Riscos com tratamento definido\",\"100%\",\"100%\",\"Todos planejados; acompanhar execução, prazo e evidência de conclusão.\",\"C07\"",
+          "csvContent": "\"Indicador\",\"Resultado\",\"Meta / limiar\",\"Tendência / decisão\",\"Fonte\"\n\"KPI · Disponibilidade assistencial\",\"96,58%\",\"≥99%\",\"Baseline 100%; queda induzida explica o desvio. Priorizar R-01.\",\"E03\"\n\"KPI · CPU APP-01 · média / pico\",\"2,60% / 3,58%\",\"≤80%\",\"Baseline 2,57% / 2,75%. Folga de processamento; não há evidência de saturação.\",\"E02\"\n\"KPI · Memória APP-01 · média / pico\",\"22,67% / 23,91%\",\"≤80%\",\"Baseline 14,05% / 14,25%. Crescimento entre sessões, ainda distante do limite; não comprova vazamento.\",\"E03\"\n\"KPI · CPU DB-01 · média / pico\",\"1,43% / 1,80%\",\"≤80%\",\"Baseline 1,40% / 1,46%. Baixo consumo; a indisponibilidade decorre da parada programada.\",\"E02\"\n\"KPI · Memória DB-01 · média / pico\",\"2,78% / 4,34%\",\"≤80%\",\"Baseline 1,93% / 2,18%. Uso baixo em relação à capacidade configurada.\",\"E03\"\n\"KPI · CPU HOST-01 · média / pico\",\"8,33% / 10,75%\",\"≤80%\",\"Baseline 6,58% / 11,96%. Inclui processos externos ao projeto.\",\"E02\"\n\"KPI · Memória HOST-01 · média / pico\",\"33,09% / 33,76%\",\"≤80%\",\"Baseline 21,52% / 23,78%. Diferença entre sessões pode incluir outras aplicações do host.\",\"E02\"\n\"KPI · Pico de latência p95\",\"9,53 ms\",\"≤500 ms\",\"Próximo ao baseline; manter capacidade.\",\"E02\"\n\"KPI · Cobertura ao final\",\"100,00%\",\"100%\",\"Recuperada após mínimo de 85,71%; tratar R-04.\",\"E03\"\n\"KPI · Alertas por criticidade\",\"1 crítico; 1 aviso\",\"Investigar cada episódio\",\"Um episódio crítico e um de aviso em firing; ambos encerrados.\",\"E03\"\n\"KRI · Vulnerabilidades por severidade\",\"0 crítica; 2 alta; 3 média; 0 baixa\",\"0 altas/críticas sem plano\",\"Primeiro inventário; priorizar autorização e persistência.\",\"C07\"\n\"KRI · Ativos com maior exposição\",\"APP-01: 2 (1 alta, 1 média); DB-01: 1 (1 alta)\",\"Priorizar acesso e continuidade\",\"APP concentra achados e superfícies de acesso; DB é dependência crítica. MON/LOG: 1 médio cada. Sem pontuação adicional.\",\"C07\"\n\"KPI · Incidentes abertos / fechados\",\"0 / 2\",\"0 abertos ao final\",\"Manter ações preventivas.\",\"E03\"\n\"KPI · MTTD (n=2)\",\"90,76 s\",\"≤120 s\",\"Dentro da referência proposta; ampliar observação externa.\",\"E03\"\n\"KPI · MTTR após detecção (n=2)\",\"26,04 s\",\"≤60 s\",\"Resposta automatizada; testar procedimento operacional futuramente.\",\"E03\"\n\"KRI · Falhas de login no cenário\",\"10 em menos de 1 min\",\"Investigar ≥5/min\",\"Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03.\",\"E04\"\n\"KRI · Riscos altos/críticos\",\"3 altos; 1 crítico\",\"0 sem responsável/plano\",\"Primeira avaliação; executar tratamentos antes de reduzir classificação.\",\"C07\"\n\"KPI · Riscos com tratamento definido\",\"100%\",\"100%\",\"Todos planejados; acompanhar execução, prazo e evidência de conclusão.\",\"C07\"",
           "dropPercent": 0
         }
       ],

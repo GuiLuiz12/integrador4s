@@ -6,7 +6,18 @@ Sprint 1 concluída e validada em 17/09/2026. Consulte o [relatório com a DoD](
 
 O refinamento prepara a análise com baseline separado, falha isolada do probe e exportações rastreáveis. Consulte o [planejamento das três sprints](docs/planejamento.md) e o [contrato das evidências](docs/evidencias.md).
 
-O v0.2 combina análise do recorte de 26/10/2026 com os painéis operacionais. Os resultados e o relatório podem ser reproduzidos com `npm run analysis:sprint2`, usando as fontes preservadas, sem repetir o experimento. A limitação do verificador anterior está documentada no relatório; o resultado original foi mantido.
+O v0.2 combina análise do recorte de 26/10/2026 com os painéis operacionais. `npm run analysis:sprint2` recalcula os dados e o dashboard a partir das fontes preservadas, sem repetir o experimento. O relatório permanece como documento estático: a aplicação não gera nem serve relatórios. A limitação do verificador anterior está documentada no relatório; o resultado original foi mantido.
+
+Este README concentra as instruções de execução. Os documentos técnicos e históricos estão no [índice de documentação](#documentação).
+
+- [Instalar e iniciar](#começar)
+- [Operar e acessar](#usar-depois-do-setup)
+- [Simular e coletar evidências](#demonstrar)
+- [Exportar e conferir dados](#exportar-e-conferir-evidências)
+- [Validar o ambiente](#validar-o-ambiente)
+- [Desenvolver e recalcular a análise](#desenvolver-e-manter-o-código)
+- [Capturar o dashboard e alertas](#capturar-o-dashboard-e-alertas)
+- [Encerrar e recuperar](#encerrar-e-recuperar)
 
 ## Começar
 
@@ -49,7 +60,7 @@ Consulte [validação dos comandos npm](docs/validacao-comandos.md) para disting
 | O que você quer fazer | Comando ou local | Resultado |
 |---|---|---|
 | Acompanhar análise e operação | [Grafana v0.2](http://localhost:3001/d/saude-v01) | Recorte analítico identificado e coleta operacional automática |
-| Ler a entrega da Sprint 2 | [Relatório](http://localhost:3000/analysis/sprint2) | Dez seções com links para as fontes |
+| Ler a entrega da Sprint 2 | [Relatório estático](docs/relatorio-sprint2.md) | Documento histórico com dez seções e referências às fontes preservadas |
 | Descobrir todas as ações | `npm run help` | Catálogo com pré-requisitos, argumentos, duração e efeitos |
 | Consultar endereços e logins | `npm run access` | URLs, usuários e variáveis de senha; nenhum segredo impresso |
 | Ver os serviços | `npm run status` | Estado dos sete contêineres |
@@ -70,7 +81,6 @@ O gerador já produz uma consulta fictícia por segundo. Não é necessário dis
 `npm run setup` cria `.env` com segredos aleatórios e permissão 0600, sem exibi-los. Não sobrescreve um arquivo existente válido. Abra esse arquivo **localmente** para obter `GRAFANA_PASSWORD`; não o inclua em screenshots ou relatórios. Login do painel: `admin`.
 
 - **Painel:** http://localhost:3001/d/saude-v01
-- **Relatório da Sprint 2:** http://localhost:3000/analysis/sprint2
 - **OpenAPI:** http://localhost:3000/openapi.json
 - **Recuperação:** http://localhost:3000/runbook
 - **Vitalidade / prontidão:** http://localhost:3000/health/live e http://localhost:3000/health/ready
@@ -110,18 +120,42 @@ npm run evidence:export
 
 As simulações alteram o laboratório: carga ampliada, dez falhas de autenticação e indisponibilidade do banco. `simulate:db-outage` restaura o banco ao terminar ou receber Ctrl+C. `npm run simulate:probe-outage -- 90` interrompe somente a coleta de `/probe`, mantendo o gerador e suas métricas; restaura por expiração ou sinal. Recuperação manual: `npm run db:restore` e `npm run probe:restore`. O comando anterior `simulate:collector-outage` continua disponível para interromper o contêiner `lab` inteiro.
 
-Para produzir os conjuntos separados, começar com cobertura de 100%:
+Para produzir os conjuntos separados, confirmar consulta funcional, cobertura de 100% dos sete alvos e gráficos de recursos dos contêineres:
 
 ```bash
 npm run baseline:run
 npm run session:run
 ```
 
-O **baseline dura 30 minutos** a 1/s e o **experimento dura 60 minutos**. Cada execução acrescenta pelo menos cinco minutos de estabilização antes do período observado. Execute sequencialmente, sem alterar código, configuração ou imagens durante a coleta.
+O **baseline dura 30 minutos** a 1/s e exige sucesso assistencial, coleta contínua, ausência de alertas disparados e histórico suficiente de recursos. O **experimento dura 60 minutos**. Cada execução acrescenta pelo menos cinco minutos de estabilização antes do período observado. Execute sequencialmente, sem alterar código, configuração ou imagens durante a coleta. Registre outras atividades do host que possam afetar seus recursos; a janela curta e o host compartilhado limitam as conclusões.
 
-O experimento inclui carga ampliada por dez minutos, dez logins inválidos, queda do banco por dois minutos e falha isolada do probe por 90 s. Os arquivos ficam em `evidence/runs/baseline-<UUID>` e `evidence/runs/experiment-<UUID>`, ignorados pelo Git. As fontes são exportadas e verificadas ao concluir. Ver [roteiro](docs/demonstracao.md), [formato das evidências](docs/evidencias.md) e [relatório histórico da Sprint 1](docs/relatorio-sprint1.md).
+O experimento segue a sequência abaixo, com minutos relativos a `session_started`, após a estabilização:
 
-Para conferir novamente sem serviços ativos, use `npm run session:summary -- PASTA_DA_SESSAO`. O comando valida as fontes e gera `summary.json`. Uma exportação avulsa usa `npm run evidence:export -- PASTA_VAZIA --from ISO_INICIO --to ISO_FIM`; informe ambas as datas com fuso. Sem datas, usa a última hora; sem pasta, cria um destino exclusivo.
+| Minuto aproximado | Ação automática | Evidência esperada |
+|---:|---|---|
+| 0 | Consulta normal a 1/s | Fluxo disponível e cobertura de 100% |
+| 10–20 | Carga a 5/s por dez minutos | Volume, latência e recursos durante a carga |
+| 25 | Dez logins inválidos | Dez HTTP 401 e aumento do contador |
+| 30–32 | Parar PostgreSQL por pelo menos 120 s após confirmação | API viva, consulta falha e alerta após persistência |
+| 35 | Conferir recuperação | Consulta funcional e recuperação no histórico do probe |
+| 40–41,5 | Interromper somente `/probe` por 90 s | Falha de coleta; API, job `lab` e gerador continuam ativos |
+| 60 | Encerrar e exportar | Séries originais, curvas derivadas, eventos e timeline |
+
+O limite de concorrência do gerador é cinco; `lab_load_attempts_total` informa tentativas limitadas em falhas ou lentidão. A carga volta a 1/s ao expirar. A falha isolada usa controle por loopback dentro do contêiner `lab`: o HTTP 503 do endpoint de coleta derruba `up{job="probe"}`, sem fabricar uma amostra de indisponibilidade clínica. A expiração restaura a observação; o evento de restauração do roteiro pode aparecer instantes depois.
+
+Os arquivos ficam em `evidence/runs/baseline-<UUID>` e `evidence/runs/experiment-<UUID>`, ignorados pelo Git. Cada execução cria um destino exclusivo e um bloqueio impede sessões simultâneas no mesmo checkout. Ao concluir, as fontes são exportadas e verificadas. Consulte o [formato das evidências e convenções dos tempos](docs/evidencias.md).
+
+Ctrl+C/SIGTERM aciona tentativas de restauração; o probe também possui expiração automática. Uma execução interrompida registra `interrupted_or_failed` ou `restoration_failed` e não é aceita como sessão completa. Após uma interrupção, execute `npm run db:restore`, `npm run probe:restore`, `npm run check` e confira `npm run metrics:query -- 'lab:collection_coverage_percent'`. Se o contêiner `lab` inteiro foi parado, use também `npm run collector:restore`. Aguarde cobertura de 100% antes de iniciar outra sessão. SIGKILL, queda do host ou do daemon podem exigir restauração manual.
+
+As [evidências da Sprint 1](evidence/validated/sprint1/README.md) usam o roteiro anterior, que interrompia o contêiner inteiro do gerador/verificador. Preserve esse histórico separado do novo cenário isolado; o leitor de resumo mantém compatibilidade com ele.
+
+## Exportar e conferir evidências
+
+Para conferir novamente sem Docker, rede ou Grafana, use `npm run session:summary -- PASTA_DA_SESSAO`. O comando valida hashes, intervalos, cobertura, famílias de métricas, inventário, estabilidade da configuração e eventos; grava `summary.json` somente em sucesso. As marcações são horários observados, com a resolução e os atrasos da coleta. A resposta dos cenários é automatizada, não tempo de reação humana.
+
+Uma exportação avulsa usa `npm run evidence:export -- PASTA_VAZIA --from ISO_INICIO --to ISO_FIM`. Substitua pelos valores de um intervalo realmente coletado e ainda retido no Prometheus; informe ambas as datas com fuso. Sem datas, usa a última hora; sem pasta, cria um destino exclusivo. Uma exportação avulsa não comprova o protocolo completo de baseline ou experimento. Confira lacunas e bordas e não sobrescreva conjuntos anteriores.
+
+Antes de copiar uma seleção para `evidence/validated/`, revise as fontes e preserve todos os arquivos referenciados no manifesto. Prints ou resumos isolados não permitem reproduzir os cálculos. Não inclua `.env`, tokens, conteúdo clínico ou configuração Docker expandida.
 
 ## Validar o ambiente
 
@@ -135,6 +169,8 @@ npm run test:integration
 ```
 
 A integração verifica registros, permissões, inicialização idempotente, endpoints, coleta, portas e limites. Os testes de regras não provocam falhas nos serviços ativos.
+
+Os testes ficam restritos aos serviços do projeto Compose `governanca-saude`. Cobrem login válido/inválido, usuário desconhecido, token expirado, consulta sem autenticação, ausência de rotas de edição, acesso somente SELECT para `clinical_reader` e inicialização por `lab_owner`. O probe rejeita HTTP 200 com prontuário incorreto e respeita timeout total; os logs são verificados para não expor credenciais, tokens ou conteúdo clínico. As simulações observam indisponibilidade, alerta e recuperação, distinguindo falta de coleta de falha funcional. Não há testes ofensivos externos ou scanner de CVEs; os dados são fictícios e o controle de acesso simplificado não representa um sistema clínico de produção.
 
 ### Testar instalação do zero no Ubuntu 26.04
 
@@ -158,10 +194,13 @@ Esta seção é opcional para quem vai alterar o projeto. Node/npm já são prep
 | `npm test` | Executa testes de código e dos scripts com isolamento | Verificar alterações; não é a sessão real de uma hora |
 | `npm run test:evidence` | Testa exportação e análise offline com Python | Verificar integridade, recortes e critérios de aceite; usa fixtures sintéticas somente nos testes |
 | `npm run dashboard` | Gera `dashboards/saude.json` | Depois de editar `scripts/dashboard.mjs` |
+| `npm run analysis:sprint2` | Recalcula `analysis/sprint2/analysis.json` e o dashboard v0.2 | Reproduzir a análise a partir das fontes históricas, com Python 3.11+ e Node 22+, sem Docker ou nova coleta |
 | `npm run start:api` | Inicia apenas a API compilada fora do Compose | Desenvolvimento manual, com banco e variáveis preparados |
 | `npm run start:lab` | Inicia apenas gerador/verificador compilados fora do Compose | Desenvolvimento manual, com API e variáveis preparados |
 
-O dashboard é provisionado automaticamente. Ao alterar sua definição, versione a origem e o JSON gerado juntos; `npm start` mantém o laboratório configurado. `start:api` e `start:lab` são comandos avançados para componentes isolados; para usar o laboratório completo, execute `npm start`.
+O dashboard é provisionado automaticamente, com UID `saude-v01`, e é somente leitura pela interface. Ao alterar sua definição, versione a origem e o JSON gerado juntos; `npm start` mantém o laboratório configurado. `analysis:sprint2` não escreve relatórios, imagens ou cópias de fontes. A metodologia e a proveniência estão no [contrato das evidências](docs/evidencias.md#análise-histórica-da-sprint-2); a interpretação das visões está no [catálogo de indicadores](docs/indicadores.md#análise-da-sprint-2). `start:api` e `start:lab` são comandos avançados para componentes isolados; para usar o laboratório completo, execute `npm start`.
+
+## Capturar o dashboard e alertas
 
 Para a validação visual opcional de desenvolvimento:
 
@@ -174,9 +213,13 @@ npm run dashboard:verify
 
 `npm run alerts:capture` observa os dois alertas por até 70 minutos e salva em `evidence/runs/alerts-<timestamp>/`, sem provocar falhas. Execute em outro terminal no início do experimento. Pode receber o início ISO e a pasta de destino com `npm run alerts:capture -- ISO_INÍCIO --output-dir PASTA` (por exemplo, `PASTA_DA_SESSAO/captures/alerts`).
 
+`dashboard:verify` confere as expressões PromQL e os CSVs analíticos, além de capturar as visões. `observation.json` separa o horário do alerta do horário da captura. Para novas capturas operacionais, o período precisa estar dentro da retenção do Prometheus; os dados já exportados continuam utilizáveis offline.
+
+Na seleção para apresentação, inclua baseline saudável, carga ampliada, indisponibilidade com alerta, recuperação e falha isolada do probe. Preserve intervalo, completude e limitações visíveis. Capture somente o dashboard, sem credenciais, console com tokens ou configuração expandida. A entrega acadêmica é um PDF estático montado externamente, com figuras, trechos e interpretações incorporados; links não substituem evidências visíveis no documento.
+
 ## Encerrar e recuperar
 
-`npm stop` encerra apenas este projeto e preserva volumes. `npm start` recupera banco e histórico. Não há comando de limpeza de volumes neste fluxo. Para recuperar somente um componente, use `npm run db:restore` ou `npm run collector:restore` e confirme com `npm run check` e o painel.
+`npm stop` encerra apenas este projeto e preserva volumes. `npm start` recupera banco e histórico. Não há comando de limpeza de volumes neste fluxo. Para recuperar somente um componente, use `npm run db:restore`, `npm run probe:restore` ou `npm run collector:restore`, conforme a falha, e confirme com `npm run check` e o painel. O [procedimento de recuperação](docs/recuperacao.md) também está disponível na API em `/runbook`.
 
 Não regenere `.env` mantendo volumes existentes: senhas do banco, usuários iniciais e administrador Grafana são inicializadas na primeira criação. Rotações exigem alteração coordenada no serviço e no segredo, não somente edição do arquivo.
 
@@ -194,148 +237,8 @@ Somente as portas 3000 e 3001 são publicadas, vinculadas a loopback. A rede do 
 - [Procedimento de recuperação](docs/recuperacao.md)
 - [Glossário](CONTEXT.md)
 - [Logs e evidências](logging/README.md)
-- [Casos de teste autorizados](security/README.md)
+- [Relatório estático da Sprint 2](docs/relatorio-sprint2.md)
 - [Relatório e checklist de conclusão da Sprint 1](docs/relatorio-sprint1.md)
 - [Evidências revisadas da Sprint 1](evidence/validated/sprint1/README.md)
 
 A Sprint 2 inclui KRIs, inventário de vulnerabilidades, registro de riscos e plano preliminar de tratamento. Centralização de logs, conformidade, execução e acompanhamento dos controles e implantação efetiva na nuvem permanecem fora desta entrega.
-
-# Topologia — integrador4s
-
-Arquitetura definida na branch `main`, commit `09544272edb04a30653c01a9350e2b4ae8fc2606`, de 17/09/2026. Análise estática do código e das configurações; não representa uma inspeção de um ambiente em execução.
-
-O laboratório de governança em cibersegurança para saúde tem sete serviços Docker em um único host Linux. A consulta autenticada de prontuários fictícios é o fluxo assistencial observado.
-
-## Componentes e chamadas
-
-```mermaid
-flowchart TB
-    U["Operador local<br/>Navegador / cliente HTTP"]
-
-    subgraph HOST["Host Linux — Docker Compose: governanca-saude"]
-        G["Grafana :3000<br/>Dashboard e visualização de alertas"]
-        P["Prometheus :9090<br/>Coleta e avaliação de regras"]
-        L["Lab :9091<br/>Gerador de carga + verificador"]
-        A["API :3000<br/>Fastify / Node.js / JWT"]
-        D[("PostgreSQL :5432<br/>healthlab")]
-        N["Node Exporter :9100<br/>Métricas do host"]
-        C["cAdvisor :8080<br/>Métricas dos contêineres"]
-
-        L -->|"Login + consulta autenticada"| A
-        A -->|"SQL / clinical_reader / SELECT"| D
-        G -->|"Consultas PromQL"| P
-        P -.->|"/metrics"| A
-        P -.->|"/metrics e /probe"| L
-        P -.->|"/metrics"| N
-        P -.->|"/metrics"| C
-        P -.->|"/metrics"| G
-        P -.->|"/metrics — autocoleta"| P
-    end
-
-    U -->|"HTTP 127.0.0.1:3001"| G
-    U -->|"HTTP 127.0.0.1:3000"| A
-
-    classDef application fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef monitoring fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
-    classDef user fill:#f1f5f9,stroke:#64748b,color:#0f172a
-    class A,L application
-    class G,P,N,C monitoring
-    class D database
-    class U user
-```
-
-As setas indicam quem inicia a chamada. Linhas contínuas representam consultas da aplicação ou do dashboard; linhas pontilhadas representam coleta iniciada pelo Prometheus, a cada 15 segundos. As respostas percorrem o caminho inverso.
-
-O serviço `lab` reúne dois papéis no mesmo contêiner: o gerador acessa a API como `profissional1`; o verificador faz login como `monitor` e consulta o prontuário 1 quando o Prometheus chama `/probe`. O gerador inicia com uma consulta por segundo. A API autentica com JWT e consulta o banco usando `clinical_reader`, com acesso somente de leitura às tabelas `professionals` e `prontuarios`.
-
-## Redes e portas
-
-```mermaid
-flowchart LR
-    U["Operador local"]
-
-    subgraph HOST["Host Linux — redes do Docker Compose"]
-        ACCESS{{"access<br/>bridge"}}
-        BACKEND{{"backend<br/>internal: true"}}
-        MONITORING{{"monitoring<br/>internal: true"}}
-
-        API["api :3000"]
-        GRAFANA["grafana :3000"]
-        DB[("postgres :5432")]
-        LAB["lab :9091"]
-        PROM["prometheus :9090"]
-        NODE["node-exporter :9100"]
-        CAD["cadvisor :8080"]
-
-        ACCESS --- API
-        ACCESS --- GRAFANA
-        BACKEND --- API
-        BACKEND --- DB
-        MONITORING --- API
-        MONITORING --- GRAFANA
-        MONITORING --- LAB
-        MONITORING --- PROM
-        MONITORING --- NODE
-        MONITORING --- CAD
-    end
-
-    U -->|"127.0.0.1:3000 → :3000"| API
-    U -->|"127.0.0.1:3001 → :3000"| GRAFANA
-
-    classDef network fill:#f1f5f9,stroke:#64748b,color:#0f172a
-    classDef application fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
-    classDef monitoring fill:#ecfdf5,stroke:#059669,color:#064e3b
-    classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
-    class ACCESS,BACKEND,MONITORING network
-    class API,LAB application
-    class GRAFANA,PROM,NODE,CAD monitoring
-    class DB database
-```
-
-Neste diagrama, linhas sem seta significam participação na rede, não chamadas ou regras de firewall.
-
-| Rede | Serviços conectados | Configuração |
-|---|---|---|
-| `access` | API, Grafana | Bridge; permite a publicação local das portas e conexões de saída desses dois serviços |
-| `backend` | API, PostgreSQL | `internal: true`; banco sem porta publicada |
-| `monitoring` | API, Lab, Prometheus, Grafana, Node Exporter, cAdvisor | `internal: true`; comunicação de monitoramento e tráfego Lab → API |
-
-| Acesso no host | Destino no contêiner | Finalidade |
-|---|---|---|
-| `127.0.0.1:3000` | `api:3000` | API, OpenAPI, saúde e procedimento de recuperação |
-| `127.0.0.1:3001` | `grafana:3000` | Dashboard `/d/saude-v01` |
-
-As demais portas aparecem apenas nas redes do Compose. O repositório não define IPs fixos ou sub-redes com CIDR próprio; os serviços usam nomes DNS do Docker. Os contêineres de API e Grafana participam de múltiplas redes, conforme a tabela.
-
-## Observabilidade e persistência
-
-Há sete alvos de coleta: `api`, `probe`, `lab`, `node`, `cadvisor`, `prometheus` e `grafana`. Os jobs `probe` e `lab` usam o mesmo serviço, em endpoints diferentes. PostgreSQL não tem exporter próprio: o laboratório observa seu impacto pelo fluxo autenticado, pela prontidão da API e pelos recursos coletados pelo cAdvisor.
-
-Node Exporter lê os recursos do host. cAdvisor lê metadados do host e o socket Docker; as métricas de contêineres retidas pelo Prometheus são filtradas para o projeto `governanca-saude`.
-
-| Serviço | Volume persistente | Conteúdo |
-|---|---|---|
-| PostgreSQL | `postgres_data` | Dados fictícios e identidades |
-| Prometheus | `prometheus_data` | Séries temporais; retenção de até 7 dias, também limitada a 2 GB |
-| Grafana | `grafana_data` | Estado persistente do Grafana |
-
-O Prometheus avalia `ConsultaAssistencialIndisponivel` e `FalhaDeColeta`; o Grafana mostra as métricas e os alertas no dashboard. Não há Alertmanager ou serviço de notificações definido no Compose. Os logs permanecem locais no Docker, com rotação de 3 × 10 MB por serviço.
-
-A entrega é local, sem frontend clínico separado, serviços gerenciados ou alta disponibilidade. A implantação em VM e o acesso por túnel SSH são descritos como evolução futura, não como recursos provisionados.
-
-## Fontes verificadas
-
-- [Compose: serviços, redes, portas e volumes](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/infra/compose.yaml)
-- [Prometheus: alvos e frequência de coleta](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/monitoring/prometheus.yml)
-- [Regras e alertas](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/monitoring/rules.yml)
-- [Datasource do Grafana](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/dashboards/provisioning/datasources/prometheus.yml)
-- [API: autenticação, rotas e métricas](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/api/app.ts)
-- [Acesso da API ao PostgreSQL](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/api/repository.ts)
-- [Inicialização e permissões do banco](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/infra/postgres/001-init.sh)
-- [Gerador e endpoint de verificação](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/lab/server.ts)
-- [Fluxo de verificação](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/apps/lab/probe.ts)
-- [Arquitetura e implantação futura](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/docs/arquitetura.md)
-- [Logs locais](https://github.com/GuiLuiz12/integrador4s/blob/09544272edb04a30653c01a9350e2b4ae8fc2606/logging/README.md)
-
-Os arquivos `.mmd` acompanham este documento para edição dos diagramas em Mermaid.
