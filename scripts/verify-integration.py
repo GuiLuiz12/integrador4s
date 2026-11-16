@@ -26,11 +26,16 @@ for path in ['/health/live', '/health/ready', '/openapi.json', '/runbook']:
         assert response.status == 200, f'Endpoint local deve funcionar: {path}'
 with urllib.request.urlopen('http://127.0.0.1:3001/api/health', timeout=5) as response:
     assert response.status == 200
-targets = query('up')['result']
-assert len(targets) == 7 and all(float(item['value'][1]) == 1 for item in targets), 'Sete alvos devem responder'
+subprocess.run(COMPOSE + ['exec', '-T', 'lab', 'node', '-e',
+    'Promise.all(["http://loki:3100/ready","http://alloy:12345/-/ready"].map(async url=>{const r=await fetch(url,{signal:AbortSignal.timeout(5000)});if(!r.ok)throw Error("Log backend not ready")})).catch(()=>process.exit(1))'], check=True)
+expected_jobs = {'api', 'probe', 'lab', 'node', 'cadvisor', 'prometheus', 'grafana', 'loki', 'alloy'}
+for expression in ['lab:target_expected', 'up']:
+    targets = query(expression)['result']
+    assert len(targets) == len(expected_jobs) and {item['metric'].get('job') for item in targets} == expected_jobs, f'{expression}: conjunto dos nove alvos deve corresponder ao inventário'
+    assert all(float(item['value'][1]) == 1 for item in targets), f'{expression}: todos os nove alvos devem responder'
 assert float(query('lab:collection_coverage_percent')['result'][0]['value'][1]) == 100
 containers = query('count by(container_label_com_docker_compose_service)(container_memory_working_set_bytes{container_label_com_docker_compose_project="governanca-saude"})')['result']
-assert {item['metric']['container_label_com_docker_compose_service'] for item in containers} == {'api', 'postgres', 'lab', 'prometheus', 'grafana', 'node-exporter', 'cadvisor'}
+assert {item['metric']['container_label_com_docker_compose_service'] for item in containers} == {'api', 'postgres', 'lab', 'prometheus', 'grafana', 'node-exporter', 'cadvisor', 'loki', 'alloy'}
 ids = subprocess.run(COMPOSE + ['ps', '-q'], check=True, capture_output=True, text=True).stdout.split()
 published = []
 memory = 0
@@ -46,7 +51,7 @@ for container_id in ids:
             assert binding['HostIp'] == '127.0.0.1'
             published.append(binding['HostPort'])
 assert sorted(published) == ['3000', '3001']
-assert memory <= 8 * 1024**3 and cpus <= 6 * 10**9
-print(json.dumps({'result': 'passed', 'records': 100, 'identities': 3, 'targets': 7,
-                  'container_metrics': 7, 'published_loopback_ports': published,
+assert memory <= 8 * 1024**3 and cpus <= 8 * 10**9
+print(json.dumps({'result': 'passed', 'records': 100, 'identities': 3, 'targets': 9,
+                  'container_metrics': 9, 'published_loopback_ports': published,
                   'cpu_limit': cpus / 10**9, 'memory_limit_gib': memory / 1024**3}))

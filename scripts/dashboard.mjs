@@ -1,5 +1,6 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { sprint2Panels } from './dashboard-sprint2.mjs';
+import { sprint3Panels } from './dashboard-sprint3.mjs';
 
 const datasource = { type: 'prometheus', uid: 'prometheus' };
 let id = 0;
@@ -72,11 +73,40 @@ for (const item of panels) {
 }
 const analysis = JSON.parse(readFileSync(new URL('../analysis/sprint2/analysis.json', import.meta.url), 'utf8'));
 const analytical = sprint2Panels(analysis);
-for (const item of panels) item.gridPos.y += analytical.height;
-panels[0].title = 'Operação · intervalo selecionado';
-const dashboard = { uid: 'saude-v01', title: 'Governança em Cibersegurança · Saúde v0.2', tags: ['saude', 'sprint-2'],
-  schemaVersion: 39, version: 2, editable: false, timezone: 'America/Sao_Paulo', refresh: '15s',
-  time: { from: 'now-1h', to: 'now' }, panels: [...analytical.panels, ...panels], templating: { list: [] },
+const sprint3Path = new URL('../analysis/sprint3/analysis.json', import.meta.url);
+const sprint3 = existsSync(sprint3Path) ? JSON.parse(readFileSync(sprint3Path, 'utf8')) : null;
+let allPanels;
+if (sprint3) {
+  const current = sprint3Panels(sprint3);
+  const executive = panels.filter(p => p.gridPos.y < 5);
+  executive[0].title = 'Executiva · saúde no intervalo selecionado';
+  for (const p of current.panels) p.gridPos.y += 5;
+  const operation = panels.filter(p => p.gridPos.y >= 5);
+  for (const p of operation) p.gridPos.y += current.height;
+  // Retain the historical panels and IDs, collapsed and explicitly dated.
+  const historical = [];
+  let group;
+  for (const p of analytical.panels) {
+    if (p.type === 'row') {
+      group = {...p, title: 'Histórico Sprint 2 · ' + p.title, collapsed: true, panels: []};
+      historical.push(group);
+    } else group.panels.push(p);
+  }
+  const bottom = Math.max(...operation.map(p => p.gridPos.y + p.gridPos.h));
+  historical.forEach((r, i) => {
+    const delta = bottom + i - r.gridPos.y;
+    r.gridPos.y += delta;
+    for (const p of r.panels) p.gridPos.y += delta;
+  });
+  allPanels = [...executive, ...current.panels, ...operation, ...historical];
+} else {
+  for (const item of panels) item.gridPos.y += analytical.height;
+  panels[0].title = 'Operação · intervalo selecionado';
+  allPanels = [...analytical.panels, ...panels];
+}
+const dashboard = { uid: 'saude-v01', title: `Governança em Cibersegurança · Saúde ${sprint3 ? 'v1.0' : 'v0.2'}`, tags: ['saude', sprint3 ? 'sprint-3' : 'sprint-2'],
+  schemaVersion: 39, version: sprint3 ? 3 : 2, editable: false, timezone: 'America/Sao_Paulo', refresh: '15s',
+  time: { from: 'now-1h', to: 'now' }, panels: allPanels, templating: { list: [] },
   annotations: { list: [{ builtIn: 1, datasource: { type: 'grafana', uid: '-- Grafana --' }, enable: true, hide: true, name: 'Annotations & Alerts', type: 'dashboard' }] } };
 writeFileSync(new URL('../dashboards/saude.json', import.meta.url), JSON.stringify(dashboard, null, 2) + '\n');
 console.log('Dashboard provisionado gerado.');

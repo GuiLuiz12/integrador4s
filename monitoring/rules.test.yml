@@ -2,7 +2,7 @@ rule_files: [/tests/rules.yml]
 evaluation_interval: 15s
 # Fixtures need deterministic ordering for the exact one-minute assertion.
 # In the running server, independent groups may add one evaluation interval.
-group_eval_order: [inventory, continuity]
+group_eval_order: [inventory, continuity, security]
 tests:
   - name: consulta indisponível persiste um minuto e depois recupera
     interval: 15s
@@ -14,6 +14,8 @@ tests:
       - { series: 'up{job="cadvisor",instance="cadvisor:8080"}', values: '1x20' }
       - { series: 'up{job="prometheus",instance="localhost:9090"}', values: '1x20' }
       - { series: 'up{job="grafana",instance="grafana:3000"}', values: '1x20' }
+      - { series: 'up{job="loki",instance="loki:3100"}', values: '1x20' }
+      - { series: 'up{job="alloy",instance="alloy:12345"}', values: '1x20' }
       - { series: 'probe_success{job="probe",instance="lab:9091"}', values: '0x8 1x12' }
     alert_rule_test:
       - { eval_time: 45s, alertname: ConsultaAssistencialIndisponivel, exp_alerts: [] }
@@ -38,6 +40,8 @@ tests:
       - { series: 'up{job="cadvisor"}', values: '1x10' }
       - { series: 'up{job="prometheus"}', values: '1x10' }
       - { series: 'up{job="grafana"}', values: '1x10' }
+      - { series: 'up{job="loki"}', values: '1x10' }
+      - { series: 'up{job="alloy"}', values: '1x10' }
     alert_rule_test:
       - { eval_time: 1m, alertname: ConsultaAssistencialIndisponivel, exp_alerts: [] }
       - eval_time: 1m
@@ -70,3 +74,44 @@ tests:
       - expr: 'histogram_quantile(0.95, sum by(le) (rate(clinical_request_duration_seconds_bucket{route="/prontuarios/:id",traffic="clinical"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route="/prontuarios/:id",traffic="clinical"}[5m])) > 0)'
         eval_time: 5m
         exp_samples: []
+  - name: login normal e falhas de token não disparam alerta de login
+    interval: 15s
+    input_series:
+      - { series: 'clinical_auth_failures_total{stage="login"}', values: '0x20' }
+      - { series: 'clinical_auth_failures_total{stage="token"}', values: '0+10x20' }
+    alert_rule_test:
+      - { eval_time: 2m, alertname: FalhasDeLoginRepetidas, exp_alerts: [] }
+  - name: repetição de falhas de login aguarda persistência e resolve após cessar
+    interval: 15s
+    input_series:
+      - { series: 'clinical_auth_failures_total{stage="login"}', values: '0 0 0 0 6 12 12x12' }
+    alert_rule_test:
+      - { eval_time: 45s, alertname: FalhasDeLoginRepetidas, exp_alerts: [] }
+      - { eval_time: 1m, alertname: FalhasDeLoginRepetidas, exp_alerts: [] }
+      - eval_time: 1m15s
+        alertname: FalhasDeLoginRepetidas
+        exp_alerts:
+          - exp_labels: { severity: warning, owner: seguranca_ti }
+            exp_annotations:
+              summary: Falhas repetidas de login na API
+              description: Incremento estimado de pelo menos cinco falhas de login em um minuto. Investigar os eventos authentication com status 401 no Loki; não identifica origem nem confirma ataque.
+      - { eval_time: 3m, alertname: FalhasDeLoginRepetidas, exp_alerts: [] }
+  - name: ausência do coletor de logs aparece como falha de coleta
+    interval: 15s
+    input_series:
+      - { series: 'up{job="api"}', values: '1x10' }
+      - { series: 'up{job="probe"}', values: '1x10' }
+      - { series: 'up{job="lab"}', values: '1x10' }
+      - { series: 'up{job="node"}', values: '1x10' }
+      - { series: 'up{job="cadvisor"}', values: '1x10' }
+      - { series: 'up{job="prometheus"}', values: '1x10' }
+      - { series: 'up{job="grafana"}', values: '1x10' }
+      - { series: 'up{job="loki"}', values: '1x10' }
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: FalhaDeColeta
+        exp_alerts:
+          - exp_labels: { job: alloy, severity: warning, owner: operacao_laboratorio }
+            exp_annotations:
+              summary: Sem coleta válida no alvo alloy
+              description: Ausência de dados não comprova disponibilidade assistencial. Recuperar a coleta e verificar novamente.

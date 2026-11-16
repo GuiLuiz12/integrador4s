@@ -113,6 +113,38 @@ services:
       - ../dashboards/saude.json:/var/lib/grafana/dashboards/saude.json:ro
     networks: [monitoring, access]
 
+  loki:
+    <<: *common
+    image: grafana/loki:3.7.10
+    cpus: 0.5
+    mem_limit: 512m
+    read_only: true
+    cap_drop: [ALL]
+    command: ["-config.file=/etc/loki/config.yml"]
+    volumes:
+      - ../logging/loki.yml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    networks: [monitoring]
+
+  alloy:
+    <<: *common
+    image: grafana/alloy:v1.22.0
+    # Socket ownership requires root; Alloy's 0770 data directories require its group.
+    # Keep all capabilities dropped instead of granting DAC_OVERRIDE or changing host permissions.
+    user: "root:alloy"
+    cpus: 0.25
+    mem_limit: 256m
+    read_only: true
+    cap_drop: [ALL]
+    command: ["run", "--server.http.listen-addr=0.0.0.0:12345", "--storage.path=/var/lib/alloy/data", "/etc/alloy/config.alloy"]
+    volumes:
+      - ../logging/config.alloy:/etc/alloy/config.alloy:ro
+      - alloy_data:/var/lib/alloy/data
+      # The read-only mount does not restrict Docker API methods. Only collectors get this socket.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [monitoring]
+    depends_on: [loki, api]
+
   node-exporter:
     <<: *common
     image: prom/node-exporter:v1.12.1
@@ -128,7 +160,7 @@ services:
     image: ghcr.io/google/cadvisor:0.60.5
     cpus: 1.0
     mem_limit: 1024m
-    # Host metadata access is confined to this collector; applications receive no Docker socket.
+    # Host metadata access is confined to collectors; applications receive no Docker socket.
     command: ["--docker_only=true", "--housekeeping_interval=15s", "--store_container_labels=false", "--whitelisted_container_labels=com.docker.compose.project,com.docker.compose.service"]
     volumes:
       - /:/rootfs:ro
@@ -153,3 +185,5 @@ volumes:
   postgres_data:
   prometheus_data:
   grafana_data:
+  loki_data:
+  alloy_data:

@@ -1,8 +1,8 @@
-# Catálogo dos indicadores — v0.2
+# Catálogo dos indicadores — v1.0
 
 ## Operação
 
-Todos os indicadores têm como responsável **Operação do laboratório**. Coleta e avaliação a cada 15 s; atualização do painel a cada 15 s. A verificação leva até 3 s: o reflexo visual ocorre em aproximadamente 30 s mais sua execução. Regras intermediárias podem acrescentar um ciclo; validar até 45 s. Alertas exigem um minuto de persistência além da observação.
+Todos os indicadores têm como responsável **Operação do laboratório**. Coleta e avaliação a cada 15 s; atualização do painel a cada 15 s. A verificação leva até 3 s: o reflexo visual ocorre em aproximadamente 30 s mais sua execução. Regras intermediárias podem acrescentar um ciclo; validar até 45 s. Os alertas de continuidade exigem um minuto de persistência; o alerta de falhas de login exige 15 segundos.
 
 | Indicador | Fonte e cálculo | Janela / meta | Limites de interpretação |
 |---|---|---|---|
@@ -22,6 +22,7 @@ As metas são didáticas, escolhidas para a demonstração. Uma indisponibilidad
 
 - `ConsultaAssistencialIndisponivel`: fluxo observado falha continuamente por um minuto; criticidade crítica; impacto na consulta simulada.
 - `FalhaDeColeta`: alvo esperado sem coleta válida por um minuto; criticidade de atenção; recuperar a observação.
+- `FalhasDeLoginRepetidas`: `sum(increase(clinical_auth_failures_total{stage="login"}[1m])) >= 5`, persistindo por 15 segundos; criticidade de atenção (`warning`); investigar eventos de autenticação e seguir a diretriz de resposta. Falhas de token não entram nessa expressão.
 
 As regras rodam no Prometheus. O dashboard mostra `ALERTS` em estado pendente/disparado e a evolução temporal; não há notificação externa nem Alertmanager separado. O fim da série do alerta, junto à coleta válida e à consulta bem-sucedida, comprova recuperação. Se Prometheus parar, a fonte de dados do Grafana falha: não há autodetecção externa nessa arquitetura.
 
@@ -45,7 +46,7 @@ Fonte canônica: `analysis/sprint2/analysis.json`, reproduzida conforme o [manua
 
 O dashboard v0.2 mantém UID `saude-v01` e visões de baseline × experimento, CPU por fase, matriz e registro de riscos, severidade/exposição dos achados, incidentes, episódios de alerta e KPIs/KRIs. Seus painéis analíticos renderizam CSVs explícitos pela [fonte nativa TestData do Grafana](https://grafana.com/docs/grafana/latest/datasources/testdata/), no cenário `csv_content`, sem geração aleatória. A seção operacional usa Prometheus e respeita o intervalo selecionado. Assim, alterar o seletor de tempo atualiza a operação, mas não recalcula o recorte analítico histórico.
 
-A tabela analítica consolida 18 indicadores, com fonte por linha e altura ajustada ao número de registros. Os IDs B/E/C remetem ao [catálogo de fontes preservadas](evidencias.md#análise-histórica-da-sprint-2), sem depender de rotas HTTP de relatório. Geração, provisionamento e conferência visual estão centralizados no manual. Conformidade e acompanhamento de controles permanecem na Sprint 3.
+A tabela analítica consolida 18 indicadores, com fonte por linha e altura ajustada ao número de registros. Os IDs B/E/C remetem ao [catálogo de fontes preservadas](evidencias.md#análise-histórica-da-sprint-2), sem depender de rotas HTTP de relatório. Geração, provisionamento e conferência visual estão centralizados no manual. Conformidade e acompanhamento de controles aparecem nas visões próprias da Sprint 3 abaixo, sem modificar o registro histórico.
 
 | Indicador | Definição / população | Interpretação |
 |---|---|---|
@@ -62,3 +63,39 @@ A tabela analítica consolida 18 indicadores, com fonte por linha e altura ajust
 | Falhas de login | Dez HTTP 401 nos eventos do cenário de repetição | Limiar proposto de investigação ≥5/min; não comprova invasão |
 
 As médias de resposta descrevem esta sessão e sua automação, não uma série histórica de operação. A integridade das fontes foi conferida; a rejeição do verificador antigo por contagem de respostas 503 permanece registrada como limitação da coleta utilizada.
+
+## Segurança e governança da Sprint 3
+
+Fontes canônicas: `analysis/sprint3/analysis.json` e seu registro de controles, riscos e ações. O catálogo de fontes identifica o arquivo original, origem, intervalo, consulta/seletor e hash. Os eventos ao vivo vêm do Loki; o volume exato das simulações é contado em `events.jsonl`, preservando a chave serviço/instância/correlação. Os dados fixos das duas execuções não mudam ao alterar o intervalo operacional do Grafana. Os 12 indicadores consolidados usam IDs S3-K01–S3-K12; os demais itens abaixo são leituras operacionais e comparações de apoio.
+
+| Indicador | Fonte e fórmula | Responsável / atualização | Limiar e decisão |
+|---|---|---|---|
+| Sinal de falhas de login | Prometheus: expressão de `FalhasDeLoginRepetidas`; eventos Loki para investigação | Segurança de TI / avaliação a cada 15 s | Estimativa ≥5/min por 15 s: investigar; limiar didático, não prova de invasão |
+| S3-K11 · Falhas de login observadas | Respostas `authentication`, `status=401`, distintas por requisição no intervalo | Segurança de TI / por execução | Contagem exata da evidência; confirmar correspondência com o alerta |
+| Fontes de eventos e coleta | Eventos da API consultáveis no Loki; `up` dos jobs `loki` e `alloy` | Operação de TI / ao vivo | Coleta ativa não comprova entrega de cada evento; conferir evento recente e janela consultada |
+| S3-K07 · Incidentes abertos/fechados | Contagem dos registros por status, categoria e recorte | Segurança de TI / por mudança e consolidação | Encerrar somente com as condições do cenário confirmadas; sem evidência, manter aberto/incompleto |
+| S3-K08 · MTTD de segurança | Média de primeiro `firing` − primeiro `401`; exibir n e valores individuais | Segurança de TI / duas execuções separadas | Limite de 120 s para observação do disparo no roteiro; sem disparo não produzir zero |
+| S3-K10 · Tempo até ação automatizada | Interrupção do gerador − detecção, por incidente | Segurança de TI / por execução | Ação deve ocorrer após detecção; não mede reação humana |
+| S3-K09 · MTTR simulado de segurança | Média de encerramento confirmado − detecção | Segurança de TI / por execução e consolidação | Encerramento exige consulta válida, alerta resolvido e 60 s sem novas falhas; não representa restauração clínica |
+| S3-K04 · Riscos altos/críticos inerentes e residuais | Quantidade por faixa P × I; escalas e cinco IDs históricos preservados | Operação/Segurança de TI / por revisão de evidência | Alto 10–16; crítico 17–25. Priorizar tratamento e manter justificativa da avaliação residual |
+| S3-K05 · Tratamento definido | Riscos com estratégia, ações, responsável e prazo / riscos aplicáveis | Operação de TI / por revisão | 100% de cobertura desejada; não significa mitigação concluída |
+| S3-K01 · Conformidade interna | 100 × controles implementados / dez controles aplicáveis | Operação/Segurança de TI / checkpoint inicial e final | Buscar atendimento integral; exibir parciais e pendentes sem pontuação fracionária arbitrária |
+| S3-K02 · Controles parciais/pendentes | Contagem de controles em cada status, sem misturar com implementados | Operação/Segurança de TI / por checkpoint | Manter a pendência visível até comprovar o critério completo |
+| S3-K03 · Gaps críticos | Controles parciais/pendentes ligados a pelo menos um risco alto ou crítico, sem duplicar controle | Segurança de TI / por checkpoint | Meta zero; priorizar os gaps com maior risco associado |
+| S3-K06 · Ações concluídas | Ações com status concluído e evidência válida / ações registradas | Responsável da ação / por execução ou revisão | Não concluir uma ação com base apenas no plano; manter prazos D+ e status separados |
+| S3-K12 · Alertas de segurança por criticidade | Episódios do caso observado, separados das amostras `ALERTS` e dos alertas históricos | Segurança de TI / por execução e consolidação | Correlacionar disparo e encerramento com a timeline; não contar cada scrape como alerta novo |
+| Evolução de controles e ações | Comparação dos checkpoints inicial/final, com fontes e datas próprias | Operação de TI / por checkpoint | Demonstrar mudança comprovada, sem retrospectivamente atribuir resultados ao histórico |
+
+As duas execuções são amostras de uma demonstração controlada. A comparação mostra variação observada, não tendência estatística nem melhoria automática. Os incidentes de continuidade da Sprint 2 permanecem separados; suas médias não são agregadas aos tempos de segurança.
+
+As notas de risco residual conservam P/I quando a evidência demonstra melhoria de detecção ou investigação sem sustentar redução da probabilidade ou impacto. Os cinco achados originais continuam identificados como históricos; situação atual e tratamentos têm referências novas. Controles e ações são avaliações administrativas sustentadas por fontes técnicas, não fontes independentes das próprias conclusões.
+
+## Leitura do dashboard v1.0
+
+- **Executiva:** saúde, disponibilidade, riscos residuais, incidentes e ações prioritárias.
+- **Infraestrutura:** recursos, uptime e indisponibilidade dos componentes atuais, com perfil de nove serviços.
+- **Segurança:** eventos consultáveis, falhas de login, alertas e timeline das duas execuções.
+- **Riscos e vulnerabilidades:** mapas inerente/residual, severidade, exposição, responsáveis e tratamento.
+- **Governança:** controles, gaps, ações, prazos, status e comparação entre checkpoints.
+
+Prometheus e Loki respeitam a janela selecionada. Tabelas analíticas determinísticas usam os arquivos consolidados e exibem seu recorte. Ausência de dados deve aparecer como ausência, nunca como zero incidentes ou disponibilidade de 100%. As figuras de entrega devem preservar títulos, período, fonte e legenda, conforme o [guia estático](entrega-sprint3.md).

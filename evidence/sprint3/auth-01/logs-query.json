@@ -1,0 +1,1942 @@
+{
+  "source": "Loki",
+  "logql": "{project=\"governanca-saude\",service=\"api\"}",
+  "range_start": "2026-11-16T22:17:05.165095+00:00",
+  "range_end": "2026-11-16T22:19:39.700898+00:00",
+  "pagination": "disjoint inclusive nanosecond windows",
+  "requests": 1,
+  "received_entries": 193,
+  "exported_events": 193,
+  "entries": [
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867425440000000",
+      "line": "{\"correlation_id\":\"req-c0\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867425440,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867426443000000",
+      "line": "{\"correlation_id\":\"req-c1\",\"duration_ms\":4,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867426443,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867427441000000",
+      "line": "{\"correlation_id\":\"req-c2\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867427441,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867428442000000",
+      "line": "{\"correlation_id\":\"req-c3\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867428442,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867429441000000",
+      "line": "{\"correlation_id\":\"req-c5\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867429441,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867430442000000",
+      "line": "{\"correlation_id\":\"req-c6\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867430442,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867431443000000",
+      "line": "{\"correlation_id\":\"req-c7\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867431443,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867432444000000",
+      "line": "{\"correlation_id\":\"req-c8\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867432444,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867433444000000",
+      "line": "{\"correlation_id\":\"req-c9\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867433444,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867434446000000",
+      "line": "{\"correlation_id\":\"req-ca\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867434446,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867435445000000",
+      "line": "{\"correlation_id\":\"req-cb\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867435445,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867436447000000",
+      "line": "{\"correlation_id\":\"req-cc\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867436447,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867436836000000",
+      "line": "{\"correlation_id\":\"req-ce\",\"duration_ms\":42,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867436836,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867436838000000",
+      "line": "{\"correlation_id\":\"req-cf\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867436838,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867437447000000",
+      "line": "{\"correlation_id\":\"req-cg\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867437447,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867438444000000",
+      "line": "{\"correlation_id\":\"req-ch\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867438444,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867439448000000",
+      "line": "{\"correlation_id\":\"req-ci\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867439448,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867440448000000",
+      "line": "{\"correlation_id\":\"req-cj\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867440448,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867441445000000",
+      "line": "{\"correlation_id\":\"req-ck\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867441445,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867442449000000",
+      "line": "{\"correlation_id\":\"req-cl\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867442449,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867443450000000",
+      "line": "{\"correlation_id\":\"req-cm\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867443450,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867444448000000",
+      "line": "{\"correlation_id\":\"req-co\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867444448,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867445450000000",
+      "line": "{\"correlation_id\":\"req-cp\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867445450,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867446447000000",
+      "line": "{\"correlation_id\":\"req-cq\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867446447,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867447448000000",
+      "line": "{\"correlation_id\":\"req-cr\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867447448,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867448451000000",
+      "line": "{\"correlation_id\":\"req-cs\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867448451,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867449450000000",
+      "line": "{\"correlation_id\":\"req-ct\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867449450,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867450448000000",
+      "line": "{\"correlation_id\":\"req-cu\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867450448,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867451451000000",
+      "line": "{\"correlation_id\":\"req-cv\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867451451,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867451838000000",
+      "line": "{\"correlation_id\":\"req-cx\",\"duration_ms\":45,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867451838,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867451841000000",
+      "line": "{\"correlation_id\":\"req-cy\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867451841,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867452451000000",
+      "line": "{\"correlation_id\":\"req-cz\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867452451,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867453450000000",
+      "line": "{\"correlation_id\":\"req-d0\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867453450,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867454449000000",
+      "line": "{\"correlation_id\":\"req-d1\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867454449,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867455453000000",
+      "line": "{\"correlation_id\":\"req-d2\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867455453,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867456451000000",
+      "line": "{\"correlation_id\":\"req-d3\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867456451,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867457454000000",
+      "line": "{\"correlation_id\":\"req-d4\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867457454,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867458452000000",
+      "line": "{\"correlation_id\":\"req-d5\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867458452,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867459452000000",
+      "line": "{\"correlation_id\":\"req-d7\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867459452,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867460455000000",
+      "line": "{\"correlation_id\":\"req-d8\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867460455,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867461456000000",
+      "line": "{\"correlation_id\":\"req-d9\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867461456,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867462454000000",
+      "line": "{\"correlation_id\":\"req-da\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867462454,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867463457000000",
+      "line": "{\"correlation_id\":\"req-db\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867463457,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867464458000000",
+      "line": "{\"correlation_id\":\"req-dc\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867464458,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867465455000000",
+      "line": "{\"correlation_id\":\"req-dd\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867465455,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867466455000000",
+      "line": "{\"correlation_id\":\"req-de\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867466455,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867466841000000",
+      "line": "{\"correlation_id\":\"req-dg\",\"duration_ms\":47,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867466841,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867466844000000",
+      "line": "{\"correlation_id\":\"req-dh\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867466844,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867467457000000",
+      "line": "{\"correlation_id\":\"req-di\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867467457,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867468459000000",
+      "line": "{\"correlation_id\":\"req-dj\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867468459,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867469456000000",
+      "line": "{\"correlation_id\":\"req-dk\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867469456,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867470459000000",
+      "line": "{\"correlation_id\":\"req-dl\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867470459,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867471460000000",
+      "line": "{\"correlation_id\":\"req-dm\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867471460,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867472458000000",
+      "line": "{\"correlation_id\":\"req-dn\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867472458,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867473461000000",
+      "line": "{\"correlation_id\":\"req-do\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867473461,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867474460000000",
+      "line": "{\"correlation_id\":\"req-dq\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867474460,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867475459000000",
+      "line": "{\"correlation_id\":\"req-dr\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867475459,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867476461000000",
+      "line": "{\"correlation_id\":\"req-ds\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867476461,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867477461000000",
+      "line": "{\"correlation_id\":\"req-dt\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867477461,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867478460000000",
+      "line": "{\"correlation_id\":\"req-du\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867478460,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867479463000000",
+      "line": "{\"correlation_id\":\"req-dv\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867479463,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867480462000000",
+      "line": "{\"correlation_id\":\"req-dw\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867480462,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867481462000000",
+      "line": "{\"correlation_id\":\"req-dx\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867481462,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867481840000000",
+      "line": "{\"correlation_id\":\"req-dz\",\"duration_ms\":48,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867481840,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867481842000000",
+      "line": "{\"correlation_id\":\"req-e0\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867481842,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867482463000000",
+      "line": "{\"correlation_id\":\"req-e1\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867482463,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867483464000000",
+      "line": "{\"correlation_id\":\"req-e2\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867483464,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867484461000000",
+      "line": "{\"correlation_id\":\"req-e3\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867484461,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867485241000000",
+      "line": "{\"correlation_id\":\"req-e4\",\"duration_ms\":42,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867485241,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867485461000000",
+      "line": "{\"correlation_id\":\"req-e5\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867485461,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867486465000000",
+      "line": "{\"correlation_id\":\"req-e6\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867486465,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867487463000000",
+      "line": "{\"correlation_id\":\"req-e7\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867487463,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867487621000000",
+      "line": "{\"correlation_id\":\"req-e8\",\"duration_ms\":34,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867487621,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867488465000000",
+      "line": "{\"correlation_id\":\"req-e9\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867488465,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867489464000000",
+      "line": "{\"correlation_id\":\"req-eb\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867489464,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867490005000000",
+      "line": "{\"correlation_id\":\"req-ec\",\"duration_ms\":43,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867490005,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867490466000000",
+      "line": "{\"correlation_id\":\"req-ed\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867490466,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867491466000000",
+      "line": "{\"correlation_id\":\"req-ee\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867491466,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867492399000000",
+      "line": "{\"correlation_id\":\"req-ef\",\"duration_ms\":44,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867492399,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867492464000000",
+      "line": "{\"correlation_id\":\"req-eg\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867492464,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867493466000000",
+      "line": "{\"correlation_id\":\"req-eh\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867493466,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867494466000000",
+      "line": "{\"correlation_id\":\"req-ei\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867494466,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867494799000000",
+      "line": "{\"correlation_id\":\"req-ej\",\"duration_ms\":41,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867494799,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867495466000000",
+      "line": "{\"correlation_id\":\"req-ek\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867495466,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867496467000000",
+      "line": "{\"correlation_id\":\"req-el\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867496467,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867496838000000",
+      "line": "{\"correlation_id\":\"req-en\",\"duration_ms\":44,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867496838,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867496840000000",
+      "line": "{\"correlation_id\":\"req-eo\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867496840,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867497189000000",
+      "line": "{\"correlation_id\":\"req-ep\",\"duration_ms\":37,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867497189,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867497465000000",
+      "line": "{\"correlation_id\":\"req-eq\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867497465,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867498469000000",
+      "line": "{\"correlation_id\":\"req-er\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867498469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867499468000000",
+      "line": "{\"correlation_id\":\"req-es\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867499468,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867499604000000",
+      "line": "{\"correlation_id\":\"req-et\",\"duration_ms\":42,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867499604,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867500468000000",
+      "line": "{\"correlation_id\":\"req-eu\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867500468,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867501468000000",
+      "line": "{\"correlation_id\":\"req-ev\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867501468,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867502005000000",
+      "line": "{\"correlation_id\":\"req-ew\",\"duration_ms\":42,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867502005,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867502469000000",
+      "line": "{\"correlation_id\":\"req-ex\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867502469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867503469000000",
+      "line": "{\"correlation_id\":\"req-ey\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867503469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867504315000000",
+      "line": "{\"correlation_id\":\"req-f0\",\"duration_ms\":31,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867504315,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867504468000000",
+      "line": "{\"correlation_id\":\"req-f1\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867504468,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867505469000000",
+      "line": "{\"correlation_id\":\"req-f2\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867505469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867506469000000",
+      "line": "{\"correlation_id\":\"req-f3\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867506469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867506638000000",
+      "line": "{\"correlation_id\":\"req-f4\",\"duration_ms\":46,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867506638,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867507470000000",
+      "line": "{\"correlation_id\":\"req-f5\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867507470,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867508471000000",
+      "line": "{\"correlation_id\":\"req-f6\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867508471,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867508997000000",
+      "line": "{\"correlation_id\":\"req-f7\",\"duration_ms\":42,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867508997,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867509472000000",
+      "line": "{\"correlation_id\":\"req-f8\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867509472,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867510469000000",
+      "line": "{\"correlation_id\":\"req-f9\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867510469,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867511403000000",
+      "line": "{\"correlation_id\":\"req-fa\",\"duration_ms\":47,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867511403,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867511470000000",
+      "line": "{\"correlation_id\":\"req-fb\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867511470,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867511838000000",
+      "line": "{\"correlation_id\":\"req-fd\",\"duration_ms\":43,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867511838,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867511840000000",
+      "line": "{\"correlation_id\":\"req-fe\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867511840,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867512476000000",
+      "line": "{\"correlation_id\":\"req-ff\",\"duration_ms\":4,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867512476,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867513475000000",
+      "line": "{\"correlation_id\":\"req-fg\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867513475,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867513794000000",
+      "line": "{\"correlation_id\":\"req-fh\",\"duration_ms\":37,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867513794,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867514476000000",
+      "line": "{\"correlation_id\":\"req-fi\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867514476,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867515475000000",
+      "line": "{\"correlation_id\":\"req-fj\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867515475,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867516206000000",
+      "line": "{\"correlation_id\":\"req-fk\",\"duration_ms\":37,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":401,\"time\":1794867516206,\"traffic\":\"unauthenticated\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867516473000000",
+      "line": "{\"correlation_id\":\"req-fl\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867516473,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867516913000000",
+      "line": "{\"correlation_id\":\"req-fm\",\"duration_ms\":37,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867516913,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867516919000000",
+      "line": "{\"correlation_id\":\"req-fn\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867516919,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867517476000000",
+      "line": "{\"correlation_id\":\"req-fo\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867517476,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867518478000000",
+      "line": "{\"correlation_id\":\"req-fp\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867518478,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867519474000000",
+      "line": "{\"correlation_id\":\"req-fr\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867519474,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867520477000000",
+      "line": "{\"correlation_id\":\"req-fs\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867520477,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867521479000000",
+      "line": "{\"correlation_id\":\"req-ft\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867521479,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867522477000000",
+      "line": "{\"correlation_id\":\"req-fu\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867522477,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867523478000000",
+      "line": "{\"correlation_id\":\"req-fv\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867523478,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867524479000000",
+      "line": "{\"correlation_id\":\"req-fw\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867524479,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867525478000000",
+      "line": "{\"correlation_id\":\"req-fx\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867525478,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867526477000000",
+      "line": "{\"correlation_id\":\"req-fy\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867526477,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867526842000000",
+      "line": "{\"correlation_id\":\"req-g0\",\"duration_ms\":48,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867526842,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867526843000000",
+      "line": "{\"correlation_id\":\"req-g1\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867526843,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867527480000000",
+      "line": "{\"correlation_id\":\"req-g2\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867527480,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867528479000000",
+      "line": "{\"correlation_id\":\"req-g3\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867528479,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867529480000000",
+      "line": "{\"correlation_id\":\"req-g4\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867529480,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867530480000000",
+      "line": "{\"correlation_id\":\"req-g5\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867530480,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867531479000000",
+      "line": "{\"correlation_id\":\"req-g6\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867531479,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867532482000000",
+      "line": "{\"correlation_id\":\"req-g7\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867532482,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867533481000000",
+      "line": "{\"correlation_id\":\"req-g8\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867533481,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867534481000000",
+      "line": "{\"correlation_id\":\"req-ga\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867534481,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867535483000000",
+      "line": "{\"correlation_id\":\"req-gb\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867535483,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867536484000000",
+      "line": "{\"correlation_id\":\"req-gc\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867536484,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867537483000000",
+      "line": "{\"correlation_id\":\"req-gd\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867537483,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867538482000000",
+      "line": "{\"correlation_id\":\"req-ge\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867538482,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867539485000000",
+      "line": "{\"correlation_id\":\"req-gf\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867539485,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867540484000000",
+      "line": "{\"correlation_id\":\"req-gg\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867540484,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867541486000000",
+      "line": "{\"correlation_id\":\"req-gh\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867541486,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867541829000000",
+      "line": "{\"correlation_id\":\"req-gj\",\"duration_ms\":37,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867541829,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867541831000000",
+      "line": "{\"correlation_id\":\"req-gk\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867541831,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867542485000000",
+      "line": "{\"correlation_id\":\"req-gl\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867542485,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867543486000000",
+      "line": "{\"correlation_id\":\"req-gm\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867543486,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867544485000000",
+      "line": "{\"correlation_id\":\"req-gn\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867544485,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867545484000000",
+      "line": "{\"correlation_id\":\"req-go\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867545484,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867546487000000",
+      "line": "{\"correlation_id\":\"req-gp\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867546487,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867547486000000",
+      "line": "{\"correlation_id\":\"req-gq\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867547486,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867548485000000",
+      "line": "{\"correlation_id\":\"req-gr\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867548485,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867549483000000",
+      "line": "{\"correlation_id\":\"req-gs\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867549483,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867550487000000",
+      "line": "{\"correlation_id\":\"req-gu\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867550487,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867551487000000",
+      "line": "{\"correlation_id\":\"req-gv\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867551487,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867552485000000",
+      "line": "{\"correlation_id\":\"req-gw\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867552485,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867553488000000",
+      "line": "{\"correlation_id\":\"req-gx\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867553488,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867554487000000",
+      "line": "{\"correlation_id\":\"req-gy\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867554487,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867555489000000",
+      "line": "{\"correlation_id\":\"req-gz\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867555489,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867556489000000",
+      "line": "{\"correlation_id\":\"req-h0\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867556489,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867556840000000",
+      "line": "{\"correlation_id\":\"req-h2\",\"duration_ms\":47,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867556840,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867556842000000",
+      "line": "{\"correlation_id\":\"req-h3\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867556842,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867557486000000",
+      "line": "{\"correlation_id\":\"req-h4\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867557486,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867558490000000",
+      "line": "{\"correlation_id\":\"req-h5\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867558490,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867559494000000",
+      "line": "{\"correlation_id\":\"req-h6\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867559494,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867560496000000",
+      "line": "{\"correlation_id\":\"req-h7\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867560496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867561496000000",
+      "line": "{\"correlation_id\":\"req-h8\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867561496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867562495000000",
+      "line": "{\"correlation_id\":\"req-h9\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867562495,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867563498000000",
+      "line": "{\"correlation_id\":\"req-ha\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867563498,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867564495000000",
+      "line": "{\"correlation_id\":\"req-hb\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867564495,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867565496000000",
+      "line": "{\"correlation_id\":\"req-hd\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867565496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867566496000000",
+      "line": "{\"correlation_id\":\"req-he\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867566496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867567496000000",
+      "line": "{\"correlation_id\":\"req-hf\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867567496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867568498000000",
+      "line": "{\"correlation_id\":\"req-hg\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867568498,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867569497000000",
+      "line": "{\"correlation_id\":\"req-hh\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867569497,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867570499000000",
+      "line": "{\"correlation_id\":\"req-hi\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867570499,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867571496000000",
+      "line": "{\"correlation_id\":\"req-hj\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867571496,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867571835000000",
+      "line": "{\"correlation_id\":\"req-hl\",\"duration_ms\":41,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867571835,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867571838000000",
+      "line": "{\"correlation_id\":\"req-hm\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867571838,\"traffic\":\"probe\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867572500000000",
+      "line": "{\"correlation_id\":\"req-hn\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867572500,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867573501000000",
+      "line": "{\"correlation_id\":\"req-ho\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867573501,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867574499000000",
+      "line": "{\"correlation_id\":\"req-hp\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867574499,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867575502000000",
+      "line": "{\"correlation_id\":\"req-hq\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867575502,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867576500000000",
+      "line": "{\"correlation_id\":\"req-hr\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867576500,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867577502000000",
+      "line": "{\"correlation_id\":\"req-hs\",\"duration_ms\":3,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867577502,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867578500000000",
+      "line": "{\"correlation_id\":\"req-ht\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867578500,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867579503000000",
+      "line": "{\"correlation_id\":\"req-hu\",\"duration_ms\":2,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867579503,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "authentication",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867579685000000",
+      "line": "{\"correlation_id\":\"req-hv\",\"duration_ms\":32,\"event\":\"authentication\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867579685,\"traffic\":\"clinical\"}"
+    },
+    {
+      "labels": {
+        "detected_level": "unknown",
+        "event": "record_access",
+        "project": "governanca-saude",
+        "service": "api"
+      },
+      "timestamp_ns": "1794867579692000000",
+      "line": "{\"correlation_id\":\"req-hw\",\"duration_ms\":1,\"event\":\"record_access\",\"instance_id\":\"e66beecd-e765-4faa-a204-b03d066e0f77\",\"level\":30,\"service\":\"api\",\"status\":200,\"time\":1794867579692,\"traffic\":\"clinical\"}"
+    }
+  ]
+}

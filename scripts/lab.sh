@@ -23,8 +23,8 @@ case "$command" in
   logs)
     if (( $# > 1 )); then echo 'Uso: npm run logs -- [serviço]' >&2; exit 2; fi
     if (( $# )); then
-      case "$1" in api|postgres|lab|grafana|prometheus|node-exporter|cadvisor) ;;
-        *) echo 'Serviço inválido. Use api, postgres, lab, grafana, prometheus, node-exporter ou cadvisor.' >&2; exit 2 ;;
+      case "$1" in api|postgres|lab|grafana|prometheus|node-exporter|cadvisor|loki|alloy) ;;
+        *) echo 'Serviço inválido. Use api, postgres, lab, grafana, prometheus, node-exporter, cadvisor, loki ou alloy.' >&2; exit 2 ;;
       esac
     fi
     compose logs --follow --tail 100 "$@"

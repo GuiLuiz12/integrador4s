@@ -1,0 +1,174 @@
+{
+  "observed_at": "2026-11-16T22:20:24.155906+00:00",
+  "commit": "5a73b9bad85610cd2b1d4460232e816d44f7f3f5",
+  "working_tree_dirty": true,
+  "source_sha256": {
+    "apps/api/app.ts": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26",
+    "apps/api/repository.ts": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f",
+    "apps/api/server.ts": "ff3a19a836044a259f808812fb3f3b7d881b656ea82eb271c14637a9cc449c11",
+    "apps/lab/cli.ts": "dd681399c9c527d114254a7fe5ede26b4b0ecafae1eacbd6381b32834e4db69d",
+    "apps/lab/probe-control.ts": "9c7e87d9f55f36a99f7197a53d29fc92a329ee84a3380a1c587ae7970f5bd53d",
+    "apps/lab/probe.ts": "3ecb38a8535ac50e513940c27e4a6b7528b3d75cfdc4552a832eed723a840969",
+    "apps/lab/server.ts": "2327eff595e02d6799046b908a55fd0a9f465207e7218da25d7f480948c18b25",
+    "apps/shared/config.ts": "df9968da69a13019617fe1ea7f56ff34cabd187f134e3f51e536b82da50e0155",
+    "apps/shared/password.ts": "52626b11fbe3b3da3194f092b9e0a3da66901ed4582a903b57a33bc206b3f743",
+    "scripts/analyze_sprint2.py": "1332f6b3cce3f172831927123b6d858a47d4955c2eeecf40ef4738f4df6fb373",
+    "scripts/analyze_sprint3.py": "faf159bf5a89e2a8684a390c4a3ad837ff389292b101d70a52e323b81618ee95",
+    "scripts/bootstrap-host.sh": "bb0f794d592a60a3160b35ef1a182fdd377d812a1bc56b70380a6f5f3003ed6c",
+    "scripts/browser.sh": "fe36a3a4e2878e976626ee10af4a0562544d2b1f3228a9e60b307806d100e641",
+    "scripts/capture-alerts.mjs": "f773b066cf8ab38bd6a533253948f5945d61256ecd3409ee41b5d399cbfea6d8",
+    "scripts/dashboard-sprint2.mjs": "70a217ab68810153a80ea175af976b425bbca8682b85e686f0b6e2ac03c5e23f",
+    "scripts/dashboard-sprint3.mjs": "4542364309de05895ac70b284196056c2e03c1b6efccbb0d6824d6354d0487b8",
+    "scripts/dashboard.mjs": "1ef3ac26fb69901ba55bc8c27a1f641729462c7bde41bce38bd7b757eebcaf8e",
+    "scripts/docker.sh": "28e5ecad74f9f1031591f2407932c4e082cfbffcb6369e5dc149b9e875e0d449",
+    "scripts/evidence.py": "dac359e943ec5da510ee2b42fb30001632554e707d304a3e54da4957984457b9",
+    "scripts/evidence_analysis.py": "7444e1ca041bf33296d698adf427e4f36ab945fb89a67eb0ce8af71e22c083e4",
+    "scripts/evidence_catalog.py": "42938bcdc1f98f8863240afbb93217c0ca0443f218768d48ed093f32c2545002",
+    "scripts/evidence_loki.py": "309ffa4597cc7bbdeefec616205a97974a459c5da70763ff15395c36f1534b1d",
+    "scripts/help.mjs": "6477d174895b9509ca3fe59cda8826b745f621ec277db885746c7dae1ff31965",
+    "scripts/lab.sh": "7a5ae8490d521f300123965675185432546a6d50b3e04ee5aed23eadf370a7ae",
+    "scripts/legacy_summary.py": "58f35b730b90b9f02a049f1483a0c302fb47104c19575c5ec6733939f0c40e00",
+    "scripts/probe-outage.py": "99e3240ee7e6476a3c7031b531e4da5106ee27e7c3726f6cff0ba122c5a21aa0",
+    "scripts/session.py": "996be86d50aeb36d1d57f92f4bd266f577a40cf62d2cf550e46bca1000f78303",
+    "scripts/session_sprint3.py": "6de2670f9e065d861120facc278e1b1f30e1d400a0ddc3d344b29f41243b08d1",
+    "scripts/setup-host.sh": "dd5eb807d9f67b18d46735d3e4c305fa6ac3cf8101fe35486d1427e855d21815",
+    "scripts/setup.mjs": "05fda85df3bba3962132c0509157e9cfc791058a83c8489845652525f47df28d",
+    "scripts/start.sh": "1d6387f9a16b1aba994dad04c08224528f958b5febcb50eece7647dec438372e",
+    "scripts/summarize-session.py": "8e5571e3aa12d3208800106747809db8a879055509770e28d76daaa9fd07ac03",
+    "scripts/test-install-guest.sh": "5202a44104ed68c39db24d5f8c9b7fc03fd31edb1e9945c69425a2ce628e394e",
+    "scripts/test-ubuntu26.py": "0ce66c86dc29fe51d65b63ec1cc8c1e539542649f99b86f717aef5446d897233",
+    "scripts/verify-dashboard.mjs": "23dc30ff2262765d448f4a0de812a465020756d78a6d610c318e2d0de4657321",
+    "scripts/verify-integration.py": "72e571f2a5e2c5a1a55dbfbce04eecb9e0cf8bf208095a956355addf4ec2b941"
+  },
+  "assets": [
+    {
+      "service": "alloy",
+      "image_ref": "grafana/alloy:v1.22.0",
+      "image_id": "sha256:9acc2529bc1edb7f5b2bd801dd8334ebc80c158e3a9e5526ecd7c9a273d43189",
+      "cpu_limit_nanocpus": 250000000,
+      "memory_limit_bytes": 268435456,
+      "published_ports": {},
+      "asset_id": "governanca-saude/alloy",
+      "image_digests": [
+        "grafana/alloy@sha256:9acc2529bc1edb7f5b2bd801dd8334ebc80c158e3a9e5526ecd7c9a273d43189"
+      ]
+    },
+    {
+      "service": "api",
+      "image_ref": "governanca-saude-app:0.1.0",
+      "image_id": "sha256:eb603a3a7f60e56608200c70d82eef86c11f1f688e38bb45b226de24d5996959",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 805306368,
+      "published_ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3000"
+          }
+        ]
+      },
+      "asset_id": "governanca-saude/api",
+      "image_digests": [
+        "governanca-saude-app@sha256:eb603a3a7f60e56608200c70d82eef86c11f1f688e38bb45b226de24d5996959"
+      ]
+    },
+    {
+      "service": "cadvisor",
+      "image_ref": "ghcr.io/google/cadvisor:0.60.5",
+      "image_id": "sha256:763aecf1c32c2be8a1a75f9abfc2fc461005c9dbbaa39cb356b354aac1296dbe",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1073741824,
+      "published_ports": {},
+      "asset_id": "governanca-saude/cadvisor",
+      "image_digests": [
+        "ghcr.io/google/cadvisor@sha256:763aecf1c32c2be8a1a75f9abfc2fc461005c9dbbaa39cb356b354aac1296dbe"
+      ]
+    },
+    {
+      "service": "grafana",
+      "image_ref": "grafana/grafana:13.2.1",
+      "image_id": "sha256:f772d434e8fab0049deb2b1b30abd43342bcfca1537614aa8d36080232cf4283",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {
+        "3000/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3001"
+          }
+        ]
+      },
+      "asset_id": "governanca-saude/grafana",
+      "image_digests": [
+        "grafana/grafana@sha256:f772d434e8fab0049deb2b1b30abd43342bcfca1537614aa8d36080232cf4283"
+      ]
+    },
+    {
+      "service": "lab",
+      "image_ref": "governanca-saude-app:0.1.0",
+      "image_id": "sha256:eb603a3a7f60e56608200c70d82eef86c11f1f688e38bb45b226de24d5996959",
+      "cpu_limit_nanocpus": 500000000,
+      "memory_limit_bytes": 536870912,
+      "published_ports": {},
+      "asset_id": "governanca-saude/lab",
+      "image_digests": [
+        "governanca-saude-app@sha256:eb603a3a7f60e56608200c70d82eef86c11f1f688e38bb45b226de24d5996959"
+      ]
+    },
+    {
+      "service": "loki",
+      "image_ref": "grafana/loki:3.7.10",
+      "image_id": "sha256:b43c257ccfc925d4a50b8717cac61a3b51df8c48d01847936057e5c4075a24a7",
+      "cpu_limit_nanocpus": 500000000,
+      "memory_limit_bytes": 536870912,
+      "published_ports": {},
+      "asset_id": "governanca-saude/loki",
+      "image_digests": [
+        "grafana/loki@sha256:b43c257ccfc925d4a50b8717cac61a3b51df8c48d01847936057e5c4075a24a7"
+      ]
+    },
+    {
+      "service": "node-exporter",
+      "image_ref": "prom/node-exporter:v1.12.1",
+      "image_id": "sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0",
+      "cpu_limit_nanocpus": 250000000,
+      "memory_limit_bytes": 268435456,
+      "published_ports": {},
+      "asset_id": "governanca-saude/node-exporter",
+      "image_digests": [
+        "prom/node-exporter@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0"
+      ]
+    },
+    {
+      "service": "postgres",
+      "image_ref": "postgres:17.6-bookworm",
+      "image_id": "sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {},
+      "asset_id": "governanca-saude/postgres",
+      "image_digests": [
+        "postgres@sha256:f3bd19c606e442c3d7bdfa8002e03fe260a1023351e0ea4598032022b68dd6e3"
+      ]
+    },
+    {
+      "service": "prometheus",
+      "image_ref": "prom/prometheus:v3.14.0",
+      "image_id": "sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0",
+      "cpu_limit_nanocpus": 1000000000,
+      "memory_limit_bytes": 1610612736,
+      "published_ports": {},
+      "asset_id": "governanca-saude/prometheus",
+      "image_digests": [
+        "prom/prometheus@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0"
+      ]
+    }
+  ],
+  "host": {
+    "os": "Linux Mint 22.3",
+    "architecture": "x86_64",
+    "cpus": 12,
+    "memory_bytes": 24906358784,
+    "docker_version": "29.10.0"
+  }
+}

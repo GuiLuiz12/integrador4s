@@ -1,0 +1,32 @@
+{
+  "captured_at": "2026-11-16T22:31:02.008084+00:00",
+  "result": "passed",
+  "build": "npm run build",
+  "typescript_tests": 34,
+  "python_tests": 34,
+  "affected_script_tests_after_startup_change": 5,
+  "rules": "promtool test rules passed",
+  "integration": "nine expected jobs, nine container services, loopback ports 3000/3001",
+  "simulations": 2,
+  "invalid_logins": [
+    14,
+    17
+  ],
+  "historical_files_unchanged": 171,
+  "sources_checked": 117,
+  "runtime_validation": "evidence/sprint3/validation/runtime.json",
+  "dashboard_validation": "evidence/sprint3/captures/dashboard/validation.json",
+  "dashboard_panels": 75,
+  "analytical_queries": 33,
+  "loki_queries": 2,
+  "academic_deliverables_pending": [
+    "PDF",
+    "slides",
+    "academic review",
+    "defense"
+  ],
+  "limitations": [
+    "No installation test or long experiment repeated",
+    "Seven-day retention configured, not empirically observed for seven days"
+  ]
+}

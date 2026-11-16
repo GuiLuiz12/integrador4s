@@ -1,8 +1,8 @@
 # Arquitetura e topologia
 
-Sete serviços Docker em um único host Linux sustentam a consulta autenticada de prontuários fictícios. A API usa apenas SELECT; o perfil clínico lê todos os registros fictícios e não representa autorização por vínculo de um sistema de produção.
+Nove serviços Docker em um único host Linux sustentam a consulta autenticada de prontuários fictícios. A API usa apenas SELECT; o perfil clínico lê todos os registros fictícios e não representa autorização por vínculo de um sistema de produção.
 
-Os diagramas abaixo consolidam a topologia antes anexada ao README, cuja origem é a análise estática do [commit de 17/09/2026](https://github.com/GuiLuiz12/integrador4s/tree/09544272edb04a30653c01a9350e2b4ae8fc2606). Essa inspeção não comprova a execução de um ambiente. As fontes atuais são o [Compose](../infra/compose.yaml), a [configuração do Prometheus](../monitoring/prometheus.yml), as [regras](../monitoring/rules.yml) e os módulos de [API](../apps/api/app.ts) e [gerador/probe](../apps/lab/server.ts).
+Os diagramas descrevem a configuração da Sprint 3. A topologia histórica da Sprint 1 permanece no [commit de 17/09/2026](https://github.com/GuiLuiz12/integrador4s/tree/09544272edb04a30653c01a9350e2b4ae8fc2606). Inspeção de configuração não comprova execução; essa comprovação vem das exportações e validações de cada período. As fontes atuais são o [Compose](../infra/compose.yaml), a [configuração do Prometheus](../monitoring/prometheus.yml), as [regras](../monitoring/rules.yml) e os módulos de [API](../apps/api/app.ts) e [gerador/probe](../apps/lab/server.ts).
 
 Instalação, operação e testes estão no [manual principal](../README.md). O relatório da Sprint 2 é um documento estático; a API não serve seus dados ou fontes.
 
@@ -20,10 +20,17 @@ flowchart TB
         D[("PostgreSQL :5432<br/>healthlab")]
         N["Node Exporter :9100<br/>Métricas do host"]
         C["cAdvisor :8080<br/>Métricas dos contêineres"]
+        AL["Alloy :12345<br/>Coleta e minimização de eventos"]
+        LK[("Loki :3100<br/>Eventos centralizados")]
 
         L -->|"Login + consulta autenticada"| A
         A -->|"SQL / clinical_reader / SELECT"| D
         G -->|"Consultas PromQL"| P
+        G -->|"Consultas LogQL"| LK
+        AL -.->|"Docker logs: somente eventos da API"| A
+        AL -->|"JSON permitido"| LK
+        P -.->|"/metrics"| AL
+        P -.->|"/metrics"| LK
         P -.->|"/metrics"| A
         P -.->|"/metrics e /probe"| L
         P -.->|"/metrics"| N
@@ -40,7 +47,7 @@ flowchart TB
     classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
     classDef user fill:#f1f5f9,stroke:#64748b,color:#0f172a
     class A,L application
-    class G,P,N,C monitoring
+    class G,P,N,C,AL,LK monitoring
     class D database
     class U user
 ```
@@ -67,6 +74,8 @@ flowchart LR
         PROM["prometheus :9090"]
         NODE["node-exporter :9100"]
         CAD["cadvisor :8080"]
+        ALLOY["alloy :12345"]
+        LOKI["loki :3100"]
 
         ACCESS --- API
         ACCESS --- GRAFANA
@@ -78,6 +87,8 @@ flowchart LR
         MONITORING --- PROM
         MONITORING --- NODE
         MONITORING --- CAD
+        MONITORING --- ALLOY
+        MONITORING --- LOKI
     end
 
     U -->|"127.0.0.1:3000 → :3000"| API
@@ -89,7 +100,7 @@ flowchart LR
     classDef database fill:#fef3c7,stroke:#d97706,color:#78350f
     class ACCESS,BACKEND,MONITORING network
     class API,LAB application
-    class GRAFANA,PROM,NODE,CAD monitoring
+    class GRAFANA,PROM,NODE,CAD,ALLOY,LOKI monitoring
     class DB database
 ```
 
@@ -99,7 +110,7 @@ Neste diagrama, linhas sem seta significam participação na rede, não chamadas
 |---|---|---|
 | `access` | API, Grafana | Bridge; permite a publicação local das portas e conexões de saída desses dois serviços |
 | `backend` | API, PostgreSQL | `internal: true`; banco sem porta publicada |
-| `monitoring` | API, Lab, Prometheus, Grafana, Node Exporter, cAdvisor | `internal: true`; comunicação de monitoramento e tráfego Lab → API |
+| `monitoring` | API, Lab, Prometheus, Grafana, Node Exporter, cAdvisor, Loki, Alloy | `internal: true`; comunicação de monitoramento e tráfego Lab → API |
 
 | Acesso no host | Destino no contêiner | Finalidade |
 |---|---|---|
@@ -110,17 +121,21 @@ As demais portas aparecem apenas nas redes do Compose. O repositório não defin
 
 ## Observabilidade e persistência
 
-Há sete alvos de coleta: `api`, `probe`, `lab`, `node`, `cadvisor`, `prometheus` e `grafana`. Os jobs `probe` e `lab` usam o mesmo serviço, em endpoints diferentes. PostgreSQL não tem exporter próprio: o laboratório observa seu impacto pelo fluxo autenticado, pela prontidão da API e pelos recursos coletados pelo cAdvisor.
+Há nove alvos de coleta: `api`, `probe`, `lab`, `node`, `cadvisor`, `prometheus`, `grafana`, `loki` e `alloy`. Os jobs `probe` e `lab` usam o mesmo serviço, em endpoints diferentes. PostgreSQL não tem exporter próprio: o laboratório observa seu impacto pelo fluxo autenticado, pela prontidão da API e pelos recursos coletados pelo cAdvisor.
 
-Node Exporter lê os recursos do host, incluindo outros processos e projetos. cAdvisor lê metadados e os sockets Docker e containerd; as métricas de contêineres retidas pelo Prometheus são filtradas para o projeto `governanca-saude`. Os limites configurados somam 5,75 CPUs e 7 GiB. Os sockets montados como somente leitura ainda permitem chamadas às APIs dos daemons; cAdvisor é um componente de confiança sem porta pública.
+Node Exporter lê os recursos do host, incluindo outros processos e projetos. cAdvisor lê metadados e os sockets Docker e containerd; as métricas de contêineres retidas pelo Prometheus são filtradas para o projeto `governanca-saude`. Os limites configurados somam 6,5 CPUs e 7,75 GiB. Os sockets montados como somente leitura ainda permitem chamadas às APIs dos daemons; cAdvisor e Alloy são componentes de confiança sem porta pública. Alloy acessa o socket Docker para descobrir e ler os eventos; a montagem `:ro` não impede chamadas mutáveis à API do daemon.
 
 | Serviço | Volume persistente | Conteúdo |
 |---|---|---|
 | PostgreSQL | `postgres_data` | Dados fictícios e identidades |
 | Prometheus | `prometheus_data` | Séries temporais; retenção de até 7 dias, também limitada a 2 GB |
 | Grafana | `grafana_data` | Estado persistente do Grafana |
+| Loki | `loki_data` | Eventos, índice TSDB, WAL e estado de retenção |
+| Alloy | `alloy_data` | Posições persistentes da coleta |
 
-O Prometheus avalia `ConsultaAssistencialIndisponivel` e `FalhaDeColeta`; o Grafana mostra as métricas e os alertas no dashboard. Não há Alertmanager ou serviço de notificações definido no Compose. Os logs permanecem locais no Docker, com rotação de 3 × 10 MB por serviço.
+O Prometheus avalia `ConsultaAssistencialIndisponivel`, `FalhaDeColeta` e `FalhasDeLoginRepetidas`; o Grafana mostra métricas, eventos e alertas. Não há Alertmanager ou serviço de notificações definido no Compose. Os logs locais do Docker mantêm rotação de 3 × 10 MB por serviço. Alloy seleciona somente `authentication`, `record_access` e `request_error` da API deste projeto e reconstrói o JSON com a lista de campos permitidos; correlação e instância permanecem no corpo, sem multiplicar os labels indexados.
+
+Loki opera como instância monolítica com TSDB/filesystem, índice de 24 horas e Compactor habilitado para retenção de sete dias. Essa configuração e a persistência após reinício são verificáveis; não demonstram sete dias de coleta sem perdas. A exclusão por retenção é assíncrona e não substitui gestão de espaço livre. Os arquivos exportados preservam o recorte necessário à entrega mesmo após a expiração dos dados ao vivo. A [diretriz interna](diretriz-monitoramento.md) define acesso, finalidade, minimização e resposta.
 
 A entrega é local, sem frontend clínico separado, serviços gerenciados ou alta disponibilidade. A implantação em VM e o acesso por túnel SSH são descritos como evolução futura, não como recursos provisionados.
 
@@ -130,7 +145,7 @@ Gerador e probe compartilham o serviço `lab`, mas usam identidades diferentes. 
 
 Se a retenção de 2 GB do Prometheus for atingida, dados antigos podem ser removidos antes de sete dias. As [exportações](evidencias.md) preservam os valores efetivamente coletados e suas lacunas.
 
-O cAdvisor acessa os sockets locais Docker e containerd. Instalações novas do [Docker 29 usam o armazenamento containerd](https://docs.docker.com/engine/storage/containerd/); nessa configuração, o [cAdvisor 0.60.5 consulta a API containerd](https://github.com/google/cadvisor/blob/v0.60.5/container/docker/factory.go) para identificar os contêineres Docker. A inicialização só declara prontidão após confirmar consulta funcional, cobertura de 100% e métricas dos sete serviços.
+O cAdvisor acessa os sockets locais Docker e containerd. Instalações novas do [Docker 29 usam o armazenamento containerd](https://docs.docker.com/engine/storage/containerd/); nessa configuração, o [cAdvisor 0.60.5 consulta a API containerd](https://github.com/google/cadvisor/blob/v0.60.5/container/docker/factory.go) para identificar os contêineres Docker. A inicialização só declara prontidão após confirmar consulta funcional, cobertura de 100% e métricas dos nove serviços.
 
 ## Implantação futura em VM
 
@@ -139,3 +154,9 @@ Não há provisionamento de nuvem nesta entrega. A evolução prevista usa VM Li
 Os requisitos e a sequência de instalação e validação são os mesmos do [manual principal](../README.md#começar). Não transportar credenciais por repositório, relatório ou chat. Banco e coletores permanecem sem portas públicas.
 
 O túnel `ssh -L 3001:127.0.0.1:3001 -L 3000:127.0.0.1:3000 usuario@vm` permite abrir o Grafana e a API localmente; o procedimento `/runbook` utiliza a porta 3000. Acesso público exigiria outra decisão de publicação, TLS e autenticação. Um único host e um único Prometheus não oferecem alta disponibilidade nem observação externa da perda total do laboratório.
+
+## Análise e governança
+
+O dashboard conserva o UID `saude-v01`. Prometheus alimenta a operação; Loki fornece eventos consultáveis; a fonte TestData renderiza tabelas determinísticas dos registros analíticos. A análise da Sprint 2 continua com o recorte histórico identificado. A Sprint 3 acrescenta controles, ações, duas execuções de segurança e avaliações de risco inerente/residual, com evidências e períodos próprios.
+
+Esses registros não são um sistema de chamados nem um renderizador de documentos. O cálculo offline produz dados e dashboard; PDF e apresentação são montados a partir do pacote estático. A [entrega](entrega-sprint3.md) identifica os artefatos necessários e as etapas acadêmicas externas.

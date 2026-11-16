@@ -3,6 +3,17 @@ PROJECT = 'container_label_com_docker_compose_project="governanca-saude",contain
 CLINICAL = 'route="/prontuarios/:id",traffic="clinical"'
 SERVICES = ['api', 'postgres', 'lab', 'prometheus', 'grafana', 'node-exporter', 'cadvisor']
 JOBS = ['api', 'probe', 'lab', 'prometheus', 'grafana', 'node', 'cadvisor']
+PROFILES = {
+    'sprint1-2': {'services': SERVICES, 'jobs': JOBS},
+    'sprint3': {'services': SERVICES + ['loki', 'alloy'], 'jobs': JOBS + ['loki', 'alloy']},
+}
+
+
+def inventory_profile(manifest=None):
+    name = 'sprint1-2' if manifest is None or manifest.get('schema_version', 1) == 1 else manifest.get('inventory_profile')
+    if name not in PROFILES:
+        raise ValueError('Perfil de inventário desconhecido.')
+    return PROFILES[name]
 # name: selector, unit, scope, metric type
 RAW = {
     'probe_history': ('probe_success{job="probe"}', 'boolean', 'clinical_flow', 'gauge'),

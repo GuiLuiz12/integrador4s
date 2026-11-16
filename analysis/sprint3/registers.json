@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "reference": "Diretriz interna do projeto; checklist verificável, sem alegação de conformidade normativa.",
+  "initial_checkpoint": "evidence/sprint3/checkpoint-inicial/checkpoint.json",
+  "verification": "evidence/sprint3/validation/runtime.json",
+  "sessions": [
+    {
+      "id": "INC-03",
+      "path": "evidence/sprint3/auth-01"
+    },
+    {
+      "id": "INC-04",
+      "path": "evidence/sprint3/auth-02"
+    }
+  ],
+  "controls": [
+    {
+      "id": "CT-01",
+      "name": "Autenticação obrigatória",
+      "criterion": "A consulta exige JWT válido.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "authenticated_flow"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true
+    },
+    {
+      "id": "CT-02",
+      "name": "Privilégio de leitura no banco",
+      "criterion": "Conta da aplicação possui SELECT, sem escrita clínica.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "db_read_only"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-03",
+      "name": "Autorização por prontuário",
+      "criterion": "O vínculo profissional–prontuário é aplicado e testado.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "record_authorization"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true
+    },
+    {
+      "id": "CT-04",
+      "name": "Limitação de tentativas",
+      "criterion": "Tentativas repetidas são bloqueadas ou limitadas.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "rate_limiting"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-05",
+      "name": "Detecção de falhas de login",
+      "criterion": "Alerta funcional, disparo e resolução preservados.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "auth_alert"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-06",
+      "name": "Logs estruturados e minimizados",
+      "criterion": "Eventos exportados têm somente campos permitidos.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "logs_allowlist"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-07",
+      "name": "Centralização e retenção",
+      "criterion": "Eventos consultáveis, persistentes após reinício; retenção de sete dias configurada.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "loki_query",
+        "loki_persistence",
+        "retention_config"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-08",
+      "name": "Exportação íntegra",
+      "criterion": "Fontes, consultas e eventos exportados com hashes válidos.",
+      "risks": [
+        "R-01",
+        "R-03",
+        "R-04",
+        "R-05"
+      ],
+      "checks": [
+        "evidence_integrity"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-09",
+      "name": "Restauração de backup ensaiada",
+      "criterion": "Backup restaurado e conteúdo recuperado conferido.",
+      "risks": [
+        "R-01"
+      ],
+      "checks": [
+        "backup_restore"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    },
+    {
+      "id": "CT-10",
+      "name": "Observação independente do host",
+      "criterion": "Disponibilidade observada por fonte externa ao host.",
+      "risks": [
+        "R-04"
+      ],
+      "checks": [
+        "independent_monitoring"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "AC-01",
+      "action": "Ensaiar restauração de backup",
+      "risk": "R-01",
+      "controls": [
+        "CT-09"
+      ],
+      "priority": "P1",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 7,
+      "checks": [
+        "backup_restore"
+      ]
+    },
+    {
+      "id": "AC-02",
+      "action": "Implementar autorização por vínculo",
+      "risk": "R-02",
+      "controls": [
+        "CT-03"
+      ],
+      "priority": "P1",
+      "effort": "Médio",
+      "owner": "Desenvolvimento",
+      "deadline_days": 14,
+      "checks": [
+        "record_authorization"
+      ]
+    },
+    {
+      "id": "AC-03",
+      "action": "Limitar tentativas de autenticação",
+      "risk": "R-03",
+      "controls": [
+        "CT-04"
+      ],
+      "priority": "P1",
+      "effort": "Baixo",
+      "owner": "Segurança de TI",
+      "deadline_days": 7,
+      "checks": [
+        "rate_limiting"
+      ]
+    },
+    {
+      "id": "AC-04",
+      "action": "Detectar falhas repetidas e validar resposta",
+      "risk": "R-03",
+      "controls": [
+        "CT-05"
+      ],
+      "priority": "P1",
+      "effort": "Baixo",
+      "owner": "Segurança de TI",
+      "deadline_days": 7,
+      "checks": [
+        "auth_alert"
+      ]
+    },
+    {
+      "id": "AC-05",
+      "action": "Adicionar verificação externa ao host",
+      "risk": "R-04",
+      "controls": [
+        "CT-10"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 14,
+      "checks": [
+        "independent_monitoring"
+      ]
+    },
+    {
+      "id": "AC-06",
+      "action": "Adicionar canal externo de notificação",
+      "risk": "R-04",
+      "controls": [
+        "CT-10"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 14,
+      "checks": [
+        "external_notification"
+      ]
+    },
+    {
+      "id": "AC-07",
+      "action": "Centralizar eventos estruturados",
+      "risk": "R-05",
+      "controls": [
+        "CT-07"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "loki_query",
+        "loki_persistence"
+      ]
+    },
+    {
+      "id": "AC-08",
+      "action": "Configurar retenção de sete dias",
+      "risk": "R-05",
+      "controls": [
+        "CT-07"
+      ],
+      "priority": "P2",
+      "effort": "Baixo",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "retention_config"
+      ]
+    },
+    {
+      "id": "AC-09",
+      "action": "Automatizar exportação das simulações com integridade",
+      "risk": "R-05",
+      "controls": [
+        "CT-08"
+      ],
+      "priority": "P2",
+      "effort": "Baixo",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "evidence_integrity"
+      ]
+    },
+    {
+      "id": "AC-10",
+      "action": "Preservar cópia de evidências fora do host",
+      "risk": "R-05",
+      "controls": [
+        "CT-07",
+        "CT-08"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "offhost_evidence"
+      ]
+    }
+  ]
+}

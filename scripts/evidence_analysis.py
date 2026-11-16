@@ -4,7 +4,7 @@ import math
 import pathlib
 
 from evidence import digest, timestamp, iso
-from evidence_catalog import RAW, DERIVED, SERVICES, JOBS
+from evidence_catalog import RAW, DERIVED, SERVICES, JOBS, inventory_profile
 
 # cAdvisor uses exporter timestamps and dynamic housekeeping (up to 60 s),
 # with jitter up to another interval. Allow two scrape cycles of margin.
@@ -19,7 +19,10 @@ def require(condition, message):
 
 def verify_manifest(folder):
     manifest = json.loads((folder / 'manifest.json').read_text())
-    require(manifest.get('schema_version') == 1, 'Versão de manifesto não suportada.')
+    require(manifest.get('schema_version') in (1, 2), 'Versão de manifesto não suportada.')
+    inventory_profile(manifest)
+    if manifest.get('schema_version') == 2:
+        require('logs-query.json' in manifest.get('files', {}), 'Fonte Loki ausente no manifesto.')
     require(manifest.get('status') == 'completed', 'Sessão incompleta ou restauração pendente.')
     require({'metrics.json', 'series.json', 'derived.json', 'inventory.json', 'events.jsonl'} <= manifest['files'].keys(), 'Fontes obrigatórias ausentes no manifesto.')
     for name, expected in manifest['files'].items():
@@ -66,7 +69,7 @@ def samples(queries, name, **labels):
                    if all(series['metric'].get(k) == v for k, v in labels.items()) for value in series['values']], key=lambda x: x[0])
 
 
-def validate_series(queries, start, end):
+def validate_series(queries, start, end, services=SERVICES):
     for name in RAW:
         require(name in queries, f'Família ausente: {name}')
         result = queries[name]['data']['result']
@@ -80,8 +83,31 @@ def validate_series(queries, start, end):
         for series in queries[name].get('context_data', {}).get('result', []):
             require(all(start - 300 <= p[0] < start for p in series['values']), f'Contexto fora da janela: {name}')
     for name in ('container_cpu', 'container_memory', 'container_network_receive', 'container_network_transmit'):
-        services = {item['metric'].get('container_label_com_docker_compose_service') for item in queries[name]['data']['result']}
-        require(set(SERVICES) <= services, f'Métricas incompletas dos sete serviços: {name}')
+        observed_services = {item['metric'].get('container_label_com_docker_compose_service') for item in queries[name]['data']['result']}
+        require(set(services) <= observed_services, f'Métricas incompletas dos serviços esperados: {name}')
+
+
+
+def validate_security(folder, manifest, raw, responses):
+    require({'session.json', 'logs-query.json', 'inventory-start.json'} <= manifest['files'].keys(), 'Fontes da sessão de segurança ausentes.')
+    session = json.loads((folder / 'session.json').read_text())
+    require(session['status'] == 'completed', 'Incidente de segurança incompleto.')
+    times = {event['event']: timestamp(event['at']) for event in session['timeline']}
+    required = ['auth_failure_confirmed', 'auth_alert_firing', 'auth_generator_stopped', 'auth_recovery_confirmed']
+    require(all(name in times for name in required), 'Timeline de segurança incompleta.')
+    onset, detected, stopped, recovered = [times[name] for name in required]
+    require(timestamp(manifest['range_start']) <= onset <= detected <= stopped < recovered <= timestamp(manifest['range_end']), 'Cronologia do incidente inválida.')
+    failed = [e for e in responses if e['event'] == 'authentication' and e.get('status') == 401]
+    require(len(failed) >= 5 and abs(min(e['time'] for e in failed) / 1000 - onset) < 2, 'Início não comprovado por eventos.')
+    firing = samples(raw, 'alert_history', alertname='FalhasDeLoginRepetidas', alertstate='firing')
+    require(any(abs(at - detected) < 1 and float(value) == 1 for at, value in firing), 'Disparo sem amostra original.')
+    require(recovered - stopped >= 60 and not any(e['time'] / 1000 > recovered - 60 for e in failed), 'Janela de recuperação não comprovada.')
+    require(not any(at >= recovered - 15 for at, _ in firing), 'Alerta ainda disparado no encerramento.')
+    for job in inventory_profile(manifest)['jobs']:
+        points = samples(raw, 'collection_history', job=job)
+        require(points and float(points[-1][1]) == 1 and recovered - points[-1][0] <= 45, 'Coleta final ausente: ' + job)
+    probes = samples(raw, 'probe_history')
+    require(probes and float(probes[-1][1]) == 1 and recovered - probes[-1][0] <= 45, 'Consulta final sem evidência.')
 
 
 def summarize(folder):
@@ -90,12 +116,14 @@ def summarize(folder):
         require(not (folder / 'run.json').exists() and not (folder / 'series.json').exists(), 'Exportação nova incompleta: manifesto ausente.')
         return summarize_legacy(folder)
     manifest = verify_manifest(folder)
+    profile = inventory_profile(manifest)
+    services, jobs = profile['services'], profile['jobs']
     start, end = timestamp(manifest['range_start']), timestamp(manifest['range_end'])
     require(start < end, 'Intervalo inválido.')
     raw = json.loads((folder / 'series.json').read_text())['queries']
-    validate_series(raw, start, end)
+    validate_series(raw, start, end, services)
     inventory = json.loads((folder / 'inventory.json').read_text())
-    require({a['service'] for a in inventory['assets']} == set(SERVICES), 'Inventário de ativos incompleto.')
+    require({a['service'] for a in inventory['assets']} == set(services), 'Inventário de ativos incompleto.')
     if (folder / 'inventory-start.json').exists():
         initial = json.loads((folder / 'inventory-start.json').read_text())
         require(initial['source_sha256'] == inventory['source_sha256'], 'Código mudou durante a sessão.')
@@ -115,7 +143,7 @@ def summarize(folder):
     gaps = [b[0] - a[0] for a, b in zip(probes, probes[1:])]
     expected = (end - start) / 15
     raw_jobs = {s['metric'].get('job') for s in raw['collection_history']['data']['result']}
-    require(raw_jobs == set(JOBS), 'Histórico de coleta deve conter os sete alvos.')
+    require(raw_jobs == set(jobs), 'Histórico de coleta deve conter os alvos do perfil.')
     counters = {name: [dict(labels=s['metric'], **counter_change(s['values'])) for s in raw[name]['data']['result']]
                 for name, spec in RAW.items() if spec[3] == 'counter'}
     summary = {'result': 'passed', 'schema_version': 1, 'session_id': manifest['session_id'], 'kind': manifest['kind'],
@@ -135,6 +163,9 @@ def summarize(folder):
     for name, item in derived.items():
         for series in item['data']['result']:
             require(all(start <= p[0] <= end for p in series['values']), f'Indicador fora do intervalo: {name}')
+    if manifest['kind'] == 'security':
+        validate_security(folder, manifest, raw, responses)
+        return summary
     if manifest['kind'] == 'export':
         return summary
     require({'run.json', 'session.json', 'inventory-start.json'} <= manifest['files'].keys(), 'Fontes da sessão ausentes.')
@@ -149,7 +180,7 @@ def summarize(folder):
         require(left['ended_at'] == right['started_at'], 'Fases têm sobreposição ou lacuna.')
     minimum = 1800 if manifest['kind'] == 'baseline' else 3600
     require(end - start >= minimum - 1 and count / expected >= .9, 'Duração ou completude insuficiente.')
-    for job in JOBS:
+    for job in jobs:
         values = samples(raw, 'collection_history', job=job)
         require(values and float(values[-1][1]) == 1 and end - values[-1][0] <= 45, f'Alvo sem coleta válida ao final: {job}')
         scrapes = samples(raw, 'targets', job=job)
@@ -180,7 +211,7 @@ def summarize(folder):
     if manifest['kind'] == 'baseline':
         require(count == successes, 'Baseline contém falha assistencial.')
         require(all(float(p[1]) == 1 for p in samples(raw, 'load_history')), 'Baseline contém mudança de carga.')
-        require(all(float(p[1]) == 1 for job in JOBS for p in samples(raw, 'collection_history', job=job)), 'Baseline contém falha de coleta.')
+        require(all(float(p[1]) == 1 for job in jobs for p in samples(raw, 'collection_history', job=job)), 'Baseline contém falha de coleta.')
         require(not samples(raw, 'alert_history', alertstate='firing'), 'Baseline contém alerta disparado.')
         require(summary['invalid_login_events'] == 0 and summary['clinical_503_events'] == 0, 'Baseline contém eventos de falha.')
         return summary

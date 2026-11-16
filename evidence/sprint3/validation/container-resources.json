@@ -1,0 +1,112 @@
+[
+  {
+    "BlockIO": "0B / 8.19kB",
+    "CPUPerc": "1.73%",
+    "Container": "c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36",
+    "ID": "c805bb0a6766",
+    "MemPerc": "15.72%",
+    "MemUsage": "40.24MiB / 256MiB",
+    "Name": "governanca-saude-alloy-1",
+    "NetIO": "9.88kB / 24.9kB",
+    "PIDs": "8"
+  },
+  {
+    "BlockIO": "4.1kB / 0B",
+    "CPUPerc": "2.42%",
+    "Container": "ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f",
+    "ID": "ce8b639069f0",
+    "MemPerc": "8.00%",
+    "MemUsage": "40.95MiB / 512MiB",
+    "Name": "governanca-saude-lab-1",
+    "NetIO": "1.01MB / 1.37MB",
+    "PIDs": "11"
+  },
+  {
+    "BlockIO": "0B / 0B",
+    "CPUPerc": "1.78%",
+    "Container": "9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2",
+    "ID": "9eb5261705e4",
+    "MemPerc": "14.14%",
+    "MemUsage": "108.6MiB / 768MiB",
+    "Name": "governanca-saude-api-1",
+    "NetIO": "835kB / 1.51MB",
+    "PIDs": "11"
+  },
+  {
+    "BlockIO": "0B / 0B",
+    "CPUPerc": "1.71%",
+    "Container": "35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e",
+    "ID": "35019bc23e5b",
+    "MemPerc": "7.52%",
+    "MemUsage": "38.49MiB / 512MiB",
+    "Name": "governanca-saude-loki-1",
+    "NetIO": "20kB / 72.1kB",
+    "PIDs": "8"
+  },
+  {
+    "BlockIO": "24.5MB / 102kB",
+    "CPUPerc": "0.00%",
+    "Container": "40d3fc502dd3f7d9b4368fc5c513823eb88ce4c5872b00ca17b5b3e29c87206f",
+    "ID": "40d3fc502dd3",
+    "MemPerc": "0.17%",
+    "MemUsage": "40.56MiB / 23.2GiB",
+    "Name": "layers-for-events-db",
+    "NetIO": "12.3kB / 126B",
+    "PIDs": "6"
+  },
+  {
+    "BlockIO": "75.6MB / 0B",
+    "CPUPerc": "1.09%",
+    "Container": "c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d",
+    "ID": "c9ba7d10db0c",
+    "MemPerc": "15.52%",
+    "MemUsage": "159MiB / 1GiB",
+    "Name": "governanca-saude-cadvisor-1",
+    "NetIO": "201kB / 4.5MB",
+    "PIDs": "21"
+  },
+  {
+    "BlockIO": "791kB / 2.78MB",
+    "CPUPerc": "0.97%",
+    "Container": "8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e",
+    "ID": "8e3abfbf5b1c",
+    "MemPerc": "4.69%",
+    "MemUsage": "71.96MiB / 1.5GiB",
+    "Name": "governanca-saude-prometheus-1",
+    "NetIO": "7.59MB / 602kB",
+    "PIDs": "7"
+  },
+  {
+    "BlockIO": "4MB / 954kB",
+    "CPUPerc": "2.05%",
+    "Container": "dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe",
+    "ID": "dbe7f9808675",
+    "MemPerc": "13.62%",
+    "MemUsage": "209.2MiB / 1.5GiB",
+    "Name": "governanca-saude-grafana-1",
+    "NetIO": "295kB / 2.75MB",
+    "PIDs": "101"
+  },
+  {
+    "BlockIO": "42.1MB / 590kB",
+    "CPUPerc": "0.08%",
+    "Container": "82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c",
+    "ID": "82e022c5b976",
+    "MemPerc": "3.83%",
+    "MemUsage": "58.89MiB / 1.5GiB",
+    "Name": "governanca-saude-postgres-1",
+    "NetIO": "1.08MB / 1.26MB",
+    "PIDs": "7"
+  },
+  {
+    "BlockIO": "15.7MB / 0B",
+    "CPUPerc": "0.00%",
+    "Container": "1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3",
+    "ID": "1d3e95f540aa",
+    "MemPerc": "9.55%",
+    "MemUsage": "24.45MiB / 256MiB",
+    "Name": "governanca-saude-node-exporter-1",
+    "NetIO": "186kB / 3.77MB",
+    "PIDs": "7"
+  }
+]

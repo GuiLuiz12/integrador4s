@@ -1,6 +1,6 @@
-# Contrato das evidências — versão 1
+# Contrato das evidências — perfis históricos e Sprint 3
 
-Este formato prepara os dados para a análise da Sprint 2. A origem é o laboratório em execução; os roteiros não criam amostras nem completam lacunas.
+Este formato preserva dados para as análises das Sprints 2 e 3. A origem é o laboratório em execução; os roteiros não criam amostras nem completam lacunas.
 
 ## Protocolos e validação
 
@@ -58,7 +58,7 @@ As fórmulas e seletores implementados estão em [`scripts/evidence_catalog.py`]
 | `probe_duration` | Gauge / segundos | Duração desse fluxo, incluindo login |
 | `targets` | Gauge / 0 ou 1 | `up` original por alvo de coleta |
 | `collection_history` | Gauge / 0 ou 1 | Regra `lab:target_up`, por alvo esperado; pode acrescentar um ciclo de avaliação |
-| `coverage` | Gauge / % | Cobertura dos sete alvos esperados |
+| `coverage` | Gauge / % | Cobertura dos alvos esperados no perfil da exportação |
 | `alert_history` | Gauge / estado do alerta | `ALERTS`, separado por nome, estado, criticidade e labels; pode estar vazio |
 | `load_history` | Gauge / tentativas/s | Taxa configurada do gerador; não equivale a respostas concluídas |
 | `load_attempts` | Counter / tentativas | Resultado `success`, `http_error`, `transport_or_login_error` ou `concurrency_limit` |
@@ -101,7 +101,7 @@ Campos permitidos: `time`, `level`, `event`, `correlation_id`, `traffic`, `statu
 
 A chave da requisição é `(service, instance_id, correlation_id)`. Eventos `authentication` e `record_access` são respostas concluídas. `request_error` é diagnóstico da mesma requisição e não aumenta a contagem de respostas. Duplicatas idênticas são consolidadas; respostas conflitantes para a mesma chave invalidam a análise.
 
-Os logs continuam locais, com rotação de 3 × 10 MB por serviço. O exportador não recupera trechos rotacionados. A sessão exige eventos perto das duas bordas, mas isso não prova a integridade de cada evento intermediário; compare fontes e registre limitações da análise. Não há logs centralizados ou garantia de retenção de auditoria nesta etapa.
+Nas fontes históricas da Sprint 1/2, os eventos foram lidos dos logs locais com rotação de 3 × 10 MB por serviço. Essa origem permanece registrada. Na Sprint 3, as novas exportações consultam os eventos centralizados no Loki e preservam consulta, intervalo e informações da paginação. Nenhuma das origens permite reconstruir eventos que não chegaram a ser preservados; a presença de eventos perto das bordas não prova a integridade de cada evento intermediário.
 
 ## Tempo do incidente simulado
 
@@ -146,6 +146,27 @@ As quatro cópias de revisão foram preservadas byte a byte a partir do checkpoi
 O registro qualitativo mantém vulnerabilidades, riscos, justificativas, evidências e recomendações. Prazos são relativos à aprovação e responsáveis são papéis propostos; plano definido não significa controle implementado. O catálogo `figures` preserva origem, data de captura e SHA-256 das seis imagens históricas.
 
 O relatório permanece como documento estático com as dez seções, 18 indicadores, 11 consultas e referências por trecho ou evento. A entrega em PDF deve incorporar as evidências legíveis; a aplicação não gera nem hospeda relatórios ou fontes. Na timeline, `response_seconds` mede início confirmado até solicitação de restauração automatizada, separado de MTTD e MTTR e sem representar reação humana.
+
+## Perfil da Sprint 3
+
+O manifesto novo usa `schema_version: 2` e `inventory_profile: "sprint3"`, com nove serviços e nove jobs, acrescentando Loki e Alloy. Manifestos `schema_version: 1` mantêm o perfil histórico `sprint1-2` de sete serviços. Nunca exigir os novos componentes em fontes antigas ou alterar hashes históricos para atender ao ambiente atual.
+
+A exportação inclui as configurações de Loki, Alloy e datasource, além das regras e fontes existentes. `events.jsonl` mantém seu contrato de campos; a origem dos novos eventos é a consulta ao Loki dentro do mesmo intervalo das métricas. `logs-query.json` preserva a consulta, limites em nanossegundos e linhas originais já minimizadas. A leitura divide janelas disjuntas em nanossegundos e detecta limites que possam ocultar eventos. Eventos duplicados idênticos podem ser consolidados, mas conflitos de resposta invalidam a análise; a contagem não soma `request_error` como nova resposta.
+
+As execuções curtas de segurança têm protocolo próprio, distinto do baseline de 30 minutos e do experimento de uma hora. O roteiro registra primeiro `401`, observação de `firing`, ação posterior de interromper o gerador e encerramento confirmado. O encerramento exige consulta autenticada, resolução do alerta e ao menos 60 segundos sem novas falhas. Timeout de 120 segundos sem disparo, interrupção ou ausência de confirmação não pode ser apresentado como incidente encerrado com sucesso. Preservar a pasta e seu estado para diagnóstico.
+
+| Medida de segurança | Definição |
+|---|---|
+| MTTD por execução | Disparo observado − primeiro `401` |
+| Tempo até ação | Interrupção do gerador − disparo observado |
+| MTTR simulado | Encerramento confirmado − disparo observado |
+| Volume exato | Respostas `authentication` com `status=401`, consolidadas por serviço/instância/correlação |
+
+UTC identifica os eventos; a apresentação pode usar UTC−03 desde que indique o fuso. A regra usa amostras do Prometheus e `increase`, portanto não equivale à contagem exata dos logs. O registro mantém a fonte e a resolução de cada marco. A ação automatizada para a origem simulada; não comprova limitação de tentativas na API. Exibir n=2 somente quando ambas as execuções estiverem completas e verificadas.
+
+Os registros em `analysis/sprint3/` associam controles, ações e riscos a fontes técnicas com caminho, origem, período, seletor/consulta e hash. Checkpoint inicial e validação final são preservados separadamente. Um controle implementado exige comprovação do seu critério; uma ação concluída exige resultado de execução. Notas residuais são avaliações qualitativas justificadas, não medições empíricas de probabilidade.
+
+As capturas devem mostrar, no mínimo, operação, eventos e alerta de login, timeline/tempos, riscos inerentes/residuais e controles/ações. Guardar também as exportações correspondentes: capturas não substituem fontes. No PDF final, figuras e trechos relevantes precisam ser incorporados com legendas e referência interna por número/página. Consultar o [guia de entrega](entrega-sprint3.md).
 
 ## Ler o dataset com Python
 

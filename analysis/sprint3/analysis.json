@@ -1,0 +1,3941 @@
+{
+  "schema_version": 1,
+  "title": "Sprint 3 — Integrar e comunicar",
+  "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+  "reference": "Diretriz interna do projeto; não representa certificação ou conformidade legal.",
+  "sessions": [
+    {
+      "id": "fdfd7283-2b60-4779-8b6e-c387b6751bf3",
+      "incident": "INC-03",
+      "path": "evidence/sprint3/auth-01",
+      "start": "2026-11-16T22:17:05.165095+00:00",
+      "end": "2026-11-16T22:19:39.700898+00:00"
+    },
+    {
+      "id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+      "incident": "INC-04",
+      "path": "evidence/sprint3/auth-02",
+      "start": "2026-11-16T22:20:26.861220+00:00",
+      "end": "2026-11-16T22:23:08.017920+00:00"
+    }
+  ],
+  "counts": {
+    "applicable": 10,
+    "implemented": 6,
+    "partial": 0,
+    "pending": 4,
+    "compliance_percent": 60.0,
+    "critical_gaps": 4,
+    "risks_high_critical": 4,
+    "residual_risks_high_critical": 4,
+    "risks_with_treatment_percent": 100.0,
+    "actions_total": 10,
+    "actions_completed": 4,
+    "incidents_open": 0,
+    "incidents_closed": 2,
+    "security_samples": 2,
+    "mttd_seconds": 33.41249990463257,
+    "mttr_seconds": 64.36401557922363,
+    "response_seconds": 1.2337545156478882,
+    "failed_logins": 31,
+    "alerts_by_severity": {
+      "warning": 2
+    }
+  },
+  "controls": [
+    {
+      "id": "CT-01",
+      "name": "Autenticação obrigatória",
+      "criterion": "A consulta exige JWT válido.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "authenticated_flow"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check; GET /prontuarios/1 sem JWT\", \"result\": {\"valid_flow\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"unauthenticated_status\": 401}}"
+        }
+      ]
+    },
+    {
+      "id": "CT-02",
+      "name": "Privilégio de leitura no banco",
+      "criterion": "Conta da aplicação possui SELECT, sem escrita clínica.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "db_read_only"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE\", \"result\": \"t|f|f|f\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-03",
+      "name": "Autorização por prontuário",
+      "criterion": "O vínculo profissional–prontuário é aplicado e testado.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "record_authorization"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/record_authorization",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"API valida JWT sem vínculo profissional-prontuário.\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-04",
+      "name": "Limitação de tentativas",
+      "criterion": "Tentativas repetidas são bloqueadas ou limitadas.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "rate_limiting"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-05",
+      "name": "Detecção de falhas de login",
+      "criterion": "Alerta funcional, disparo e resolução preservados.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "auth_alert"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        }
+      ]
+    },
+    {
+      "id": "CT-06",
+      "name": "Logs estruturados e minimizados",
+      "criterion": "Eventos exportados têm somente campos permitidos.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "logs_allowlist"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        }
+      ]
+    },
+    {
+      "id": "CT-07",
+      "name": "Centralização e retenção",
+      "criterion": "Eventos consultáveis, persistentes após reinício; retenção de sete dias configurada.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "loki_query",
+        "loki_persistence",
+        "retention_config"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        }
+      ]
+    },
+    {
+      "id": "CT-08",
+      "name": "Exportação íntegra",
+      "criterion": "Fontes, consultas e eventos exportados com hashes válidos.",
+      "risks": [
+        "R-01",
+        "R-03",
+        "R-04",
+        "R-05"
+      ],
+      "checks": [
+        "evidence_integrity"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ]
+    },
+    {
+      "id": "CT-09",
+      "name": "Restauração de backup ensaiada",
+      "criterion": "Backup restaurado e conteúdo recuperado conferido.",
+      "risks": [
+        "R-01"
+      ],
+      "checks": [
+        "backup_restore"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/backup_restore",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Nenhum ensaio de restauração de backup realizado.\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-10",
+      "name": "Observação independente do host",
+      "criterion": "Disponibilidade observada por fonte externa ao host.",
+      "risks": [
+        "R-04"
+      ],
+      "checks": [
+        "independent_monitoring"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        }
+      ]
+    }
+  ],
+  "initial_controls": [
+    {
+      "id": "CT-01",
+      "name": "Autenticação obrigatória",
+      "criterion": "A consulta exige JWT válido.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "authenticated_flow"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check\", \"result\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"static_support\": \"sources/apps/api/app.ts: rota exige jwtVerify\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-02",
+      "name": "Privilégio de leitura no banco",
+      "criterion": "Conta da aplicação possui SELECT, sem escrita clínica.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "db_read_only"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege(... SELECT/INSERT/UPDATE/DELETE)\", \"result\": \"t|f|f|f\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-03",
+      "name": "Autorização por prontuário",
+      "criterion": "O vínculo profissional–prontuário é aplicado e testado.",
+      "risks": [
+        "R-02"
+      ],
+      "checks": [
+        "record_authorization"
+      ],
+      "owner": "Desenvolvimento",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "record_authorization: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    },
+    {
+      "id": "CT-04",
+      "name": "Limitação de tentativas",
+      "criterion": "Tentativas repetidas são bloqueadas ou limitadas.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "rate_limiting"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "rate_limiting: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    },
+    {
+      "id": "CT-05",
+      "name": "Detecção de falhas de login",
+      "criterion": "Alerta funcional, disparo e resolução preservados.",
+      "risks": [
+        "R-03"
+      ],
+      "checks": [
+        "auth_alert"
+      ],
+      "owner": "Segurança de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "auth_alert: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    },
+    {
+      "id": "CT-06",
+      "name": "Logs estruturados e minimizados",
+      "criterion": "Eventos exportados têm somente campos permitidos.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "logs_allowlist"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"docker compose logs --tail 30 api; inspecionar eventos estruturados\", \"result\": {\"checked_events\": 30, \"unexpected_fields\": []}, \"allowed_local_metadata\": [\"msg\", \"pid\", \"hostname\"], \"note\": \"Logs locais antes da centralização; exportação anterior remove metadados locais.\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-07",
+      "name": "Centralização e retenção",
+      "criterion": "Eventos consultáveis, persistentes após reinício; retenção de sete dias configurada.",
+      "risks": [
+        "R-05"
+      ],
+      "checks": [
+        "loki_query",
+        "loki_persistence",
+        "retention_config"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "loki_query: verificação não apresentada; situação pendente, sem execução presumida"
+        },
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "loki_persistence: verificação não apresentada; situação pendente, sem execução presumida"
+        },
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "retention_config: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    },
+    {
+      "id": "CT-08",
+      "name": "Exportação íntegra",
+      "criterion": "Fontes, consultas e eventos exportados com hashes válidos.",
+      "risks": [
+        "R-01",
+        "R-03",
+        "R-04",
+        "R-05"
+      ],
+      "checks": [
+        "evidence_integrity"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Implementado",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"verify_manifest(evidence/validated/refinamento-sprint1/baseline)\", \"result\": \"passed\", \"historical_protection\": \"171 artefatos anteriores tiveram hashes preservados antes da edição; manifesto do baseline verificado.\"}"
+        }
+      ]
+    },
+    {
+      "id": "CT-09",
+      "name": "Restauração de backup ensaiada",
+      "criterion": "Backup restaurado e conteúdo recuperado conferido.",
+      "risks": [
+        "R-01"
+      ],
+      "checks": [
+        "backup_restore"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "backup_restore: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    },
+    {
+      "id": "CT-10",
+      "name": "Observação independente do host",
+      "criterion": "Disponibilidade observada por fonte externa ao host.",
+      "risks": [
+        "R-04"
+      ],
+      "checks": [
+        "independent_monitoring"
+      ],
+      "owner": "Operação de TI",
+      "applicable": true,
+      "status": "Pendente",
+      "technical_evidence": [
+        {
+          "source": "S3-INI",
+          "locator": "/observations",
+          "observation": "independent_monitoring: verificação não apresentada; situação pendente, sem execução presumida"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "AC-01",
+      "action": "Ensaiar restauração de backup",
+      "risk": "R-01",
+      "controls": [
+        "CT-09"
+      ],
+      "priority": "P1",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 7,
+      "checks": [
+        "backup_restore"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/backup_restore",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Nenhum ensaio de restauração de backup realizado.\"}"
+        }
+      ]
+    },
+    {
+      "id": "AC-02",
+      "action": "Implementar autorização por vínculo",
+      "risk": "R-02",
+      "controls": [
+        "CT-03"
+      ],
+      "priority": "P1",
+      "effort": "Médio",
+      "owner": "Desenvolvimento",
+      "deadline_days": 14,
+      "checks": [
+        "record_authorization"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check; GET /prontuarios/1 sem JWT\", \"result\": {\"valid_flow\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"unauthenticated_status\": 401}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE\", \"result\": \"t|f|f|f\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/record_authorization",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"API valida JWT sem vínculo profissional-prontuário.\"}"
+        }
+      ]
+    },
+    {
+      "id": "AC-03",
+      "action": "Limitar tentativas de autenticação",
+      "risk": "R-03",
+      "controls": [
+        "CT-04"
+      ],
+      "priority": "P1",
+      "effort": "Baixo",
+      "owner": "Segurança de TI",
+      "deadline_days": 7,
+      "checks": [
+        "rate_limiting"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ]
+    },
+    {
+      "id": "AC-04",
+      "action": "Detectar falhas repetidas e validar resposta",
+      "risk": "R-03",
+      "controls": [
+        "CT-05"
+      ],
+      "priority": "P1",
+      "effort": "Baixo",
+      "owner": "Segurança de TI",
+      "deadline_days": 7,
+      "checks": [
+        "auth_alert"
+      ],
+      "status": "Concluída",
+      "completion_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        }
+      ],
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        }
+      ]
+    },
+    {
+      "id": "AC-05",
+      "action": "Adicionar verificação externa ao host",
+      "risk": "R-04",
+      "controls": [
+        "CT-10"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 14,
+      "checks": [
+        "independent_monitoring"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        }
+      ]
+    },
+    {
+      "id": "AC-06",
+      "action": "Adicionar canal externo de notificação",
+      "risk": "R-04",
+      "controls": [
+        "CT-10"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 14,
+      "checks": [
+        "external_notification"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        }
+      ]
+    },
+    {
+      "id": "AC-07",
+      "action": "Centralizar eventos estruturados",
+      "risk": "R-05",
+      "controls": [
+        "CT-07"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "loki_query",
+        "loki_persistence"
+      ],
+      "status": "Concluída",
+      "completion_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        }
+      ],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        }
+      ]
+    },
+    {
+      "id": "AC-08",
+      "action": "Configurar retenção de sete dias",
+      "risk": "R-05",
+      "controls": [
+        "CT-07"
+      ],
+      "priority": "P2",
+      "effort": "Baixo",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "retention_config"
+      ],
+      "status": "Concluída",
+      "completion_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        }
+      ],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        }
+      ]
+    },
+    {
+      "id": "AC-09",
+      "action": "Automatizar exportação das simulações com integridade",
+      "risk": "R-05",
+      "controls": [
+        "CT-08"
+      ],
+      "priority": "P2",
+      "effort": "Baixo",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "evidence_integrity"
+      ],
+      "status": "Concluída",
+      "completion_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ]
+    },
+    {
+      "id": "AC-10",
+      "action": "Preservar cópia de evidências fora do host",
+      "risk": "R-05",
+      "controls": [
+        "CT-07",
+        "CT-08"
+      ],
+      "priority": "P2",
+      "effort": "Médio",
+      "owner": "Operação de TI",
+      "deadline_days": 21,
+      "checks": [
+        "offhost_evidence"
+      ],
+      "status": "Planejada",
+      "completion_evidence": [],
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "id": "R-01",
+      "asset": "DB-01 / atendimento",
+      "threat": "Falha da dependência de dados",
+      "vulnerability": "VUL-03",
+      "cause": "Instância única de persistência",
+      "event": "Autenticação e consulta indisponíveis",
+      "impact_description": "Interrupção do atendimento e atraso na consulta de registros",
+      "probability": 4,
+      "impact": 5,
+      "rationale": "A dependência foi demonstrada no incidente; P=4 representa o cenário proposto, não uma frequência estatística.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Formalizar recuperação e executar teste de restauração de backup.",
+      "deadline_days": 7,
+      "priority": "P1",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "E03",
+        "E04",
+        "E05",
+        "C01"
+      ],
+      "score": 20,
+      "level": "Crítico",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/backup_restore",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Nenhum ensaio de restauração de backup realizado.\"}"
+        }
+      ],
+      "inherent": {
+        "probability": 4,
+        "impact": 5,
+        "score": 20,
+        "level": "Crítico"
+      },
+      "residual": {
+        "probability": 4,
+        "impact": 5,
+        "score": 20,
+        "level": "Crítico",
+        "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+        "rationale": "Avaliação conservadora: as melhorias de detecção e investigação não demonstram redução de probabilidade ou impacto. P/I preservados.",
+        "controls": [
+          "CT-08"
+        ]
+      },
+      "actions": [
+        "AC-01"
+      ]
+    },
+    {
+      "id": "R-02",
+      "asset": "APP-01 / acesso clínico",
+      "threat": "Uso indevido de credencial válida",
+      "vulnerability": "VUL-01",
+      "cause": "Ausência de autorização por prontuário",
+      "event": "Leitura fora da necessidade de acesso",
+      "impact_description": "Exposição indevida de informações clínicas",
+      "probability": 3,
+      "impact": 5,
+      "rationale": "O acesso exige autenticação, mas não há verificação do vínculo com o registro; impacto potencial elevado.",
+      "owner": "Desenvolvimento",
+      "treatment": "Reduzir",
+      "action": "Implementar autorização por vínculo e testes negativos de acesso cruzado.",
+      "deadline_days": 14,
+      "priority": "P1",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "C02",
+        "C03"
+      ],
+      "score": 15,
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check; GET /prontuarios/1 sem JWT\", \"result\": {\"valid_flow\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"unauthenticated_status\": 401}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE\", \"result\": \"t|f|f|f\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/record_authorization",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"API valida JWT sem vínculo profissional-prontuário.\"}"
+        }
+      ],
+      "inherent": {
+        "probability": 3,
+        "impact": 5,
+        "score": 15,
+        "level": "Alto"
+      },
+      "residual": {
+        "probability": 3,
+        "impact": 5,
+        "score": 15,
+        "level": "Alto",
+        "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+        "rationale": "Avaliação conservadora: as melhorias de detecção e investigação não demonstram redução de probabilidade ou impacto. P/I preservados.",
+        "controls": [
+          "CT-01",
+          "CT-02"
+        ]
+      },
+      "actions": [
+        "AC-02"
+      ]
+    },
+    {
+      "id": "R-03",
+      "asset": "APP-01 / autenticação",
+      "threat": "Tentativas repetidas de adivinhação de senha",
+      "vulnerability": "VUL-02",
+      "cause": "Ausência de contenção progressiva de tentativas",
+      "event": "Comprometimento de conta ou pressão sobre o login",
+      "impact_description": "Acesso indevido ou degradação do serviço",
+      "probability": 3,
+      "impact": 4,
+      "rationale": "O cenário comprovou repetição de tentativas recusadas; não comprovou comprometimento. Exposição atual é local.",
+      "owner": "Segurança de TI",
+      "treatment": "Reduzir",
+      "action": "Aplicar rate limiting e alerta para cinco ou mais falhas em um minuto.",
+      "deadline_days": 7,
+      "priority": "P1",
+      "effort": "Baixo",
+      "status": "Em tratamento",
+      "evidence": [
+        "C02",
+        "E04",
+        "E05"
+      ],
+      "score": 12,
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ],
+      "inherent": {
+        "probability": 3,
+        "impact": 4,
+        "score": 12,
+        "level": "Alto"
+      },
+      "residual": {
+        "probability": 3,
+        "impact": 4,
+        "score": 12,
+        "level": "Alto",
+        "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+        "rationale": "Avaliação conservadora: as melhorias de detecção e investigação não demonstram redução de probabilidade ou impacto. P/I preservados.",
+        "controls": [
+          "CT-05",
+          "CT-08"
+        ]
+      },
+      "actions": [
+        "AC-03",
+        "AC-04"
+      ]
+    },
+    {
+      "id": "R-04",
+      "asset": "MON-01 / detecção",
+      "threat": "Perda do coletor ou do host monitorado",
+      "vulnerability": "VUL-04",
+      "cause": "Dependência de observação local",
+      "event": "Atraso na identificação de indisponibilidade",
+      "impact_description": "Maior duração do impacto por ausência de diagnóstico",
+      "probability": 3,
+      "impact": 4,
+      "rationale": "A perda do probe foi observada; a perda total do host é uma hipótese de risco baseada na arquitetura.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Adicionar verificação externa e canal de notificação.",
+      "deadline_days": 14,
+      "priority": "P2",
+      "effort": "Médio",
+      "status": "Planejado",
+      "evidence": [
+        "C01",
+        "C04",
+        "E03",
+        "E05"
+      ],
+      "score": 12,
+      "level": "Alto",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        }
+      ],
+      "inherent": {
+        "probability": 3,
+        "impact": 4,
+        "score": 12,
+        "level": "Alto"
+      },
+      "residual": {
+        "probability": 3,
+        "impact": 4,
+        "score": 12,
+        "level": "Alto",
+        "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+        "rationale": "Avaliação conservadora: as melhorias de detecção e investigação não demonstram redução de probabilidade ou impacto. P/I preservados.",
+        "controls": [
+          "CT-08"
+        ]
+      },
+      "actions": [
+        "AC-05",
+        "AC-06"
+      ]
+    },
+    {
+      "id": "R-05",
+      "asset": "LOG-01 / investigação",
+      "threat": "Perda de registros operacionais",
+      "vulnerability": "VUL-05",
+      "cause": "Retenção local limitada e ausência de arquivo externo",
+      "event": "Evidências insuficientes para reconstruir um incidente",
+      "impact_description": "Atraso na investigação e tratamento inadequado",
+      "probability": 2,
+      "impact": 4,
+      "rationale": "Não houve perda comprovada nesta sessão; o risco decorre da política de rotação e do armazenamento local.",
+      "owner": "Operação de TI",
+      "treatment": "Reduzir",
+      "action": "Automatizar exportação e definir retenção; integrar centralização na Sprint 3.",
+      "deadline_days": 21,
+      "priority": "P2",
+      "effort": "Médio",
+      "status": "Em tratamento",
+      "evidence": [
+        "C01",
+        "C05"
+      ],
+      "score": 8,
+      "level": "Moderado",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ],
+      "inherent": {
+        "probability": 2,
+        "impact": 4,
+        "score": 8,
+        "level": "Moderado"
+      },
+      "residual": {
+        "probability": 2,
+        "impact": 4,
+        "score": 8,
+        "level": "Moderado",
+        "assessed_at": "2026-11-16T22:24:19.831708+00:00",
+        "rationale": "Avaliação conservadora: as melhorias de detecção e investigação não demonstram redução de probabilidade ou impacto. P/I preservados.",
+        "controls": [
+          "CT-06",
+          "CT-07",
+          "CT-08"
+        ]
+      },
+      "actions": [
+        "AC-07",
+        "AC-08",
+        "AC-09",
+        "AC-10"
+      ]
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "VUL-01",
+      "asset": "APP-01",
+      "finding": "Leitura sem vínculo entre profissional e prontuário",
+      "severity": "Alta",
+      "exposure": "Usuário autenticado pode consultar qualquer ID válido; acesso restrito ao ambiente local.",
+      "treatment": "Aplicar autorização por vínculo profissional–paciente e testar acesso cruzado.",
+      "evidence": [
+        "C02",
+        "C03"
+      ],
+      "basis": "O handler valida o token, mas a consulta SQL recebe apenas o ID do prontuário.",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check; GET /prontuarios/1 sem JWT\", \"result\": {\"valid_flow\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"unauthenticated_status\": 401}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE\", \"result\": \"t|f|f|f\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/record_authorization",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"API valida JWT sem vínculo profissional-prontuário.\"}"
+        }
+      ],
+      "historical_finding": true,
+      "current_status": "Achado permanece; tratamentos não concluídos"
+    },
+    {
+      "id": "VUL-02",
+      "asset": "APP-01",
+      "finding": "Autenticação sem limitação de tentativas",
+      "severity": "Média",
+      "exposure": "Endpoint local de login; dez tentativas consecutivas foram processadas e recusadas, sem bloqueio progressivo.",
+      "treatment": "Limitar tentativas por origem/identidade e criar alerta por janela curta.",
+      "evidence": [
+        "C02",
+        "E04",
+        "E05"
+      ],
+      "basis": "Não há rate limiting no fluxo de autenticação; o cenário registrou dez respostas 401.",
+      "technical_evidence": [
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ],
+      "historical_finding": true,
+      "current_status": "Detecção verificada; limitação de tentativas pendente"
+    },
+    {
+      "id": "VUL-03",
+      "asset": "DB-01",
+      "finding": "Persistência em instância única",
+      "severity": "Alta",
+      "exposure": "A indisponibilidade do PostgreSQL interrompe autenticação e consultas.",
+      "treatment": "Definir recuperação, cópias de segurança e ensaio de restauração; avaliar réplica conforme criticidade.",
+      "evidence": [
+        "C01",
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "basis": "O Compose possui uma instância do banco; o cenário confirmou a dependência do fluxo assistencial.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/backup_restore",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Nenhum ensaio de restauração de backup realizado.\"}"
+        }
+      ],
+      "historical_finding": true,
+      "current_status": "Achado permanece; tratamentos não concluídos"
+    },
+    {
+      "id": "VUL-04",
+      "asset": "MON-01",
+      "finding": "Monitoramento concentrado no mesmo host",
+      "severity": "Média",
+      "exposure": "Perda do host também elimina a observação local; a falha do probe demonstrou perda parcial de visibilidade.",
+      "treatment": "Adicionar verificação externa e notificação de ausência de coleta.",
+      "evidence": [
+        "C01",
+        "C04",
+        "E03",
+        "E05"
+      ],
+      "basis": "Prometheus, Grafana e verificador compartilham o host; a coleta ficou em 6 de 7 alvos no cenário isolado.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        }
+      ],
+      "historical_finding": true,
+      "current_status": "Achado permanece; tratamentos não concluídos"
+    },
+    {
+      "id": "VUL-05",
+      "asset": "LOG-01",
+      "finding": "Logs locais sujeitos a rotação sem arquivo central",
+      "severity": "Média",
+      "exposure": "Histórico pode ser perdido por rotação ou falha do host, reduzindo a capacidade de investigação.",
+      "treatment": "Definir retenção e exportação periódica; centralizar logs na Sprint 3.",
+      "evidence": [
+        "C01",
+        "C05"
+      ],
+      "basis": "Configuração json-file com 10 MB por arquivo e três arquivos por serviço; nenhuma fonte central configurada.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ],
+      "historical_finding": true,
+      "current_status": "Tratamento parcial; armazenamento central no mesmo host"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-03",
+      "session_id": "fdfd7283-2b60-4779-8b6e-c387b6751bf3",
+      "category": "Tentativas repetidas de autenticação",
+      "asset": "APP-01",
+      "risk": "R-03",
+      "severity": "Média",
+      "status": "Fechado",
+      "owner": "Segurança de TI",
+      "response_actor": "Roteiro automatizado",
+      "onset": "2026-11-16T22:18:05.241000+00:00",
+      "detected": "2026-11-16T22:18:34.495000+00:00",
+      "response": "2026-11-16T22:18:36.567839+00:00",
+      "recovered": "2026-11-16T22:19:39.700496+00:00",
+      "detection_seconds": 29.253999948501587,
+      "response_seconds": 2.0728390216827393,
+      "recovery_seconds": 65.20549607276917,
+      "failed_logins": 14,
+      "impact": "Tentativas recusadas; sem evidência de comprometimento. Consulta legítima verificada no encerramento.",
+      "containment": "Interrupção do gerador de tentativas simuladas; bloqueio de tentativas não implementado.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ],
+      "timeline": [
+        {
+          "at": "2026-11-16T22:18:05.241000+00:00",
+          "step": "auth_failure_confirmed",
+          "reference": {
+            "source": "S3-E1-TIM",
+            "locator": "/timeline/2",
+            "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:18:34.495000+00:00",
+          "step": "auth_alert_firing",
+          "reference": {
+            "source": "S3-E1-TIM",
+            "locator": "/timeline/3",
+            "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:18:36.567839+00:00",
+          "step": "auth_generator_stopped",
+          "reference": {
+            "source": "S3-E1-TIM",
+            "locator": "/timeline/4",
+            "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:19:39.700496+00:00",
+          "step": "auth_recovery_confirmed",
+          "reference": {
+            "source": "S3-E1-TIM",
+            "locator": "/timeline/5",
+            "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "INC-04",
+      "session_id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+      "category": "Tentativas repetidas de autenticação",
+      "asset": "APP-01",
+      "risk": "R-03",
+      "severity": "Média",
+      "status": "Fechado",
+      "owner": "Segurança de TI",
+      "response_actor": "Roteiro automatizado",
+      "onset": "2026-11-16T22:21:26.924000+00:00",
+      "detected": "2026-11-16T22:22:04.495000+00:00",
+      "response": "2026-11-16T22:22:04.889670+00:00",
+      "recovered": "2026-11-16T22:23:08.017535+00:00",
+      "detection_seconds": 37.57099986076355,
+      "response_seconds": 0.3946700096130371,
+      "recovery_seconds": 63.5225350856781,
+      "failed_logins": 17,
+      "impact": "Tentativas recusadas; sem evidência de comprometimento. Consulta legítima verificada no encerramento.",
+      "containment": "Interrupção do gerador de tentativas simuladas; bloqueio de tentativas não implementado.",
+      "technical_evidence": [
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ],
+      "timeline": [
+        {
+          "at": "2026-11-16T22:21:26.924000+00:00",
+          "step": "auth_failure_confirmed",
+          "reference": {
+            "source": "S3-E2-TIM",
+            "locator": "/timeline/2",
+            "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:22:04.495000+00:00",
+          "step": "auth_alert_firing",
+          "reference": {
+            "source": "S3-E2-TIM",
+            "locator": "/timeline/3",
+            "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:22:04.889670+00:00",
+          "step": "auth_generator_stopped",
+          "reference": {
+            "source": "S3-E2-TIM",
+            "locator": "/timeline/4",
+            "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+          }
+        },
+        {
+          "at": "2026-11-16T22:23:08.017535+00:00",
+          "step": "auth_recovery_confirmed",
+          "reference": {
+            "source": "S3-E2-TIM",
+            "locator": "/timeline/5",
+            "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+          }
+        }
+      ]
+    }
+  ],
+  "historical_incidents": [
+    {
+      "id": "INC-01",
+      "category": "Indisponibilidade assistencial",
+      "asset": "DB-01",
+      "severity": "Crítica",
+      "status": "Fechado",
+      "risk": "R-01",
+      "onset": "2026-10-26T23:27:04.964592+00:00",
+      "detected": "2026-10-26T23:28:35.747000+00:00",
+      "response": "2026-10-26T23:29:04.966495+00:00",
+      "recovered": "2026-10-26T23:29:16.790000+00:00",
+      "response_seconds": 120.00190305709839,
+      "detection_seconds": 90.7824079990387,
+      "recovery_seconds": 41.04299998283386,
+      "impact_seconds": 131.82540798187256,
+      "owner": "Operação de TI",
+      "response_actor": "Roteiro automatizado",
+      "evidence": [
+        "E03",
+        "E05"
+      ],
+      "technical_evidence": [
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E05",
+          "locator": "/9 · event=postgres_restart_requested",
+          "observation": "2026-10-26T23:29:04.966495+00:00 · postgres_restart_requested"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "ConsultaAssistencialIndisponivel · primeiro firing 2026-10-26T23:28:35.747000+00:00"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/probe_history",
+          "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:29:16.790000+00:00"
+        }
+      ]
+    },
+    {
+      "id": "INC-02",
+      "category": "Perda de observabilidade",
+      "asset": "MON-01",
+      "severity": "Média",
+      "status": "Fechado",
+      "risk": "R-04",
+      "onset": "2026-10-26T23:37:05.016169+00:00",
+      "detected": "2026-10-26T23:38:35.747000+00:00",
+      "response": "2026-10-26T23:38:35.018003+00:00",
+      "recovered": "2026-10-26T23:38:46.790000+00:00",
+      "response_seconds": 90.00183391571045,
+      "detection_seconds": 90.73083090782166,
+      "recovery_seconds": 11.042999982833862,
+      "impact_seconds": 101.77383089065552,
+      "owner": "Operação de TI",
+      "response_actor": "Roteiro automatizado",
+      "evidence": [
+        "E03",
+        "E05"
+      ],
+      "technical_evidence": [
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "E05",
+          "locator": "/14 · event=probe_restore_requested",
+          "observation": "2026-10-26T23:38:35.018003+00:00 · probe_restore_requested"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/alert_history",
+          "observation": "FalhaDeColeta · primeiro firing 2026-10-26T23:38:35.747000+00:00"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets",
+          "observation": "primeira amostra = 1 após restauração: 2026-10-26T23:38:46.790000+00:00"
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "label": "Inicial",
+      "at": "2026-11-16T22:07:56.781995+00:00",
+      "source": "S3-INI",
+      "applicable": 10,
+      "implemented": 4,
+      "partial": 0,
+      "pending": 6,
+      "compliance_percent": 40.0,
+      "critical_gaps": 5
+    },
+    {
+      "label": "Após validação",
+      "at": "2026-11-16T22:24:19.831708+00:00",
+      "source": "S3-VAL",
+      "applicable": 10,
+      "implemented": 6,
+      "partial": 0,
+      "pending": 4,
+      "compliance_percent": 60.0,
+      "critical_gaps": 4
+    }
+  ],
+  "sources": [
+    {
+      "id": "B01",
+      "label": "Manifesto do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/manifest.json",
+      "sha256": "fdb76d508aa28ee7cdd9617d989519392b2b913cf846673202deae12ead16179",
+      "path": "evidence/validated/refinamento-sprint1/baseline/manifest.json"
+    },
+    {
+      "id": "B02",
+      "label": "Curvas do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/derived.json",
+      "sha256": "5a28ee05b9a44f41de5cf0ed39a1b83596be1fbdb1df6b8f2740e93ec8a56e01",
+      "path": "evidence/validated/refinamento-sprint1/baseline/derived.json"
+    },
+    {
+      "id": "B03",
+      "label": "Séries originais do baseline",
+      "origin": "evidence/validated/refinamento-sprint1/baseline/series.json",
+      "sha256": "d3730d61806e14498cdd484af9c6803452ba3d7013f8ebe136f500219d6c4781",
+      "path": "evidence/validated/refinamento-sprint1/baseline/series.json"
+    },
+    {
+      "id": "E01",
+      "label": "Manifesto do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/manifest.json",
+      "sha256": "29498f6ad493da9d8b41ab00e75f5c2483d6451e5726d7b4d9a807190cba2718",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/manifest.json"
+    },
+    {
+      "id": "E02",
+      "label": "Curvas do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/derived.json",
+      "sha256": "229575892d639b3296af7d12abd23105877e185767176c62a0a664cac1ed777f",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/derived.json"
+    },
+    {
+      "id": "E03",
+      "label": "Séries originais do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/series.json",
+      "sha256": "9e7b43e0f049e67f9cac76b9a5ce7cc35ecaae6db88ada839d4a4730f9dce448",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/series.json"
+    },
+    {
+      "id": "E04",
+      "label": "Eventos da API",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/events.jsonl",
+      "sha256": "aee42f206818a11db212d4abd63dbc06216e4f64978ca0079b5e2ae9f93eb8c7",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/events.jsonl"
+    },
+    {
+      "id": "E05",
+      "label": "Timeline do experimento",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/session.json",
+      "sha256": "dedc093d81fad8af83ed395f471c30e7a809270b77d86e1e83da0c6b5df53d31",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/session.json"
+    },
+    {
+      "id": "C01",
+      "label": "Compose da coleta",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/infra/compose.yaml",
+      "sha256": "2f1491db05e8c330d878eb6f26548016989f453cd2d375044dcacd33c3b37234",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/infra/compose.yaml"
+    },
+    {
+      "id": "C02",
+      "label": "Autenticação e autorização",
+      "origin": "apps/api/app.ts",
+      "sha256": "85f3623a78cd66970d4d96ca728752eb70a64ec84deb4fc23ff2272ce8fe6caf",
+      "path": "analysis/sprint2/sources/C02-app.ts",
+      "review_checkpoint": "536e7c22f3e809db9a7137a3e9bea4e481d0fb5e"
+    },
+    {
+      "id": "C03",
+      "label": "Consulta ao banco",
+      "origin": "apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f",
+      "path": "analysis/sprint2/sources/C03-repository.ts",
+      "review_checkpoint": "536e7c22f3e809db9a7137a3e9bea4e481d0fb5e"
+    },
+    {
+      "id": "C04",
+      "label": "Regras de alerta da coleta",
+      "origin": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/monitoring/rules.yml",
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "path": "evidence/rejected/refinamento-sprint1/experiment-ba3b1508-8edd-4604-a1a1-5a40c599925e/configuration/monitoring/rules.yml"
+    },
+    {
+      "id": "C05",
+      "label": "Retenção e logs locais",
+      "origin": "logging/README.md",
+      "sha256": "e4106a3f45e64d2358039c46e0dcfb1c49647f874dc46ab0b450e2196d01aa35",
+      "path": "analysis/sprint2/sources/C05-README.md",
+      "review_checkpoint": "536e7c22f3e809db9a7137a3e9bea4e481d0fb5e"
+    },
+    {
+      "id": "C06",
+      "label": "Renovação do token do gerador",
+      "origin": "apps/lab/server.ts",
+      "sha256": "2327eff595e02d6799046b908a55fd0a9f465207e7218da25d7f480948c18b25",
+      "path": "analysis/sprint2/sources/C06-server.ts",
+      "review_checkpoint": "536e7c22f3e809db9a7137a3e9bea4e481d0fb5e"
+    },
+    {
+      "id": "C07",
+      "label": "Inventário e avaliação qualitativa de riscos",
+      "origin": "analysis/sprint2/registers.json",
+      "sha256": "c24be12b7c8c2398f93f890476be1a64fd40e3d11b5b12901a195fea75efd452",
+      "path": "analysis/sprint2/registers.json"
+    },
+    {
+      "id": "S3-INI",
+      "path": "evidence/sprint3/checkpoint-inicial/checkpoint.json",
+      "origin": "evidence/sprint3/checkpoint-inicial/checkpoint.json",
+      "kind": "checkpoint",
+      "label": "Verificações antes da Sprint 3",
+      "sha256": "c7f9f9a49761a7ef0a8572e2e49a62c47070effc91439e3b0928fa6363dedab9"
+    },
+    {
+      "id": "S3-VAL",
+      "path": "evidence/sprint3/validation/runtime.json",
+      "origin": "evidence/sprint3/validation/runtime.json",
+      "kind": "verification",
+      "label": "Verificações técnicas após a Sprint 3",
+      "sha256": "bc9c0cd1f75104b4b3cee466fffb885f83d75675b2fc30925eb4ae7db04d8bae"
+    },
+    {
+      "id": "S3-INI-01",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/apps/api/app.ts",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/apps/api/app.ts",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/apps/api/app.ts",
+      "sha256": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26"
+    },
+    {
+      "id": "S3-INI-02",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/apps/api/repository.ts",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/apps/api/repository.ts",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f"
+    },
+    {
+      "id": "S3-INI-03",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/infra/compose.yaml",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/infra/compose.yaml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/infra/compose.yaml",
+      "sha256": "39599fc94fff5b827edce09929d7bf2fdb0d366afa9eaa1f78430c8bf769b754"
+    },
+    {
+      "id": "S3-INI-04",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/infra/postgres/001-init.sh",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/infra/postgres/001-init.sh",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2"
+    },
+    {
+      "id": "S3-INI-05",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/logging/README.md",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/logging/README.md",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/logging/README.md",
+      "sha256": "e4106a3f45e64d2358039c46e0dcfb1c49647f874dc46ab0b450e2196d01aa35"
+    },
+    {
+      "id": "S3-INI-06",
+      "path": "evidence/sprint3/checkpoint-inicial/sources/monitoring/rules.yml",
+      "origin": "evidence/sprint3/checkpoint-inicial/sources/monitoring/rules.yml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/checkpoint-inicial/sources/monitoring/rules.yml",
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8"
+    },
+    {
+      "id": "S3-VAL-01",
+      "path": "evidence/sprint3/auth-01/manifest.json",
+      "origin": "evidence/sprint3/auth-01/manifest.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-01/manifest.json",
+      "sha256": "2699f82ddf058e52e1ea9f0982a055f9396b0219921d44ee508c47b1ca3c9b6f"
+    },
+    {
+      "id": "S3-VAL-02",
+      "path": "evidence/sprint3/auth-01/session.json",
+      "origin": "evidence/sprint3/auth-01/session.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-01/session.json",
+      "sha256": "beedd1176470b2ae4995cd8f4af94c9efcbbf9795a82df788c0d73d0924834b1"
+    },
+    {
+      "id": "S3-VAL-03",
+      "path": "evidence/sprint3/auth-01/logs-query.json",
+      "origin": "evidence/sprint3/auth-01/logs-query.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-01/logs-query.json",
+      "sha256": "5978bf8aa3893e98bc59b262d39f88fc564595d2f51e0019262e3b7c8c417c1e"
+    },
+    {
+      "id": "S3-VAL-04",
+      "path": "evidence/sprint3/auth-02/manifest.json",
+      "origin": "evidence/sprint3/auth-02/manifest.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-02/manifest.json",
+      "sha256": "679e1819b215e304139c93085afa6ea9f91ff0a5adf9f8961415977a5d0e88d8"
+    },
+    {
+      "id": "S3-VAL-05",
+      "path": "evidence/sprint3/auth-02/session.json",
+      "origin": "evidence/sprint3/auth-02/session.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-02/session.json",
+      "sha256": "87d3eff130932fa9aced48caeca706255418edf35d4251259640b9f7c5d97e70"
+    },
+    {
+      "id": "S3-VAL-06",
+      "path": "evidence/sprint3/auth-02/logs-query.json",
+      "origin": "evidence/sprint3/auth-02/logs-query.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/auth-02/logs-query.json",
+      "sha256": "681b280dc322ec0714259f969d6a2d5d5bb20526193d46e819a71ff99957f0a6"
+    },
+    {
+      "id": "S3-VAL-07",
+      "path": "evidence/sprint3/validation/loki-before-restart.json",
+      "origin": "evidence/sprint3/validation/loki-before-restart.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/loki-before-restart.json",
+      "sha256": "8a0d084017378bbb83639eaaafdaa4197728a6aff021d8b841ccd7b0f69dae4c"
+    },
+    {
+      "id": "S3-VAL-08",
+      "path": "evidence/sprint3/validation/loki-after-restart.json",
+      "origin": "evidence/sprint3/validation/loki-after-restart.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/loki-after-restart.json",
+      "sha256": "8a0d084017378bbb83639eaaafdaa4197728a6aff021d8b841ccd7b0f69dae4c"
+    },
+    {
+      "id": "S3-VAL-09",
+      "path": "evidence/sprint3/validation/container-resources.json",
+      "origin": "evidence/sprint3/validation/container-resources.json",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/container-resources.json",
+      "sha256": "9e50009e8274d2f43e95c188e7c5c787f7b856022afbf2710a6ef73e9ed37bf1"
+    },
+    {
+      "id": "S3-VAL-10",
+      "path": "evidence/sprint3/validation/sources/apps/api/app.ts",
+      "origin": "evidence/sprint3/validation/sources/apps/api/app.ts",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/apps/api/app.ts",
+      "sha256": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26"
+    },
+    {
+      "id": "S3-VAL-11",
+      "path": "evidence/sprint3/validation/sources/apps/api/repository.ts",
+      "origin": "evidence/sprint3/validation/sources/apps/api/repository.ts",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f"
+    },
+    {
+      "id": "S3-VAL-12",
+      "path": "evidence/sprint3/validation/sources/infra/compose.yaml",
+      "origin": "evidence/sprint3/validation/sources/infra/compose.yaml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b"
+    },
+    {
+      "id": "S3-VAL-13",
+      "path": "evidence/sprint3/validation/sources/logging/config.alloy",
+      "origin": "evidence/sprint3/validation/sources/logging/config.alloy",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665"
+    },
+    {
+      "id": "S3-VAL-14",
+      "path": "evidence/sprint3/validation/sources/logging/loki.yml",
+      "origin": "evidence/sprint3/validation/sources/logging/loki.yml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84"
+    },
+    {
+      "id": "S3-VAL-15",
+      "path": "evidence/sprint3/validation/sources/monitoring/rules.yml",
+      "origin": "evidence/sprint3/validation/sources/monitoring/rules.yml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab"
+    },
+    {
+      "id": "S3-VAL-16",
+      "path": "evidence/sprint3/validation/sources/monitoring/prometheus.yml",
+      "origin": "evidence/sprint3/validation/sources/monitoring/prometheus.yml",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583"
+    },
+    {
+      "id": "S3-VAL-17",
+      "path": "evidence/sprint3/validation/sources/scripts/session_sprint3.py",
+      "origin": "evidence/sprint3/validation/sources/scripts/session_sprint3.py",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/scripts/session_sprint3.py",
+      "sha256": "6de2670f9e065d861120facc278e1b1f30e1d400a0ddc3d344b29f41243b08d1"
+    },
+    {
+      "id": "S3-VAL-18",
+      "path": "evidence/sprint3/validation/sources/scripts/evidence_loki.py",
+      "origin": "evidence/sprint3/validation/sources/scripts/evidence_loki.py",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/scripts/evidence_loki.py",
+      "sha256": "309ffa4597cc7bbdeefec616205a97974a459c5da70763ff15395c36f1534b1d"
+    },
+    {
+      "id": "S3-VAL-19",
+      "path": "evidence/sprint3/validation/sources/scripts/evidence_analysis.py",
+      "origin": "evidence/sprint3/validation/sources/scripts/evidence_analysis.py",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/sources/scripts/evidence_analysis.py",
+      "sha256": "7444e1ca041bf33296d698adf427e4f36ab945fb89a67eb0ce8af71e22c083e4"
+    },
+    {
+      "id": "S3-VAL-20",
+      "path": "evidence/sprint3/validation/verify-runtime.py",
+      "origin": "evidence/sprint3/validation/verify-runtime.py",
+      "kind": "verification_source",
+      "label": "evidence/sprint3/validation/verify-runtime.py",
+      "sha256": "e125f98b7f4d3f651c1c3b47bd74973a4a0f88cb970f2fe24dc61ea289fe9076"
+    },
+    {
+      "id": "S3-E1-MAN",
+      "path": "evidence/sprint3/auth-01/manifest.json",
+      "origin": "evidence/sprint3/auth-01/manifest.json",
+      "kind": "manifest",
+      "label": "Manifesto da simulação",
+      "sha256": "2699f82ddf058e52e1ea9f0982a055f9396b0219921d44ee508c47b1ca3c9b6f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-TIM",
+      "path": "evidence/sprint3/auth-01/session.json",
+      "origin": "evidence/sprint3/auth-01/session.json",
+      "kind": "timeline",
+      "label": "Timeline da simulação",
+      "sha256": "beedd1176470b2ae4995cd8f4af94c9efcbbf9795a82df788c0d73d0924834b1",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SER",
+      "path": "evidence/sprint3/auth-01/series.json",
+      "origin": "evidence/sprint3/auth-01/series.json",
+      "kind": "metrics",
+      "label": "Séries originais",
+      "sha256": "4ef320053cb4c307693631b20485bf2b206e6c5d27396b352a383320783f2457",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-LOG",
+      "path": "evidence/sprint3/auth-01/events.jsonl",
+      "origin": "evidence/sprint3/auth-01/events.jsonl",
+      "kind": "logs",
+      "label": "Eventos exportados do Loki",
+      "sha256": "94a6a47358c27e4625e1f8e24cbcc6aeb48e190995dbf8bc5b6c5243dfe6d33a",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC01",
+      "path": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/analysis.yml",
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC02",
+      "path": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/loki.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/loki.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/loki.yml",
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC03",
+      "path": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC04",
+      "path": "evidence/sprint3/auth-01/configuration/dashboards/saude.json",
+      "origin": "evidence/sprint3/auth-01/configuration/dashboards/saude.json",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/saude.json",
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC05",
+      "path": "evidence/sprint3/auth-01/configuration/infra/Dockerfile",
+      "origin": "evidence/sprint3/auth-01/configuration/infra/Dockerfile",
+      "kind": "exported_source",
+      "label": "configuration/infra/Dockerfile",
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC06",
+      "path": "evidence/sprint3/auth-01/configuration/infra/compose.yaml",
+      "origin": "evidence/sprint3/auth-01/configuration/infra/compose.yaml",
+      "kind": "exported_source",
+      "label": "configuration/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC07",
+      "path": "evidence/sprint3/auth-01/configuration/infra/postgres/001-init.sh",
+      "origin": "evidence/sprint3/auth-01/configuration/infra/postgres/001-init.sh",
+      "kind": "exported_source",
+      "label": "configuration/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC08",
+      "path": "evidence/sprint3/auth-01/configuration/logging/config.alloy",
+      "origin": "evidence/sprint3/auth-01/configuration/logging/config.alloy",
+      "kind": "exported_source",
+      "label": "configuration/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC09",
+      "path": "evidence/sprint3/auth-01/configuration/logging/loki.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/logging/loki.yml",
+      "kind": "exported_source",
+      "label": "configuration/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC10",
+      "path": "evidence/sprint3/auth-01/configuration/monitoring/prometheus.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/monitoring/prometheus.yml",
+      "kind": "exported_source",
+      "label": "configuration/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC11",
+      "path": "evidence/sprint3/auth-01/configuration/monitoring/rules.yml",
+      "origin": "evidence/sprint3/auth-01/configuration/monitoring/rules.yml",
+      "kind": "exported_source",
+      "label": "configuration/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC12",
+      "path": "evidence/sprint3/auth-01/configuration/package-lock.json",
+      "origin": "evidence/sprint3/auth-01/configuration/package-lock.json",
+      "kind": "exported_source",
+      "label": "configuration/package-lock.json",
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC13",
+      "path": "evidence/sprint3/auth-01/configuration/package.json",
+      "origin": "evidence/sprint3/auth-01/configuration/package.json",
+      "kind": "exported_source",
+      "label": "configuration/package.json",
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC14",
+      "path": "evidence/sprint3/auth-01/configuration/tsconfig.json",
+      "origin": "evidence/sprint3/auth-01/configuration/tsconfig.json",
+      "kind": "exported_source",
+      "label": "configuration/tsconfig.json",
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC15",
+      "path": "evidence/sprint3/auth-01/derived.json",
+      "origin": "evidence/sprint3/auth-01/derived.json",
+      "kind": "exported_source",
+      "label": "derived.json",
+      "sha256": "1a6a5657efeda574fb189f7771018d460272c44d8f41058cabfa04433aa1ce2e",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC17",
+      "path": "evidence/sprint3/auth-01/inventory-start.json",
+      "origin": "evidence/sprint3/auth-01/inventory-start.json",
+      "kind": "exported_source",
+      "label": "inventory-start.json",
+      "sha256": "f835e4269346b0917d9bac3e154b506dc6f528bea18f0a684b221ef7f945ebed",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC18",
+      "path": "evidence/sprint3/auth-01/inventory.json",
+      "origin": "evidence/sprint3/auth-01/inventory.json",
+      "kind": "exported_source",
+      "label": "inventory.json",
+      "sha256": "4a05aef6472178019fddae8642f1efd5d77c9c17f3aa839d342be71f634205a4",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC19",
+      "path": "evidence/sprint3/auth-01/logs-query.json",
+      "origin": "evidence/sprint3/auth-01/logs-query.json",
+      "kind": "exported_source",
+      "label": "logs-query.json",
+      "sha256": "5978bf8aa3893e98bc59b262d39f88fc564595d2f51e0019262e3b7c8c417c1e",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC20",
+      "path": "evidence/sprint3/auth-01/metrics.json",
+      "origin": "evidence/sprint3/auth-01/metrics.json",
+      "kind": "exported_source",
+      "label": "metrics.json",
+      "sha256": "d4c139493365f95276811071d7fb1a3be4f7d2736c52c5da02861626cd74d56f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC23",
+      "path": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC24",
+      "path": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC25",
+      "path": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC26",
+      "path": "evidence/sprint3/auth-01/start/configuration/dashboards/saude.json",
+      "origin": "evidence/sprint3/auth-01/start/configuration/dashboards/saude.json",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/saude.json",
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC27",
+      "path": "evidence/sprint3/auth-01/start/configuration/infra/Dockerfile",
+      "origin": "evidence/sprint3/auth-01/start/configuration/infra/Dockerfile",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/Dockerfile",
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC28",
+      "path": "evidence/sprint3/auth-01/start/configuration/infra/compose.yaml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/infra/compose.yaml",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC29",
+      "path": "evidence/sprint3/auth-01/start/configuration/infra/postgres/001-init.sh",
+      "origin": "evidence/sprint3/auth-01/start/configuration/infra/postgres/001-init.sh",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC30",
+      "path": "evidence/sprint3/auth-01/start/configuration/logging/config.alloy",
+      "origin": "evidence/sprint3/auth-01/start/configuration/logging/config.alloy",
+      "kind": "exported_source",
+      "label": "start/configuration/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC31",
+      "path": "evidence/sprint3/auth-01/start/configuration/logging/loki.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/logging/loki.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC32",
+      "path": "evidence/sprint3/auth-01/start/configuration/monitoring/prometheus.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/monitoring/prometheus.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC33",
+      "path": "evidence/sprint3/auth-01/start/configuration/monitoring/rules.yml",
+      "origin": "evidence/sprint3/auth-01/start/configuration/monitoring/rules.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC34",
+      "path": "evidence/sprint3/auth-01/start/configuration/package-lock.json",
+      "origin": "evidence/sprint3/auth-01/start/configuration/package-lock.json",
+      "kind": "exported_source",
+      "label": "start/configuration/package-lock.json",
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC35",
+      "path": "evidence/sprint3/auth-01/start/configuration/package.json",
+      "origin": "evidence/sprint3/auth-01/start/configuration/package.json",
+      "kind": "exported_source",
+      "label": "start/configuration/package.json",
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E1-SRC36",
+      "path": "evidence/sprint3/auth-01/start/configuration/tsconfig.json",
+      "origin": "evidence/sprint3/auth-01/start/configuration/tsconfig.json",
+      "kind": "exported_source",
+      "label": "start/configuration/tsconfig.json",
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "period": {
+        "start": "2026-11-16T22:17:05.165095+00:00",
+        "end": "2026-11-16T22:19:39.700898+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-MAN",
+      "path": "evidence/sprint3/auth-02/manifest.json",
+      "origin": "evidence/sprint3/auth-02/manifest.json",
+      "kind": "manifest",
+      "label": "Manifesto da simulação",
+      "sha256": "679e1819b215e304139c93085afa6ea9f91ff0a5adf9f8961415977a5d0e88d8",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-TIM",
+      "path": "evidence/sprint3/auth-02/session.json",
+      "origin": "evidence/sprint3/auth-02/session.json",
+      "kind": "timeline",
+      "label": "Timeline da simulação",
+      "sha256": "87d3eff130932fa9aced48caeca706255418edf35d4251259640b9f7c5d97e70",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SER",
+      "path": "evidence/sprint3/auth-02/series.json",
+      "origin": "evidence/sprint3/auth-02/series.json",
+      "kind": "metrics",
+      "label": "Séries originais",
+      "sha256": "4ff61cace8cb0e2199242e541867d9a085327542681e1aa2426ebf727b6eda9b",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-LOG",
+      "path": "evidence/sprint3/auth-02/events.jsonl",
+      "origin": "evidence/sprint3/auth-02/events.jsonl",
+      "kind": "logs",
+      "label": "Eventos exportados do Loki",
+      "sha256": "c553dcda426dc39a3f2565b4f8b249e692f98481fc046e16da01a759a460e6d3",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC01",
+      "path": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/analysis.yml",
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC02",
+      "path": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/loki.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/loki.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/loki.yml",
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC03",
+      "path": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC04",
+      "path": "evidence/sprint3/auth-02/configuration/dashboards/saude.json",
+      "origin": "evidence/sprint3/auth-02/configuration/dashboards/saude.json",
+      "kind": "exported_source",
+      "label": "configuration/dashboards/saude.json",
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC05",
+      "path": "evidence/sprint3/auth-02/configuration/infra/Dockerfile",
+      "origin": "evidence/sprint3/auth-02/configuration/infra/Dockerfile",
+      "kind": "exported_source",
+      "label": "configuration/infra/Dockerfile",
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC06",
+      "path": "evidence/sprint3/auth-02/configuration/infra/compose.yaml",
+      "origin": "evidence/sprint3/auth-02/configuration/infra/compose.yaml",
+      "kind": "exported_source",
+      "label": "configuration/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC07",
+      "path": "evidence/sprint3/auth-02/configuration/infra/postgres/001-init.sh",
+      "origin": "evidence/sprint3/auth-02/configuration/infra/postgres/001-init.sh",
+      "kind": "exported_source",
+      "label": "configuration/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC08",
+      "path": "evidence/sprint3/auth-02/configuration/logging/config.alloy",
+      "origin": "evidence/sprint3/auth-02/configuration/logging/config.alloy",
+      "kind": "exported_source",
+      "label": "configuration/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC09",
+      "path": "evidence/sprint3/auth-02/configuration/logging/loki.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/logging/loki.yml",
+      "kind": "exported_source",
+      "label": "configuration/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC10",
+      "path": "evidence/sprint3/auth-02/configuration/monitoring/prometheus.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/monitoring/prometheus.yml",
+      "kind": "exported_source",
+      "label": "configuration/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC11",
+      "path": "evidence/sprint3/auth-02/configuration/monitoring/rules.yml",
+      "origin": "evidence/sprint3/auth-02/configuration/monitoring/rules.yml",
+      "kind": "exported_source",
+      "label": "configuration/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC12",
+      "path": "evidence/sprint3/auth-02/configuration/package-lock.json",
+      "origin": "evidence/sprint3/auth-02/configuration/package-lock.json",
+      "kind": "exported_source",
+      "label": "configuration/package-lock.json",
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC13",
+      "path": "evidence/sprint3/auth-02/configuration/package.json",
+      "origin": "evidence/sprint3/auth-02/configuration/package.json",
+      "kind": "exported_source",
+      "label": "configuration/package.json",
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC14",
+      "path": "evidence/sprint3/auth-02/configuration/tsconfig.json",
+      "origin": "evidence/sprint3/auth-02/configuration/tsconfig.json",
+      "kind": "exported_source",
+      "label": "configuration/tsconfig.json",
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC15",
+      "path": "evidence/sprint3/auth-02/derived.json",
+      "origin": "evidence/sprint3/auth-02/derived.json",
+      "kind": "exported_source",
+      "label": "derived.json",
+      "sha256": "b9bf1ad520fdd9812502ba3cf5d4eac3c6f2100e67a70c457cca7c3c261e4838",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC17",
+      "path": "evidence/sprint3/auth-02/inventory-start.json",
+      "origin": "evidence/sprint3/auth-02/inventory-start.json",
+      "kind": "exported_source",
+      "label": "inventory-start.json",
+      "sha256": "388856ab33f8f270bd5a7248d0da01c7fad21a59129be84f1fdb4c466cc0b4ee",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC18",
+      "path": "evidence/sprint3/auth-02/inventory.json",
+      "origin": "evidence/sprint3/auth-02/inventory.json",
+      "kind": "exported_source",
+      "label": "inventory.json",
+      "sha256": "c5736c9b1cfe631c5eadcd7f880555f5e9ba8e03c0e1e5ed723921c4405fd153",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC19",
+      "path": "evidence/sprint3/auth-02/logs-query.json",
+      "origin": "evidence/sprint3/auth-02/logs-query.json",
+      "kind": "exported_source",
+      "label": "logs-query.json",
+      "sha256": "681b280dc322ec0714259f969d6a2d5d5bb20526193d46e819a71ff99957f0a6",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC20",
+      "path": "evidence/sprint3/auth-02/metrics.json",
+      "origin": "evidence/sprint3/auth-02/metrics.json",
+      "kind": "exported_source",
+      "label": "metrics.json",
+      "sha256": "6232e40c5def9f67b83e9abb5eff343e7205d82cec8ba020fb7d9fd78dd734c2",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC23",
+      "path": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/analysis.yml",
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC24",
+      "path": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/loki.yml",
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC25",
+      "path": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/provisioning/datasources/prometheus.yml",
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC26",
+      "path": "evidence/sprint3/auth-02/start/configuration/dashboards/saude.json",
+      "origin": "evidence/sprint3/auth-02/start/configuration/dashboards/saude.json",
+      "kind": "exported_source",
+      "label": "start/configuration/dashboards/saude.json",
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC27",
+      "path": "evidence/sprint3/auth-02/start/configuration/infra/Dockerfile",
+      "origin": "evidence/sprint3/auth-02/start/configuration/infra/Dockerfile",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/Dockerfile",
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC28",
+      "path": "evidence/sprint3/auth-02/start/configuration/infra/compose.yaml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/infra/compose.yaml",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC29",
+      "path": "evidence/sprint3/auth-02/start/configuration/infra/postgres/001-init.sh",
+      "origin": "evidence/sprint3/auth-02/start/configuration/infra/postgres/001-init.sh",
+      "kind": "exported_source",
+      "label": "start/configuration/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC30",
+      "path": "evidence/sprint3/auth-02/start/configuration/logging/config.alloy",
+      "origin": "evidence/sprint3/auth-02/start/configuration/logging/config.alloy",
+      "kind": "exported_source",
+      "label": "start/configuration/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC31",
+      "path": "evidence/sprint3/auth-02/start/configuration/logging/loki.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/logging/loki.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC32",
+      "path": "evidence/sprint3/auth-02/start/configuration/monitoring/prometheus.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/monitoring/prometheus.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC33",
+      "path": "evidence/sprint3/auth-02/start/configuration/monitoring/rules.yml",
+      "origin": "evidence/sprint3/auth-02/start/configuration/monitoring/rules.yml",
+      "kind": "exported_source",
+      "label": "start/configuration/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC34",
+      "path": "evidence/sprint3/auth-02/start/configuration/package-lock.json",
+      "origin": "evidence/sprint3/auth-02/start/configuration/package-lock.json",
+      "kind": "exported_source",
+      "label": "start/configuration/package-lock.json",
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC35",
+      "path": "evidence/sprint3/auth-02/start/configuration/package.json",
+      "origin": "evidence/sprint3/auth-02/start/configuration/package.json",
+      "kind": "exported_source",
+      "label": "start/configuration/package.json",
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    },
+    {
+      "id": "S3-E2-SRC36",
+      "path": "evidence/sprint3/auth-02/start/configuration/tsconfig.json",
+      "origin": "evidence/sprint3/auth-02/start/configuration/tsconfig.json",
+      "kind": "exported_source",
+      "label": "start/configuration/tsconfig.json",
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "period": {
+        "start": "2026-11-16T22:20:26.861220+00:00",
+        "end": "2026-11-16T22:23:08.017920+00:00"
+      }
+    }
+  ],
+  "deadline_basis": "Dias corridos após aprovação do plano de tratamento.",
+  "limitations": [
+    "Duas execuções controladas; evolução observada não constitui tendência estatística.",
+    "MTTD/MTTR de autenticação não são agregados aos incidentes de disponibilidade da Sprint 2.",
+    "A ação automatizada encerra o gerador; rate limiting e bloqueio de atacante não foram implementados.",
+    "Retenção de sete dias configurada; não houve sete dias de observação empírica.",
+    "Loki, Alloy e a aplicação dependem do mesmo host; o socket Docker amplia o acesso do coletor.",
+    "Controles e riscos são avaliações qualitativas vinculadas a fontes técnicas; não se comprovam por si mesmos."
+  ],
+  "indicators": [
+    {
+      "id": "S3-K01",
+      "name": "Controles implementados / aplicáveis",
+      "value": "6/10 · 60.0%",
+      "target": "100%",
+      "formula": "100 × implementados / aplicáveis; parciais não contam como implementados",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Priorizar gaps; não representa conformidade legal.",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations",
+          "observation": "Resultados técnicos, comandos e fontes do checkpoint final"
+        }
+      ]
+    },
+    {
+      "id": "S3-K02",
+      "name": "Controles parciais / pendentes",
+      "value": "0 / 4",
+      "target": "0 / 0",
+      "formula": "Contagem por status observado",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Executar ações pendentes com evidência.",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations",
+          "observation": "Resultados técnicos, comandos e fontes do checkpoint final"
+        }
+      ]
+    },
+    {
+      "id": "S3-K03",
+      "name": "Gaps críticos",
+      "value": "4",
+      "target": "0",
+      "formula": "Controles incompletos associados a riscos altos/críticos",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Prioridade de tratamento; não soma riscos duplicados.",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations",
+          "observation": "Resultados técnicos, comandos e fontes do checkpoint final"
+        }
+      ]
+    },
+    {
+      "id": "S3-K04",
+      "name": "Riscos inerentes / residuais altos e críticos",
+      "value": "4 / 4",
+      "target": "Redução sustentada por controle efetivo",
+      "formula": "Quantidade de riscos com P × I ≥ 10 em cada avaliação",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Manter classificação conservadora; detecção não evita comprometimento.",
+      "technical_evidence": [
+        {
+          "source": "C01",
+          "locator": "linhas 14–16",
+          "observation": "postgres:\n<<: *common\nimage: postgres:17.6-bookworm"
+        },
+        {
+          "source": "E05",
+          "locator": "/8 · event=postgres_outage_confirmed",
+          "observation": "2026-10-26T23:27:04.964592+00:00 · postgres_outage_confirmed"
+        },
+        {
+          "source": "E04",
+          "locator": "status=503; event=record_access (traffic=clinical) ou authentication",
+          "observation": "23 consultas e 106 autenticações indisponíveis"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/backup_restore",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Nenhum ensaio de restauração de backup realizado.\"}"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 89–90",
+          "observation": "await request.jwtVerify();\nif (!['clinical', 'probe'].includes(request.user.kind) || !request.user.sub) throw new Error('Invalid principal');"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 98–98",
+          "observation": "const record = await repository.record(request.params.id);"
+        },
+        {
+          "source": "C03",
+          "locator": "linhas 23–23",
+          "observation": "return (await pool.query<RecordData>('SELECT id, paciente, resumo FROM prontuarios WHERE id = $1', [id])).rows[0];"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/authenticated_flow",
+          "observation": "{\"command\": \"npm run check; GET /prontuarios/1 sem JWT\", \"result\": {\"valid_flow\": \"Login e consulta funcionam; token e conteúdo omitidos\", \"unauthenticated_status\": 401}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/db_read_only",
+          "observation": "{\"command\": \"SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE\", \"result\": \"t|f|f|f\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/record_authorization",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"API valida JWT sem vínculo profissional-prontuário.\"}"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 68–68",
+          "observation": "app.post<{ Body: { username: string; password: string } }>('/auth/login', {"
+        },
+        {
+          "source": "C02",
+          "locator": "linhas 75–78",
+          "observation": "if (!professional || !valid) {\nauthFailures.labels('login').inc();\nreturn reply.code(401).send({ error: 'invalid_credentials' });\n}"
+        },
+        {
+          "source": "E04",
+          "locator": "event=authentication; status=401 (respostas únicas)",
+          "observation": "10 tentativas recusadas"
+        },
+        {
+          "source": "E05",
+          "locator": "/6 · event=ten_invalid_logins_completed",
+          "observation": "2026-10-26T23:22:05.315123+00:00 · ten_invalid_logins_completed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/rate_limiting",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Sem limite; ensaios observaram respostas401 repetidas, sem429.\"}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/auth_alert",
+          "observation": "{\"command\": \"summarize valida eventos, firing, cronologia, resolução e coleta final\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\"}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\"}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 77–79",
+          "observation": "prometheus:\n<<: *common\nimage: prom/prometheus:v3.14.0"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 93–95",
+          "observation": "grafana:\n<<: *common\nimage: grafana/grafana:13.2.1"
+        },
+        {
+          "source": "E03",
+          "locator": "/queries/targets · job=probe",
+          "observation": "6 amostras up=0; cobertura mínima 85,71%"
+        },
+        {
+          "source": "E05",
+          "locator": "/13 · event=probe_outage_confirmed",
+          "observation": "2026-10-26T23:37:05.016169+00:00 · probe_outage_confirmed"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/independent_monitoring",
+          "observation": "{\"method\": \"Revisão estática e limites do escopo\", \"result\": \"Componentes executam no mesmo host.\"}"
+        },
+        {
+          "source": "C01",
+          "locator": "linhas 4–7",
+          "observation": "driver: json-file\noptions:\nmax-size: \"10m\"\nmax-file: \"3\""
+        },
+        {
+          "source": "C05",
+          "locator": "linhas 13–13",
+          "observation": "Os logs continuam locais nesta etapa."
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/logs_allowlist",
+          "observation": "{\"command\": \"Conferência das linhas originais consultadas no Loki\", \"result\": {\"events\": 70, \"fields\": [\"correlation_id\", \"duration_ms\", \"event\", \"instance_id\", \"level\", \"service\", \"status\", \"time\", \"traffic\"], \"unexpected_fields\": []}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_query",
+          "observation": "{\"command\": \"Loki query_range janela fixa60s\", \"result\": {\"logql\": \"{project=\\\"governanca-saude\\\",service=\\\"api\\\"}\", \"range_start\": \"2026-11-16T22:22:45.899646+00:00\", \"range_end\": \"2026-11-16T22:23:45.899646+00:00\", \"entries\": 70, \"requests\": 1}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/loki_persistence",
+          "observation": "{\"command\": \"Reiniciar Loki/Alloy e repetir mesma consulta/intervalo\", \"result\": {\"before\": 70, \"after\": 70, \"same_original_entries\": true}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/retention_config",
+          "observation": "{\"command\": \"Revisão configuração Loki validada pelo binário\", \"result\": {\"retention_hours\": 168, \"compactor_retention_enabled\": true, \"index_period_hours\": 24, \"empirical_7_days\": false}}"
+        },
+        {
+          "source": "S3-VAL",
+          "locator": "/observations/evidence_integrity",
+          "observation": "{\"command\": \"evidence_analysis.summarize por sessão\", \"result\": [{\"session_id\": \"fdfd7283-2b60-4779-8b6e-c387b6751bf3\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:17:05.165095+00:00\", \"completed_at\": \"2026-11-16T22:19:39.700898+00:00\", \"observations\": 10, \"successful_probes\": 10, \"invalid_login_events\": 14}, {\"session_id\": \"10a17da0-bdc9-4ff1-9ef0-7ddd285817cf\", \"result\": \"passed\", \"started_at\": \"2026-11-16T22:20:26.861220+00:00\", \"completed_at\": \"2026-11-16T22:23:08.017920+00:00\", \"observations\": 11, \"successful_probes\": 11, \"invalid_login_events\": 17}]}"
+        }
+      ]
+    },
+    {
+      "id": "S3-K05",
+      "name": "Riscos com tratamento definido",
+      "value": "100%",
+      "target": "100%",
+      "formula": "100 × riscos com ações / riscos registrados",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Tratamento definido não significa concluído.",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations",
+          "observation": "Resultados técnicos, comandos e fontes do checkpoint final"
+        }
+      ]
+    },
+    {
+      "id": "S3-K06",
+      "name": "Ações concluídas / total",
+      "value": "4/10",
+      "target": "Concluir conforme prioridades e prazos",
+      "formula": "Contagem de ações com verificações de conclusão",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Preservar pendências preventivas e de continuidade.",
+      "technical_evidence": [
+        {
+          "source": "S3-VAL",
+          "locator": "/observations",
+          "observation": "Resultados técnicos, comandos e fontes do checkpoint final"
+        }
+      ]
+    },
+    {
+      "id": "S3-K07",
+      "name": "Incidentes de autenticação abertos / fechados",
+      "value": "0 / 2",
+      "target": "0 abertos ao final",
+      "formula": "Status após confirmação de resolução; n=2",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Duas simulações; sem taxa de incidentes reais.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    },
+    {
+      "id": "S3-K08",
+      "name": "MTTD · autenticação",
+      "value": "33.41 s",
+      "target": "≤120 s (limite do ensaio)",
+      "formula": "Média(primeiro firing − primeiro 401), n=2",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Verificar atraso de coleta e avaliação da regra.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    },
+    {
+      "id": "S3-K09",
+      "name": "MTTR simulado · autenticação",
+      "value": "64.36 s",
+      "target": "Encerramento confirmado",
+      "formula": "Média(encerramento confirmado − primeiro firing), n=2",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Inclui janela de 60 s sem falhas; não mede recuperação de indisponibilidade.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    },
+    {
+      "id": "S3-K10",
+      "name": "Tempo até ação automatizada",
+      "value": "1.23 s",
+      "target": "Ação posterior à detecção",
+      "formula": "Média(interrupção do gerador − primeiro firing), n=2",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Não interpretar como reação humana.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    },
+    {
+      "id": "S3-K11",
+      "name": "Falhas de login confirmadas nos logs",
+      "value": "31",
+      "target": "Investigar ≥5 estimadas/min",
+      "formula": "Respostas authentication 401 únicas por serviço/instância/correlação",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Correlacionar contador com eventos; sem atribuição de origem.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    },
+    {
+      "id": "S3-K12",
+      "name": "Alertas de segurança por criticidade",
+      "value": "Aviso: 2",
+      "target": "Dois disparos no ensaio",
+      "formula": "Um episódio confirmado por simulação",
+      "owner": "Operação / Segurança de TI",
+      "frequency": "Por checkpoint ou simulação concluída",
+      "decision": "Distinguir episódios de amostras de firing.",
+      "technical_evidence": [
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:18:05.241000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:18:34.495000+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:18:36.567839+00:00"
+        },
+        {
+          "source": "S3-E1-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:19:39.700496+00:00"
+        },
+        {
+          "source": "S3-E1-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "14 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E1-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/2",
+          "observation": "auth_failure_confirmed · 2026-11-16T22:21:26.924000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/3",
+          "observation": "auth_alert_firing · 2026-11-16T22:22:04.495000+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/4",
+          "observation": "auth_generator_stopped · 2026-11-16T22:22:04.889670+00:00"
+        },
+        {
+          "source": "S3-E2-TIM",
+          "locator": "/timeline/5",
+          "observation": "auth_recovery_confirmed · 2026-11-16T22:23:08.017535+00:00"
+        },
+        {
+          "source": "S3-E2-LOG",
+          "locator": "event=authentication; status=401",
+          "observation": "17 respostas recusadas; contagem por serviço/instância/correlação"
+        },
+        {
+          "source": "S3-E2-SER",
+          "locator": "/queries/alert_history",
+          "observation": "FalhasDeLoginRepetidas em firing"
+        }
+      ]
+    }
+  ]
+}

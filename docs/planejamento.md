@@ -126,3 +126,22 @@ Nesta revisão, o README reúne execução, simulações, exportação, capturas
 A geração Markdown/HTML e as rotas de relatório, dados e fontes foram retiradas da aplicação. A análise offline continua produzindo os dados e o dashboard. Cópias de código consultado na revisão estática foram preservadas com extensões originais e hashes, separadas do código atual; os conjuntos de coleta e o registro qualitativo não foram reescritos. O relatório Markdown existente permanece estático, com referências atualizadas.
 
 Conferência concluída: compilação, 23 testes de evidências/análise, oito testes da API e configuração do Compose aprovados; fluxo autenticado e `/runbook` funcionais, com 404 nas três rotas retiradas. O dashboard preserva 50 painéis, 16 consultas analíticas e 18 indicadores, sem erros de expressão ou JavaScript, com novas capturas locais sob `evidence/runs/`. Os valores analíticos e os hashes das 15 fontes foram preservados; referências locais resolvem, o ZIP permanece intacto e a regeneração não reescreve o relatório nem recria HTML/TXT. A validação não exigiu nova coleta longa ou teste de instalação. A implementação não inclui a Sprint 3 nem altera a rejeição histórica do verificador.
+
+
+## Execução aprovada da Sprint 3
+
+O escopo aprovado usa conformidade com uma diretriz interna e falhas repetidas de login como caso de segurança. A implementação acrescenta Loki/Alloy para centralizar apenas os eventos permitidos da API, monitoramento de nove alvos e regra com limiar estimado de cinco falhas/minuto persistindo por 15 segundos. Duas execuções curtas sustentam detecção, ação posterior e encerramento confirmado; não é necessário repetir a coleta longa da Sprint 2.
+
+Os registros novos preservam os cinco IDs de riscos e achados, acrescentam dez controles internos, ações separadas e checkpoints inicial/final. Risco residual permanece conservador quando a evidência não sustenta redução de P/I. Limitação de tentativas, autorização por prontuário, restauração de backup ensaiada e observação externa continuam pendentes até comprovação específica. Os tratamentos não precisam estar todos concluídos para demonstrar governança, mas cada status deve refletir sua evidência.
+
+O dashboard v1.0 incorpora as cinco visões mínimas e distingue operação, histórico e novos experimentos. `analysis:sprint3` produz dados e dashboard, sem funcionalidade de relatório. Fontes e resultados históricos, incluindo a limitação de aceite do experimento anterior, permanecem intactos.
+
+A validação técnica contempla compilação, API, regras, evidências/análise, integração, persistência e inspeção visual. Evidências novas usam diretórios próprios. O status de conclusão depende dos resultados preservados; esta descrição de escopo não comprova execução. O [guia da entrega estática](entrega-sprint3.md) mapeia os 13 requisitos e orienta a montagem do PDF e dos slides pelo Cowork. Montagem/revisão acadêmica e defesa permanecem etapas externas à implementação técnica.
+
+### Resultado técnico em 16/11/2026
+
+Implementação e validação técnica concluídas. As duas sessões preservadas em `evidence/sprint3/auth-01/` e `auth-02/` registram 14 e 17 falhas de login, com detecção, ação posterior e encerramento confirmado. A disponibilidade observada do fluxo autenticado foi 100% em ambas. MTTD médio: 33,41 s; MTTR simulado: 64,36 s; tempo médio entre detecção e ação: 1,23 s (n=2).
+
+A verificação em `evidence/sprint3/validation/runtime.json` comprova fluxo autenticado, leitura no banco, regra de login, minimização, consulta centralizada, integridade e persistência de 70 eventos após reinício de Loki/Alloy. Retenção de sete dias foi configurada, sem afirmar sete dias observados. Controles implementados passaram de 4/10 para 6/10; quatro das dez ações estão concluídas. Quatro gaps críticos e os riscos residuais conservadores permanecem explícitos.
+
+Compilação, testes TypeScript/Python, regras e integração passaram; `npm start` reconhece os nove alvos. A conferência visual validou 75 painéis, 33 consultas analíticas e duas consultas Loki, sem erros, com 14 capturas finais e capturas separadas dos dois alertas. Os 18 indicadores históricos e 12 novos permanecem separados. Recalcular a Sprint 2 preservou os hashes dos 171 artefatos históricos conferidos, incluindo o ZIP anterior. O pacote `entrega-sprint3-cowork.zip`, fora do repositório, reúne o material estático; PDF, slides, revisão acadêmica e defesa continuam externos.

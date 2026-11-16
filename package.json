@@ -45,7 +45,10 @@
     "simulate:probe-outage": "bash scripts/lab.sh fail-probe",
     "probe:restore": "bash scripts/lab.sh restore-probe",
     "baseline:run": "bash scripts/lab.sh baseline",
-    "test:evidence": "python3 -m unittest discover -s tests -p \"test_*.py\""
+    "test:evidence": "python3 -m unittest discover -s tests -p \"test_*.py\"",
+    "logs:query": "python3 scripts/evidence_loki.py",
+    "session:sprint3": "python3 scripts/session_sprint3.py",
+    "analysis:sprint3": "python3 scripts/analyze_sprint3.py && npm run dashboard"
   },
   "dependencies": {
     "@fastify/jwt": "10.2.2",

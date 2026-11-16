@@ -1,0 +1,4383 @@
+{
+  "captured_at": "2026-11-16T22:24:19.831708+00:00",
+  "checks": {
+    "authenticated_flow": true,
+    "db_read_only": true,
+    "evidence_integrity": true,
+    "auth_alert": true,
+    "loki_query": true,
+    "logs_allowlist": true,
+    "loki_persistence": true,
+    "retention_config": true,
+    "integration": true,
+    "record_authorization": false,
+    "rate_limiting": false,
+    "backup_restore": false,
+    "independent_monitoring": false,
+    "external_notification": false,
+    "offhost_evidence": false
+  },
+  "observations": {
+    "authenticated_flow": {
+      "command": "npm run check; GET /prontuarios/1 sem JWT",
+      "result": {
+        "valid_flow": "Login e consulta funcionam; token e conteúdo omitidos",
+        "unauthenticated_status": 401
+      }
+    },
+    "db_read_only": {
+      "command": "SELECT has_table_privilege clinical_reader SELECT/INSERT/UPDATE/DELETE",
+      "result": "t|f|f|f"
+    },
+    "evidence_integrity": {
+      "command": "evidence_analysis.summarize por sessão",
+      "result": [
+        {
+          "result": "passed",
+          "schema_version": 1,
+          "session_id": "fdfd7283-2b60-4779-8b6e-c387b6751bf3",
+          "kind": "security",
+          "analyzer": {
+            "path": "scripts/evidence_analysis.py",
+            "sha256": "7444e1ca041bf33296d698adf427e4f36ab945fb89a67eb0ce8af71e22c083e4",
+            "source_manifest_sha256": "2699f82ddf058e52e1ea9f0982a055f9396b0219921d44ee508c47b1ca3c9b6f"
+          },
+          "started_at": "2026-11-16T22:17:05.165095+00:00",
+          "completed_at": "2026-11-16T22:19:39.700898+00:00",
+          "duration_seconds": 154.53580284118652,
+          "observations": 10,
+          "successful_probes": 10,
+          "failed_probes": 0,
+          "observed_availability_percent": 100.0,
+          "temporal_completeness_percent": 97.0648854454473,
+          "maximum_probe_gap_seconds": 15.0,
+          "response_events": 193,
+          "invalid_login_events": 14,
+          "clinical_503_events": 0,
+          "counter_observations": {
+            "load_attempts": [
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "concurrency_limit"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "http_error"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "success"
+                },
+                "observed_increment": 134.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "transport_or_login_error"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "requests": [
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "200",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 1.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "200",
+                  "traffic": "probe"
+                },
+                "observed_increment": 9.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "401",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 9.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "probe"
+                },
+                "observed_increment": 9.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "auth_failures": [
+              {
+                "labels": {
+                  "__name__": "clinical_auth_failures_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "stage": "login"
+                },
+                "observed_increment": 14.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_auth_failures_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "stage": "token"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "duration_bucket": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "+Inf",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.01",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.025",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.05",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.1",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.25",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.5",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "1.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "2.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "3.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              }
+            ],
+            "duration_count": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_count",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 136.0,
+                "resets": 0
+              }
+            ],
+            "duration_sum": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_sum",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.3054772509998296,
+                "resets": 0
+              }
+            ],
+            "host_cpu": [
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 117.13999999999987,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1900000000000004,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.08000000000000007,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.9199999999999946,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 10.330000000000013,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 130.98999999999978,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.029999999999999805,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.06000000000000005,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 0.8200000000000003,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 2.0400000000000063,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 127.44000000000005,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1299999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.029999999999999916,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 1.9400000000000048,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 4.189999999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 127.81999999999971,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.08000000000000007,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.11000000000000032,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 1.9199999999999946,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 3.8799999999999955,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 116.38000000000011,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1299999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.040000000000000036,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.3400000000000034,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 12.300000000000011,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 131.84000000000015,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.040000000000000036,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 0.5500000000000007,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 1.9399999999999977,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 120.48999999999978,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.09999999999999964,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.050000000000000044,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.4399999999999906,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 9.04000000000002,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 121.79000000000042,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.11000000000000032,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.0899999999999963,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 8.150000000000006,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 122.46000000000004,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1200000000000001,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.010000000000000009,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.6799999999999997,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 7.909999999999997,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 124.42000000000007,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.10000000000000053,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.4599999999999937,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 6.469999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 127.05999999999995,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.040000000000000036,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.0899999999999963,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 4.3799999999999955,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 127.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1200000000000001,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.05999999999999994,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.020000000000003,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 4.3500000000000085,
+                "resets": 0
+              }
+            ],
+            "container_cpu": [
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 0.836763,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 3.438827,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 1.8978430000000017,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 3.020828999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 11.728583999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 1.8414970000000004,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 0.4962510000000009,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 1.830922000000001,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 1.11781,
+                "resets": 0
+              }
+            ],
+            "container_network_receive": [
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 14420.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 8204.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 41597.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth2",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 74588.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 6813.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 3586.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 11820.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 116783.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 59638.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 6960.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 38955.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 1400978.0,
+                "resets": 0
+              }
+            ],
+            "container_network_transmit": [
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 106782.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 7294.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 36490.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth2",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 171124.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 178775.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 4268.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 458592.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 256255.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 248241.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 155789.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 44582.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 102987.0,
+                "resets": 0
+              }
+            ]
+          },
+          "sources": {
+            "availability": [
+              "series.json#/queries/probe_history"
+            ],
+            "collection": [
+              "series.json#/queries/collection_history"
+            ],
+            "invalid_logins": [
+              "events.jsonl:event=authentication,status=401"
+            ],
+            "clinical_errors": [
+              "events.jsonl:event=record_access,traffic=clinical,status=503"
+            ],
+            "host_cpu_percent": [
+              "derived.json#/queries/host_cpu_percent"
+            ],
+            "host_memory_percent": [
+              "derived.json#/queries/host_memory_percent"
+            ],
+            "container_cpu_cores": [
+              "derived.json#/queries/container_cpu_cores"
+            ],
+            "container_network_bytes_per_second": [
+              "derived.json#/queries/container_network_bytes_per_second"
+            ],
+            "clinical_volume": [
+              "derived.json#/queries/clinical_volume"
+            ],
+            "clinical_errors_percent": [
+              "derived.json#/queries/clinical_errors_percent"
+            ],
+            "clinical_p95": [
+              "derived.json#/queries/clinical_p95"
+            ]
+          },
+          "note": "Sessão didática; lacunas preservadas. Incrementos observados não equivalem ao increase extrapolado do Prometheus."
+        },
+        {
+          "result": "passed",
+          "schema_version": 1,
+          "session_id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+          "kind": "security",
+          "analyzer": {
+            "path": "scripts/evidence_analysis.py",
+            "sha256": "7444e1ca041bf33296d698adf427e4f36ab945fb89a67eb0ce8af71e22c083e4",
+            "source_manifest_sha256": "679e1819b215e304139c93085afa6ea9f91ff0a5adf9f8961415977a5d0e88d8"
+          },
+          "started_at": "2026-11-16T22:20:26.861220+00:00",
+          "completed_at": "2026-11-16T22:23:08.017920+00:00",
+          "duration_seconds": 161.15670013427734,
+          "observations": 11,
+          "successful_probes": 11,
+          "failed_probes": 0,
+          "observed_availability_percent": 100.0,
+          "temporal_completeness_percent": 100,
+          "maximum_probe_gap_seconds": 15.0,
+          "response_events": 204,
+          "invalid_login_events": 17,
+          "clinical_503_events": 0,
+          "counter_observations": {
+            "load_attempts": [
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "concurrency_limit"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "http_error"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "success"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "lab_load_attempts_total",
+                  "instance": "lab:9091",
+                  "job": "lab",
+                  "result": "transport_or_login_error"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "requests": [
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "200",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 1.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "200",
+                  "traffic": "probe"
+                },
+                "observed_increment": 10.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/auth/login",
+                  "status": "401",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 17.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "probe"
+                },
+                "observed_increment": 10.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "200",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "400",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "401",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "404",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "500",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "probe"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_requests_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "status": "503",
+                  "traffic": "unauthenticated"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "auth_failures": [
+              {
+                "labels": {
+                  "__name__": "clinical_auth_failures_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "stage": "login"
+                },
+                "observed_increment": 17.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_auth_failures_total",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "stage": "token"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              }
+            ],
+            "duration_bucket": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "+Inf",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.01",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.025",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.05",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.1",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.25",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "0.5",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "1.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "2.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_bucket",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "le": "3.0",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              }
+            ],
+            "duration_count": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_count",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 150.0,
+                "resets": 0
+              }
+            ],
+            "duration_sum": [
+              {
+                "labels": {
+                  "__name__": "clinical_request_duration_seconds_sum",
+                  "instance": "api:3000",
+                  "job": "api",
+                  "route": "/prontuarios/:id",
+                  "traffic": "clinical"
+                },
+                "observed_increment": 0.32560610399988965,
+                "resets": 0
+              }
+            ],
+            "host_cpu": [
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 129.30000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.16999999999999993,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.07999999999999963,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.299999999999997,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "0",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 12.320000000000022,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 145.53999999999996,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.05999999999999983,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 0.5299999999999976,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "1",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 2.5800000000000125,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 140.36000000000013,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.10999999999999988,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.509999999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "10",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 5.609999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 139.7800000000002,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.06000000000000005,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.13000000000000034,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.3800000000000026,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "11",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 5.150000000000006,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 129.0699999999997,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1800000000000006,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.050000000000000044,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.6700000000000017,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "2",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 13.189999999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 145.8499999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.029999999999999805,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.050000000000000044,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 0.4399999999999977,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "3",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 3.200000000000003,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 133.6300000000001,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.16999999999999993,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.06999999999999984,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.819999999999993,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "4",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 9.980000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 135.2800000000002,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.1299999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.030000000000000027,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.3899999999999935,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "5",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 9.120000000000005,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 136.07999999999993,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.14000000000000057,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.020000000000000018,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.0700000000000003,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "6",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 8.490000000000009,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 137.4699999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.10999999999999943,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.040000000000000036,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 3.039999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "7",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 7.630000000000024,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 139.8699999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.10000000000000009,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.010000000000000009,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.6499999999999986,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "8",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 5.769999999999996,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "idle"
+                },
+                "observed_increment": 139.80999999999995,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "iowait"
+                },
+                "observed_increment": 0.08000000000000007,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "irq"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "nice"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "softirq"
+                },
+                "observed_increment": 0.06999999999999995,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "steal"
+                },
+                "observed_increment": 0.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "system"
+                },
+                "observed_increment": 2.469999999999999,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "node_cpu_seconds_total",
+                  "cpu": "9",
+                  "instance": "node-exporter:9100",
+                  "job": "node",
+                  "mode": "user"
+                },
+                "observed_increment": 6.040000000000006,
+                "resets": 0
+              }
+            ],
+            "container_cpu": [
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 0.9401579999999998,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 3.888694000000001,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 1.859016000000004,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 2.6583180000000013,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 11.712353000000004,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 2.0995909999999984,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 0.47301900000000074,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 2.2707269999999937,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_cpu_usage_seconds_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "cpu": "total",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 1.2053960000000004,
+                "resets": 0
+              }
+            ],
+            "container_network_receive": [
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 15093.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 10028.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 48255.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth2",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 86566.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 6813.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 10604.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 11626.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 117214.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 67049.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 6264.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 48183.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_receive_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 1551276.0,
+                "resets": 0
+              }
+            ],
+            "container_network_transmit": [
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "alloy",
+                  "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+                  "image": "grafana/alloy:v1.22.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-alloy-1"
+                },
+                "observed_increment": 111564.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 8791.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 42254.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "api",
+                  "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth2",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-api-1"
+                },
+                "observed_increment": 213740.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "cadvisor",
+                  "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+                  "image": "ghcr.io/google/cadvisor:0.60.5",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-cadvisor-1"
+                },
+                "observed_increment": 178989.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 6519.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "grafana",
+                  "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+                  "image": "grafana/grafana:13.2.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth1",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-grafana-1"
+                },
+                "observed_increment": 463921.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "lab",
+                  "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+                  "image": "governanca-saude-app:0.1.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-lab-1"
+                },
+                "observed_increment": 255466.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "loki",
+                  "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+                  "image": "grafana/loki:3.7.10",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-loki-1"
+                },
+                "observed_increment": 310746.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "node-exporter",
+                  "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+                  "image": "prom/node-exporter:v1.12.1",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-node-exporter-1"
+                },
+                "observed_increment": 140282.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "postgres",
+                  "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+                  "image": "postgres:17.6-bookworm",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-postgres-1"
+                },
+                "observed_increment": 55165.0,
+                "resets": 0
+              },
+              {
+                "labels": {
+                  "__name__": "container_network_transmit_bytes_total",
+                  "container_label_com_docker_compose_project": "governanca-saude",
+                  "container_label_com_docker_compose_service": "prometheus",
+                  "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+                  "image": "prom/prometheus:v3.14.0",
+                  "instance": "cadvisor:8080",
+                  "interface": "eth0",
+                  "job": "cadvisor",
+                  "name": "governanca-saude-prometheus-1"
+                },
+                "observed_increment": 110639.0,
+                "resets": 0
+              }
+            ]
+          },
+          "sources": {
+            "availability": [
+              "series.json#/queries/probe_history"
+            ],
+            "collection": [
+              "series.json#/queries/collection_history"
+            ],
+            "invalid_logins": [
+              "events.jsonl:event=authentication,status=401"
+            ],
+            "clinical_errors": [
+              "events.jsonl:event=record_access,traffic=clinical,status=503"
+            ],
+            "host_cpu_percent": [
+              "derived.json#/queries/host_cpu_percent"
+            ],
+            "host_memory_percent": [
+              "derived.json#/queries/host_memory_percent"
+            ],
+            "container_cpu_cores": [
+              "derived.json#/queries/container_cpu_cores"
+            ],
+            "container_network_bytes_per_second": [
+              "derived.json#/queries/container_network_bytes_per_second"
+            ],
+            "clinical_volume": [
+              "derived.json#/queries/clinical_volume"
+            ],
+            "clinical_errors_percent": [
+              "derived.json#/queries/clinical_errors_percent"
+            ],
+            "clinical_p95": [
+              "derived.json#/queries/clinical_p95"
+            ]
+          },
+          "note": "Sessão didática; lacunas preservadas. Incrementos observados não equivalem ao increase extrapolado do Prometheus."
+        }
+      ]
+    },
+    "auth_alert": {
+      "command": "summarize valida eventos, firing, cronologia, resolução e coleta final",
+      "result": [
+        {
+          "session_id": "fdfd7283-2b60-4779-8b6e-c387b6751bf3",
+          "result": "passed",
+          "invalid_logins": 14
+        },
+        {
+          "session_id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+          "result": "passed",
+          "invalid_logins": 17
+        }
+      ]
+    },
+    "loki_query": {
+      "command": "Loki query_range janela fixa60s",
+      "result": {
+        "logql": "{project=\"governanca-saude\",service=\"api\"}",
+        "range_start": "2026-11-16T22:22:45.899646+00:00",
+        "range_end": "2026-11-16T22:23:45.899646+00:00",
+        "entries": 70,
+        "requests": 1
+      }
+    },
+    "logs_allowlist": {
+      "command": "Conferência das linhas originais consultadas no Loki",
+      "result": {
+        "events": 70,
+        "fields": [
+          "correlation_id",
+          "duration_ms",
+          "event",
+          "instance_id",
+          "level",
+          "service",
+          "status",
+          "time",
+          "traffic"
+        ],
+        "unexpected_fields": []
+      }
+    },
+    "loki_persistence": {
+      "command": "Reiniciar Loki/Alloy e repetir mesma consulta/intervalo",
+      "result": {
+        "before": 70,
+        "after": 70,
+        "same_original_entries": true
+      }
+    },
+    "retention_config": {
+      "command": "Revisão configuração Loki validada pelo binário",
+      "result": {
+        "retention_hours": 168,
+        "compactor_retention_enabled": true,
+        "index_period_hours": 24,
+        "empirical_7_days": false
+      }
+    },
+    "integration": {
+      "command": "npm run test:integration",
+      "result": "Login e consulta funcionam; token e conteúdo omitidos\n{\"result\": \"passed\", \"records\": 100, \"identities\": 3, \"targets\": 9, \"container_metrics\": 9, \"published_loopback_ports\": [\"3000\", \"3001\"], \"cpu_limit\": 6.5, \"memory_limit_gib\": 7.75}"
+    },
+    "removed_report_routes": {
+      "result": "404 nas três rotas removidas; runbook200 confirmado pela integração"
+    },
+    "record_authorization": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "API valida JWT sem vínculo profissional-prontuário."
+    },
+    "rate_limiting": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "Sem limite; ensaios observaram respostas401 repetidas, sem429."
+    },
+    "backup_restore": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "Nenhum ensaio de restauração de backup realizado."
+    },
+    "independent_monitoring": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "Componentes executam no mesmo host."
+    },
+    "external_notification": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "Sem canal externo de notificação configurado."
+    },
+    "offhost_evidence": {
+      "method": "Revisão estática e limites do escopo",
+      "result": "Cópia fora do host não verificada."
+    }
+  },
+  "sources": [
+    {
+      "path": "evidence/sprint3/auth-01/manifest.json",
+      "sha256": "2699f82ddf058e52e1ea9f0982a055f9396b0219921d44ee508c47b1ca3c9b6f"
+    },
+    {
+      "path": "evidence/sprint3/auth-01/session.json",
+      "sha256": "beedd1176470b2ae4995cd8f4af94c9efcbbf9795a82df788c0d73d0924834b1"
+    },
+    {
+      "path": "evidence/sprint3/auth-01/logs-query.json",
+      "sha256": "5978bf8aa3893e98bc59b262d39f88fc564595d2f51e0019262e3b7c8c417c1e"
+    },
+    {
+      "path": "evidence/sprint3/auth-02/manifest.json",
+      "sha256": "679e1819b215e304139c93085afa6ea9f91ff0a5adf9f8961415977a5d0e88d8"
+    },
+    {
+      "path": "evidence/sprint3/auth-02/session.json",
+      "sha256": "87d3eff130932fa9aced48caeca706255418edf35d4251259640b9f7c5d97e70"
+    },
+    {
+      "path": "evidence/sprint3/auth-02/logs-query.json",
+      "sha256": "681b280dc322ec0714259f969d6a2d5d5bb20526193d46e819a71ff99957f0a6"
+    },
+    {
+      "path": "evidence/sprint3/validation/loki-before-restart.json",
+      "sha256": "8a0d084017378bbb83639eaaafdaa4197728a6aff021d8b841ccd7b0f69dae4c"
+    },
+    {
+      "path": "evidence/sprint3/validation/loki-after-restart.json",
+      "sha256": "8a0d084017378bbb83639eaaafdaa4197728a6aff021d8b841ccd7b0f69dae4c"
+    },
+    {
+      "path": "evidence/sprint3/validation/container-resources.json",
+      "sha256": "9e50009e8274d2f43e95c188e7c5c787f7b856022afbf2710a6ef73e9ed37bf1"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/apps/api/app.ts",
+      "sha256": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/infra/compose.yaml",
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/logging/config.alloy",
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/logging/loki.yml",
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/monitoring/rules.yml",
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/monitoring/prometheus.yml",
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/scripts/session_sprint3.py",
+      "sha256": "6de2670f9e065d861120facc278e1b1f30e1d400a0ddc3d344b29f41243b08d1"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/scripts/evidence_loki.py",
+      "sha256": "309ffa4597cc7bbdeefec616205a97974a459c5da70763ff15395c36f1534b1d"
+    },
+    {
+      "path": "evidence/sprint3/validation/sources/scripts/evidence_analysis.py",
+      "sha256": "7444e1ca041bf33296d698adf427e4f36ab945fb89a67eb0ce8af71e22c083e4"
+    },
+    {
+      "path": "evidence/sprint3/validation/verify-runtime.py",
+      "sha256": "e125f98b7f4d3f651c1c3b47bd74973a4a0f88cb970f2fe24dc61ea289fe9076"
+    }
+  ]
+}

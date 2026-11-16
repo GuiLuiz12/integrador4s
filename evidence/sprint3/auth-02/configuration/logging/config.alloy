@@ -1,0 +1,83 @@
+logging {
+  level = "warn"
+}
+
+discovery.docker "api" {
+  host = "unix:///var/run/docker.sock"
+  filter {
+    name = "label"
+    values = ["com.docker.compose.project=governanca-saude", "com.docker.compose.service=api"]
+  }
+}
+
+discovery.relabel "api" {
+  targets = discovery.docker.api.targets
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_project", "__meta_docker_container_label_com_docker_compose_service"]
+    regex = "governanca-saude;api"
+    action = "keep"
+  }
+  rule {
+    target_label = "project"
+    replacement = "governanca-saude"
+  }
+  rule {
+    target_label = "service"
+    replacement = "api"
+  }
+}
+
+loki.source.docker "api" {
+  host = "unix:///var/run/docker.sock"
+  targets = discovery.relabel.api.output
+  forward_to = [loki.process.api.receiver]
+}
+
+loki.process "api" {
+  forward_to = [loki.write.local.receiver]
+  stage.json {
+    drop_malformed = true
+    expressions = {
+      time = "time",
+      level = "level",
+      event = "event",
+      correlation_id = "correlation_id",
+      traffic = "traffic",
+      status = "status",
+      duration_ms = "duration_ms",
+      service = "service",
+      instance_id = "instance_id",
+    }
+  }
+  stage.labels {
+    values = { event = "" }
+  }
+  stage.match {
+    selector = "{event!~\"authentication|record_access|request_error\"}"
+    action = "drop"
+    drop_counter_reason = "outside_event_allowlist"
+  }
+  // Rebuild the body; filtering labels alone would leave private fields in Loki.
+  // template exposes extracted values as strings: cast the original numeric fields back.
+  stage.template {
+    source = "sanitized"
+    template = `{{- $out := dict "time" (int64 .time) "level" (int .level) "event" .event "correlation_id" .correlation_id "status" (int .status) "service" .service "instance_id" .instance_id -}}{{- if ne .traffic nil -}}{{- $_ := set $out "traffic" .traffic -}}{{- end -}}{{- if ne .duration_ms nil -}}{{- $_ := set $out "duration_ms" (int .duration_ms) -}}{{- end -}}{{ $out | toJson }}`
+  }
+  stage.output {
+    source = "sanitized"
+  }
+  stage.timestamp {
+    source = "time"
+    format = "UnixMs"
+    action_on_duplicate_timestamp = "keep"
+  }
+  stage.label_keep {
+    values = ["project", "service", "event"]
+  }
+}
+
+loki.write "local" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

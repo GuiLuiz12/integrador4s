@@ -5,7 +5,7 @@ const sections = [
     ['setup:check', 'Somente verifica requisitos do host; não instala nem inicia serviços.'],
     ['start', 'Constrói/sobe o laboratório e confirma prontidão (pode levar minutos). Requer setup.'],
     ['stop', 'Encerra somente este laboratório; preserva volumes e senhas.'],
-    ['status', 'Mostra estado e portas dos sete serviços. Requer setup.'],
+    ['status', 'Mostra estado e portas dos nove serviços. Requer setup.'],
     ['logs [-- SERVIÇO]', 'Acompanha as últimas 100 linhas e novos logs; Ctrl+C encerra somente a leitura.'],
     ['access', 'Mostra URLs, usuários e onde consultar senhas; não imprime segredos.'],
     ['help', 'Mostra este catálogo. npm run também lista os scripts.'],
@@ -19,6 +19,7 @@ const sections = [
     ['db [-- OPÇÕES_PSQL]', 'Abre psql no PostgreSQL, banco healthlab, usuário lab_owner. Sair: \\q.'],
     ['db:check', 'Verifica se PostgreSQL aceita conexões.'],
     ['metrics:query [-- "PROMQL"]', 'Consulta Prometheus interno e retorna JSON. Padrão: up.'],
+    ['logs:query -- "LOGQL" [SEGUNDOS]', 'Consulta eventos permitidos da API no Loki interno; janela em segundos, sem imprimir credenciais.'],
   ]],
   ['Teste de instalação em VM isolada (opcional; não exige laboratório ativo)', [
     ['test:ubuntu26', 'Instala do zero em VM descartável (15–30 min). Requer QEMU/KVM, SSH, Python 3.11+, Git, internet, 10 GiB de RAM livre e 25 GiB em /tmp; preserva laboratório do host.'],
@@ -36,6 +37,7 @@ const sections = [
   ['Evidências (laboratório ativo; summary usa arquivos de sessão concluída)', [
     ['evidence:export [-- PASTA --from ISO --to ISO]', 'Exporta origens, séries e manifesto para pasta vazia. Datas com fuso, informadas juntas; padrão: última hora.'],
     ['baseline:run', 'BASELINE DE 30 MINUTOS após 5 min de estabilização: carga 1/s e validação offline.'],
+    ['session:sprint3 -- PASTA_NOVA', 'Uma simulação curta de login: aguarda firing até 120 s, interrompe tentativas e confirma encerramento após 60 s sem falhas. Exporta evidências; rodar duas vezes sequencialmente em pastas distintas.'],
     ['session:run', 'EXPERIMENTOS DE 60 MINUTOS após 5 min de estabilização: carga, logins, banco e probe isolado.'],
     ['session:summary -- PASTA', 'Confere manifesto e fontes; aceita baseline, sessão nova ou histórica e grava summary.json na pasta informada.'],
   ]],
@@ -44,12 +46,13 @@ const sections = [
     ['test', 'Testes de código e scripts; não executa a sessão real.'],
     ['test:evidence', 'Testa exportação e análise offline com Python; não acessa Docker.'],
     ['dashboard', 'Gera dashboards/saude.json; versionar junto com scripts/dashboard.mjs.'],
-    ['analysis:sprint2', 'Recalcula os dados analíticos e o dashboard v0.2 a partir das fontes preservadas; não gera relatório nem inicia coleta.'],
+    ['analysis:sprint2', 'Recalcula os dados históricos da Sprint 2 e atualiza o dashboard a partir das fontes preservadas; não gera relatório nem inicia coleta.'],
+    ['analysis:sprint3', 'Consolida evidências, controles, riscos e ações da Sprint 3 e gera dashboard v1.0; não gera relatório nem inicia coleta.'],
     ['start:api', 'Inicia SOMENTE API compilada fora do Docker; requer banco e variáveis preparados.'],
     ['start:lab', 'Inicia SOMENTE gerador/verificador compilados; requer API e variáveis preparados.'],
     ['browser:setup', 'Instala Chromium e bibliotecas do sistema; internet e possivelmente sudo.'],
     ['dashboard:verify [-- --session-dir PASTA | --from ISO --to ISO]', 'Requer browser:setup e Grafana ativo. Valida/captura painel; padrão última hora; pasta de captura exclusiva. --session-dir vincula ao manifesto.'],
-    ['alerts:capture [-- ISO_INÍCIO --output-dir PASTA]', 'Observa dois alertas por até 70 min; não provoca falhas. Requer browser:setup/Grafana. Salva em pasta exclusiva; use --output-dir para vincular à sessão.'],
+    ['alerts:capture [-- ISO_INÍCIO --until ISO_FIM --alert NOME --timeout-seconds SEGUNDOS --output-dir PASTA]', 'Observa alertas sem provocar falhas; padrão: dois históricos por até 70 min. Para login: --alert FalhasDeLoginRepetidas. Requer browser:setup/Grafana e pasta exclusiva.'],
   ]],
 ];
 console.log('Primeiro uso: ./bootstrap.sh → npm run setup → npm start\n');

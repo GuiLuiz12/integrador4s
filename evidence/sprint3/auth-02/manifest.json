@@ -1,0 +1,209 @@
+{
+  "schema_version": 2,
+  "inventory_profile": "sprint3",
+  "session_id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+  "kind": "security",
+  "status": "completed",
+  "captured_at": "2026-11-16T22:23:13.281326+00:00",
+  "range_start": "2026-11-16T22:20:26.861220+00:00",
+  "range_end": "2026-11-16T22:23:08.017920+00:00",
+  "window": "161157ms",
+  "boundary": "start <= timestamp <= end",
+  "scrape_interval_seconds": 15,
+  "context_seconds": 300,
+  "phases": [],
+  "parameters": {
+    "invalid_login_interval_seconds": 2,
+    "detection_timeout_seconds": 120,
+    "quiet_recovery_seconds": 60,
+    "response_actor": "Roteiro automatizado"
+  },
+  "files": {
+    "configuration/dashboards/provisioning/datasources/analysis.yml": {
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "bytes": 181
+    },
+    "configuration/dashboards/provisioning/datasources/loki.yml": {
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "bytes": 170
+    },
+    "configuration/dashboards/provisioning/datasources/prometheus.yml": {
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "bytes": 240
+    },
+    "configuration/dashboards/saude.json": {
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "bytes": 86116
+    },
+    "configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "configuration/infra/compose.yaml": {
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "bytes": 6012
+    },
+    "configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "configuration/logging/config.alloy": {
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "bytes": 2333
+    },
+    "configuration/logging/loki.yml": {
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "bytes": 971
+    },
+    "configuration/monitoring/prometheus.yml": {
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "bytes": 954
+    },
+    "configuration/monitoring/rules.yml": {
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "bytes": 2484
+    },
+    "configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "configuration/package.json": {
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "bytes": 2721
+    },
+    "configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    },
+    "derived.json": {
+      "sha256": "b9bf1ad520fdd9812502ba3cf5d4eac3c6f2100e67a70c457cca7c3c261e4838",
+      "bytes": 30646
+    },
+    "events.jsonl": {
+      "sha256": "c553dcda426dc39a3f2565b4f8b249e692f98481fc046e16da01a759a460e6d3",
+      "bytes": 44993
+    },
+    "inventory-start.json": {
+      "sha256": "388856ab33f8f270bd5a7248d0da01c7fad21a59129be84f1fdb4c466cc0b4ee",
+      "bytes": 8337
+    },
+    "inventory.json": {
+      "sha256": "c5736c9b1cfe631c5eadcd7f880555f5e9ba8e03c0e1e5ed723921c4405fd153",
+      "bytes": 8337
+    },
+    "logs-query.json": {
+      "sha256": "681b280dc322ec0714259f969d6a2d5d5bb20526193d46e819a71ff99957f0a6",
+      "bytes": 95745
+    },
+    "metrics.json": {
+      "sha256": "6232e40c5def9f67b83e9abb5eff343e7205d82cec8ba020fb7d9fd78dd734c2",
+      "bytes": 26107
+    },
+    "series.json": {
+      "sha256": "4ff61cace8cb0e2199242e541867d9a085327542681e1aa2426ebf727b6eda9b",
+      "bytes": 663414
+    },
+    "session.json": {
+      "sha256": "87d3eff130932fa9aced48caeca706255418edf35d4251259640b9f7c5d97e70",
+      "bytes": 1694
+    },
+    "start/configuration/dashboards/provisioning/datasources/analysis.yml": {
+      "sha256": "188b9ea0a07ba333ed3827c4fe939a1f0e41710c4431235e84449b86a98d3769",
+      "bytes": 181
+    },
+    "start/configuration/dashboards/provisioning/datasources/loki.yml": {
+      "sha256": "df846ebb50c35de4d81cc4cbe083de77984630d11ddd1ae7f22ac6f82e75b0a2",
+      "bytes": 170
+    },
+    "start/configuration/dashboards/provisioning/datasources/prometheus.yml": {
+      "sha256": "b0f0db7b2227162a33a08ff2db228871362d8df74eaef6b8bd3d3178c9e5aa1f",
+      "bytes": 240
+    },
+    "start/configuration/dashboards/saude.json": {
+      "sha256": "bebb5c469b356d57a6f61464b89e3b08b8c2cdfefee47c69f1e64bc3324cc3b4",
+      "bytes": 86116
+    },
+    "start/configuration/infra/Dockerfile": {
+      "sha256": "528c208c7af46cb14a6bd28b26f89a09c57c314cb57121a057a00145c186f2c1",
+      "bytes": 458
+    },
+    "start/configuration/infra/compose.yaml": {
+      "sha256": "2790d9e8edb376070e0d6d154bc173a77f9f1d4e0991b305450f47805763dd5b",
+      "bytes": 6012
+    },
+    "start/configuration/infra/postgres/001-init.sh": {
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "bytes": 1389
+    },
+    "start/configuration/logging/config.alloy": {
+      "sha256": "f5f45ede5a9f765bfd34bbf4f88c6df2715efba1bc887e90f15879555d6cb665",
+      "bytes": 2333
+    },
+    "start/configuration/logging/loki.yml": {
+      "sha256": "b3b863d486fb8b4af4ecb1aeb2f7a74daf6ce57b3e6086cfb055cddca47d4b84",
+      "bytes": 971
+    },
+    "start/configuration/monitoring/prometheus.yml": {
+      "sha256": "4a4eed3e2e53aca603335bb57898d9aaa265837ac40976817540c8636933c583",
+      "bytes": 954
+    },
+    "start/configuration/monitoring/rules.yml": {
+      "sha256": "1187a2a57ce556d512ad0bcf6bc17ab667f648f5a6b735e2f8a09d6a58b56cab",
+      "bytes": 2484
+    },
+    "start/configuration/package-lock.json": {
+      "sha256": "447fc465940818d3765788fa32544ac5e087266eab8bc449b886feb6cc26b5e8",
+      "bytes": 58275
+    },
+    "start/configuration/package.json": {
+      "sha256": "86d1c7da1a95ff92585b545b1c5dd24df566f107024f38cad4cd00becc79327f",
+      "bytes": 2721
+    },
+    "start/configuration/tsconfig.json": {
+      "sha256": "542085c8bad5c7cbfb8c23baa7f0e1d26e4c00a9a006b8d7c2ca46daf2eba643",
+      "bytes": 295
+    }
+  },
+  "inventory": "inventory.json",
+  "indicator_sources": {
+    "availability": [
+      "series.json#/queries/probe_history"
+    ],
+    "collection": [
+      "series.json#/queries/collection_history"
+    ],
+    "invalid_logins": [
+      "events.jsonl:event=authentication,status=401"
+    ],
+    "clinical_errors": [
+      "events.jsonl:event=record_access,traffic=clinical,status=503"
+    ],
+    "host_cpu_percent": [
+      "derived.json#/queries/host_cpu_percent"
+    ],
+    "host_memory_percent": [
+      "derived.json#/queries/host_memory_percent"
+    ],
+    "container_cpu_cores": [
+      "derived.json#/queries/container_cpu_cores"
+    ],
+    "container_network_bytes_per_second": [
+      "derived.json#/queries/container_network_bytes_per_second"
+    ],
+    "clinical_volume": [
+      "derived.json#/queries/clinical_volume"
+    ],
+    "clinical_errors_percent": [
+      "derived.json#/queries/clinical_errors_percent"
+    ],
+    "clinical_p95": [
+      "derived.json#/queries/clinical_p95"
+    ]
+  },
+  "limitations": [
+    "Host includes workloads outside this project.",
+    "Inventory describes capture time; historical configuration requires a session-start snapshot.",
+    "Derived points do not prove collection completeness; use original samples.",
+    "Missing or rotated source logs cannot be reconstructed."
+  ]
+}

@@ -24,7 +24,7 @@ setup_resources() {
   cpus="$(getconf _NPROCESSORS_ONLN)"
   memory="$(awk '/MemTotal:/ {print $2}' /proc/meminfo)"
   disk="$(df -Pk "$LAB_ROOT" | awk 'END {print $4}')"
-  (( cpus >= 6 )) || { setup_error "São necessárias 6 CPUs lógicas; encontradas: $cpus."; return 1; }
+  (( cpus >= 8 )) || { setup_error "São necessárias 8 CPUs lógicas; encontradas: $cpus."; return 1; }
   # Nominal 8 GiB machines expose slightly less usable memory to the kernel.
   (( memory >= 7864320 )) || { setup_error 'São necessários 8 GiB de RAM (ao menos 7,5 GiB reconhecidos pelo sistema).'; return 1; }
   (( disk >= 15728640 )) || { setup_error 'Reserve pelo menos 15 GiB livres no disco do projeto para imagens e dados.'; return 1; }

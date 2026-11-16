@@ -21,6 +21,21 @@ Não remover volumes para recuperar o serviço. Se o problema persistir, consult
 3. Confirmar cobertura de 100% e novas verificações antes de concluir sobre o serviço.
 4. Se o Prometheus parar, Grafana apresentará erro/sem dados; esse Prometheus único não consegue detectar sua própria parada total. Não interpretar ausência de alerta como recuperação.
 
+## Falhas repetidas de login
+
+1. Registrar o horário de `FalhasDeLoginRepetidas` e consultar os eventos de autenticação no Loki pelo Grafana. Confirmar respostas `401`, intervalo e correlação; falhas de token não entram na regra de login.
+2. Confirmar que a consulta autenticada continua funcionando. O alerta sinaliza repetição de recusas, não invasão confirmada ou indisponibilidade clínica.
+3. Na simulação autorizada, registrar a detecção antes de interromper o gerador de tentativas. O roteiro faz essa ação automaticamente; não afirmar que houve bloqueio na API.
+4. Confirmar alerta resolvido, consulta válida e pelo menos 60 segundos sem novas falhas. Guardar início, detecção, ação e encerramento, distinguindo MTTD, tempo até ação e MTTR simulado.
+5. Se a execução for interrompida ou o disparo não acontecer, preservar seu estado incompleto. Conferir coleta, regra e eventos antes de iniciar outra execução em pasta nova.
+
+## Falha da centralização de eventos
+
+1. Conferir os jobs `alloy` e `loki`, estado dos serviços e eventos recentes no Grafana. `up=1` sozinho não comprova chegada de cada evento.
+2. Consultar os logs locais dos componentes, espaço em disco e configuração; não incluir logs arbitrários ou segredos no pacote de evidências.
+3. Retomar o ambiente pelo procedimento do README, preservando volumes. Verificar leitura de eventos já armazenados e ingestão de um evento novo.
+4. Registrar duração e extensão conhecida da lacuna. Posições persistentes ajudam a retomada, mas não recuperam logs rotacionados antes da leitura ou volume perdido. A falha do mesmo host pode interromper coleta, armazenamento e dashboard ao mesmo tempo.
+
 ## Experimento autorizado
 
 Os cenários e seus comandos estão na seção “Demonstrar” do README principal. A falha de banco dura 120 s e o roteiro tenta restaurá-lo ao finalizar ou receber SIGINT/SIGTERM. SIGKILL, queda do host ou encerramento do daemon podem exigir `npm run db:restore` manual.
@@ -29,4 +44,4 @@ A falha isolada do probe dura 90 s, preserva o gerador e suas métricas e possui
 
 ## Decisão gerencial esperada
 
-Priorizar a restauração da consulta clínica, confirmar a recuperação por evidência e registrar o resultado. O impacto é atraso simulado de atendimento. A Sprint 2 mantém avaliação qualitativa de riscos e tratamentos planejados; a restauração automática do experimento não comprova execução desses tratamentos nem aprovação executiva.
+Priorizar a restauração da consulta clínica, confirmar a recuperação por evidência e registrar o resultado. O impacto é atraso simulado de atendimento. O registro histórico da Sprint 2 mantém avaliação qualitativa de riscos e tratamentos planejados. Na Sprint 3, atualizar apenas ações e controles sustentados por novas evidências; a restauração automática do experimento não comprova execução desses tratamentos nem aprovação executiva.

@@ -83,8 +83,8 @@ def main():
     if not os.access('/dev/kvm', os.R_OK | os.W_OK):
         raise RuntimeError('É necessário acesso de leitura/escrita a /dev/kvm para este teste.')
     memory = int(next(line.split()[1] for line in pathlib.Path('/proc/meminfo').read_text().splitlines() if line.startswith('MemAvailable:')))
-    if memory < 10 * 1024**2 or (os.cpu_count() or 0) < 6:
-        raise RuntimeError('Reserve 10 GiB de memória disponível no host e ao menos 6 CPUs para testar sem comprometer o laboratório ativo.')
+    if memory < 10 * 1024**2 or (os.cpu_count() or 0) < 8:
+        raise RuntimeError('Reserve 10 GiB de memória disponível no host e ao menos 8 CPUs para testar sem comprometer o laboratório ativo.')
     if shutil.disk_usage('/tmp').free < 25 * 1024**3:
         raise RuntimeError('Reserve 25 GiB livres em /tmp para a VM e as imagens Docker.')
     image, image_sha = image_file(args.cache_dir.resolve())
@@ -112,10 +112,10 @@ def main():
             port_probe.bind(('127.0.0.1', 0))
             ssh_port = port_probe.getsockname()[1]
         run(['qemu-img', 'create', '-f', 'qcow2', '-F', 'qcow2', '-b', str(image), str(work / 'disk.qcow2'), '40G'], stdout=subprocess.DEVNULL)
-        message(f'Iniciando VM isolada: 6 vCPUs, 8 GiB RAM, disco 40 GiB. Evidências: {output.relative_to(ROOT)}')
+        message(f'Iniciando VM isolada: 8 vCPUs, 8 GiB RAM, disco 40 GiB. Evidências: {output.relative_to(ROOT)}')
         with (work / 'qemu.log').open('w') as log:
             vm = subprocess.Popen(['qemu-system-x86_64', '-enable-kvm', '-machine', 'q35', '-cpu', 'host',
-                                   '-smp', '6', '-m', '8192', '-display', 'none', '-monitor', 'none',
+                                   '-smp', '8', '-m', '8192', '-display', 'none', '-monitor', 'none',
                                    '-serial', f'file:{work / "serial.log"}',
                                    '-drive', f'file={work / "disk.qcow2"},if=virtio,format=qcow2',
                                    '-netdev', f'user,id=net0,hostfwd=tcp:127.0.0.1:{ssh_port}-:22',
@@ -147,7 +147,7 @@ def main():
              'lab@127.0.0.1:project/evidence/runs/install-test/result.json', str(output / 'result.json')], stdout=subprocess.DEVNULL)
         result = json.loads((output / 'result.json').read_text())
         result.update({'image_url': IMAGE_URL + IMAGE_NAME, 'image_sha256': image_sha,
-                       'source_archive_sha256': source_sha, 'vcpus': 6, 'memory_gib': 8, 'disk_gib': 40,
+                       'source_archive_sha256': source_sha, 'vcpus': 8, 'memory_gib': 8, 'disk_gib': 40,
                        'hypervisor': 'QEMU/KVM', 'tested_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())})
         (output / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
         message('APROVADO: instalação completa, sete serviços, cobertura 100% e dados preservados após retomada.')

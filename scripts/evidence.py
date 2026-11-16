@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import uuid
 
-from evidence_catalog import RAW, DERIVED, SERVICES, P95
+from evidence_catalog import RAW, DERIVED, PROFILES, P95
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DOCKER = [str(ROOT / 'scripts/docker.sh')]
@@ -105,6 +105,7 @@ def context(folder):
     names = ['package.json', 'package-lock.json', 'tsconfig.json', 'infra/compose.yaml',
              'infra/Dockerfile', 'infra/postgres/001-init.sh', 'monitoring/prometheus.yml',
              'monitoring/rules.yml', 'dashboards/saude.json']
+    names += [str(p.relative_to(ROOT)) for pattern in ('logging/*.yaml', 'logging/*.yml', 'logging/*.alloy', 'dashboards/provisioning/datasources/*.yaml', 'dashboards/provisioning/datasources/*.yml') for p in ROOT.glob(pattern)]
     sources = sorted([*ROOT.glob('apps/**/*.ts'), *ROOT.glob('scripts/*.py'),
                       *ROOT.glob('scripts/*.sh'), *ROOT.glob('scripts/*.mjs')])
     for name in names:
@@ -124,14 +125,14 @@ def context(folder):
     for container in ids:
         asset = json.loads(subprocess.run(DOCKER + ['inspect', '--format', template, container],
                                          check=True, capture_output=True, text=True).stdout)
-        if asset['service'] not in SERVICES:
+        if asset['service'] not in PROFILES['sprint3']['services']:
             continue
         asset['asset_id'] = 'governanca-saude/' + asset['service']
         asset['image_digests'] = json.loads(subprocess.run(DOCKER + ['image', 'inspect', '--format', '{{json .RepoDigests}}', asset['image_id']],
                                                           check=True, capture_output=True, text=True).stdout) or []
         assets.append(asset)
-    if {a['service'] for a in assets} != set(SERVICES):
-        raise ValueError('São necessários os sete serviços ativos para registrar o inventário.')
+    if {a['service'] for a in assets} != set(PROFILES['sprint3']['services']):
+        raise ValueError('São necessários os nove serviços ativos para registrar o inventário.')
     host = json.loads(subprocess.run(DOCKER + ['info', '--format', '{"os":{{json .OperatingSystem}},"architecture":{{json .Architecture}},"cpus":{{json .NCPU}},"memory_bytes":{{json .MemTotal}},"docker_version":{{json .ServerVersion}}}'],
                                     check=True, capture_output=True, text=True).stdout)
     return {'observed_at': iso(dt.datetime.now(UTC).timestamp()), 'commit': commit,
@@ -175,9 +176,9 @@ def export(destination=None, start=None, end=None, run=None):
                       'sources': ['series.json#/queries/' + source for source in sources],
                       'data': query_range(expr, begin, finish)}
                for name, (expr, unit, sources) in DERIVED.items()}
-    logs = subprocess.run(COMPOSE + ['logs', '--no-color', '--no-log-prefix', '--since', iso(begin), '--until', iso(finish), 'api'],
-                          check=True, capture_output=True, text=True, timeout=90)
-    events = filter_events(logs.stdout, begin, finish)
+    from evidence_loki import export_logs
+    events, log_source = export_logs(begin, finish)
+    write_json(folder / 'logs-query.json', log_source)
     write_json(folder / 'metrics.json', metrics)
     write_json(folder / 'series.json', {**metadata, 'context_start': iso(begin - 300), 'queries': raw})
     write_json(folder / 'derived.json', {**metadata, 'queries': derived})
@@ -185,7 +186,7 @@ def export(destination=None, start=None, end=None, run=None):
     write_json(folder / 'inventory.json', inventory)
     # Manifest is the final commit marker. Interrupted exports have no accepted manifest.
     files = sorted(p for p in folder.rglob('*') if p.is_file() and not p.name.endswith('.tmp'))
-    manifest = {'schema_version': 1, 'session_id': (run or {}).get('session_id', str(uuid.uuid4())),
+    manifest = {'schema_version': 2, 'inventory_profile': 'sprint3', 'session_id': (run or {}).get('session_id', str(uuid.uuid4())),
                 'kind': (run or {}).get('kind', 'export'), 'status': (run or {}).get('status', 'completed'),
                 **metadata, 'scrape_interval_seconds': 15, 'context_seconds': 300,
                 'phases': (run or {}).get('phases', []), 'parameters': (run or {}).get('parameters', {}),

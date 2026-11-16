@@ -1,0 +1,75 @@
+{
+  "captured_at": "2026-11-16T22:07:56.781995+00:00",
+  "git_commit": "5a73b9bad85610cd2b1d4460232e816d44f7f3f5",
+  "checks": {
+    "authenticated_flow": true,
+    "db_read_only": true,
+    "logs_allowlist": true,
+    "evidence_integrity": true
+  },
+  "sources": [
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/apps/api/app.ts",
+      "sha256": "c5bc0fdada3ef128a06a9668cba877ba6f3ff4ff9e57da9fa4e22cea84c34d26",
+      "origin": "apps/api/app.ts"
+    },
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/apps/api/repository.ts",
+      "sha256": "a90d31480313c7cb7a653553b50065e02a14d2d81f2d0e6df9ba4fef80f3776f",
+      "origin": "apps/api/repository.ts"
+    },
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/infra/compose.yaml",
+      "sha256": "39599fc94fff5b827edce09929d7bf2fdb0d366afa9eaa1f78430c8bf769b754",
+      "origin": "infra/compose.yaml"
+    },
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/infra/postgres/001-init.sh",
+      "sha256": "1e0755a50fe46a060cd8dc5d1c509d257e5f6679ab77773c8ba7c328a83559c2",
+      "origin": "infra/postgres/001-init.sh"
+    },
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/logging/README.md",
+      "sha256": "e4106a3f45e64d2358039c46e0dcfb1c49647f874dc46ab0b450e2196d01aa35",
+      "origin": "logging/README.md"
+    },
+    {
+      "path": "evidence/sprint3/checkpoint-inicial/sources/monitoring/rules.yml",
+      "sha256": "9233a20614b8f9de667cdc8d2238b2866a344c29acc45dff2b3737ba9b25f3a8",
+      "origin": "monitoring/rules.yml"
+    }
+  ],
+  "observations": {
+    "kind": "Fontes do checkpoint Git anterior à Sprint 3; verificação operacional registrada separadamente",
+    "centralized_logging": false,
+    "login_alert": false,
+    "preserved_artifacts": 171,
+    "authenticated_flow": {
+      "command": "npm run check",
+      "result": "Login e consulta funcionam; token e conteúdo omitidos",
+      "static_support": "sources/apps/api/app.ts: rota exige jwtVerify"
+    },
+    "db_read_only": {
+      "command": "SELECT has_table_privilege(... SELECT/INSERT/UPDATE/DELETE)",
+      "result": "t|f|f|f"
+    },
+    "logs_allowlist": {
+      "command": "docker compose logs --tail 30 api; inspecionar eventos estruturados",
+      "result": {
+        "checked_events": 30,
+        "unexpected_fields": []
+      },
+      "allowed_local_metadata": [
+        "msg",
+        "pid",
+        "hostname"
+      ],
+      "note": "Logs locais antes da centralização; exportação anterior remove metadados locais."
+    },
+    "evidence_integrity": {
+      "command": "verify_manifest(evidence/validated/refinamento-sprint1/baseline)",
+      "result": "passed",
+      "historical_protection": "171 artefatos anteriores tiveram hashes preservados antes da edição; manifesto do baseline verificado."
+    }
+  }
+}

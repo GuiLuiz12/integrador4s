@@ -1,0 +1,3203 @@
+{
+  "uid": "saude-v01",
+  "title": "Governança em Cibersegurança · Saúde v0.2",
+  "tags": [
+    "saude",
+    "sprint-2"
+  ],
+  "schemaVersion": 39,
+  "version": 2,
+  "editable": false,
+  "timezone": "America/Sao_Paulo",
+  "refresh": "15s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 100,
+      "title": "Análise · 26/10/2026 · 19:57–20:57",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 101,
+      "title": "Riscos altos e críticos",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Riscos\"\n\"4\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 102,
+      "title": "Vulnerabilidades altas",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Achados\"\n\"2\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 103,
+      "title": "Incidentes · situação final",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 1,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Abertos\",\"Fechados\"\n\"0\",\"2\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 104,
+      "title": "MTTD · 2 incidentes",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Detecção\"\n\"90.75661945343018\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "suffix:s",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 120.001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 105,
+      "title": "MTTR · após detecção",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Recuperação\"\n\"26.042999982833862\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "suffix:s",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 60.001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 106,
+      "title": "Tratamento definido",
+      "type": "stat",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 5,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Riscos com plano\"\n\"100\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "percent",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none",
+        "textMode": "auto",
+        "orientation": "auto"
+      }
+    },
+    {
+      "id": 107,
+      "title": "Baseline e tendências",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 108,
+      "title": "Baseline × experimento",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 15
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Métrica\",\"Unidade\",\"Base média\",\"Base pico\",\"Exp. média\",\"Exp. pico\",\"Limiar\"\n\"CPU APP-01\",\"% do limite de 1 CPU\",\"2.57\",\"2.75\",\"2.6\",\"3.58\",\"≤80\"\n\"Memória APP-01\",\"% de 768 MiB\",\"14.05\",\"14.25\",\"22.67\",\"23.91\",\"≤80\"\n\"CPU DB-01\",\"% do limite de 1 CPU\",\"1.4\",\"1.46\",\"1.43\",\"1.8\",\"≤80\"\n\"Memória DB-01\",\"% de 1.536 MiB\",\"1.93\",\"2.18\",\"2.78\",\"4.34\",\"≤80\"\n\"CPU HOST-01\",\"%\",\"6.58\",\"11.96\",\"8.33\",\"10.75\",\"≤80\"\n\"Memória HOST-01\",\"%\",\"21.52\",\"23.78\",\"33.09\",\"33.76\",\"≤80\"\n\"Tráfego APP-01\",\"KiB/s\",\"2.81\",\"2.9\",\"3.71\",\"8.5\",\"Comparativo\"\n\"Consultas concluídas\",\"respostas/s\",\"1\",\"1\",\"1.64\",\"4.99\",\"Comparativo\"\n\"Latência p95\",\"ms\",\"9.51\",\"9.53\",\"9.5\",\"9.53\",\"≤500\"\n\"Erros de consulta\",\"%\",\"0\",\"0\",\"0.86\",\"11.87\",\"<1\"\n\"Disponibilidade assistencial\",\"%\",\"100\",\"100\",\"96.58\",\"100\",\"≥99\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Métrica"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 170
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 109,
+      "title": "CPU APP-01 · comparação por fase",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 16,
+        "y": 10,
+        "w": 8,
+        "h": 15
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. CPU em % do limite de 1 CPU, calculada em janelas móveis de cinco minutos; as bordas das fases incluem contexto anterior.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Fase\",\"Média\",\"Pico\"\n\"Baseline\",\"2.57\",\"2.75\"\n\"Normal inicial\",\"2.6\",\"2.81\"\n\"Carga 5/s\",\"3.24\",\"3.58\"\n\"Banco parado\",\"2.36\",\"2.4\"\n\"Recuperação do banco\",\"2.36\",\"2.4\"\n\"Falha do probe\",\"2.39\",\"2.47\"\n\"Normal final\",\"2.38\",\"2.46\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "percent",
+          "decimals": 2,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Fase",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 110,
+      "title": "Riscos e plano de tratamento",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 25,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 111,
+      "title": "Matriz · probabilidade × impacto",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 26,
+        "w": 8,
+        "h": 9
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. P e I de 1 a 5; risco inerente = P × I. Células vazias não têm riscos registrados. Classificação qualitativa do cenário.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"P ↓\",\"I = 1\",\"I = 2\",\"I = 3\",\"I = 4\",\"I = 5\"\n\"P = 5\",,,,,\n\"P = 4\",,,,,\"20\"\n\"P = 3\",,,,\"12\",\"15\"\n\"P = 2\",,,,\"8\",\n\"P = 1\",,,,,",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 1"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 2"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 3"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 4"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 5"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "#22252b",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "8": {
+                        "text": "R-05 · 8",
+                        "color": "yellow"
+                      },
+                      "12": {
+                        "text": "R-03, R-04 · 12",
+                        "color": "orange"
+                      },
+                      "15": {
+                        "text": "R-02 · 15",
+                        "color": "orange"
+                      },
+                      "20": {
+                        "text": "R-01 · 20",
+                        "color": "red"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P ↓"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 1"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 2"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 3"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 4"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I = 5"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 112,
+      "title": "Registro de riscos e responsáveis",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 9
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Prazos após aprovação do plano. Todos os tratamentos estão planejados; risco residual ainda não reavaliado.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Ativo\",\"P\",\"I\",\"Inerente\",\"Nível\",\"Responsável\",\"Estratégia\",\"Prazo\"\n\"R-01\",\"DB-01\",\"4\",\"5\",\"20\",\"Crítico\",\"Operação de TI\",\"Reduzir\",\"D+7\"\n\"R-02\",\"APP-01\",\"3\",\"5\",\"15\",\"Alto\",\"Desenvolvimento\",\"Reduzir\",\"D+14\"\n\"R-03\",\"APP-01\",\"3\",\"4\",\"12\",\"Alto\",\"Segurança de TI\",\"Reduzir\",\"D+7\"\n\"R-04\",\"MON-01\",\"3\",\"4\",\"12\",\"Alto\",\"Operação de TI\",\"Reduzir\",\"D+14\"\n\"R-05\",\"LOG-01\",\"2\",\"4\",\"8\",\"Moderado\",\"Operação de TI\",\"Reduzir\",\"D+21\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Inerente"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 5
+                    },
+                    {
+                      "color": "orange",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 17
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "I"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 50
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Inerente"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nível"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Responsável"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Estratégia"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Prazo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 60
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 113,
+      "title": "Vulnerabilidades e exposição",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 35,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 114,
+      "title": "Achados por severidade",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 36,
+        "w": 6,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Severidade\",\"Achados\"\n\"Crítica\",\"0\"\n\"Alta\",\"2\"\n\"Média\",\"3\"\n\"Baixa\",\"0\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Severidade",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 115,
+      "title": "Ativos com mais achados",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 6,
+        "y": 36,
+        "w": 6,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Quantidade de achados por ativo. Exposição considera também severidade, condições de acesso e dependência: APP-01 concentra superfícies de login/consulta; DB-01 sustenta a continuidade. A contagem não é uma pontuação de exposição.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Ativo\",\"Achados\"\n\"APP-01\",\"2\"\n\"DB-01\",\"1\"\n\"MON-01\",\"1\"\n\"LOG-01\",\"1\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Ativo",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 116,
+      "title": "Inventário de vulnerabilidades",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 36,
+        "w": 12,
+        "h": 11
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Ativo\",\"Achado\",\"Severidade\",\"Fonte\"\n\"VUL-01\",\"APP-01\",\"Leitura sem vínculo entre profissional e prontuário\",\"Alta\",\"C02, C03\"\n\"VUL-02\",\"APP-01\",\"Autenticação sem limitação de tentativas\",\"Média\",\"C02, E04, E05\"\n\"VUL-03\",\"DB-01\",\"Persistência em instância única\",\"Alta\",\"C01, E03, E04, E05\"\n\"VUL-04\",\"MON-01\",\"Monitoramento concentrado no mesmo host\",\"Média\",\"C01, C04, E03, E05\"\n\"VUL-05\",\"LOG-01\",\"Logs locais sujeitos a rotação sem arquivo central\",\"Média\",\"C01, C05\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Fonte"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 117,
+      "title": "Incidentes e alertas",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 47,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 118,
+      "title": "Incidentes · cronologia e resposta",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 48,
+        "w": 17,
+        "h": 8
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte. Resposta = início confirmado até solicitação automatizada de restauração. MTTD mede início até o primeiro firing; MTTR mede detecção até a primeira amostra saudável após a restauração. No probe a ação programada precede a primeira amostra firing em 0,73 s. Esses tempos não representam reação humana.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"ID\",\"Categoria\",\"Severidade\",\"Status\",\"Início\",\"Detecção\",\"Ação\",\"Retorno\",\"Resposta (s)\"\n\"INC-01\",\"Indisponibilidade assistencial\",\"Crítica\",\"Fechado\",\"20:27:04\",\"20:28:35\",\"20:29:04\",\"20:29:16\",\"120\"\n\"INC-02\",\"Perda de observabilidade\",\"Média\",\"Fechado\",\"20:37:05\",\"20:38:35\",\"20:38:35\",\"20:38:46\",\"90\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Categoria"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 180
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severidade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 65
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Início"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Detecção"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ação"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Retorno"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Resposta (s)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 119,
+      "title": "Episódios de alerta por criticidade",
+      "type": "barchart",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 17,
+        "y": 48,
+        "w": 7,
+        "h": 8
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Criticidade\",\"Episódios\"\n\"Crítico\",\"1\"\n\"Aviso\",\"1\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 0,
+          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "xField": "Criticidade",
+        "orientation": "horizontal",
+        "stacking": "none",
+        "showValue": "always",
+        "groupWidth": 0.7,
+        "barWidth": 0.85,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      }
+    },
+    {
+      "id": 120,
+      "title": "KPIs, KRIs e decisões",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 56,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 121,
+      "title": "Indicadores e decisão associada",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-testdata-datasource",
+        "uid": "sprint2-analysis"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 57,
+        "w": 24,
+        "h": 27
+      },
+      "description": "Recorte fixo: 26/10/2026, 19:57–20:57 (UTC−03). Valores derivados das fontes preservadas; avaliações de risco são qualitativas. O seletor de tempo não altera este recorte.",
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-testdata-datasource",
+            "uid": "sprint2-analysis"
+          },
+          "scenarioId": "csv_content",
+          "csvContent": "\"Indicador\",\"Resultado\",\"Meta / limiar\",\"Tendência / decisão\",\"Fonte\"\n\"KPI · Disponibilidade assistencial\",\"96,58%\",\"≥99%\",\"Baseline 100%; queda induzida explica o desvio. Priorizar R-01.\",\"E03\"\n\"KPI · CPU APP-01 · média / pico\",\"2,60% / 3,58%\",\"≤80%\",\"Baseline 2,57% / 2,75%. Folga de processamento; não há evidência de saturação.\",\"E02\"\n\"KPI · Memória APP-01 · média / pico\",\"22,67% / 23,91%\",\"≤80%\",\"Baseline 14,05% / 14,25%. Crescimento entre sessões, ainda distante do limite; não comprova vazamento.\",\"E03\"\n\"KPI · CPU DB-01 · média / pico\",\"1,43% / 1,80%\",\"≤80%\",\"Baseline 1,40% / 1,46%. Baixo consumo; a indisponibilidade decorre da parada programada.\",\"E02\"\n\"KPI · Memória DB-01 · média / pico\",\"2,78% / 4,34%\",\"≤80%\",\"Baseline 1,93% / 2,18%. Uso baixo em relação à capacidade configurada.\",\"E03\"\n\"KPI · CPU HOST-01 · média / pico\",\"8,33% / 10,75%\",\"≤80%\",\"Baseline 6,58% / 11,96%. Inclui processos externos ao projeto.\",\"E02\"\n\"KPI · Memória HOST-01 · média / pico\",\"33,09% / 33,76%\",\"≤80%\",\"Baseline 21,52% / 23,78%. Diferença entre sessões pode incluir outras aplicações do host.\",\"E02\"\n\"KPI · Pico de latência p95\",\"9,53 ms\",\"≤500 ms\",\"Próximo ao baseline; manter capacidade.\",\"E02\"\n\"KPI · Cobertura ao final\",\"100,00%\",\"100%\",\"Recuperada após mínimo de 85,71%; tratar R-04.\",\"E03\"\n\"KPI · Alertas por criticidade\",\"1 crítico; 1 aviso\",\"Investigar cada episódio\",\"Um episódio crítico e um de aviso em firing; ambos encerrados.\",\"E03\"\n\"KRI · Vulnerabilidades por severidade\",\"0 crítica; 2 alta; 3 média; 0 baixa\",\"0 altas/críticas sem plano\",\"Primeiro inventário; priorizar autorização e persistência.\",\"C07\"\n\"KRI · Ativos com maior exposição\",\"APP-01: 2 (1 alta, 1 média); DB-01: 1 (1 alta)\",\"Priorizar acesso e continuidade\",\"APP concentra achados e superfícies de acesso; DB é dependência crítica. MON/LOG: 1 médio cada. Sem pontuação adicional.\",\"C07\"\n\"KPI · Incidentes abertos / fechados\",\"0 / 2\",\"0 abertos ao final\",\"Manter ações preventivas.\",\"E03\"\n\"KPI · MTTD (n=2)\",\"90,76 s\",\"≤120 s\",\"Dentro da referência proposta; ampliar observação externa.\",\"E03\"\n\"KPI · MTTR após detecção (n=2)\",\"26,04 s\",\"≤60 s\",\"Resposta automatizada; testar procedimento operacional futuramente.\",\"E03\"\n\"KRI · Falhas de login no cenário\",\"10 em menos de 1 min\",\"Investigar ≥5/min\",\"Sinal de repetição; nenhum acesso indevido comprovado. Tratar R-03.\",\"E04\"\n\"KRI · Riscos altos/críticos\",\"3 altos; 1 crítico\",\"0 sem responsável/plano\",\"Primeira avaliação; executar tratamentos antes de reduzir classificação.\",\"C07\"\n\"KPI · Riscos com tratamento definido\",\"100%\",\"100%\",\"Todos planejados; acompanhar execução, prazo e evidência de conclusão.\",\"C07\"",
+          "dropPercent": 0
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "—",
+          "unit": "short",
+          "decimals": 2,
+          "custom": {
+            "minWidth": 40,
+            "align": "auto",
+            "wrapText": true,
+            "wrapHeaderText": true,
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indicador"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 250
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Resultado"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 220
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Meta / limiar"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 170
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Fonte"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      }
+    },
+    {
+      "id": 1,
+      "title": "Operação · intervalo selecionado",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 85,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 2,
+      "title": "Consulta assistencial agora",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 86,
+        "w": 6,
+        "h": 4
+      },
+      "description": "Fluxo completo: login + leitura validada do prontuário. Ausência de coleta não é sucesso.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Indisponível",
+                  "color": "red"
+                },
+                "1": {
+                  "text": "Disponível",
+                  "color": "green"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:clinical_available",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Disponibilidade observada · período",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 86,
+        "w": 6,
+        "h": 4
+      },
+      "description": "Sucessos / verificações observadas. Não é SLA mensal; avaliar lacunas abaixo.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * avg_over_time(probe_success{job=\"probe\"}[$__range])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Cobertura da coleta agora",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 86,
+        "w": 6,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 100
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:collection_coverage_percent",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Alertas ativos",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 86,
+        "w": 6,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "count(ALERTS{alertstate=\"firing\"}) or (0 * max(up{job=\"prometheus\"}))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Qualidade da evidência e continuidade",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 90,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 8,
+      "title": "Verificações observadas · período",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 91,
+        "w": 6,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "count_over_time(probe_success{job=\"probe\"}[$__range])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Verificações com sucesso · período",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 91,
+        "w": 6,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum_over_time(probe_success{job=\"probe\"}[$__range])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Amostras observadas / esperadas · período",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 91,
+        "w": 6,
+        "h": 4
+      },
+      "description": "Estimativa de completude temporal, com bordas de coleta de 15 s. Selecionar o intervalo exato da sessão. Não confundir com cobertura dos alvos.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clamp_max(100 * count_over_time(probe_success{job=\"probe\"}[$__range]) / ($__range_s / 15), 100)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Latência p95 · consultas · 5 min",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 91,
+        "w": 6,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.500001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 12,
+      "title": "Disponibilidade assistencial · lacunas preservadas",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 95,
+        "w": 12,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:clinical_available",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Coleta por alvo · 1 = coleta válida",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 95,
+        "w": 12,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "min": 0,
+          "max": 1
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab:target_up",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "title": "Alertas · pendente e disparado",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 102,
+        "w": 24,
+        "h": 6
+      },
+      "description": "Séries presentes durante pendência/disparo; consultar a linha temporal da coleta para distinguir ausência de alerta de ausência de monitoramento.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "ALERTS",
+          "legendFormat": "{{alertname}} · {{job}} · {{alertstate}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "title": "Desempenho e eventos técnicos",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 108,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 16,
+      "title": "Consultas por segundo · 5 min",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 109,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "title": "Erros 5xx / respostas clínicas · 5 min",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 8,
+        "y": 109,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\",status=~\"5..\"}[5m])) / (sum(rate(clinical_requests_total{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "title": "Latência p95 · consultas bem-sucedidas",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 16,
+        "y": 109,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.500001
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 19,
+      "title": "Falhas de autenticação · período",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 116,
+        "w": 8,
+        "h": 4
+      },
+      "description": "Estimativa por contador Prometheus; consulte os logs para a contagem exata dos eventos.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(increase(clinical_auth_failures_total[$__range]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 20,
+      "title": "Carga configurada · consultas/s",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 8,
+        "y": 116,
+        "w": 8,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "lab_load_rate",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "title": "Duração da verificação completa",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 16,
+        "y": 116,
+        "w": 8,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "probe_duration_seconds",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "title": "Infraestrutura · host inclui processos externos ao projeto",
+      "type": "row",
+      "collapsed": false,
+      "gridPos": {
+        "x": 0,
+        "y": 120,
+        "w": 24,
+        "h": 1
+      }
+    },
+    {
+      "id": 23,
+      "title": "CPU do host",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 121,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 24,
+      "title": "Memória do host",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 8,
+        "y": 121,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 25,
+      "title": "Disco do host · raiz",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 16,
+        "y": 121,
+        "w": 8,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * (1 - node_filesystem_avail_bytes{mountpoint=\"/\",fstype!~\"tmpfs|overlay\"} / node_filesystem_size_bytes{mountpoint=\"/\",fstype!~\"tmpfs|overlay\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 26,
+      "title": "CPU por contêiner · núcleos utilizados",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 128,
+        "w": 12,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(container_label_com_docker_compose_service) (rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 27,
+      "title": "Memória por contêiner",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 128,
+        "w": 12,
+        "h": 7
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(container_label_com_docker_compose_service) (container_memory_working_set_bytes{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 28,
+      "title": "Uptime do host",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 135,
+        "w": 8,
+        "h": 4
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "time() - node_boot_time_seconds",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": true,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 29,
+      "title": "Atividade de rede por contêiner · bytes/s",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 8,
+        "y": 135,
+        "w": 16,
+        "h": 6
+      },
+      "description": "",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "noValue": "Sem dados",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(container_label_com_docker_compose_service) (rate(container_network_receive_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]) + rate(container_network_transmit_bytes_total{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}[5m]))",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "instant": false,
+          "legendFormat": "{{job}}{{container_label_com_docker_compose_service}}{{alertname}}"
+        }
+      ],
+      "options": {
+        "tooltip": {
+          "mode": "multi"
+        },
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  }
+}

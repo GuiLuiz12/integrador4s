@@ -1,0 +1,55 @@
+{
+  "session_id": "10a17da0-bdc9-4ff1-9ef0-7ddd285817cf",
+  "kind": "security",
+  "status": "completed",
+  "started_at": "2026-11-16T22:20:26.861220+00:00",
+  "parameters": {
+    "invalid_login_interval_seconds": 2,
+    "detection_timeout_seconds": 120,
+    "quiet_recovery_seconds": 60,
+    "response_actor": "Roteiro automatizado"
+  },
+  "timeline": [
+    {
+      "event": "session_started",
+      "at": "2026-11-16T22:20:24.557555+00:00",
+      "success": true,
+      "observation": "Login e consulta funcionam; token e conteúdo omitidos"
+    },
+    {
+      "event": "normal_window_confirmed",
+      "at": "2026-11-16T22:21:26.860635+00:00"
+    },
+    {
+      "event": "auth_failure_confirmed",
+      "at": "2026-11-16T22:21:26.924000+00:00",
+      "http_status": 401,
+      "correlation_id": "req-lr",
+      "instance_id": "e66beecd-e765-4faa-a204-b03d066e0f77",
+      "source": "events.jsonl"
+    },
+    {
+      "event": "auth_alert_firing",
+      "at": "2026-11-16T22:22:04.495000+00:00",
+      "observed_at": "2026-11-16T22:22:04.889325+00:00",
+      "alert": "FalhasDeLoginRepetidas"
+    },
+    {
+      "event": "auth_generator_stopped",
+      "at": "2026-11-16T22:22:04.889670+00:00",
+      "attempts": 17,
+      "actor": "Roteiro automatizado",
+      "action": "Interromper a fonte simulada; não é bloqueio na API."
+    },
+    {
+      "event": "auth_recovery_confirmed",
+      "at": "2026-11-16T22:23:08.017535+00:00",
+      "success": true,
+      "observation": "Login e consulta funcionam; token e conteúdo omitidos",
+      "quiet_seconds": 60,
+      "alert_resolved": true,
+      "collection_coverage_percent": 100
+    }
+  ],
+  "ended_at": "2026-11-16T22:23:08.017920+00:00"
+}

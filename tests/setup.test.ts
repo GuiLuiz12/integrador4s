@@ -84,7 +84,7 @@ setup_dependencies
 test('recursos insuficientes impedem instalação e Docker remoto é recusado', () => {
   const resources = shell('LAB_ROOT=.\ngetconf() { echo 2; }\nsetup_resources');
   assert.equal(resources.status, 1);
-  assert.match(resources.stderr, /São necessárias 6 CPUs/);
+  assert.match(resources.stderr, /São necessárias 8 CPUs/);
   const remote = shell('DOCKER_CONTEXT=fixture\ndocker() { echo ssh://outro-host; }\nsetup_admin() { echo UNEXPECTED_SYSTEM_MUTATION; }\nsetup_daemon');
   assert.equal(remote.status, 1);
   assert.match(remote.stderr, /Docker remoto/);

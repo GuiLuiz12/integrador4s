@@ -1,0 +1,1030 @@
+{
+  "captured_at": "2026-11-16T22:19:45.085185+00:00",
+  "range_start": "2026-11-16T22:17:05.165095+00:00",
+  "range_end": "2026-11-16T22:19:39.700898+00:00",
+  "window": "154536ms",
+  "boundary": "start <= timestamp <= end",
+  "queries": {
+    "targets": {
+      "promql": "up",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "node-exporter:9100",
+              "job": "node"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "api:3000",
+              "job": "api"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "grafana:3000",
+              "job": "grafana"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "lab:9091",
+              "job": "lab"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "localhost:9090",
+              "job": "prometheus"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "loki:3100",
+              "job": "loki"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "up",
+              "instance": "alloy:12345",
+              "job": "alloy"
+            },
+            "value": [
+              1794867579.701,
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "coverage": {
+      "promql": "lab:collection_coverage_percent",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:collection_coverage_percent"
+            },
+            "value": [
+              1794867579.701,
+              "100"
+            ]
+          }
+        ]
+      }
+    },
+    "availability": {
+      "promql": "100 * avg_over_time(probe_success{job=\"probe\"}[154536ms])",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1794867579.701,
+              "100"
+            ]
+          }
+        ]
+      }
+    },
+    "observations": {
+      "promql": "count_over_time(probe_success{job=\"probe\"}[154536ms])",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1794867579.701,
+              "10"
+            ]
+          }
+        ]
+      }
+    },
+    "successes": {
+      "promql": "sum_over_time(probe_success{job=\"probe\"}[154536ms])",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "value": [
+              1794867579.701,
+              "10"
+            ]
+          }
+        ]
+      }
+    },
+    "auth_failures": {
+      "promql": "clinical_auth_failures_total",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "clinical_auth_failures_total",
+              "instance": "api:3000",
+              "job": "api",
+              "stage": "login"
+            },
+            "value": [
+              1794867579.701,
+              "14"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "clinical_auth_failures_total",
+              "instance": "api:3000",
+              "job": "api",
+              "stage": "token"
+            },
+            "value": [
+              1794867579.701,
+              "0"
+            ]
+          }
+        ]
+      }
+    },
+    "p95": {
+      "promql": "histogram_quantile(0.95, sum by(le)(rate(clinical_request_duration_seconds_bucket{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m]))) and on() (sum(rate(clinical_request_duration_seconds_count{route=\"/prontuarios/:id\",traffic=\"clinical\"}[5m])) > 0)",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {},
+            "value": [
+              1794867579.701,
+              "0.0095"
+            ]
+          }
+        ]
+      }
+    },
+    "container_memory": {
+      "promql": "container_memory_working_set_bytes{container_label_com_docker_compose_project=\"governanca-saude\",container_label_com_docker_compose_service!=\"\"}",
+      "evaluated_at": "2026-11-16T22:19:39.700898+00:00",
+      "data": {
+        "resultType": "vector",
+        "result": [
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "cadvisor",
+              "id": "/system.slice/docker-c9ba7d10db0cb95a5a22b9a000e07770fc021bcd48ec2d714f084bf3370fa87d.scope",
+              "image": "ghcr.io/google/cadvisor:0.60.5",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-cadvisor-1"
+            },
+            "value": [
+              1794867579.701,
+              "166993920"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "grafana",
+              "id": "/system.slice/docker-dbe7f980867532fa0f9c9e2c0c20d32914b0a7d2f3b9b1f4d7988bc883435efe.scope",
+              "image": "grafana/grafana:13.2.1",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-grafana-1"
+            },
+            "value": [
+              1794867579.701,
+              "268382208"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "node-exporter",
+              "id": "/system.slice/docker-1d3e95f540aadd3f30974e5518561ebce7019398e59e8d86abd12915a22eb4c3.scope",
+              "image": "prom/node-exporter:v1.12.1",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-node-exporter-1"
+            },
+            "value": [
+              1794867579.701,
+              "25448448"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "postgres",
+              "id": "/system.slice/docker-82e022c5b976a37be8be33cf981399b66b150baf9e9cf4247aa921e307b49d8c.scope",
+              "image": "postgres:17.6-bookworm",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-postgres-1"
+            },
+            "value": [
+              1794867579.701,
+              "61489152"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "prometheus",
+              "id": "/system.slice/docker-8e3abfbf5b1cfcf3cb738328ff18bf1c2415025bf2ef9948038e9a1ead212b2e.scope",
+              "image": "prom/prometheus:v3.14.0",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-prometheus-1"
+            },
+            "value": [
+              1794867579.701,
+              "70176768"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "api",
+              "id": "/system.slice/docker-9eb5261705e4403acaa66669463ec016b5d6b0a5e6c02cc1423fb0e8d807a1f2.scope",
+              "image": "governanca-saude-app:0.1.0",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-api-1"
+            },
+            "value": [
+              1794867579.701,
+              "111370240"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "loki",
+              "id": "/system.slice/docker-35019bc23e5b966aa64a942a9d461892ed4995e1262947c67762330d4bf8c62e.scope",
+              "image": "grafana/loki:3.7.10",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-loki-1"
+            },
+            "value": [
+              1794867579.701,
+              "72310784"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "lab",
+              "id": "/system.slice/docker-ce8b639069f05e9c6f0dc09598aa05a43e4ffe7d5934f5192b750d9c3b807d7f.scope",
+              "image": "governanca-saude-app:0.1.0",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-lab-1"
+            },
+            "value": [
+              1794867579.701,
+              "41857024"
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "container_memory_working_set_bytes",
+              "container_label_com_docker_compose_project": "governanca-saude",
+              "container_label_com_docker_compose_service": "alloy",
+              "id": "/system.slice/docker-c805bb0a67664ead63ff31075acb0020a5d51ef5a7e15c3913b12424d0a70f36.scope",
+              "image": "grafana/alloy:v1.22.0",
+              "instance": "cadvisor:8080",
+              "job": "cadvisor",
+              "name": "governanca-saude-alloy-1"
+            },
+            "value": [
+              1794867579.701,
+              "45928448"
+            ]
+          }
+        ]
+      }
+    },
+    "probe_history": {
+      "promql": "probe_success{job=\"probe\"}[469536ms]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "probe_success",
+              "instance": "lab:9091",
+              "job": "probe"
+            },
+            "values": [
+              [
+                1794867436.789,
+                "1"
+              ],
+              [
+                1794867451.789,
+                "1"
+              ],
+              [
+                1794867466.789,
+                "1"
+              ],
+              [
+                1794867481.789,
+                "1"
+              ],
+              [
+                1794867496.789,
+                "1"
+              ],
+              [
+                1794867511.789,
+                "1"
+              ],
+              [
+                1794867526.789,
+                "1"
+              ],
+              [
+                1794867541.789,
+                "1"
+              ],
+              [
+                1794867556.789,
+                "1"
+              ],
+              [
+                1794867571.789,
+                "1"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "collection_history": {
+      "promql": "lab:target_up[469536ms]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "alloy"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "api"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "cadvisor"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "grafana"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "lab"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "loki"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "node"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "probe"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "lab:target_up",
+              "job": "prometheus"
+            },
+            "values": [
+              [
+                1794867426.371,
+                "1"
+              ],
+              [
+                1794867441.371,
+                "1"
+              ],
+              [
+                1794867456.371,
+                "1"
+              ],
+              [
+                1794867471.371,
+                "1"
+              ],
+              [
+                1794867486.371,
+                "1"
+              ],
+              [
+                1794867501.371,
+                "1"
+              ],
+              [
+                1794867516.371,
+                "1"
+              ],
+              [
+                1794867531.371,
+                "1"
+              ],
+              [
+                1794867546.371,
+                "1"
+              ],
+              [
+                1794867561.371,
+                "1"
+              ],
+              [
+                1794867576.371,
+                "1"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "alert_history": {
+      "promql": "ALERTS[469536ms]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "ALERTS",
+              "alertname": "FalhasDeLoginRepetidas",
+              "alertstate": "firing",
+              "owner": "seguranca_ti",
+              "severity": "warning"
+            },
+            "values": [
+              [
+                1794867514.495,
+                "1"
+              ],
+              [
+                1794867529.495,
+                "1"
+              ],
+              [
+                1794867544.495,
+                "1"
+              ]
+            ]
+          },
+          {
+            "metric": {
+              "__name__": "ALERTS",
+              "alertname": "FalhasDeLoginRepetidas",
+              "alertstate": "pending",
+              "owner": "seguranca_ti",
+              "severity": "warning"
+            },
+            "values": [
+              [
+                1794867499.495,
+                "1"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "load_history": {
+      "promql": "lab_load_rate[469536ms]",
+      "data": {
+        "resultType": "matrix",
+        "result": [
+          {
+            "metric": {
+              "__name__": "lab_load_rate",
+              "instance": "lab:9091",
+              "job": "lab"
+            },
+            "values": [
+              [
+                1794867439.481,
+                "1"
+              ],
+              [
+                1794867454.481,
+                "1"
+              ],
+              [
+                1794867469.481,
+                "1"
+              ],
+              [
+                1794867484.481,
+                "1"
+              ],
+              [
+                1794867499.481,
+                "1"
+              ],
+              [
+                1794867514.481,
+                "1"
+              ],
+              [
+                1794867529.481,
+                "1"
+              ],
+              [
+                1794867544.481,
+                "1"
+              ],
+              [
+                1794867559.481,
+                "1"
+              ],
+              [
+                1794867574.481,
+                "1"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

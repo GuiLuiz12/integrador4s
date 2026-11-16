@@ -1,0 +1,31 @@
+{
+  "captured_at": "2026-11-16T22:26:09.431Z",
+  "selected_alert_time": "2026-11-16T22:19:04.495Z",
+  "range_start": "2026-11-16T22:17:05.165Z",
+  "source": "Histórico real do Prometheus; intervalo absoluto no Grafana",
+  "alerts": [
+    {
+      "metric": {
+        "__name__": "ALERTS",
+        "alertname": "FalhasDeLoginRepetidas",
+        "alertstate": "firing",
+        "owner": "seguranca_ti",
+        "severity": "warning"
+      },
+      "values": [
+        [
+          1794867514.495,
+          "1"
+        ],
+        [
+          1794867529.495,
+          "1"
+        ],
+        [
+          1794867544.495,
+          "1"
+        ]
+      ]
+    }
+  ]
+}
