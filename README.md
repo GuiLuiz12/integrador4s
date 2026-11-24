@@ -1,17 +1,18 @@
-# Painel de Governança em Cibersegurança — Saúde
+# CyPark — Governança em Cibersegurança na Saúde
 
-Projeto da **Sprint 3 — Integrar e comunicar**, com consulta autenticada, logs centralizados e Dashboard v1.0. Os dados assistenciais são fictícios. O [relatório da Sprint 2](docs/relatorio-sprint2.md) reúne baseline, anomalias, vulnerabilidades, riscos, incidentes e recomendações nas dez seções do modelo de entrega.
+Projeto da **Sprint 3 — Integrar e comunicar**, com consulta autenticada, logs centralizados e dois dashboards Grafana v1.0: governança executiva e operação/SecOps. Os dados assistenciais são fictícios. O [relatório da Sprint 2](docs/relatorio-sprint2.md) reúne baseline, anomalias, vulnerabilidades, riscos, incidentes e recomendações nas dez seções do modelo de entrega.
 
 Sprint 1 concluída e validada em 17/09/2026. Consulte o [relatório com a DoD](docs/relatorio-sprint1.md) e as [evidências revisadas](evidence/validated/sprint1/README.md). A entrega combina a sessão de falhas de 10/09 com a validação de retomada de 17/09, sem misturar os dois períodos.
 
 O refinamento prepara a análise com baseline separado, falha isolada do probe e exportações rastreáveis. Consulte o [planejamento das três sprints](docs/planejamento.md) e o [contrato das evidências](docs/evidencias.md).
 
-O v1.0 combina operação ao vivo, eventos da API no Loki, análise histórica da Sprint 2 e registros de controles, riscos e ações da Sprint 3. Os recortes analíticos são identificados e não mudam com o seletor de tempo. `npm run analysis:sprint2` preserva a reprodução da análise histórica; `npm run analysis:sprint3` consolida as novas evidências e atualiza o dashboard. O relatório permanece como documento estático: a aplicação não gera nem serve relatórios. A limitação do verificador anterior está documentada no relatório; o resultado original foi mantido.
+As duas visões combinam operação ao vivo, eventos da API no Loki, análise histórica da Sprint 2 e registros de controles, riscos e ações da Sprint 3. O período operacional, o checkpoint de governança e os ensaios preservados aparecem identificados; os registros históricos não mudam com o seletor de tempo. `npm run analysis:sprint2` preserva a reprodução da análise histórica; `npm run analysis:sprint3` consolida as novas evidências. Ambos atualizam as duas definições de dashboard. O relatório permanece como documento estático: a aplicação não gera nem serve relatórios. A limitação do verificador anterior está documentada no relatório; o resultado original foi mantido.
 
 Este README concentra as instruções de execução. Os documentos técnicos e históricos estão no [índice de documentação](#documentação).
 
 - [Instalar e iniciar](#começar)
 - [Operar e acessar](#usar-depois-do-setup)
+- [Navegar pelos dashboards CyPark](#dashboards-cypark)
 - [Simular e coletar evidências](#demonstrar)
 - [Investigar logs e demonstrar a Sprint 3](#segurança-e-logs-centralizados)
 - [Exportar e conferir dados](#exportar-e-conferir-evidências)
@@ -38,7 +39,7 @@ Cada comando tem uma função:
 
 1. **`./bootstrap.sh`** prepara apenas Node/npm. Preserva uma instalação funcional de Node 22+; quando ausente, instala Node 22.23.2 com npm a partir do [arquivo oficial](https://nodejs.org/dist/v22.23.2/), verificando SHA-256. Instala também ferramentas de download ausentes, se necessário. Não instala Docker nem inicia serviços.
 2. **`npm run setup`** verifica sistema e recursos, instala Docker/Compose/Buildx/Python e outros requisitos ausentes, inicia o daemon Docker se necessário e cria ou preserva `.env`. **Não sobe os contêineres do laboratório.**
-3. **`npm start`** constrói e sobe os nove serviços. Só informa que está pronto após confirmar a consulta autenticada, o Grafana, a cobertura de monitoramento de 100% e as métricas dos nove serviços. Mostra o painel e onde consultar sua senha.
+3. **`npm start`** constrói e sobe os nove serviços. Só informa que está pronto após confirmar a consulta autenticada, o Grafana, a cobertura de monitoramento de 100% e as métricas dos nove serviços. Aplica o tema nativo Aubergine, preservado nas preferências do Grafana, e mostra os dois painéis e onde consultar sua senha.
 
 **Não execute `npm ci` para operar o laboratório.** As dependências da aplicação são instaladas nas imagens Docker. `npm ci` é necessário somente para desenvolvimento e ferramentas visuais opcionais. Não é necessário pnpm ou Yarn.
 
@@ -60,7 +61,8 @@ Consulte [validação dos comandos npm](docs/validacao-comandos.md) para disting
 
 | O que você quer fazer | Comando ou local | Resultado |
 |---|---|---|
-| Acompanhar análise e operação | [Grafana v1.0](http://localhost:3001/d/saude-v01) | Recorte analítico identificado e coleta operacional automática |
+| Acompanhar continuidade, riscos e prioridades | [CyPark · Executiva](http://localhost:3001/d/saude-v01) | Oito blocos de leitura executiva, com operação e avaliações identificadas |
+| Investigar desempenho, alertas e eventos | [CyPark · Operação & SecOps](http://localhost:3001/d/cypark-secops) | Nove blocos técnicos e aprofundamento dos registros e da infraestrutura |
 | Ler a entrega da Sprint 2 | [Relatório estático](docs/relatorio-sprint2.md) | Documento histórico com dez seções e referências às fontes preservadas |
 | Descobrir todas as ações | `npm run help` | Catálogo com pré-requisitos, argumentos, duração e efeitos |
 | Consultar endereços e logins | `npm run access` | URLs, usuários e variáveis de senha; nenhum segredo impresso |
@@ -78,11 +80,22 @@ Use os comandos dentro da pasta do repositório. Argumentos adicionais vêm depo
 
 O gerador já produz uma consulta fictícia por segundo. Não é necessário disparar um experimento para começar a ver dados. Gráficos que usam janela de cinco minutos precisam desse tempo para amadurecer. Os experimentos opcionais estão em [Demonstrar](#demonstrar).
 
+## Dashboards CyPark
+
+A **visão executiva** reúne oito blocos: disponibilidade do fluxo autenticado; detecção e recuperação dos ensaios; falhas estimadas de login; exposição dos riscos; continuidade clínica; achados por ativo; matriz inerente; e tratamentos prioritários. Os links levam ao detalhe correspondente na **visão técnica**, preservando período e contexto, inclusive em modo kiosk (`?kiosk`). O endereço executivo conserva o favorito anterior e continua sendo a página inicial do Grafana.
+
+A **visão técnica** reúne nove blocos: p95 junto dos erros 5xx; vazão/rede; capacidade de APP-01, DB-01 e HOST-01; cobertura da coleta; alertas/incidentes; vulnerabilidades; e autenticação/logs. Seções expansíveis mantêm controles, evolução, ações completas, risco residual, infraestrutura dos nove serviços e histórico das sprints. O filtro de serviço atua na infraestrutura; evento e correlação filtram os logs da API. Em **Correlação**, informe o ID literal ou `.*` para todos; o campo não aceita uma expressão regular arbitrária. O detalhamento conserva `instance_id` para interpretar a correlação.
+
+O tema **Aubergine** usa acentos ciano e lavanda. Verde, amarelo e vermelho continuam indicando estados; alto/crítico e demais níveis também possuem rótulos. Dados ausentes aparecem em cinza. A preferência é aplicada pela API nativa durante `npm start`, sem CSS personalizado nem desativação da sanitização HTML.
+
+O seletor controla métricas e logs operacionais. Riscos, achados, tratamentos e tempos dos ensaios exibem suas próprias datas. MTTD/MTTR aparecem separados entre indisponibilidade clínica (`INC-01`, n=1), perda de coleta (`INC-02`, n=1) e autenticação (`INC-03`/`INC-04`, n=2). A p95 mede consultas bem-sucedidas e deve ser lida junto dos erros. A rotação Docker de 10 MB × 3 e a retenção Loki de sete dias são configurações, não medições de volume armazenado. Consulte as [definições e limites dos indicadores](docs/indicadores.md#leitura-dos-dashboards-cypark).
+
 ## Acessos locais
 
 `npm run setup` cria `.env` com segredos aleatórios e permissão 0600, sem exibi-los. Não sobrescreve um arquivo existente válido. Abra esse arquivo **localmente** para obter `GRAFANA_PASSWORD`; não o inclua em screenshots ou relatórios. Login do painel: `admin`.
 
-- **Painel:** http://localhost:3001/d/saude-v01
+- **Governança executiva:** http://localhost:3001/d/saude-v01
+- **Operação & SecOps:** http://localhost:3001/d/cypark-secops
 - **OpenAPI:** http://localhost:3000/openapi.json
 - **Recuperação:** http://localhost:3000/runbook
 - **Vitalidade / prontidão:** http://localhost:3000/health/live e http://localhost:3000/health/ready
@@ -212,15 +225,17 @@ Esta seção é opcional para quem vai alterar o projeto. Node/npm já são prep
 | `npm run build` | Compila TypeScript para `dist/` | Validar alterações na aplicação |
 | `npm test` | Executa testes de código e dos scripts com isolamento | Verificar alterações; não é a sessão real de uma hora |
 | `npm run test:evidence` | Testa exportação e análise offline com Python | Verificar integridade, recortes e critérios de aceite; usa fixtures sintéticas somente nos testes |
-| `npm run dashboard` | Gera `dashboards/saude.json` | Depois de editar `scripts/dashboard.mjs` |
-| `npm run analysis:sprint2` | Recalcula `analysis/sprint2/analysis.json` e atualiza o dashboard | Reproduzir a análise a partir das fontes históricas, com Python 3.11+ e Node 22+, sem Docker ou nova coleta |
-| `npm run analysis:sprint3` | Consolida os registros e as evidências da Sprint 3 e gera o dashboard v1.0 | Após novas evidências ou atualização justificada de controles e ações; não gera relatório |
+| `npm run dashboard` | Gera `dashboards/saude.json` e `dashboards/secops.json` | Depois de editar os geradores de dashboard |
+| `npm run analysis:sprint2` | Recalcula `analysis/sprint2/analysis.json` e atualiza as duas visões | Reproduzir a análise a partir das fontes históricas, com Python 3.11+ e Node 22+, sem Docker ou nova coleta |
+| `npm run analysis:sprint3` | Consolida os registros e as evidências da Sprint 3 e gera as duas visões v1.0 | Após novas evidências ou atualização justificada de controles e ações; não gera relatório |
 | `npm run start:api` | Inicia apenas a API compilada fora do Compose | Desenvolvimento manual, com banco e variáveis preparados |
 | `npm run start:lab` | Inicia apenas gerador/verificador compilados fora do Compose | Desenvolvimento manual, com API e variáveis preparados |
 
-O dashboard é provisionado automaticamente, com UID `saude-v01`, e é somente leitura pela interface. Ao alterar sua definição, versione a origem e o JSON gerado juntos; `npm start` mantém o laboratório configurado. Os comandos `analysis:sprint2` e `analysis:sprint3` não escrevem relatórios, imagens ou cópias TXT de fontes. A metodologia e a proveniência estão no [contrato das evidências](docs/evidencias.md#análise-histórica-da-sprint-2); a interpretação das visões está no [catálogo de indicadores](docs/indicadores.md#análise-da-sprint-2). `start:api` e `start:lab` são comandos avançados para componentes isolados; para usar o laboratório completo, execute `npm start`.
+Os dashboards são provisionados automaticamente, com UIDs `saude-v01` (executiva) e `cypark-secops` (técnica), e são somente leitura pela interface. Ao alterar as definições, versione os geradores e os dois JSONs juntos; `npm start` mantém o laboratório e o tema configurados. Os comandos `analysis:sprint2` e `analysis:sprint3` não escrevem relatórios, imagens ou cópias TXT de fontes. A metodologia e a proveniência estão no [contrato das evidências](docs/evidencias.md#análise-histórica-da-sprint-2); a interpretação das visões está no [catálogo de indicadores](docs/indicadores.md#análise-da-sprint-2). `start:api` e `start:lab` são comandos avançados para componentes isolados; para usar o laboratório completo, execute `npm start`.
 
-Após alterar configurações montadas do Prometheus, Loki, Alloy ou provisionamento do Grafana, execute `npm stop` e depois `npm start` para carregá-las novamente. Os volumes e históricos são preservados. Uma nova chamada de `npm start` sobre contêineres já ativos pode reutilizá-los; a verificação exige os nove jobs esperados e disponíveis, pois 100% de uma configuração antiga com sete jobs não comprova a coleta da Sprint 3.
+O diretório `dashboards/` é montado como somente leitura. Após `npm run dashboard` escrever os dois JSONs, o provider os relê em até 30 s (`updateIntervalSeconds: 30`); atualize a página para ver a nova definição, sem recriar o Grafana. A leitura periódica evita depender dos eventos de alteração de arquivos em bind mounts Docker.
+
+Alterações no Compose, nas configurações montadas do Prometheus/Loki/Alloy ou no provider do Grafana exigem recarregar os serviços: execute `npm stop` e depois `npm start`. Os volumes e históricos são preservados. Uma nova chamada de `npm start` sobre contêineres já ativos pode reutilizá-los; a verificação exige os nove jobs esperados e disponíveis, pois 100% de uma configuração antiga com sete jobs não comprova a coleta da Sprint 3.
 
 ## Capturar o dashboard e alertas
 
@@ -231,7 +246,7 @@ npm run browser:setup
 npm run dashboard:verify
 ```
 
-`browser:setup` instala Chromium e bibliotecas do sistema; pode solicitar sudo. As capturas ficam em `evidence/runs/dashboard-<timestamp>/`, sem tela de login. `dashboard:verify` aceita `-- --from ISO --to ISO --output-dir PASTA`; as duas datas devem ser informadas juntas. Sem intervalo explícito, usa a última hora. As consultas e imagens usam o mesmo período. Para vincular a captura à coleta, use `npm run dashboard:verify -- --session-dir PASTA_DA_SESSAO`: o manifesto fornece o intervalo, e `validation.json` registra seu hash e o ID da sessão. As ferramentas compartilham o cache padrão do Playwright, podendo usar `PLAYWRIGHT_BROWSERS_PATH` quando definido.
+`browser:setup` instala Chromium e bibliotecas do sistema; pode solicitar sudo. As capturas ficam em `evidence/runs/cypark-<timestamp>/`, sem tela de login e sem sobrescrever capturas históricas. `dashboard:verify` aceita `-- --from ISO --to ISO --output-dir PASTA`; as duas datas devem ser informadas juntas. Sem intervalo explícito, usa a última hora. As consultas e imagens usam o mesmo período. Para vincular a captura à coleta, use `npm run dashboard:verify -- --session-dir PASTA_DA_SESSAO`: o manifesto fornece o intervalo, e `validation.json` registra seu hash e o ID da sessão. Mesmo nessa opção, as novas capturas ficam em `evidence/runs/`; `--output-dir` permite escolher outra pasta nova. As ferramentas compartilham o cache padrão do Playwright, podendo usar `PLAYWRIGHT_BROWSERS_PATH` quando definido.
 
 `npm run alerts:capture` observa, por padrão, os dois alertas históricos por até 70 minutos e salva em `evidence/runs/alerts-<timestamp>/`, sem provocar falhas. Execute em outro terminal no início do experimento. Pode receber o início ISO e a pasta de destino com `npm run alerts:capture -- ISO_INÍCIO --output-dir PASTA` (por exemplo, `PASTA_DA_SESSAO/captures/alerts`).
 
@@ -245,7 +260,7 @@ Para capturar uma execução histórica específica, acrescente `--until ISO_FIM
 
 A captura não produz as falhas; `session:sprint3` executa o cenário. Os 300 segundos do observador cobrem a janela inicial e o período de disparo; o roteiro continua limitando a fase de tentativas a 120 segundos. Iniciar a captura junto à sessão e preservar `observation.json` com os horários reais.
 
-`dashboard:verify` confere as consultas e os CSVs analíticos, além de capturar as visões. `observation.json` separa o horário do alerta do horário da captura. Para novas capturas operacionais, o período precisa estar dentro da retenção do Prometheus; os dados já exportados continuam utilizáveis offline.
+`dashboard:verify` confere os dois dashboards, consultas, CSVs analíticos, filtros, navegação e tema. Captura os modos normal e kiosk em 1366×1000 e 1920×1080, além dos detalhes para leitura das tabelas; valida períodos relativo/absoluto e ausência de dados. Os oito e nove blocos principais orientam o aceite, independentemente da quantidade de subpainéis nativos. `observation.json` separa o horário do alerta do horário da captura. Para novas capturas operacionais, o período precisa estar dentro da retenção do Prometheus; os dados já exportados continuam utilizáveis offline.
 
 Na seleção histórica para apresentação, preserve baseline, indisponibilidade, recuperação e falha isolada do probe. Para a Sprint 3, inclua eventos e alerta de login, timeline das duas execuções, riscos inerentes/residuais, controles e ações. Preserve intervalo, completude e limitações visíveis. Capture somente o dashboard, sem credenciais, console com tokens ou configuração expandida. A entrega acadêmica é um PDF estático montado externamente, com figuras, trechos e interpretações incorporados; links não substituem evidências visíveis no documento.
 

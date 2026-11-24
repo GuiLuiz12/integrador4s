@@ -110,7 +110,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ../dashboards/provisioning:/etc/grafana/provisioning:ro
-      - ../dashboards/saude.json:/var/lib/grafana/dashboards/saude.json:ro
+      - ../dashboards:/var/lib/grafana/dashboards:ro
     networks: [monitoring, access]
 
   loki:

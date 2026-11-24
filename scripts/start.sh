@@ -30,6 +30,7 @@ for ((attempt=0; attempt<24; attempt++)); do
       continue
     fi
     curl --fail --silent --show-error http://127.0.0.1:3001/api/health >/dev/null
+    python3 scripts/grafana_theme.py
     echo '[start] Pronto: consulta autenticada, Grafana, Loki/Alloy prontos, cobertura 100% e métricas dos nove serviços.'
     bash scripts/lab.sh access
     printf '\nO gerador produz uma consulta fictícia por segundo. Gráficos de cinco minutos precisam desse histórico.\nAcompanhar: npm run status | Encerrar preservando dados: npm stop\n'

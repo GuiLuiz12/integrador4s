@@ -14,7 +14,9 @@ Todos os indicadores têm como responsável **Operação do laboratório**. Cole
 | Falhas de autenticação | `increase(clinical_auth_failures_total[janela])`, por login/token | Período selecionado; sem meta | `increase` extrapola bordas e pode produzir frações; contagem exata está nos logs; não é KRI |
 | Cobertura da coleta | `lab:collection_coverage_percent` | Atual; alvo 100% | Alvos esperados respondendo, não saúde assistencial |
 | Completude temporal | 100 × amostras do probe / (segundos do período ÷ 15), limitado a 100 | Período selecionado | Aproximação para revelar lacunas; bordas têm erro de até um ciclo |
-| Infraestrutura | `node_*` e `container_*` | Atual/tendência; sem meta nesta sprint | Host inclui processos externos; contêineres filtrados por projeto |
+| CPU/memória dos contêineres | CPU consumida / limite de CPU; memória em uso / limite de memória, em % | Tendência de 5 min para CPU; limiar preventivo de 80% | APP-01 e DB-01 usam seus limites configurados; métricas filtradas por projeto |
+| CPU/memória do host | CPU não ociosa / capacidade; memória utilizada / total, em % | Tendência; limiar preventivo de 80% | Inclui processos externos; não equivale à soma dos limites dos contêineres |
+| Rede da API | Taxas de bytes recebidos + enviados, convertidas em KiB/s | 5 min; sem meta | Tráfego do contêiner, não quantidade de consultas |
 
 As metas são didáticas, escolhidas para a demonstração. Uma indisponibilidade intencional de dois minutos em uma hora pode levar a disponibilidade abaixo de 99%; isso é esperado e deve ser explicado.
 
@@ -44,7 +46,7 @@ A quantidade de pontos em `ALERTS` mede observações do estado, não quantidade
 
 Fonte canônica: `analysis/sprint2/analysis.json`, reproduzida conforme o [manual principal](../README.md#desenvolver-e-manter-o-código). O [relatório estático](relatorio-sprint2.md) documenta valores, limiares, decisões e fontes identificadas. O baseline é de 21/10/2026; o experimento é de 26/10/2026, 19:57–20:57, UTC−03. Esses painéis usam um recorte fixo, independente do seletor de tempo do Grafana.
 
-O dashboard v0.2 mantém UID `saude-v01` e visões de baseline × experimento, CPU por fase, matriz e registro de riscos, severidade/exposição dos achados, incidentes, episódios de alerta e KPIs/KRIs. Seus painéis analíticos renderizam CSVs explícitos pela [fonte nativa TestData do Grafana](https://grafana.com/docs/grafana/latest/datasources/testdata/), no cenário `csv_content`, sem geração aleatória. A seção operacional usa Prometheus e respeita o intervalo selecionado. Assim, alterar o seletor de tempo atualiza a operação, mas não recalcula o recorte analítico histórico.
+O dashboard histórico v0.2 usava UID `saude-v01`. Suas visões de baseline × experimento, CPU por fase, matriz e registro de riscos, severidade/exposição dos achados, incidentes, episódios de alerta e KPIs/KRIs permanecem nas seções expansíveis da visão técnica CyPark. Seus painéis analíticos renderizam CSVs explícitos pela [fonte nativa TestData do Grafana](https://grafana.com/docs/grafana/latest/datasources/testdata/), no cenário `csv_content`, sem geração aleatória. A seção operacional usa Prometheus e respeita o intervalo selecionado. Assim, alterar o seletor de tempo atualiza a operação, mas não recalcula o recorte analítico histórico.
 
 A tabela analítica consolida 18 indicadores, com fonte por linha e altura ajustada ao número de registros. Os IDs B/E/C remetem ao [catálogo de fontes preservadas](evidencias.md#análise-histórica-da-sprint-2), sem depender de rotas HTTP de relatório. Geração, provisionamento e conferência visual estão centralizados no manual. Conformidade e acompanhamento de controles aparecem nas visões próprias da Sprint 3 abaixo, sem modificar o registro histórico.
 
@@ -90,12 +92,24 @@ As duas execuções são amostras de uma demonstração controlada. A comparaç�
 
 As notas de risco residual conservam P/I quando a evidência demonstra melhoria de detecção ou investigação sem sustentar redução da probabilidade ou impacto. Os cinco achados originais continuam identificados como históricos; situação atual e tratamentos têm referências novas. Controles e ações são avaliações administrativas sustentadas por fontes técnicas, não fontes independentes das próprias conclusões.
 
-## Leitura do dashboard v1.0
+## Leitura dos dashboards CyPark
 
-- **Executiva:** saúde, disponibilidade, riscos residuais, incidentes e ações prioritárias.
-- **Infraestrutura:** recursos, uptime e indisponibilidade dos componentes atuais, com perfil de nove serviços.
-- **Segurança:** eventos consultáveis, falhas de login, alertas e timeline das duas execuções.
-- **Riscos e vulnerabilidades:** mapas inerente/residual, severidade, exposição, responsáveis e tratamento.
-- **Governança:** controles, gaps, ações, prazos, status e comparação entre checkpoints.
+A entrada executiva conserva o UID `saude-v01`; o UID `cypark-secops` abre a investigação técnica. A navegação entre blocos conserva o intervalo e o contexto, inclusive em kiosk. Instalação, operação e capturas estão no [manual principal](../README.md#dashboards-cypark).
 
-Prometheus e Loki respeitam a janela selecionada. Tabelas analíticas determinísticas usam os arquivos consolidados e exibem seu recorte. Ausência de dados deve aparecer como ausência, nunca como zero incidentes ou disponibilidade de 100%. As figuras de entrega devem preservar títulos, período, fonte e legenda, conforme o [guia estático](entrega-sprint3.md).
+| Visão | Blocos principais | Recorte |
+|---|---|---|
+| Executiva | Disponibilidade; resposta dos ensaios; falhas de login; distribuição de riscos; continuidade clínica; achados por ativo; matriz inerente; tratamentos prioritários | Métricas ao vivo no período selecionado; registros com data do checkpoint; ensaios com categoria, data e n |
+| Operação & SecOps | p95/erros; vazão/rede; capacidade APP-01, DB-01 e HOST-01; coleta; alertas/incidentes; vulnerabilidades; autenticação/logs | Séries e logs no período selecionado; classificação e situação dos incidentes conforme os registros preservados |
+| Detalhes expansíveis | Controles, evolução, ações completas, riscos residuais, infraestrutura dos nove serviços e histórico das sprints | Cada tabela histórica mantém seu período; a infraestrutura operacional respeita os filtros indicados |
+
+Os oito e nove blocos são grupos de leitura, podendo usar subpainéis alinhados para unidades diferentes. O filtro de serviço atua na infraestrutura; os filtros de evento/correlação atuam nos logs da API. O campo Correlação aceita o ID literal ou `.*` para todos, não uma regex arbitrária. A correlação deve ser interpretada junto de `service` e `instance_id`, pois um diagnóstico `request_error` não é uma nova resposta da requisição.
+
+Na síntese de incidentes, indisponibilidade clínica (`INC-01`, n=1), perda de coleta (`INC-02`, n=1) e autenticação (`INC-03`/`INC-04`, n=2) são apresentados separadamente. Os valores históricos consolidados da Sprint 2 continuam preservados em sua seção, sem serem usados como média de uma única categoria nem agregados aos novos ensaios. MTTD mede início até detecção; MTTR mede detecção até a recuperação/encerramento definido em cada cenário. O tempo até a ação tem bases distintas: início→solicitação na Sprint 2, detecção→interrupção do gerador na Sprint 3.
+
+A continuidade clínica separa consultas 2xx, consultas 5xx e respostas 503 de `/auth/login`. Login que falha antes da autenticação permanece com `traffic="unauthenticated"`; aplicar o filtro clínico a essa série esconderia falhas. A p95 inclui somente consultas bem-sucedidas e aparece junto dos erros 5xx. Disponibilidade funcional vem do fluxo autenticado, incluindo o banco; `up` continua medindo coleta.
+
+Exposição por ativo combina quantidade/severidade dos achados, acesso e dependência operacional; a barra conta achados e não cria score. A matriz usa P × I qualitativo; risco inerente e residual mantêm seus significados. O plano mostra a cobertura de tratamentos definidos separada das ações concluídas. Conformidade refere-se à diretriz interna, não a uma avaliação de LGPD.
+
+A rotação Docker de 10 MB × 3 arquivos e a retenção Loki de sete dias são configurações. Não há indicador de volume dos logs locais nem comprovação de sete dias contínuos nessas leituras. Ausência de dados aparece em cinza, sem ser convertida em zero incidentes ou disponibilidade de 100%; lacunas não são interpoladas. Verde, amarelo e vermelho codificam estados com rótulos; ciano/lavanda são acentos e séries sem classificação de risco.
+
+As figuras de entrega devem preservar títulos, período, fonte e legenda, conforme o [guia estático](entrega-sprint3.md). Capturas novas recebem diretório próprio; as figuras e os pacotes históricos permanecem preservados.

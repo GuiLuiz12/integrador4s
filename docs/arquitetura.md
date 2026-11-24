@@ -13,7 +13,7 @@ flowchart TB
     U["Operador local<br/>Navegador / cliente HTTP"]
 
     subgraph HOST["Host Linux — Docker Compose: governanca-saude"]
-        G["Grafana :3000<br/>Dashboard e visualização de alertas"]
+        G["Grafana :3000<br/>CyPark: executiva e operação/SecOps"]
         P["Prometheus :9090<br/>Coleta e avaliação de regras"]
         L["Lab :9091<br/>Gerador de carga + verificador"]
         A["API :3000<br/>Fastify / Node.js / JWT"]
@@ -115,7 +115,7 @@ Neste diagrama, linhas sem seta significam participação na rede, não chamadas
 | Acesso no host | Destino no contêiner | Finalidade |
 |---|---|---|
 | `127.0.0.1:3000` | `api:3000` | API, OpenAPI, saúde e procedimento de recuperação |
-| `127.0.0.1:3001` | `grafana:3000` | Dashboard `/d/saude-v01` |
+| `127.0.0.1:3001` | `grafana:3000` | Executiva `/d/saude-v01` e técnica `/d/cypark-secops` |
 
 As demais portas aparecem apenas nas redes do Compose. O repositório não define IPs fixos ou sub-redes com CIDR próprio; os serviços usam nomes DNS do Docker. Os contêineres de API e Grafana participam de múltiplas redes, conforme a tabela.
 
@@ -157,6 +157,10 @@ O túnel `ssh -L 3001:127.0.0.1:3001 -L 3000:127.0.0.1:3000 usuario@vm` permite 
 
 ## Análise e governança
 
-O dashboard conserva o UID `saude-v01`. Prometheus alimenta a operação; Loki fornece eventos consultáveis; a fonte TestData renderiza tabelas determinísticas dos registros analíticos. A análise da Sprint 2 continua com o recorte histórico identificado. A Sprint 3 acrescenta controles, ações, duas execuções de segurança e avaliações de risco inerente/residual, com evidências e períodos próprios.
+O Grafana provisiona duas definições: `dashboards/saude.json`, com UID `saude-v01`, mantém a entrada e a página inicial executiva; `dashboards/secops.json`, com UID `cypark-secops`, reúne operação e SecOps. Os oito blocos executivos levam aos nove blocos técnicos e às seções expansíveis de controles, ações, riscos residuais, infraestrutura completa e histórico. Links preservam período e contexto, inclusive em kiosk. O diretório `dashboards/` é montado como somente leitura, e o provider consulta as definições a cada 30 s (`updateIntervalSeconds`), sem depender de notificações de arquivos do bind mount. Regenerar os JSONs dispensa recriar o Grafana; mudanças no Compose/provider ainda exigem recarregar o serviço, conforme o manual.
 
-Esses registros não são um sistema de chamados nem um renderizador de documentos. O cálculo offline produz dados e dashboard; PDF e apresentação são montados a partir do pacote estático. A [entrega](entrega-sprint3.md) identifica os artefatos necessários e as etapas acadêmicas externas.
+Prometheus alimenta a operação; Loki fornece eventos da API; a fonte TestData renderiza tabelas determinísticas dos registros analíticos. O seletor de tempo controla somente a operação e os logs. Checkpoints e ensaios mantêm datas e amostras explícitas. O filtro de serviço atua na infraestrutura; evento e correlação atuam nos logs, preservando a identificação da instância. Correlação aceita um ID literal ou `.*` para todos, sem interpretar regex arbitrária. As análises e fontes históricas são reutilizadas sem reescrita.
+
+O tema nativo Aubergine é persistido pelas preferências do Grafana durante a inicialização. Ciano/lavanda distinguem séries sem estado; verde, amarelo e vermelho comunicam estados junto dos rótulos, e cinza identifica ausência de dados. A personalização usa componentes nativos e mantém a sanitização HTML. Essa apresentação não acrescenta serviço, porta, frontend ou API de relatório.
+
+Esses registros não são um sistema de chamados nem um renderizador de documentos. O cálculo offline produz dados e as duas definições de dashboard; PDF e apresentação são montados a partir do pacote estático. A [entrega](entrega-sprint3.md) identifica os artefatos necessários e as etapas acadêmicas externas.

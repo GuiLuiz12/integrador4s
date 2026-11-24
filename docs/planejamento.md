@@ -9,7 +9,7 @@ Demonstrar o fluxo **dado → evidência → indicador → risco/incidente → d
 | Sprint 1 — coletar e monitorar | Laboratório operacional e dashboard v0.1 | MVP entregue; evidências históricas preservadas em `evidence/validated/sprint1/` |
 | Refinamento da Sprint 1 | Dados exportáveis, comparação com baseline e incidentes reproduzíveis | Implementação de coleta descrita em [Evidências](evidencias.md); execução e resultados devem ser conferidos nos manifestos e resumos |
 | Sprint 2 — analisar | Dashboard v0.2, análise técnica, incidentes, vulnerabilidades e riscos sustentados por evidências | Implementados no [relatório da Sprint 2](relatorio-sprint2.md) e no dashboard; revisão da entrega pelo usuário |
-| Sprint 3 — integrar e comunicar | Dashboard v1.0 e defesa técnico-executiva | Etapa posterior, com governança, conformidade e rastreabilidade até a fonte |
+| Sprint 3 — integrar e comunicar | Dashboard v1.0 e defesa técnico-executiva | Entrega técnica validada em 16/11/2026; refinamento visual CyPark em implementação. PDF, apresentação e defesa permanecem externos |
 
 ## Refinamento antes da Sprint 2
 
@@ -145,3 +145,15 @@ Implementação e validação técnica concluídas. As duas sessões preservadas
 A verificação em `evidence/sprint3/validation/runtime.json` comprova fluxo autenticado, leitura no banco, regra de login, minimização, consulta centralizada, integridade e persistência de 70 eventos após reinício de Loki/Alloy. Retenção de sete dias foi configurada, sem afirmar sete dias observados. Controles implementados passaram de 4/10 para 6/10; quatro das dez ações estão concluídas. Quatro gaps críticos e os riscos residuais conservadores permanecem explícitos.
 
 Compilação, testes TypeScript/Python, regras e integração passaram; `npm start` reconhece os nove alvos. A conferência visual validou 75 painéis, 33 consultas analíticas e duas consultas Loki, sem erros, com 14 capturas finais e capturas separadas dos dois alertas. Os 18 indicadores históricos e 12 novos permanecem separados. Recalcular a Sprint 2 preservou os hashes dos 171 artefatos históricos conferidos, incluindo o ZIP anterior. O pacote `entrega-sprint3-cowork.zip`, fora do repositório, reúne o material estático; PDF, slides, revisão acadêmica e defesa continuam externos.
+
+
+## Refinamento CyPark — duas visões aprovadas
+
+Escopo visual aprovado em 16/11/2026, após a validação técnica da Sprint 3 acima. A proposta 03 orienta a identidade Aubergine/ciano e a separação entre governança executiva e operação/SecOps, usando recursos nativos do Grafana. Esta etapa não altera o resultado nem as evidências da validação anterior.
+
+- Manter a entrada executiva em `/d/saude-v01`, com oito blocos em três faixas: disponibilidade, resposta dos ensaios, falhas de login, riscos, continuidade, achados por ativo, matriz inerente e tratamentos prioritários.
+- Criar `/d/cypark-secops`, com nove blocos técnicos e aprofundamento expansível para controles, evolução, ações completas, risco residual, infraestrutura dos nove serviços e histórico.
+- Separar operação no período selecionado, checkpoint de governança e ensaios por categoria/data/amostra. Preservar semântica de risco, lacunas, fontes, fórmulas, registros e pacotes; rotação/retenção continuam apresentadas como configuração.
+- Atualizar geração, provisionamento, tema, navegação, filtros e capturas. Manter sanitização HTML, APIs, versão do Grafana, regras de alerta e análises históricas.
+
+**Situação deste refinamento:** implementação e validação visual em andamento. O aceite exige duas visões disponíveis, consultas/filtros/navegação funcionais, leitura em 1366×1000 e 1920×1080 nos modos normal/kiosk, capturas novas em `evidence/runs/` e hashes históricos preservados. Não requer nova coleta longa, repetição da suíte completa ou geração de relatórios.

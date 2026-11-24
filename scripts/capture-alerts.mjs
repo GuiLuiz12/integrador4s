@@ -1,12 +1,20 @@
 import { chromium } from 'playwright';
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { parseArgs } from 'node:util';
 import { resolve, join } from 'node:path';
+import { DASHBOARDS, IDS } from './dashboard-model.mjs';
+import { dashboardUrl, flattenPanels } from './verify-dashboard.mjs';
 
 const { values, positionals } = parseArgs({ allowPositionals: true, options: { 'output-dir': { type: 'string' }, alert: { type: 'string' }, until: { type: 'string' }, 'timeout-seconds': { type: 'string', default: '4200' } } });
 assert.ok(positionals.length <= 1, 'Informe no máximo um início ISO.');
 const output = resolve(values['output-dir'] ?? `evidence/runs/alerts-${Date.now()}`);
+assert.ok(!existsSync(output), 'Use uma pasta nova para preservar capturas e resultados anteriores.');
+const definition = JSON.parse(readFileSync(new URL(`../dashboards/${DASHBOARDS.technical.file}`, import.meta.url), 'utf8'));
+const panels = flattenPanels(definition.panels);
+const alertPanel = panels.find(panel => panel.id === IDS.alerts);
+const firstPanel = panels.find(panel => DASHBOARDS.technical.blocks[0].panelIds.includes(panel.id));
+assert.ok(alertPanel && firstPanel, 'A visão técnica deve oferecer o bloco de alertas.');
 
 // Optional observer: captures real alerts; never induces failures or edits the dashboard.
 const env = Object.fromEntries(readFileSync(new URL('../.env', import.meta.url), 'utf8').trim().split('\n').map(line => {
@@ -46,17 +54,19 @@ try {
       const end = Math.max(...alerts.flatMap(item => item.values.map(sample => sample[0] * 1000)));
       const start = Math.max(end - 3600_000, observedSince);
       const page = await context.newPage();
-      await page.goto(`/d/saude-v01?from=${start}&to=${end}&kiosk`, { waitUntil: 'networkidle' });
-      await page.getByText('Consulta assistencial agora', { exact: true }).waitFor();
+      await page.goto(dashboardUrl(DASHBOARDS.technical.uid, start, end, { kiosk: true }), { waitUntil: 'networkidle' });
+      await page.getByText(firstPanel.title, { exact: true }).waitFor();
       await page.waitForTimeout(3000);
       const folder = join(output, name);
       mkdirSync(folder, { recursive: true });
       await page.screenshot({ path: join(folder, 'dashboard.png') });
-      await page.getByText('Alertas · pendente e disparado', { exact: true }).evaluate(el => { el.style.scrollMarginTop='90px'; el.scrollIntoView({block:'start'}); });
+      await page.goto(dashboardUrl(DASHBOARDS.technical.uid, start, end, { kiosk: true, panelId: IDS.alerts }), { waitUntil: 'networkidle' });
+      await page.getByText(alertPanel.title, { exact: true }).waitFor();
       await page.waitForTimeout(1500);
       await page.screenshot({ path: join(folder, 'alert-history.png') });
       writeFileSync(join(folder, 'observation.json'), JSON.stringify({ captured_at: new Date().toISOString(),
         selected_alert_time: new Date(end).toISOString(), range_start: new Date(start).toISOString(),
+        dashboard_uid: DASHBOARDS.technical.uid, alert_panel_id: IDS.alerts,
         source: 'Histórico real do Prometheus; intervalo absoluto no Grafana', alerts }, null, 2) + '\n');
       await page.close();
       pending.delete(name);

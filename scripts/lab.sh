@@ -18,7 +18,7 @@ case "$command" in
   status) compose ps ;;
   help) node scripts/help.mjs ;;
   access)
-    printf 'Grafana: http://localhost:3001/d/saude-v01 | usuário: admin | senha: GRAFANA_PASSWORD\nOpenAPI: http://localhost:3000/openapi.json\nRecuperação: http://localhost:3000/runbook\nAPI: profissional1 / PROF_1_PASSWORD; profissional2 / PROF_2_PASSWORD; monitor / PROBE_PASSWORD\nPostgreSQL: npm run db | banco: healthlab | administrador: lab_owner / POSTGRES_PASSWORD\nAplicação: clinical_reader / APP_DB_PASSWORD (somente SELECT)\nConsulte as senhas localmente em %s/.env. Nenhum segredo é impresso por este comando.\n' "$LAB_ROOT"
+    printf 'Grafana executiva: http://localhost:3001/d/saude-v01\nGrafana técnica: http://localhost:3001/d/cypark-secops | usuário: admin | senha: GRAFANA_PASSWORD\nOpenAPI: http://localhost:3000/openapi.json\nRecuperação: http://localhost:3000/runbook\nAPI: profissional1 / PROF_1_PASSWORD; profissional2 / PROF_2_PASSWORD; monitor / PROBE_PASSWORD\nPostgreSQL: npm run db | banco: healthlab | administrador: lab_owner / POSTGRES_PASSWORD\nAplicação: clinical_reader / APP_DB_PASSWORD (somente SELECT)\nConsulte as senhas localmente em %s/.env. Nenhum segredo é impresso por este comando.\n' "$LAB_ROOT"
     ;;
   logs)
     if (( $# > 1 )); then echo 'Uso: npm run logs -- [serviço]' >&2; exit 2; fi

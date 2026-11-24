@@ -128,6 +128,39 @@ test('start não informa sucesso sem preparação ou sem cobertura de monitorame
   assert.ok(!noContainers.stdout.includes('[start] Pronto:'));
 });
 
+test('start confirma o tema antes de anunciar acesso e propaga falha das preferências', async t => {
+  const root = await mkdtemp(join(tmpdir(), 'healthlab-start-theme-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(join(root, 'scripts')); await mkdir(join(root, 'bin'));
+  await writeFile(join(root, 'scripts/start.sh'), await readFile('scripts/start.sh'));
+  await writeFile(join(root, '.env'), 'TEST_ONLY=true\n');
+  await writeFile(join(root, 'scripts/lab.sh'), '#!/bin/bash\nif [[ "$1" == access ]]; then echo access >> "$TEST_START_LOG"; fi\n');
+  await writeFile(join(root, 'scripts/docker.sh'), '#!/bin/bash\nexit 0\n', { mode: 0o755 });
+  for (const tool of ['docker', 'curl', 'sleep']) {
+    await writeFile(join(root, 'bin', tool), '#!/bin/bash\nexit 0\n', { mode: 0o755 });
+  }
+  await writeFile(join(root, 'bin/python3'), `#!/bin/bash
+if [[ "$1" == scripts/grafana_theme.py ]]; then
+  echo theme >> "$TEST_START_LOG"
+  exit "$TEST_THEME_EXIT"
+fi
+exit 0
+`, { mode: 0o755 });
+  const log = join(root, 'commands');
+  const env = { ...process.env, PATH: `${root}/bin:${process.env.PATH}`, TEST_START_LOG: log, TEST_THEME_EXIT: '0' };
+  const success = spawnSync('bash', [join(root, 'scripts/start.sh')], { encoding: 'utf8', env });
+  assert.equal(success.status, 0, success.stderr);
+  assert.match(success.stdout, /\[start\] Pronto:/);
+  assert.equal(await readFile(log, 'utf8'), 'theme\naccess\n');
+  await writeFile(log, '');
+  const failed = spawnSync('bash', [join(root, 'scripts/start.sh')], {
+    encoding: 'utf8', env: { ...env, TEST_THEME_EXIT: '42' },
+  });
+  assert.equal(failed.status, 42);
+  assert.ok(!failed.stdout.includes('[start] Pronto:'));
+  assert.equal(await readFile(log, 'utf8'), 'theme\n');
+});
+
 test('SIGTERM restaura o probe isolado sem esperar o TTL e sem parar serviços', { timeout: 5000 }, async t => {
   const directory = await mkdtemp(join(tmpdir(), 'healthlab-probe-signal-'));
   const log = join(directory, 'commands.log');
